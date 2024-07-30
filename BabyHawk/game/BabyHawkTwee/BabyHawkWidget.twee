@@ -1,0 +1,18 @@
+:: Widget BabyHawk [widget]
+
+<<widget "BabyHawkInit">>
+<<if $BabyHawkInit is undefined>>
+
+	<<run Object.values($children).forEach(child => {
+		if (child.type == "hawk" && child.location == "tower" && !child.eggTimer) 
+		{
+			child.localVariables.FeededTotal = initFeededDays(child.childId);
+			child.localVariables.FeededDaily = 0;
+			initGrowStage(child.childId);
+			initTrait(child.childId);
+		}
+	})>>
+	
+	<<set $BabyHawkInit to true>>
+<</if>>
+<</widget>>

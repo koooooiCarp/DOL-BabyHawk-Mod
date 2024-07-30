@@ -1,0 +1,143 @@
+{
+  "name": "BabyHawk",
+  "version": "0.1",
+  "additionFile": [
+    "readme.md",
+    "game/BabyHawkReplace/BabyHawkEventsIntro.txt",
+    "game/BabyHawkReplace/BabyHawkEventsActions.txt",
+    "game/BabyHawkReplace/BabyHawkPrintInfo.txt",
+    "game/BabyHawkReplace/BabyHawkPrintSize.txt",
+    "game/BabyHawkReplace/BabyHawkFledglingEvent.txt",
+    "game/BabyHawkReplace/BabyHawkSubadultEvent.txt"
+  ],
+  "scriptFileList": [
+    "game/BabyHawkjs/hawkBabyActivity.js"
+  ],
+  "tweeFileList": [
+    "game/BabyHawkTwee/BabyHawkWidget.twee",
+    "game/BabyHawkTwee/BabyHawkFood.twee"
+  ],
+  "addonPlugin": [
+    {
+      "modName": "TweeReplacer",
+      "addonName": "TweeReplacerAddon",
+      "modVersion": "1.0.0",
+      "params": [
+        {
+          "passage": "Widgets Bird",
+          "findString": "!$daily.birdBabyFeed",
+          "replace": "Object.values($children).find(child => (child.localVariables.FeededDaily < 2))",
+          "all": true,
+          "_comment1": "修改每日喂食限制"
+        },
+        {
+          "passage": "Widgets Bird",
+          "findString": "<<set $daily.birdBabyFeed to true>>",
+          "replace": "\n",
+          "all": true,
+          "_comment1": "修改每日喂食限制"
+        },
+        {
+          "passage": "Widgets Bird",
+          "findString": "Bird Tower Hunt End Children]]>><<set $bird.materials.lurkers -=1>>",
+          "replace": "Bird Tower Hunt End BabyHawk]]>>",
+          "all": true,
+          "_comment1": "将PC的捕猎计入每日喂食次数"
+        },
+        {
+          "passage": "Widgets Bird",
+          "findString": "<<set $children[_childrenEating[$_cc]].localVariables.activity to \"lurkerEat\">>",
+          "replace": "<<set $children[_childrenEating[$_cc]].localVariables.FeededDaily++>><<set $children[_childrenEating[$_cc]].localVariables.activity to \"lurkerEat\">>",
+          "_comment1": "将大鹰的捕猎计入每日喂食次数"
+        },
+        {
+          "passage": "Widgets children",
+          "findString": "<<if $children[_args[0]].localVariables.interactionsTotal>>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkPrintInfo.txt",
+          "_comment1": "详细信息中显示喂食次数统计"
+        },
+        {
+          "passage": "Bird Tower",
+          "findString": "<<set $location",
+          "replace": "<<set $atBirdTower to 1>><<set $location",
+          "_comment1": "检定PC今日是否在鹰塔"
+        },
+        {
+          "passage": "Widgets children",
+          "findString": "<<case \"lurkerEat\">>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkEventsIntro.txt",
+          "_comment1": "鹰崽新增随机互动"
+        },
+        {
+          "passage": "Children Activity Events",
+          "findString": "<<case \"sleepingStrokeHawk\">>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkEventsActions.txt",
+          "_comment1": "鹰崽新增随机互动事件"
+        },
+        {
+          "passage": "Bird Tower",
+          "findString": "<<bird_schedule>>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkFledglingEvent.txt",
+          "_comment1": "鹰崽成长阶段事件-幼鸟阶段"
+        },
+        {
+          "passage": "Bird Tower Perch",
+          "findString": "<<birdEggLayEvent \"perch\">>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkSubadultEvent.txt",
+          "_comment1": "鹰崽成长阶段事件-亚成鸟阶段"
+        },
+        {
+          "passage": "Childrens Home",
+          "findString": "\"both\">>",
+          "replace": "\"both\">><<BabyHawkInit>>",
+          "_comment1": "初始化变量"
+        },
+        {
+          "passage": "Widgets children",
+          "findString": "<<widget \"hawkChildActivity\">>\n\t<span class=\"no-numberify\">",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkPrintSize.txt",
+          "_comment1": "提示孩子的增重"
+        }
+      ]
+    },
+    {
+      "modName": "ReplacePatcher",
+      "addonName": "ReplacePatcherAddon",
+      "modVersion": "1.0.0",
+      "params": {
+        "js": [
+          {
+            "from": "hawkChildActivity(childId);",
+            "to": "hawkBabyActivity(childId);",
+            "fileName": "children-story-functions.js",
+            "_comment1": "调整鹰崽的成长进程和随机事件"
+          },
+          {
+            "from": "child.localVariables.talking = 0;",
+            "to": "child.localVariables.talking = 0;child.localVariables.FeededTotal = initFeededDays(child);child.localVariables.FeededDaily = 0;",
+            "fileName": "children-story-functions.js",
+            "_comment1": "初始化变量"
+          }
+        ]
+      }
+    }
+  ],
+  "dependenceInfo": [
+    {
+      "modName": "TweeReplacer",
+      "version": ">=1.0.0"
+    },
+    {
+      "modName": "GameVersion",
+      "version": ">=0.5.0.5"
+    },
+    {
+      "modName": "ReplacePatcher",
+      "version": "^1.0.0"
+    },
+    {
+      "modName": "Simple Frameworks",
+      "version": ">=1.15.1"
+    }
+  ]
+}

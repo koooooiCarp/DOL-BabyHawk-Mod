@@ -1,0 +1,27 @@
+<<case "beg">>
+	<<childHe>>在巢里<<set _rng to random(1,4)>><<childcry _rng>>着。你一靠近，<<childhe>>便抬起头来对你大张着嘴。
+	<br>
+	<<if $bird.materials.lurkers gte 1>>
+	<<link "给<<childhim>>喂食一只潜伏者 (0:15)" "Children Activity Events">><<set $bird.materials.lurkers -=1>><<pass 15>><<set $childActivityEvent to {event:"begHawk", childid:_args[0]}>><</link>> |
+	<<else>>
+	<span class="blue">你的巢里没有潜伏者了。</span>
+	<</if>>
+<<case "practicefly">>
+	<<childHe>>正在巢里扑打着翅膀。
+	<br>
+	<<link "帮<<childhim>>尝试飞行 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"practiceflyHawk", childid:_args[0]}>><</link>> |
+<<case "explore">>
+	<<childHe>>不在巢里。
+	<br>
+	<<link "寻找<<childhim>> (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"exploreHawk", childid:_args[0]}>><</link>> |
+<<case "preenFeather">>
+	<<childHe>>正在和自己的翅膀做斗争。
+	<br>
+	<<link "帮<<childhim>>整理羽毛 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"preenFeather", childid:_args[0]}>><</link>> |
+<<case "perchHop">>
+	<<childHe>>向外看着栖木。
+	<br>
+	<<link "带<<childhim>>去栖木那里 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"perchHop", childid:_args[0]}>><</link>> |
+<<case "rest">>/* 可以考虑做性格差分 */
+	<<childHe>>在巢里<<print either("休息","发呆","好奇地观察四周","打瞌睡")>>。
+<<case "lurkerEat">>

@@ -1,0 +1,151 @@
+<<birdEggLayEvent "perch">>
+
+<<elseif Object.values($children).find(child => (child.localVariables.growHintSubadult == 1)) and $bird.state is "home" and ["groom","sing"].includes($bird.activity) and Weather.precipitation isnot "rain">>
+
+<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<set _childrenTotal to _childrenIds.length>>
+<<set _SubadultIDs to []>>
+<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
+	<<if $children[_childrenIds[_cc]].localVariables.growHintSubadult is 1>>
+		<<set _SubadultIDs.push(_childrenIds[_cc])>>
+		<<run delete $children[_childrenIds[_cc]].localVariables.growHintSubadult>>
+	<</if>>
+	<<updateChildActivity _childrenIds[_cc]>>
+<</for>>
+<<set _SubadultTotal to _SubadultIDs.length>>
+<<if _SubadultTotal gte 3>>
+	<<set _child1 to _SubadultIDs.pluck()>>
+	<<set _child2 to _SubadultIDs.pluck()>>
+	<<set _child3 to _SubadultIDs.pluck()>>
+<<elseif _SubadultTotal gte 2>>
+	<<set _child1 to _SubadultIDs.pluck()>>
+	<<set _child2 to _SubadultIDs.pluck()>>
+<<elseif _SubadultTotal gte 1>>
+	<<set _child1 to _SubadultIDs.pluck()>>
+<<else>>
+	BUG:无法找到对应ID，请汇报作者。
+<</if>>
+
+<<childSelect _child1>>
+你<<if $bird.upgrades.decor gte 3>>挤过帘子，<</if>>来到栖木上的<<beasttype>>旁边。<<your_bird_text "cap">>停下歌唱，<<if !$firstSeen_Subadult>>惊讶地<</if>>望向你的身后。你转头，看见<<childname>>跟在你的身后，正一步一步地跳到栖木上。
+<<childHe>>抬头迎接你们的注视，发出了一声响亮的啸叫，随后站到栖木的前端，展开翅膀迎接风的吹拂。
+<br><br>
+
+<<switch $children[_child1].localVariables.trait>>
+<<case "clumsy">>	<<childHe>>感受着风的方向调整着翅膀，却被一阵强风袭来吹得失去了平衡。
+<<case "sympathy">>	<<childHe>>冲着爪下的荒原轻鸣，似乎正对探索这片天地跃跃欲试。
+<<case "clever">>	<<childHe>>感受着风的方向调整着翅膀，转过头来对着你们啾鸣。
+<<case "dominant">>	没等你们做出任何行动，<<childhe>>忽然跃起，凭借风的托举悬停在空中。
+<</switch>>
+这时你才发现，<<childname>>的羽翼已经完全褪去了绒毛。这对翅膀看起来就像<<your_bird_text>>的翅膀的微缩版本，只不过<<childname>>的羽毛颜色更浅，形态更松散。
+<br>
+<span class="teal"><<childHe>>已经成长到可以学习飞行了。</span>
+<br><br>
+
+<<if _SubadultTotal gte 4>>
+	你的身后传来了另一声啾鸣。<<set _child4 to _SubadultIDs.pluck()>>
+	<<if $children[_child2].localVariables.trait is $children[_child3].localVariables.trait or $children[_child2].localVariables.trait is $children[_child4].localVariables.trait>>
+		<<switch $children[_child2].localVariables.trait>>
+		<<case "clumsy">>	好几只小鹰脑袋正从洞口探出来望着你们，看起来他们也想要加入他们的<<childsiblings _child1>>。
+		<<case "sympathy">>	其他孩子们从塔里蹦跶着跳了出来，一起围绕着<<childsiblings _child1>>唧唧叫。
+		<<case "clever">>	其他孩子们从塔里跳了出来，围绕在你和<<your_bird_text>>身边唧唧叫。
+		<<case "dominant">>	好几只小鹰从塔里飞扑了出来，他们乱七八糟地撞在一起，互相大声啸叫，试图占据上风。
+		<</switch>>
+	<<else>>
+		<<childname _child2>>、<<childname _child3>>和<<childname _child4>>正叽叽喳喳地挤成混乱的一团，艰难地穿过<<if $bird.upgrades.decor gte 3>>帘子<<else>>破洞<</if>>落到栖木上。
+		看起来其他孩子们也想要加入他们的<<childsiblings _child1>>。
+	<</if>><br>
+<<elseif _SubadultTotal gte 3>>
+	你的身后传来了另一声啾鸣。
+	<<if $children[_child2].localVariables.trait is $children[_child3].localVariables.trait>>
+		<<switch $children[_child2].localVariables.trait>>
+		<<case "clumsy">>	两只小鹰正从洞口探出头来望着你们，看起来<<childname _child2>>和<<childname _child3>>也想要加入他们的<<childsiblings _child1>>。
+		<<case "sympathy">>	<<childname _child2>>和<<childname _child3>>从塔里蹦跶着跳了出来，围绕着<<childsiblings _child1>>唧唧叫。
+		<<case "clever">>	<<childname _child2>>和<<childname _child3>>从塔里跳了出来，对着<<your_bird_text>>和你唧唧叫。
+		<<case "dominant">>	<<childname _child2>>从塔里飞扑了出来，正好落在<<childname _child1>>身上，<<childname _child3>>紧随其后跃出，对着<<childhe _child2>>大声啸叫，试图占据上风。
+		<</switch>>
+	<<else>>
+		<<switch $children[_child2].localVariables.trait>><<childSelect _child2>>
+		<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，
+		<<case "sympathy">>	<<childname>>从塔里跳了出来，
+		<<case "clever">>	<<childname>>从塔里跳了出来，
+		<<case "dominant">>	<<childname>>从塔里飞扑了出来，正好落在<<childname _child1>>身上，
+		<</switch>>
+		<<switch $children[_child3].localVariables.trait>><<childSelect _child3>>
+		<<case "clumsy">>	而<<childname>>正从洞口探出头来望着你们，看起来他们也想要加入<<childsiblings _child1>>。
+		<<case "sympathy">>	而<<childname>>也落到栖木上，对着他们的<<childsiblings _child1>>唧唧叫。
+		<<case "clever">>	而<<childname>>也落到栖木上，对着<<your_bird_text>>唧唧叫。
+		<<case "dominant">>	而<<childname>>直接跃过了<<childsiblings _child2>>飞扑了出来，正好落在<<childname _child1>>身上，压得<<childhe _child1>>大叫抱怨。
+		<</switch>>
+	<</if>><br>
+<<elseif _SubadultTotal gte 2>>
+	你的身后传来了另一声啾鸣。<<childSelect _child2>>
+	<<switch $children[_child2].localVariables.trait>>
+	<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，看起来<<childHe>>也想要加入自己的<<childsiblings _child1>>。
+	<<case "sympathy">>	<<childname>>从塔里跳了出来，对着<<childhis>>的<<childsiblings _child1>>唧唧叫。
+	<<case "clever">>	<<childname>>从塔里跳了出来，对着<<your_bird_text>>唧唧叫。
+	<<case "dominant">>	<<childname>>从塔里飞扑了出来，正好落在<<childhis>>的<<childname _child1>>身上，压得<<childhe _child1>>大叫抱怨。
+	<</switch>><br>
+<</if>><<childSelect _child1>>
+
+
+<<if !$firstSeen_Subadult>>
+	<<set $firstSeen_Subadult to true>>
+	<<your_bird_text "cap">>似乎对眼前的景象呆住了，<<bHe>>查看你怀中的<<childname>>。意识到自己看见什么后，<<bhe>>开心地膨起了羽毛。
+	<br>
+	<<if $monster is 1>>
+		"我们的孩子正在茁壮成长。"<<bHe>>将你和孩子一同揽入怀中，展开自己的翅膀为你讲解，"<<childname>>的新羽毛正在替换旧的绒毛，<<childhe>>的翅膀会更有力，更健壮。"
+		<br>
+		哈比用手温柔地轻梳着<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。"<<childname>>会需要更多的食物。我会为了孩子们打猎更多的。"
+	<<else>>
+		<<bhe>>展开翅膀，展示般的拍打着，用喙轻啄<<bhis>>的翅膀根部。这让你想起巨鹰每天清理羽毛的样子，看来这是正常的旧羽脱落，换成新羽的过程。
+		<br>
+		巨鹰温柔地轻啄<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。<<bhis>>的动作渐渐停了下来，望向栖木外的荒原，<<bhe>>似乎做好了为孩子狩猎的准备。
+	<</if>>
+	<br><br>
+
+	<span class="blue">孩子的食量随着成长而增加了。</span>
+	<br><br>
+
+	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<br>
+<<else>>
+看来<<childname>>也进入了换羽期。
+	<<if _childrenTotal gte 2>>
+	你检查了其他孩子的羽毛，
+		<<if _SubadultTotal gte 4>>
+			发现其他孩子们也开始了换羽。
+		<<elseif _SubadultTotal gte 3>>
+			发现<<childSelect _child2>><<childname>>和<<childSelect _child3>><<childname>>也开始了换羽。
+		<<elseif _SubadultTotal gte 2>>
+			发现<<childSelect _child2>><<childname>>也开始了换羽。
+		<<else>>
+			但暂且只有<<childhe>>一只刚刚开始换羽。
+		<</if>><br><<childSelect _child1>>
+	<</if>>
+
+		<<npc "Great Hawk">>
+		<<your_bird_text "cap">>
+		<<switch $bird.activity>>
+			<<case "sleep" "rest">>眯着眼睛醒了过来，
+			<<case "build" "brood">>看向你，
+			<<case "bathe">>从雨水池里起身，
+			<<default>>跳了过来，
+		<</switch>>靠近查看你怀中的<<childname>>。
+		意识到自己看见什么后，<<bhe>>骄傲地膨起了羽毛。
+		<br>
+		<<if $monster is 1>>
+			"孩子们正在茁壮成长。"<<bHe>>将你和孩子一同揽入怀中，亲昵地磨蹭脸颊，"<<childname>>也很健康。谢谢你，<<wife>>。"<<npcincr "Great Hawk" love 1>><<glove>>
+			<br>
+			哈比用手温柔地轻梳着<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。"<<childname>>会需要更多的食物。我会为了孩子们打猎更多的。"
+		<<else>>
+			<<bhe>>展开翅膀，发出一声自豪的啸叫，用脑袋亲昵地磨蹭你。<<npcincr "Great Hawk" love 1>><<glove>>
+			<br>
+			巨鹰温柔地轻啄<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。<<bhis>>的动作渐渐停了下来，望向栖木外的荒原，<<bhe>>似乎做好了为孩子狩猎的准备。
+		<</if>>
+
+	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+<<exitAll>>
