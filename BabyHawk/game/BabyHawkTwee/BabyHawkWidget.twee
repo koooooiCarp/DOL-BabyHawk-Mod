@@ -16,3 +16,31 @@
 	<<set $BabyHawkInit to true>>
 <</if>>
 <</widget>>
+
+<<widget "babyhawks">>
+	<<if $SubadultTotal gt 1>>
+		<<set $_text_output to "孩子们">>
+	<<else>>
+		<<set $_text_output to "<<childname>>">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
+<<widget "babyhawksthem">>
+	<<if $SubadultTotal gt 1>>
+		<<set $_text_output to "他们">>
+	<<else>>
+		<<set $_text_output to "<<childhim>>">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
+<<widget "BabyHawkClearVariable">>
+	<<set $SubadultIDs to undefined>>
+	<<set $child1 to undefined>>
+	<<set $child2 to undefined>>
+	<<set $child3 to undefined>>
+	<<set $child4 to undefined>>
+	<<set $SubadultTotal to undefined>>
+	<<set $childrenIds to undefined>>
+<</widget>>

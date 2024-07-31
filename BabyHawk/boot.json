@@ -15,7 +15,8 @@
   ],
   "tweeFileList": [
     "game/BabyHawkTwee/BabyHawkWidget.twee",
-    "game/BabyHawkTwee/BabyHawkFood.twee"
+    "game/BabyHawkTwee/BabyHawkFood.twee",
+    "game/BabyHawkTwee/BabyHawkStory.twee"
   ],
   "addonPlugin": [
     {
