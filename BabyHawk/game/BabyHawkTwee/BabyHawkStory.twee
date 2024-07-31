@@ -20,8 +20,11 @@
 <<case "dominant">>	<<childhe>>立刻拍打翅膀，向着塔底一跃而下。
 <</switch>>
 重力的拉扯之下，<<= $cmonster ? "小哈比" : "小鹰">>急速地向地面坠去。<<childhe>>奋力地扇动翅膀，让本能和风托举起自己，一些羽毛在混乱的扑腾中飘散在<<childhe>>的身后。
+<br><br>
+
+你们跟随在<<childhe>>的身边，用自己飞行的姿态示意<<childhe>>如何驾驭流风。
 <br>
-你们跟随在<<childhe>>的身边，用自己飞行的姿态示意<<childhe>>如何驾驭流风。<<childname>>模仿着展平翅膀，打开尾翼调整平衡，风从<<childhis>>的羽毛间穿过，让<<childhe>>不断攀升。
+<<childname>>模仿着展平翅膀，打开尾翼调整平衡，风从<<childhis>>的羽毛间穿过，让<<childhe>>不断攀升。
 <br>
 <<childHe>>拍打翅膀，发出兴奋的尖鸣声，在空中划出一道漂亮的曲线。<<trauma -12>><<lltrauma>>
 <br><br>
@@ -64,15 +67,15 @@
 <</if>>
 
 <<if $monster is 1>>
-	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣。"我们的孩子会是天空的主宰。"
+	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣，"我们的孩子会是天空的主宰。"
 <<else>>
 	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣，向世界炫耀<<if $SubadultTotal gte 5>>新生小鹰们<<else>><<childrenNames $childrenIds>><</if>>的胜利。
 <</if>>
 你也难以按捺地发出喜悦的尖啸，你、你的配偶和你的孩子的声音传遍整个荒原，你们的合奏让周围的动物害怕得四散逃逸，宣告着这片土地即将迎来新的猎手。
 <<trauma -12>><<lltrauma>>
-<br><br>
+<br>
 
-<!-- <<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>> -->
+<<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
 <<link [[飞|Bird Tower BabyHawk FirstFlight Back]]>><<bird_pass 10>><</link>>
 <br>
 
@@ -81,16 +84,16 @@
 :: Bird Tower BabyHawk FirstFlight Back
 <<childSelect $child1>>
 你们在天空中上下翻飞，用身体教导<<babyhawks>>如何适应天空。
-尽管<<babyhawksthem>>还如此年幼，但本能占据了上风，让<<babyhawksthem>>用自己的翅膀在天空中尽情遨游。
+尽管<<babyhawksthem>>还如此年幼，但本能占据了上风，带领着<<babyhawksthem>>用自己的翅膀在天空中尽情翱翔。
 <br><br>
 
 没一会儿，<<babyhawksthem>>就耗尽了精力，在你们的陪同下落在了地面上。
 你们抱起<<if $SubadultTotal gte 5>>新生小鹰们<<else>><<childrenNames $childrenIds>><</if>>，缓缓地飞回了高塔。<<tiredness 60>><<gggtiredness>>
 <br><br>
 
-一被放回巢里，<<babyhawks>>就进入了梦乡。小小的胸脯安静地起伏着，明显是精疲力竭了。
+一被放回巢里，<<babyhawks>>就进入了梦乡。<<babyhawksthem>>小小的胸脯安静地起伏着，明显是精疲力竭了。
 你露出了一个微笑，轻轻拂过<<babyhawks>>的翅膀，理平因为飞行而杂乱翘起的羽毛。<<your_bird_text "cap">>也在做同样的事。
-<br><br>
+<br>
 
 <<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><<bird_pass 10>><</link>>
 <br>
@@ -99,12 +102,13 @@
 <<if $monster is 1>>
 	安抚好<<babyhawks>>，哈比转向你，将你拉入一个拥抱，"我太开心了。没有<<wife>>，不可能看到这一切。你是最好的伴侣。"<<npcincr "Great Hawk" love 2>><<glove>>
 	<br>
-	<<bHe>>在你脸上亲啄，带着你一起在栖木上坐下。
+	<<bHe>>在你脸上轻啄，带着你一起在栖木上坐下。
 <<else>>
 	安抚好<<babyhawks>>，巨鹰转向你，充满爱意地磨蹭了你一会儿，嘴里不断发出叽叽咕咕的颤鸣。<<npcincr "Great Hawk" love 2>><<glove>>
 	<br>
 	<<bHe>>用巨大的翅膀抱住你，领着你一起在栖木上坐下。
-<</if>><br><br>
+<</if>>
+<br>
 
 <<if !$firstSeen_Subadult>>
 <<set $firstSeen_Subadult to true>>
@@ -121,7 +125,101 @@
 		<br><br>
 		你们坐在一起，享受了一会儿平静的时光。<<tiredness -6>><<ltiredness>>
 	<</if>>
-<br><br>
+<br>
 <</if>>
 <<BabyHawkClearVariable>><<bird_perch_options>>
+
+
 :: Bird Tower BabyHawk FirstFlight Stay
+<<npc "Great Hawk">><<childSelect $child1>>
+<<switch $speech_attitude>>
+	<<case "bratty">>	"你们去吧。可别把<<childhe>>像我一样直接推下去。"你调笑着说。
+	<<case "meek">>		"我会在这里等着<<nnpc_wife "Great Hawk">>和<<babyhawks>>。"你快速地拥抱了一下巨鹰。
+	<<case "neutral">>	"你们去吧，我会在这儿看着。"你微笑，"可不能错过<<babyhawks>>的第一次飞翔。"
+<</switch>>
+<br><br>
+
+<<your_bird_text "cap">>尖啸一声栖木上跃起，张开翅膀悬停在空中，引导<<childname>>向<<bhis>>的方向移动。
+<br>
+<<switch $children[$child1].localVariables.trait>>
+<<case "clumsy">>	<<childHe>>似乎有些犹豫，但在巨鹰不断的呼唤下，<<childhe>>最终还是张开翅膀扑向空中。
+<<case "sympathy">>	在巨鹰的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
+<<case "clever">>	在巨鹰的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
+<<case "dominant">>	<<childhe>>立刻拍打翅膀，向着塔底一跃而下。
+<</switch>>
+重力的拉扯之下，<<= $cmonster ? "小哈比" : "小鹰">>急速地向地面坠去。<<childhe>>奋力地扇动翅膀，让本能和风托举起自己，一些羽毛在混乱的扑腾中飘散在<<childhe>>的身后。
+<br><br>
+
+你从塔顶向下望去，巨鹰正跟随在<<childhe>>的身边，用自己飞行的姿态示意<<childhe>>如何驾驭流风。
+<br>
+<<childname>>模仿着展平翅膀，打开尾翼调整平衡，风从<<childhis>>的羽毛间穿过，让<<childhe>>不断攀升，直到回到塔顶的高度。
+<br>
+<<childHe>>拍打着翅膀从你的眼前掠过，伴随着兴奋的尖鸣声，在空中划出一道漂亮的曲线。<<trauma -12>><<lltrauma>>
+<br><br>
+
+<<if $SubadultTotal gte 4>>
+	<<set $child4 to $SubadultIDs.pluck()>>
+	不堪示弱，<<childname $child2>>、<<childname $child3>>和<<childname $child4>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
+	他们的飞行轨迹太过接近，翅膀互相拍打在了一起，齐齐失去了平衡。<<stress 3>><<gstress>><<your_bird_text "cap">>连忙俯冲赶向孩子们，在落地前将小鹰接住，帮助他们重新抬升。
+	<br><br><<set $childrenIds to [$child1, $child2, $child3, $child4]>>
+<<elseif $SubadultTotal gte 3>>
+	不堪示弱，<<childname $child2>>和<<childname $child3>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
+	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
+		<<switch $children[$child2].localVariables.trait>>
+		<<case "clumsy" "dominant">>他们的飞行轨迹太过接近，翅膀互相拍打在了一起，双双失去了平衡。<<stress 3>><<gstress>><<your_bird_text "cap">>连忙俯冲赶向孩子们，在落地前将两只小鹰接住，帮助他们重新抬升。
+		<<case "sympathy" "clever">>孩子们模仿着巨鹰的动作，青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
+		<</switch>>
+	<<else>>
+		<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+		<<case "clumsy">>	<<childname $child2>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
+		<<case "dominant">>	<<childname $child2>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
+		<<default>>			<<childname $child2>>青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
+		<</switch>>
+		<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+		<<case "clumsy">>	另一边，<<childname $child3>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
+		<<case "dominant">>	另一边，<<childname $child3>>的动作甚至比<<childsiblings $child2>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
+		<<default>>			<<childname $child3>>跟在<<childsiblings $child2>>的后方，借用<<childhis $child2>>身后的气流飞行。
+		<</switch>>
+	<</if>>
+	<br><br><<set $childrenIds to [$child1, $child2, $child3]>>
+<<elseif $SubadultTotal gte 2>><<childSelect $child2>>
+	不堪示弱，<<childname>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
+	<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+		<<case "clumsy">>	<<childHe>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
+		<<case "dominant">>	<<childHe>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
+		<<default>>			<<childHe>>青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
+	<</switch>>
+	<br><br><<set $childrenIds to [$child1, $child2]>>
+<<else>>
+<<set $childrenIds to [$child1]>>
+<</if>>
+
+<<if $monster is 1>>
+	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣，"我们的孩子会是天空的主宰。"
+<<else>>
+	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣，向世界炫耀<<if $SubadultTotal gte 5>>新生小鹰们<<else>><<childrenNames $childrenIds>><</if>>的胜利。
+<</if>>
+<<if $harpy gte 6>>
+你也难以按捺地发出喜悦的尖啸，你、你的配偶和你的孩子的声音传遍整个荒原，你们的合奏让周围的动物害怕得四散逃逸，宣告着这片土地即将迎来新的猎手。
+<<else>>
+你也难以按捺心中的喜悦，为你的孩子高声欢呼。你的配偶和你的孩子的声音传遍整个荒原，他们的合奏让周围的动物害怕得四散逃逸，宣告着这片土地即将迎来新的猎手。
+<</if>>
+<<trauma -12>><<lltrauma>>
+<br><br>
+
+<<beasttype>>在天空中上下翻飞，用身体教导<<babyhawks>>如何适应天空。
+尽管<<babyhawksthem>>还如此年幼，但本能占据了上风，带领着<<babyhawksthem>>用自己的翅膀在天空中尽情翱翔。
+<br>
+没一会儿，<<babyhawksthem>>就耗尽了精力，在<<beasttype>>的陪同下落在了地面上。
+<<bHe>><<= $monster is 1? "抱起" : "抓起">><<if $SubadultTotal gte 5>>新生小鹰们<<else>><<childrenNames $childrenIds>><</if>>，缓缓地飞回了高塔。
+<br>
+你接过<<beasttype>><<= $monster is 1? "怀中" : "爪中">>的<<babyhawks>>，<<babyhawksthem>>已经累得睁不开眼，只能在你的怀里发出小小的轻鸣。
+<br><br>
+
+一被放回巢里，<<babyhawks>>就进入了梦乡。<<babyhawksthem>>小小的胸脯安静地起伏着，明显是精疲力竭了。
+你露出了一个微笑，轻轻拂过<<babyhawks>>的翅膀，理平因为飞行而杂乱翘起的羽毛。<<your_bird_text "cap">>也在做同样的事。
+<br>
+
+<<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
+<<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><</link>>
+<br>

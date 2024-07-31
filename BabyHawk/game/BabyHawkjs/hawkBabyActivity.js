@@ -24,6 +24,7 @@ function initGrowStage(childId) {
 	//} else if (getChildDays(child.childId) > 89 && getChildDays(child.childId) < 200) {
 	//	stage = "Immature";/* 亚成鸟，长出完整飞羽，初次狩猎 */
 	//	child.localVariables.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
+		child.localVariables.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！ */ 
 	//}
 	child.localVariables.stage = "Subadult";
 	child.localVariables.growHintSubadult = 1;

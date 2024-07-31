@@ -111,7 +111,7 @@
 		<<else>>
 			<<bHe>>对你展开翅膀轻声鸣叫，期待地盯着你。<<bHe>>想让你和他们一起飞翔。
 		<</if>>
-		<br><br>
+		<br>
 
 		<<link [[一起去|Bird Tower BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
 		<br>
@@ -123,49 +123,48 @@
 		<<else>>
 			巨鹰转过头对你歉意地轻声鸣叫，<<babyhawks>>的第一次飞行需要<<bhe>>伴飞。
 		<</if>>
-		<br><br>
+		<br>
 
 		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><</link>>
 		<br>
 	<</if>>
 
 <<else>>
-看来<<childname>>也进入了换羽期。
-	<<if _childrenTotal gte 2>>
-	你检查了其他孩子的羽毛，
-		<<if _SubadultTotal gte 4>>
-			发现其他孩子们也开始了换羽。
-		<<elseif _SubadultTotal gte 3>>
-			发现<<childSelect _child2>><<childname>>和<<childSelect _child3>><<childname>>也开始了换羽。
-		<<elseif _SubadultTotal gte 2>>
-			发现<<childSelect _child2>><<childname>>也开始了换羽。
-		<<else>>
-			但暂且只有<<childhe>>一只刚刚开始换羽。
-		<</if>><br><<childSelect _child1>>
-	<</if>>
-
-		<<npc "Great Hawk">>
-		<<your_bird_text "cap">>
-		<<switch $bird.activity>>
-			<<case "sleep" "rest">>眯着眼睛醒了过来，
-			<<case "build" "brood">>看向你，
-			<<case "bathe">>从雨水池里起身，
-			<<default>>跳了过来，
-		<</switch>>靠近查看你怀中的<<childname>>。
-		意识到自己看见什么后，<<bhe>>骄傲地膨起了羽毛。
-		<br>
-		<<if $monster is 1>>
-			"孩子们正在茁壮成长。"<<bHe>>将你和孩子一同揽入怀中，亲昵地磨蹭脸颊，"<<childname>>也很健康。谢谢你，<<wife>>。"<<npcincr "Great Hawk" love 1>><<glove>>
-			<br>
-			哈比用手温柔地轻梳着<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。"<<childname>>会需要更多的食物。我会为了孩子们打猎更多的。"
-		<<else>>
-			<<bhe>>展开翅膀，发出一声自豪的啸叫，用脑袋亲昵地磨蹭你。<<npcincr "Great Hawk" love 1>><<glove>>
-			<br>
-			巨鹰温柔地轻啄<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。<<bhis>>的动作渐渐停了下来，望向栖木外的荒原，<<bhe>>似乎做好了为孩子狩猎的准备。
-		<</if>>
-
-	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<<your_bird_text "cap">>兴奋地蓬起羽毛，准备好了新一轮的教学。
 	<br>
-<</if>>
+	<<if $monster is 1>>
+		"<<= $SubadultTotal gt 1 ? "孩子们" : "我们的孩子">>已经做好飞行的准备了。"<<bHe>>动作轻柔地检查<<childname>>的翅膀，"依然很稚嫩，没什么肌肉，但我相信<<babyhawks>>能做到。"
+	<<else>>
+		<<bHe>>用喙轻轻戳弄检查<<childname>>的翅膀，发出一声满意的颤鸣。<<babyhawks>>的肌肉发育完好，羽翼丰满，已然能承担<<babyhawksthem>>的体重。
+	<</if>>
+	<br>
+	<<childname>>乖巧地待在原地，仍由<<your_bird_text>>拉开<<childhis>>的翅膀检查。
+	<<if $SubadultTotal gt 1>>你也照着<<beasttype>>的样子，用手指梳理起<<childname $child2>>的羽毛。<<childHis $child2>>稚嫩但有力的肌肉在你的手下迸发出生命的律动。<</if>>
+	<br><br>
 
-<<exitAll>>
+	整理好孩子的翅膀，<<beasttype>>侧过头简单梳理<<if $harpy gte 6>>你和<</if>><<bhimself>>的羽毛。
+	<br>
+	<<if $harpy gte 6>>
+		<<if $monster is 1>>
+			"<<Wife>>和我们一起来吗？"哈比向你伸出手，"<<babyhawks>>的第一次飞行。"
+		<<else>>
+			<<bHe>>对你展开翅膀轻声鸣叫，期待地盯着你。<<bHe>>想让你和他们一起飞翔。
+		<</if>>
+		<br>
+
+		<<link [[一起去|Bird Tower BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
+		<br>
+		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><<bird_pass 10>><</link>>
+		<br>
+	<<else>>
+		<<if $monster is 1>>
+			"抱歉不能带着<<Wife>>一起。"哈比转过身来拥抱你，"<<babyhawks>>的第一次飞行需要小心看护。"
+		<<else>>
+			巨鹰转过头对你歉意地轻声鸣叫，<<babyhawks>>的第一次飞行需要<<bhe>>伴飞。
+		<</if>>
+		<br>
+
+		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><</link>>
+		<br>
+	<</if>>
+<</if>>

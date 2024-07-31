@@ -3,6 +3,7 @@
   "version": "0.1",
   "additionFile": [
     "readme.md",
+    "game/BabyHawkjs/BabyHawkFeat.json",
     "game/BabyHawkReplace/BabyHawkEventsIntro.txt",
     "game/BabyHawkReplace/BabyHawkEventsActions.txt",
     "game/BabyHawkReplace/BabyHawkPrintInfo.txt",
@@ -120,6 +121,16 @@
             "_comment1": "初始化变量"
           }
         ]
+      }
+    },
+    {
+      "modName": "ModdedFeatsAddon",
+      "addonName": "ModdedFeatsAddon",
+      "modVersion": "^1.0.0",
+      "params": {
+          "feats": [
+              "game/BabyHawkjs/BabyHawkFeat.json"
+          ]
       }
     }
   ],
