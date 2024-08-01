@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkPrintInfo.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game\\BabyHawkReplace\\BabyHawkPrintInfo.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkjs\\hawkBabyActivity.js||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game\\BabyHawkjs\\hawkBabyActivity.js||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsActions.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game\\BabyHawkReplace\\BabyHawkEventsActions.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsIntro.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game\\BabyHawkReplace\\BabyHawkEventsIntro.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkTwee\\BabyHawkStory.twee||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game\\BabyHawkTwee\\BabyHawkStory.twee||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkSubadultEvent.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -26,57 +34,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "boot.json",
-              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\boot.json",
-              "RelativeDocumentMoniker": "boot.json",
-              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\boot.json",
-              "RelativeToolTip": "boot.json",
-              "ViewState": "AQIAADwAAAAAAAAAAAAAAFMAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-19T06:30:09.857Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BabyHawkPrintInfo.txt",
-              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkPrintInfo.txt",
-              "RelativeDocumentMoniker": "game\\BabyHawkReplace\\BabyHawkPrintInfo.txt",
-              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkPrintInfo.txt",
-              "RelativeToolTip": "game\\BabyHawkReplace\\BabyHawkPrintInfo.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-07-30T08:52:35.534Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "BabyHawkSubadultEvent.txt",
               "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkSubadultEvent.txt",
               "RelativeDocumentMoniker": "game\\BabyHawkReplace\\BabyHawkSubadultEvent.txt",
               "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkSubadultEvent.txt",
               "RelativeToolTip": "game\\BabyHawkReplace\\BabyHawkSubadultEvent.txt",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAAAGEAAAAGAAAA",
+              "ViewState": "AQIAAJMAAAAAAAAAAAAAAKQAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-07-30T02:10:57.209Z",
+              "WhenOpened": "2024-08-01T02:21:57.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BabyHawkStory.twee",
+              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkTwee\\BabyHawkStory.twee",
+              "RelativeDocumentMoniker": "game\\BabyHawkTwee\\BabyHawkStory.twee",
+              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkTwee\\BabyHawkStory.twee",
+              "RelativeToolTip": "game\\BabyHawkTwee\\BabyHawkStory.twee",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAAEsAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-08-01T02:00:38.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "boot.json",
+              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\boot.json",
+              "RelativeDocumentMoniker": "boot.json",
+              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\boot.json",
+              "RelativeToolTip": "boot.json",
+              "ViewState": "AQIAAFEAAAAAAAAAAAAAADAAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-01T01:47:48.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BabyHawkEventsIntro.txt",
+              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsIntro.txt",
+              "RelativeDocumentMoniker": "game\\BabyHawkReplace\\BabyHawkEventsIntro.txt",
+              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsIntro.txt",
+              "RelativeToolTip": "game\\BabyHawkReplace\\BabyHawkEventsIntro.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-08-01T01:22:42.062Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "BabyHawkEventsActions.txt",
+              "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsActions.txt",
+              "RelativeDocumentMoniker": "game\\BabyHawkReplace\\BabyHawkEventsActions.txt",
+              "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkReplace\\BabyHawkEventsActions.txt",
+              "RelativeToolTip": "game\\BabyHawkReplace\\BabyHawkEventsActions.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGAAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-08-01T01:22:32.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "hawkBabyActivity.js",
               "DocumentMoniker": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkjs\\hawkBabyActivity.js",
               "RelativeDocumentMoniker": "game\\BabyHawkjs\\hawkBabyActivity.js",
               "ToolTip": "D:\\PROJECT\\GitProject\\DOL-Mod-Created-Helper\\mods\\BabyHawk\\game\\BabyHawkjs\\hawkBabyActivity.js",
               "RelativeToolTip": "game\\BabyHawkjs\\hawkBabyActivity.js",
-              "ViewState": "AQIAADoAAAAAAAAAAAAYwFMAAAACAAAA",
+              "ViewState": "AQIAAHoAAAAAAAAAAAAowJUAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-07-19T03:00:49.451Z",
               "EditorCaption": ""

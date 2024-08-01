@@ -18,7 +18,7 @@
 <</widget>>
 
 <<widget "babyhawks">>
-	<<if $SubadultTotal gt 1>>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
 		<<set $_text_output to "孩子们">>
 	<<else>>
 		<<set $_text_output to "<<childname>>">>
@@ -27,7 +27,7 @@
 <</widget>>
 
 <<widget "babyhawksthem">>
-	<<if $SubadultTotal gt 1>>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
 		<<set $_text_output to "他们">>
 	<<else>>
 		<<set $_text_output to "<<childhim>>">>
@@ -35,12 +35,23 @@
 <<if $_text_output>><<print $_text_output>><</if>>
 <</widget>>
 
+<<widget "babyhawksyou">>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
+		<<set $_text_output to "你们">>
+	<<else>>
+		<<set $_text_output to "你">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
 <<widget "BabyHawkClearVariable">>
 	<<set $SubadultIDs to undefined>>
+	<<set $ImmatureIDs to undefined>>
 	<<set $child1 to undefined>>
 	<<set $child2 to undefined>>
 	<<set $child3 to undefined>>
 	<<set $child4 to undefined>>
 	<<set $SubadultTotal to undefined>>
+	<<set $ImmatureTotal to undefined>>
 	<<set $childrenIds to undefined>>
 <</widget>>

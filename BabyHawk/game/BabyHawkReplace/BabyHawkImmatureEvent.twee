@@ -1,50 +1,91 @@
-<<birdEggLayEvent "perch">>
+<<if Object.values($children).find(child => (child.localVariables.growHintImmature == 1 && child.localVariables.growHintSubadult != 1)) and $bird.hunts.unlocked is true and Weather.precipitation isnot "rain">>
 
-<<elseif Object.values($children).find(child => (child.localVariables.growHintSubadult == 1)) and $bird.state is "home" and ["groom","sing"].includes($bird.activity) and Weather.precipitation isnot "rain">>
+<<set $dateCount.Total++>><<set $dateCount.GreatHawkHunts++>><<unset $birdPerch>>
 
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
-<<set $SubadultIDs to []>>
+<<set $ImmatureIDs to []>>
 <<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-	<<if $children[_childrenIds[_cc]].localVariables.growHintSubadult is 1>>
-		<<set $SubadultIDs.push(_childrenIds[_cc])>>
-		<<set $children[_childrenIds[_cc]].localVariables.activity to "sleeping">>
-		<<run delete $children[_childrenIds[_cc]].localVariables.growHintSubadult>>
+	<<if $children[_childrenIds[_cc]].localVariables.growHintImmature is 1>>
+		<<set $ImmatureIDs.push(_childrenIds[_cc])>>
+		<<set $children[_childrenIds[_cc]].localVariables.activity to "lurkerEat">>
+		<<run delete $children[_childrenIds[_cc]].localVariables.growHintImmature>>
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>
-<<set $SubadultTotal to $SubadultIDs.length>>
-<<if $SubadultTotal gte 3>>
-	<<set $child1 to $SubadultIDs.pluck()>>
-	<<set $child2 to $SubadultIDs.pluck()>>
-	<<set $child3 to $SubadultIDs.pluck()>>
-<<elseif $SubadultTotal gte 2>>
-	<<set $child1 to $SubadultIDs.pluck()>>
-	<<set $child2 to $SubadultIDs.pluck()>>
-<<elseif $SubadultTotal gte 1>>
-	<<set $child1 to $SubadultIDs.pluck()>>
+<<set $ImmatureTotal to $ImmatureIDs.length>>
+<<if $ImmatureTotal gte 3>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
+	<<set $child2 to $ImmatureIDs.pluck()>>
+	<<set $child3 to $ImmatureIDs.pluck()>>
+<<elseif $ImmatureTotal gte 2>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
+	<<set $child2 to $ImmatureIDs.pluck()>>
+<<elseif $ImmatureTotal gte 1>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
 <<else>>
 	BUG:无法找到对应ID，请汇报作者。
 <</if>>
-
 <<childSelect $child1>>
-你<<if $bird.upgrades.decor gte 3>>挤过帘子，<</if>>来到栖木上的<<beasttype>>旁边。<<your_bird_text "cap">>停下歌唱，<<if !$firstSeen_Subadult>>惊讶地<</if>>望向你的身后。你转头，看见<<childname>>跟在你的身后，正一步一步地跳到栖木上。
-<<childHe>>抬头迎接你们的注视，发出了一声响亮的啸叫，随后站到栖木的前端，展开翅膀迎接风的吹拂。
-<br><br>
 
-<<switch $children[$child1].localVariables.trait>>
-<<case "clumsy">>	<<childHe>>感受着风的方向调整着翅膀，却被一阵强风袭来吹得失去了平衡。
-<<case "sympathy">>	<<childHe>>冲着爪下的荒原轻鸣，似乎正对探索这片天地跃跃欲试。
-<<case "clever">>	<<childHe>>感受着风的方向调整着翅膀，转过头来对着你们啾鸣。
-<<case "dominant">>	没等你们做出任何行动，<<childhe>>忽然跃起，凭借风的托举悬停在空中，展示着自己的技巧。
-<</switch>>
+	你站在<<bhim>>身边。
+	<<if $speech_attitude is "meek">>
+		"我、我会加入你的，"你说。
+	<<elseif $speech_attitude is "bratty">>
+		"我想伸展一下我的翅膀，"你说道。"我跟你一起去。"
+	<<else>>
+		"我跟你一起去，"你说。
+	<</if>>
+
+	<<if $monster is 1>>
+		"我很高兴能和<<wife>>一起狩猎，"<<bhe>>说。<<bHe>>伸展开翅膀，准备从塔上跃出，你也跟了上去。
+	<<else>>
+		<<bHe>>发出一声小小的叽喳声，用翅膀向你示意。<<bhis>>展开翅膀，准备从塔顶跃出，你也跟了上去。
+	<</if>>
+	<br><br>
+
+	然而，在你们离开高塔前，一声稚嫩的啸叫声从你们身后传来。<<babyhawks>>扑打着翅膀飞到你们之间，冲着你们叽喳个不停，
+	<<switch $children[$child1].localVariables.trait>>
+	<<case "clumsy">>	<<childname>>围绕着你飞行，似乎不想和你们分开。
+	<<case "sympathy">>	<<childname>>似乎希望你们能带上<<childhim>>。
+	<<case "clever">>	<<childname>>似乎对加入你们跃跃欲试。
+	<<case "dominant">>	<<childname>>好像很不满自己被落下了。
+	<</switch>>
+	<br><br>
+	
+	<<if !$firstSeen_Immature>>
+	你和<<your_bird_text>>面面相觑，没能料到<<babyhawksthem>>成长地如此之快。
+		<<if $speech_attitude is "meek">>
+			"<<babyhawksyou>>是想要和我们一起打猎吗？"你围绕着<<babyhawks>>转圈，检查<<babyhawksthem>>是否有什么不适。
+		<<elseif $speech_attitude is "bratty">>
+			你一把将<<childname>>捞入怀里，搓揉<<childhis>>的头顶。"想和我们一起去打猎吗？"
+		<<else>>
+			"想和我们一起打猎吗？"你询问道。
+		<</if>>
+		<br><br>
+
+		<<childname>>发出一声<<= $children[$child1].localVariables.trait is "clever" ? "赞同的" : "迷茫的">>叽喳声，转头看向<<hawkText>>。
+		<br>
+		<<if $monster is 1>>
+			<<bHe>>很显然仍在惊讶之中，"<<babyhawks>>用不着自己狩猎，我会给<<babyhawksyou>>打猎的。"<<bHe>>说着，以不赞同和困惑的目光回敬。
+			在<<babyhawks>>骤然增大的不满的吵闹叫声中，<<bHe>>最终还是败下阵来，默默检查起孩子们的羽毛。
+		<<else>>
+			<<bHe>>将头歪向一边，展开翅膀发出一声尖鸣。<<bhis>>展开翅膀，从塔顶跃出，你也跟了上去。
+		<</if>>
+		<br>
+		看到这样的亲子互动让你不由得笑了起来。<<stress -6>><<lstress>>
+
+
+	<<else>>
+	<</if>>
+
 这时你才发现，<<childname>>的羽翼已经完全褪去了绒毛。这对翅膀看起来就像<<your_bird_text>>的翅膀的微缩版本，只不过<<childname>>的羽毛颜色更浅，形态更松散。
 <br>
 <span class="teal"><<childHe>>已经成长到可以学习飞行了。</span>
 <br><br>
 
-<<if $SubadultTotal gte 4>>
-	你的身后传来了另一声啾鸣。<<set $child4 to $SubadultIDs.pluck()>>
+<<if $ImmatureTotal gte 4>>
+	你的身后传来了另一声啾鸣。<<set $child4 to $ImmatureIDs.pluck()>>
 	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait or $children[$child2].localVariables.trait is $children[$child4].localVariables.trait>>
 		<<switch $children[$child2].localVariables.trait>>
 		<<case "clumsy">>	好几只小鹰脑袋正从洞口探出来望着你们，看起来他们也想要加入他们的<<childsiblings $child1>>。
@@ -56,7 +97,7 @@
 		<<childname $child2>>、<<childname $child3>>和<<childname $child4>>正叽叽喳喳地挤成混乱的一团，艰难地穿过<<if $bird.upgrades.decor gte 3>>帘子<<else>>破洞<</if>>落到栖木上。
 		看起来其他孩子们也想要加入他们的<<childsiblings $child1>>。
 	<</if>><br>
-<<elseif $SubadultTotal gte 3>>
+<<elseif $ImmatureTotal gte 3>>
 	你的身后传来了另一声啾鸣。
 	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
 		<<switch $children[$child2].localVariables.trait>>
@@ -79,7 +120,7 @@
 		<<case "dominant">>	而<<childname>>直接跃过了<<childsiblings $child2>>飞扑了出来，正好落在<<childname $child1>>身上，压得<<childhe $child1>>大叫抱怨。
 		<</switch>>
 	<</if>><br>
-<<elseif $SubadultTotal gte 2>>
+<<elseif $ImmatureTotal gte 2>>
 	你的身后传来了另一声啾鸣。<<childSelect $child2>>
 	<<switch $children[$child2].localVariables.trait>>
 	<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，看起来<<childHe>>也想要加入自己的<<childsiblings $child1>>。
@@ -90,20 +131,20 @@
 <</if>><<childSelect $child1>>
 
 
-<<if !$firstSeen_Subadult>>
+<<if !$firstSeen_Immature>>
 	<<your_bird_text "cap">>似乎对眼前的景象呆住了。你推了推<<bhe>>，<<bHe>>才猛地回神，浑身羽毛蓬起，激动地站了起来。
 	<br>
 	<<if $monster is 1>>
-		"<<= $SubadultTotal gt 1 ? "孩子们" : "我们的孩子">>已经做好飞行的准备了。"<<bHe>>动作轻柔地检查<<childname>>的翅膀，"还很稚嫩，没什么肌肉，但<<childname>>很轻，已经足够支撑体重。"
+		"<<= $ImmatureTotal gt 1 ? "孩子们" : "我们的孩子">>已经做好飞行的准备了。"<<bHe>>动作轻柔地检查<<childname>>的翅膀，"还很稚嫩，没什么肌肉，但<<childname>>很轻，已经足够支撑体重。"
 	<<else>>
 		<<bHe>>用喙轻轻戳弄<<childname>>的翅膀，发出一声满意的颤鸣。
 	<</if>>
 	<br>
 	<<childname>>乖巧地待在原地，仍由<<your_bird_text>>拉开<<childhis>>的翅膀检查。
-	<<if $SubadultTotal gt 1>>你也照着<<beasttype>>的样子，用手指梳理起<<childname $child2>>的羽毛。<<childHis $child2>>稚嫩但有力的肌肉在你的手下迸发出生命的律动。<</if>>
+	<<if $ImmatureTotal gt 1>>你也照着<<beasttype>>的样子，用手指梳理起<<childname $child2>>的羽毛。<<childHis $child2>>稚嫩但有力的肌肉在你的手下迸发出生命的律动。<</if>>
 	<br><br>
 
-	整理好孩子的翅膀，<<hawkText>>侧过头简单梳理<<if $harpy gte 6>>你和<</if>><<bhimself>>的羽毛。<<bHe>>的动作中依然带着激动的颤抖。
+	整理好孩子的翅膀，<<beasttype>>侧过头简单梳理<<if $harpy gte 6>>你和<</if>><<bhimself>>的羽毛。<<bHe>>的动作中依然带着激动的颤抖。
 	<br>
 	<<if $harpy gte 6>>
 		<<if $monster is 1>>
@@ -133,16 +174,16 @@
 	<<your_bird_text "cap">>兴奋地蓬起羽毛，准备好了新一轮的教学。
 	<br>
 	<<if $monster is 1>>
-		"<<= $SubadultTotal gt 1 ? "孩子们" : "我们的孩子">>已经做好飞行的准备了。"<<bHe>>动作轻柔地检查<<childname>>的翅膀，"依然很稚嫩，没什么肌肉，但我相信<<babyhawks>>能做到。"
+		"<<= $ImmatureTotal gt 1 ? "孩子们" : "我们的孩子">>已经做好飞行的准备了。"<<bHe>>动作轻柔地检查<<childname>>的翅膀，"依然很稚嫩，没什么肌肉，但我相信<<babyhawks>>能做到。"
 	<<else>>
 		<<bHe>>用喙轻轻戳弄检查<<childname>>的翅膀，发出一声满意的颤鸣。<<babyhawks>>的肌肉发育完好，羽翼丰满，已然能承担<<babyhawksthem>>的体重。
 	<</if>>
 	<br>
 	<<childname>>乖巧地待在原地，仍由<<your_bird_text>>拉开<<childhis>>的翅膀检查。
-	<<if $SubadultTotal gt 1>>你也照着<<beasttype>>的样子，用手指梳理起<<childname $child2>>的羽毛。<<childHis $child2>>稚嫩但有力的肌肉在你的手下迸发出生命的律动。<</if>>
+	<<if $ImmatureTotal gt 1>>你也照着<<beasttype>>的样子，用手指梳理起<<childname $child2>>的羽毛。<<childHis $child2>>稚嫩但有力的肌肉在你的手下迸发出生命的律动。<</if>>
 	<br><br>
 
-	整理好孩子的翅膀，<<hawkText>>侧过头简单梳理<<if $harpy gte 6>>你和<</if>><<bhimself>>的羽毛。
+	整理好孩子的翅膀，<<beasttype>>侧过头简单梳理<<if $harpy gte 6>>你和<</if>><<bhimself>>的羽毛。
 	<br>
 	<<if $harpy gte 6>>
 		<<if $monster is 1>>
@@ -168,3 +209,7 @@
 		<br>
 	<</if>>
 <</if>>
+<<exitAll>>
+<</if>>
+
+<<if $bird.hunts.unlocked is false>>

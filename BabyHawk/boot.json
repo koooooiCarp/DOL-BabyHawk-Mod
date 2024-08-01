@@ -9,7 +9,8 @@
     "game/BabyHawkReplace/BabyHawkPrintInfo.txt",
     "game/BabyHawkReplace/BabyHawkPrintSize.txt",
     "game/BabyHawkReplace/BabyHawkFledglingEvent.txt",
-    "game/BabyHawkReplace/BabyHawkSubadultEvent.txt"
+    "game/BabyHawkReplace/BabyHawkSubadultEvent.txt",
+    "game/BabyHawkReplace/BabyHawkImmatureEvent.txt"
   ],
   "scriptFileList": [
     "game/BabyHawkjs/hawkBabyActivity.js"
@@ -86,7 +87,13 @@
           "passage": "Bird Tower Perch",
           "findString": "<<birdEggLayEvent \"perch\">>",
           "replaceFile": "game/BabyHawkReplace/BabyHawkSubadultEvent.txt",
-          "_comment1": "鹰崽成长阶段事件-亚成鸟阶段"
+          "_comment1": "鹰崽成长阶段事件-初次飞行"
+        },
+        {
+          "passage": "Bird Tower Hunt Ask",
+          "findString": "<<if $bird.hunts.unlocked is false>>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkImmatureEvent.txt",
+          "_comment1": "鹰崽成长阶段事件-初次狩猎"
         },
         {
           "passage": "Childrens Home",

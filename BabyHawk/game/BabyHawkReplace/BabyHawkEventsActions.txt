@@ -9,10 +9,10 @@
 	<br>
 	在这之后<<childHe>>便满足地睡去了。<<set $children[$childActivityEvent.childid].localVariables.FeededDaily++>>
 	<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
-<<case "practiceflyHawk">>
+<<case "flutter">>
 	你靠近<<childname>>，想要帮助<<childhim>>腾空。
 	<<switch random(1,3)>>
-	<<case 1>>然而，在你能接触到<<childhim>>之前，<<childhe>>便扑地腾飞了起来，开始在高塔上各个落脚点之间飞跃。
+	<<case 1>>然而，在你能接触到<<childhim>>之前，<<childhe>>便扑地腾飞了起来，开始在高塔上各个落脚点之间腾跃。
 	<<case 2>>你托起<<childhim>>，让<<childhe>>与地面产生一定高度。<<childHe>><<if $cmonster>>眼神亮了起来<<else>>似乎理解了你的意思<</if>>，扑打着翅膀借助高度差滑翔。一落到地面上，<<childhe>>便朝你<<if $cmonster>>笑着伸出手<<else>>叽叽喳喳地叫着<</if>>，想要再来一次“举高高”。
 	<<case 3>>你托起<<childhim>>，让<<childhe>>与地面产生一定高度。<<childHe>>跳出你的手掌，试图借助高度差滑翔，但最终只是脸朝下摔在了地面上。
 	<</switch>><<lstress>><<stress -5>>
@@ -52,7 +52,7 @@
 	<</switch>>
 	<br><br>
 	看起来<<childname>>已经不满足于单纯在巢里窝着的日子了。<<lstress>><<stress -5>>
-<<case "preenFeather">>
+<<case "preenFledgling">>
 	<<childname>>的羽毛已经逐渐丰满，但<<childhe>>似乎还不太擅长整理那些羽毛。你便靠近<<childtype>>，用手指梳理起<<childhis>>的羽毛。
 	<br>
 	<<childname>>发出了一声轻轻的啾鸣，你开始整理<<childhis>>羽端，指尖理开一些将脱未脱的绒毛，再顺着羽毛的方向抚平翘起的杂毛。

@@ -73,7 +73,7 @@
 <</if>>
 你也难以按捺地发出喜悦的尖啸，你、你的配偶和你的孩子的声音传遍整个荒原，你们的合奏让周围的动物害怕得四散逃逸，宣告着这片土地即将迎来新的猎手。
 <<trauma -12>><<lltrauma>>
-<br>
+<br><br>
 
 <<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
 <<link [[飞|Bird Tower BabyHawk FirstFlight Back]]>><<bird_pass 10>><</link>>
@@ -93,7 +93,7 @@
 
 一被放回巢里，<<babyhawks>>就进入了梦乡。<<babyhawksthem>>小小的胸脯安静地起伏着，明显是精疲力竭了。
 你露出了一个微笑，轻轻拂过<<babyhawks>>的翅膀，理平因为飞行而杂乱翘起的羽毛。<<your_bird_text "cap">>也在做同样的事。
-<br>
+<br><br>
 
 <<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><<bird_pass 10>><</link>>
 <br>
@@ -218,7 +218,7 @@
 
 一被放回巢里，<<babyhawks>>就进入了梦乡。<<babyhawksthem>>小小的胸脯安静地起伏着，明显是精疲力竭了。
 你露出了一个微笑，轻轻拂过<<babyhawks>>的翅膀，理平因为飞行而杂乱翘起的羽毛。<<your_bird_text "cap">>也在做同样的事。
-<br>
+<br><br>
 
 <<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
 <<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><</link>>

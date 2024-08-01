@@ -6,18 +6,18 @@
 	<<else>>
 	<span class="blue">你的巢里没有潜伏者了。</span>
 	<</if>>
-<<case "practicefly">>
+<<case "flutter">>
 	<<childHe>>正在巢里扑打着翅膀。
 	<br>
-	<<link "帮<<childhim>>尝试飞行 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"practiceflyHawk", childid:_args[0]}>><</link>> |
+	<<link "帮<<childhim>>尝试飞行 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"flutter", childid:_args[0]}>><</link>> |
 <<case "explore">>
 	<<childHe>>不在巢里。
 	<br>
 	<<link "寻找<<childhim>> (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"exploreHawk", childid:_args[0]}>><</link>> |
-<<case "preenFeather">>
+<<case "preenFledgling">>
 	<<childHe>>正在和自己的翅膀做斗争。
 	<br>
-	<<link "帮<<childhim>>整理羽毛 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"preenFeather", childid:_args[0]}>><</link>> |
+	<<link "帮<<childhim>>整理羽毛 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"preenFledgling", childid:_args[0]}>><</link>> |
 <<case "perchHop">>
 	<<childHe>>向外看着栖木。
 	<br>
