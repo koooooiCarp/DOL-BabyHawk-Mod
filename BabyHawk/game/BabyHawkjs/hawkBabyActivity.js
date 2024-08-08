@@ -28,6 +28,7 @@ function initGrowStage(childId) {
 	}
 
 	child.localVariables.stage = stage;
+
 }
 window.initGrowStage = initGrowStage;
 
@@ -132,7 +133,7 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
 		}
-	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 */
+	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 ，我想在这个阶段写一个入侵事件，外来者试图掏鸟巢，然后展现苍鹰超牛的飞行狩猎打架技巧，比如空中0秒转弯之类的……以及压制敌人之后拔毛……总而言之攻击性要强！*/
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
@@ -144,7 +145,13 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["rest", "explore", "reaching", "flutter", "preenFledgling", "perchHop", "batheSelf"]);
 		}
-	} else if (between(T.childTotalDays, 65, 200)) {//单独把孩子搬出去住新窝，修改location以和其他孩子区分
+	} else if (between(T.childTotalDays, 65, 200)) {//长的越大活动越接近于巨鹰的活动时间表，即每天固定洗澡;理毛;狩猎（唱歌？
+		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
+			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
+		} else {
+			activity = activity.concat(["rest", "explore", "reaching", "practicefly", "preenSubadult", "perchSubadult", "batheSelf"]);
+		}
+	} else if (between(T.childTotalDays, 89, 200)) {//单独狩猎期，把孩子搬出去住新窝，修改location以和其他孩子区分
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {

@@ -13,6 +13,7 @@
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>
+<<set $SubadultIDcopy to clone($SubadultIDs)>>
 <<set $SubadultTotal to $SubadultIDs.length>>
 <<if $SubadultTotal gte 3>>
 	<<set $child1 to $SubadultIDs.pluck()>>
@@ -28,7 +29,7 @@
 <</if>>
 
 <<childSelect $child1>>
-你<<if $bird.upgrades.decor gte 3>>挤过帘子，<</if>>来到栖木上的<<beasttype>>旁边。<<your_bird_text "cap">>停下歌唱，<<if !$firstSeen_Subadult>>惊讶地<</if>>望向你的身后。你转头，看见<<childname>>跟在你的身后，正一步一步地跳到栖木上。
+你<<if $bird.upgrades.decor gte 3>>挤过帘子，<</if>>来到栖木上的<<beasttype>>旁边。<<your_bird_text "cap">>停下歌唱，<<if !$firstSeen_Subadult>>惊讶地<</if>>望向你的身后。你转头，看见<<childname>>跟在你的身后，正一步一步往栖木上移动。
 <<childHe>>抬头迎接你们的注视，发出了一声响亮的啸叫，随后站到栖木的前端，展开翅膀迎接风的吹拂。
 <br><br>
 
@@ -76,7 +77,7 @@
 		<<case "clumsy">>	而<<childname>>正从洞口探出头来望着你们，看起来他们也想要加入<<childsiblings $child1>>。
 		<<case "sympathy">>	而<<childname>>也落到栖木上，对着他们的<<childsiblings $child1>>唧唧叫。
 		<<case "clever">>	而<<childname>>也落到栖木上，对着<<your_bird_text>>唧唧叫。
-		<<case "dominant">>	而<<childname>>直接跃过了<<childsiblings $child2>>飞扑了出来，正好落在<<childname $child1>>身上，压得<<childhe $child1>>大叫抱怨。
+		<<case "dominant">>	而<<childname>>直接跃过了<<childsiblings $child2>>飞扑了出来，正好落在<<childname $child1>>身上，压得<<childhe $child1>>抱怨地大叫起来。
 		<</switch>>
 	<</if>><br>
 <<elseif $SubadultTotal gte 2>>
@@ -85,7 +86,7 @@
 	<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，看起来<<childHe>>也想要加入自己的<<childsiblings $child1>>。
 	<<case "sympathy">>	<<childname>>从塔里跳了出来，对着<<childhis>>的<<childsiblings $child1>>唧唧叫。
 	<<case "clever">>	<<childname>>从塔里跳了出来，对着<<your_bird_text>>唧唧叫。
-	<<case "dominant">>	<<childname>>从塔里飞扑了出来，正好落在<<childhis>>的<<childname $child1>>身上，压得<<childhe $child1>>大叫抱怨。
+	<<case "dominant">>	<<childname>>从塔里飞扑了出来，正好落在<<childhis>>的<<childname $child1>>身上，压得<<childhe $child1>>抱怨地大叫起来。
 	<</switch>><br>
 <</if>><<childSelect $child1>>
 

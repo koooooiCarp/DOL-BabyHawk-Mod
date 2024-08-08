@@ -1,0 +1,111 @@
+<<if Object.values($children).find(child => (child.localVariables.growHintImmature == 1 && child.localVariables.growHintSubadult != 1)) and $bird.hunts.unlocked is true and Weather.precipitation isnot "rain">>
+
+<<set $dateCount.Total++>><<set $dateCount.GreatHawkHunts++>><<unset $birdPerch>>
+
+<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<set _childrenTotal to _childrenIds.length>>
+<<set $ImmatureIDs to []>>
+<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
+	<<if $children[_childrenIds[_cc]].localVariables.growHintImmature is 1>>
+		<<set $ImmatureIDs.push(_childrenIds[_cc])>>
+		<<set $children[_childrenIds[_cc]].localVariables.activity to "lurkerEat">>
+		<<run delete $children[_childrenIds[_cc]].localVariables.growHintImmature>>
+	<</if>>
+	<<updateChildActivity _childrenIds[_cc]>>
+<</for>>
+<<set $ImmatureIDcopy to clone($ImmatureIDs)>>
+<<set $ImmatureTotal to $ImmatureIDs.length>>
+<<if $ImmatureTotal gte 3>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
+	<<set $child2 to $ImmatureIDs.pluck()>>
+	<<set $child3 to $ImmatureIDs.pluck()>>
+<<elseif $ImmatureTotal gte 2>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
+	<<set $child2 to $ImmatureIDs.pluck()>>
+<<elseif $ImmatureTotal gte 1>>
+	<<set $child1 to $ImmatureIDs.pluck()>>
+<<else>>
+	BUG:无法找到对应ID，请汇报作者。
+<</if>>
+<<childSelect $child1>>
+
+	你站在<<bhim>>身边。
+	<<if $speech_attitude is "meek">>
+		"我、我会加入你的，"你说。
+	<<elseif $speech_attitude is "bratty">>
+		"我想伸展一下我的翅膀，"你说道。"我跟你一起去。"
+	<<else>>
+		"我跟你一起去，"你说。
+	<</if>>
+	<br>
+	<<if $monster is 1>>
+		"我很高兴能和<<wife>>一起狩猎，"<<bhe>>说。<<bHe>>伸展开翅膀，准备从塔上跃出，你也跟了上去。
+	<<else>>
+		<<bHe>>发出一声小小的叽喳声，用翅膀向你示意。<<bhis>>展开翅膀，准备从塔顶跃出，你也跟了上去。
+	<</if>>
+	<br><br>
+
+	然而，在你们离开高塔前，一声稚嫩的啸叫声从你们身后传来。<<babyhawks>>扑打着翅膀飞到你们之间，冲着你们叽喳个不停，
+	<<switch $children[$child1].localVariables.trait>>
+	<<case "clumsy">>	<<childname>>围绕着你飞行，似乎不想和你们分开。
+	<<case "sympathy">>	<<childname>>似乎希望你们能带上<<childhim>>。
+	<<case "clever">>	<<childname>>似乎对加入你们跃跃欲试。
+	<<case "dominant">>	<<childname>>好像很不满自己被落下了。
+	<</switch>>
+	<br><br>
+	
+	<<if !$firstSeen_Immature>>
+	<<set $firstSeen_Immature to true>>
+	你和<<your_bird_text>>面面相觑。
+	<br>
+		<<if $speech_attitude is "meek">>
+			"<<babyhawksyou>>是想要和我们一起打猎吗？"你围绕着<<babyhawks>>转圈，检查<<babyhawksthem>>是否有什么不适。
+		<<elseif $speech_attitude is "bratty">>
+			你一把将<<childname>>捞入怀里，搓揉<<childhis>>的头顶。"想和我们一起去打猎吗？"
+		<<else>>
+			"想和我们一起打猎吗？"你问。
+		<</if>>
+		<br><br>
+
+		<<childname>>发出一声<<= $children[$child1].localVariables.trait is "clever" ? "赞同的" : "迷茫的">>叽喳声，转头看向<<hawkText>>。
+		<br>
+		<<if $monster is 1>>
+			<<bHe>>明显仍在惊讶之中，"<<babyhawks>>用不着自己狩猎，我会给<<babyhawksyou>>打猎的。"<<bHe>>说着，以不赞同和困惑的目光回应。	
+		<<else>>
+			<<bHe>>将头歪向一边，展开翅膀发出低沉的嘎嘎声，一个明显的拒绝姿态。
+		<</if>>
+		<br>
+		在<<babyhawks>>不满的吵闹叫声中，<<bHe>>最终还是败下阵来，默默检查起<<babyhawksthem>>的羽翼。
+		他们的亲子互动让你不禁会心一笑。<<stress -6>><<lstress>>
+		<br><br>
+
+		你加入你的配偶，整理小鹰的羽毛。你的孩子已经换上了一身新的羽毛，相比起初次飞行的时候，<<babyhawksthem>>的羽翼更结实，更丰满，除了羽毛的边缘光滑，没有磨损的痕迹，几乎与你的翅膀别无二致。
+		<br>
+		你向后退，将你的孩子完整地纳入视野中。<<babyhawks>>身姿挺拔，脚爪有力，稚嫩但美丽的羽毛在风中摇晃。
+		<br><br>
+
+		<span class="green"><<babyhawksthem>>已经做好了学习狩猎的准备。</span>
+		<br><br>
+
+		<<if $monster is 1>>
+			检查完毕，<<your_bird_text>>用认真的语气宣告，"我会教会<<babyhawks>>狩猎。"
+		<<else>>
+			检查完毕，<<your_bird_text>>发出一声尖鸣，宣告着狩猎的开始。
+		<</if>>
+		<<bHe>>从塔上跃了出去，你也紧随其后飞下，在空中放慢了速度等待<<babyhawks>>追上你们。
+		<br><br>
+
+		<<if $ImmatureTotal gte 3>>小鹰在你们身后成群结队地跟着。你有些担心之后的场面会有多么混乱。<br><br><</if>>
+
+		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<pass 5>><</link>>
+		<br>
+	<<else>>
+	
+	<</if>>
+
+
+
+	<<exitAll>>
+<</if>>
+
+<<if $bird.hunts.unlocked is false>>
