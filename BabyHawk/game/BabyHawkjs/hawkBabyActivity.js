@@ -155,7 +155,7 @@ function hawkBabyActivity(childId) {
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "explore", "reaching", "practicefly", "preenSubadult", "perchSubadult", "batheSelf"]);
+			activity = activity.concat(["rest", "explore", "reaching", "practicefly","practicehunt", "preenSubadult", "perchSubadult", "batheSelf"]);
 		}
 	}
 	if (child.localVariables.stage != "Immature" && child.localVariables.FeededDaily < 2) {//乞食
@@ -217,7 +217,7 @@ function updateFeeded(childId) {
 	/* PC当天晚上0点前都未踏入塔中，视为不在鹰塔，大鹰自力更生，更新统计喂食次数 */
 	if (!V.atBirdTower && !V.bird.injured && !npcIsPregnant("Great Hawk")) { child.localVariables.FeededTotal++; }
 	/* 离巢后的小鹰每天要吃两顿才够饱，妈呀 */
-	if (child.localVariables.stage == "Subadult" || child.localVariables.stage == "Fledgling") {
+	if (child.localVariables.stage == "Immature" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Fledgling") {
 		child.localVariables.FeededTotal += (child.localVariables.FeededDaily >= 2) ? ((child.localVariables.FeededDaily % 2 == 0) ? (child.localVariables.FeededDaily / 2) : ((child.localVariables.FeededDaily - 1) / 2)) : 0;
 	} else {
 		child.localVariables.FeededTotal += child.localVariables.FeededDaily;
@@ -235,11 +235,11 @@ function updateSize(childId) {
 
 	if (child.features.size == "large") {
 		return;
-	} else if (child.features.size == "normal" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 7)) {
+	} else if (child.features.size == "normal" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 9)) {
 		child.features.size = "large";
-	} else if (child.features.size == "small" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 5)) {
+	} else if (child.features.size == "small" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 7)) {
 		child.features.size = "normal";
-	} else if (child.features.size == "tiny" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 3)) {
+	} else if (child.features.size == "tiny" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 5)) {
 		child.features.size = "small";
 	} else {
 		return;
@@ -267,14 +267,15 @@ function updateGrowStage(childId) {
 		/* 幼鸟，长出初级飞羽，已离巢 */
 		newStage = "Fledgling";
 		child.localVariables.growHintFledgling = 1;
-	} else if (child.localVariables.stage == "Fledgling" && getChildDays(child.childId) > 64 && getChildDays(child.childId) < 200) {
+	} else if (child.localVariables.stage == "Fledgling" && getChildDays(child.childId) > 64 && getChildDays(child.childId) < 90) {
 		/* 亚成鸟，长出完整飞羽 */
 		newStage = "Subadult";
 		child.localVariables.growHintSubadult = 1;
 		initTrait(child.childId);
-	} else if (child.localVariables.stage == "Subadult" && getChildDays(child.childId) > 200) {
+	} else if (child.localVariables.stage == "Subadult" && getChildDays(child.childId) > 89 && getChildDays(child.childId) < 200) {
 		/* 留给后续的阶段划分，反正不会成年的 */
 		newStage = "Immature";
+		child.localVariables.growHintImmature = 1;
 	} else {
 		return;
 	}

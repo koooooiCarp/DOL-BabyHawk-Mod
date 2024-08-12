@@ -10,6 +10,7 @@
 							sticks: 8,
 							leaves: 8,
 							leather: 8,
+							feathers: 8,
 						}>>
 						<<set $_upgrade.upgradesRequired to {
 							tools: 1

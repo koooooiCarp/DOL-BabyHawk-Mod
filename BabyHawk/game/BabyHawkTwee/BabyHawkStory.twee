@@ -477,7 +477,8 @@
 
 :: BabyHawk Build OtherNest
 <<npc "Great Hawk">><<person1>>
-
+<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<set _childrenTotal to _childrenIds.length>>
 <<for _cc to 0; _cc lt _childrenTotal; _cc++>>
 	<<if $children[_childrenIds[_cc]].localVariables.stage is "Immature" and $children[_childrenIds[_cc]].localVariables.growHintImmature isnot 1 and $children[_childrenIds[_cc]].location is "tower">>
 		<<set $children[_childrenIds[_cc]].location to "otherNest">>
@@ -543,5 +544,5 @@
 你和<<hawkText>>一起待在<<babyhawks>>的笑声和尖叫声里休息了一会儿。<<tiredness -6>><<ltiredness>>
 <br><br>
 
-<<link [[继续|Bird Tower Build]]>><<endevent>><</link>>
+<<link [[继续|Bird Tower Build]]>><<BabyHawkClearVariable>><<endevent>><</link>>
 <br>
