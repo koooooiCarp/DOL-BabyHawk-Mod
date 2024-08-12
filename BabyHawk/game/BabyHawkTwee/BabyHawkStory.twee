@@ -1,4 +1,4 @@
-:: Bird Tower BabyHawk FirstFlight
+:: BabyHawk FirstFlight
 <<npc "Great Hawk">><<childSelect $child1>>
 <<if $transformationParts.bird.wings is "hidden">>
 	<<set $transformationParts.bird.wings to "default">>
@@ -74,12 +74,12 @@
 <br><br>
 
 <<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
-<<link [[飞|Bird Tower BabyHawk FirstFlight Back]]>><<bird_pass 10>><</link>>
+<<link [[飞|BabyHawk FirstFlight Back]]>><<bird_pass 10>><</link>>
 <br>
 
 
 
-:: Bird Tower BabyHawk FirstFlight Back
+:: BabyHawk FirstFlight Back
 <<childSelect $child1>>
 你们在天空中上下翻飞，用身体教导<<babyhawks>>如何适应天空。
 尽管<<babyhawksthem>>还如此年幼，但本能占据了上风，带领着<<babyhawksthem>>用自己的翅膀在天空中尽情翱翔。
@@ -93,10 +93,10 @@
 你露出了一个微笑，轻轻拂过<<babyhawks>>的翅膀，理平因为飞行而杂乱翘起的羽毛。<<your_bird_text "cap">>也在做同样的事。
 <br><br>
 
-<<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><<bird_pass 10>><</link>>
+<<link [[继续|BabyHawk FirstFlight End]]>><<bird_pass 10>><</link>>
 <br>
 
-:: Bird Tower BabyHawk FirstFlight End
+:: BabyHawk FirstFlight End
 <<if $monster is 1>>
 	安抚好<<babyhawks>>，哈比转向你，将你拉入一个拥抱，"我太开心了。没有<<wife>>，不可能看到这一切。你是最好的伴侣。"<<npcincr "Great Hawk" love 2>><<glove>>
 	<br>
@@ -128,7 +128,7 @@
 <<BabyHawkClearVariable>><<bird_perch_options>>
 
 
-:: Bird Tower BabyHawk FirstFlight Stay
+:: BabyHawk FirstFlight Stay
 <<npc "Great Hawk">><<childSelect $child1>>
 <<switch $speech_attitude>>
 	<<case "bratty">>	"你们去吧。可别把<<childhe>>像我一样直接推下去。"你调笑着说。
@@ -218,7 +218,7 @@
 <br><br>
 
 <<if !$firstSeen_Subadult>><<earnFeat "Our First Flight">><</if>>
-<<link [[继续|Bird Tower BabyHawk FirstFlight End]]>><</link>>
+<<link [[继续|BabyHawk FirstFlight End]]>><</link>>
 <br>
 
 
@@ -246,12 +246,12 @@
 <br>
 
 :: BabyHawk FirstHunt Intro 2
-你们回到天空中继续探索，<<babyhawks>>似乎打起了精神寻找那些闪亮的小东西。你意识到这是个很好的教学机会，能以身作则教会孩子们如何辨认和对待荒原上的各种常见猎物。
+你们回到天空中继续探索，<<if !$firstSeen_Immature>><<babyhawks>>似乎打起了精神寻找那些闪亮的小东西。你意识到这是个很好的教学机会，能以身作则教会孩子们如何辨认和对待荒原上的各种常见猎物。
 <br>
 你告诉了你的配偶这个想法，<<bHe>>看起来很赞同，跟在你身边和你一同寻找合适的猎物。
 <br><br>
-
-你注意着任何能用来演示的东西，目光聚焦到一颗老树上。你带着<<beasttype>>和<<babyhawks>>降落到这附近的树上，观察着哪些部分足够有用。
+<</if>>
+你留意着任何能用来演示的东西，目光聚焦到一颗老树上。你带着<<beasttype>>和<<babyhawks>>降落到这附近的树上，观察着哪些部分足够有用。
 <br><br>
 
 <<switch $speech_attitude>>
@@ -261,7 +261,7 @@
 <</switch>>
 <br><br>
 
-<<babyhawks>>拍打翅膀绕着树飞行，学着你的样子摘下一两根脆弱的小树枝。<<set $bird.materials.sticks +=1>>
+<<babyhawks>><<if $ImmatureTotal gt 1>>纷纷<</if>>拍打翅膀绕着树飞行，学着你的样子摘下一两根脆弱的小树枝。<<set $bird.materials.sticks += $ImmatureTotal>>
 <<if $monster is 1>>
 	哈比在一旁帮忙接过你们的收获，"筑巢和磨爪的好料子。"
 <<else>>
@@ -301,7 +301,7 @@
 
 :: BabyHawk FirstHunt Intro 4
 <<npc "Great Hawk">><<childSelect $child1>>
-经过刚刚的小插曲，你想起了一件重要的事。荒原上有一种危险存在是你的孩子永远不应该接触的。
+经过刚刚的小插曲，你想起了一件重要的事。<<if !$firstSeen_Immature>>荒原上有一种危险存在是你的孩子永远不应该接触的。<<else>>你应该警示你的孩子避开那个危险的存在。<</if>>
 <br><br>
 
 <<if $remy_seen is "farm" or $remy_seen is "livestock" or $livestock_intro isnot undefined>>
@@ -428,7 +428,7 @@
 
 你带着你的配偶和<<babyhawks>>在不远处的花田中落地，让<<your_bird_text>>用爪子撕碎潜伏者，喂给<<babyhawks>>来补充狩猎消耗的精力。
 <br>
-<<babyhawksthem>>飞速地吃光了这只潜伏者，显然已经忘记了狩猎失败的沮丧。
+<<babyhawksthem>>飞速地吃光了这只潜伏者，显然已经忘记了狩猎失败的沮丧。<<stress -3>><<lstress>>
 <br><br>
 
 休息片刻，你们重新飞上天空。
@@ -462,12 +462,86 @@
 <<else>>
 	轻柔地啄了你一口。
 <</if>>
-你们都沉浸在感慨中，安静地拥抱了一会儿。<<stress -12>><<trauma -6>><<lstress>><<ltrauma>>
+你们<<if !$firstSeen_Immature>>都沉浸在感慨中，<</if>>安静地拥抱了一会儿。<<stress -12>><<trauma -6>><<lstress>><<ltrauma>>
+<br>
 过了一会儿，<<bHe>>放开你，回到了栖木上。
 <br><br>
-
+<<if !$firstSeen_Immature>>
+	<<set $firstSeen_Immature to true>>
+<</if>>	
 你把收集到的材料放进战利品堆里，满意地环顾你的高塔。
 <br>
 
 <<link [[继续|Bird Tower Build]]>><<pass 5>><<BabyHawkClearVariable>><<endevent>><</link>>
+<br>
+
+:: BabyHawk Build OtherNest
+<<npc "Great Hawk">><<person1>>
+
+<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
+	<<if $children[_childrenIds[_cc]].localVariables.stage is "Immature" and $children[_childrenIds[_cc]].localVariables.growHintImmature isnot 1 and $children[_childrenIds[_cc]].location is "tower">>
+		<<set $children[_childrenIds[_cc]].location to "otherNest">>
+	<</if>>
+	<<updateChildActivity _childrenIds[_cc]>>
+<</for>>
+<<getChildrenIds `{location: "otherNest"}` "both">>
+<<set $ImmatureTotal to _childrenIds.length>>
+<<if $ImmatureTotal gte 3>>
+	<<set $child1 to _childrenIds.pluck()>>
+	<<set $child2 to _childrenIds.pluck()>>
+	<<set $child3 to _childrenIds.pluck()>>
+<<elseif $ImmatureTotal gte 2>>
+	<<set $child1 to _childrenIds.pluck()>>
+	<<set $child2 to _childrenIds.pluck()>>
+<<elseif $ImmatureTotal gte 1>>
+	<<set $child1 to _childrenIds.pluck()>>
+<<else>>
+	BUG:无法找到对应ID，请汇报作者。
+<</if>>
+<<childSelect $child1>>
+你拿起一些收集到的小树枝和树叶，准备给孩子们建一个新巢。
+<<if ["rest","sleep"].includes($bird.activity)>>
+	<<your_bird_text "cap">>微微动了动，醒了过来。<<bHe>>好奇地看着你。
+<<else>>
+	<<your_bird_text "cap">>好奇地凑到你身边来。
+<</if>>
+<br><br>
+
+<<switch $speech_attitude>>
+	<<case "meek">>"我、我想给<<babyhawks>>做一个新的巢。"你说。"现在的巢可能对<<babyhawks>>来说有点太挤了。"
+	<<case "bratty">>"<<babyhawks>>的个头早就太大了，"你说，"<<babyhawksthem>>不能再和我们俩挤在一块儿了。"
+	<<default>>"我要给<<babyhawks>>做一个新的巢，"你说，"<<babyhawksthem>>和我们睡在一起可能有点太挤了。"
+<</switch>>
+<br><br>
+
+<<if $monster is 1>>
+	<<bHe>>的眼里闪过一瞬失望，但还是冲你微笑了一下，"我很乐意为<<babyhawks>>建一个新巢。"
+<<else>>
+	<<bHe>>叽喳叫着，有些伤心，但很快又振作起来。
+<</if>>
+<br><br>
+
+你们开始搭建新巢。<<babyhawks>>从巢里抬起头，看着你们忙忙碌碌地搬运材料。没一会儿，<<babyhawksthem>>也跳出来跟在你们身后。
+<br><br>
+
+你们选中了高塔的另一个角落来放置新巢。你将大块的木材互相交叠作为基底，而<<hawkText>>负责将每根小树枝和短原木穿插其中，搭建成巢穴的基础框架。
+<br>
+<<childname>>学着你的配偶的样子，把一根根小树枝戳进缝隙间，<<childhim>>看起来玩得很开心。
+<br>
+在<<babyhawks>>的陪伴下，你们的工作做得缓慢又悠闲。<<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+<br><br>
+
+在他们组建框架的同时，你坐在一旁开始用布料和潜伏者的皮革缝制大张的皮料。
+<<if $ImmatureTotal gt 1>><<childSelect $child2>><<childname>>把毛茸茸的小脑袋放在你的肩膀上，好奇地看着你穿针引线。<<childhim>>试图伸出爪子抓住那些舞动的线头，但线只是从<<childhim>>的爪子里溜走了。<</if>>
+这张织物被你铺在巢的中央，将巢垫得松软又安全，随后你们再用叶子和羽毛把巢填充得结结实实，让这个新巢变得既柔软又稳固。
+<br><br>
+
+<<if $ImmatureTotal gt 2>><<childSelect $child3>>才铺好织物，<<childname>>就迫不及待地跳进羽毛堆里打滚，杂乱的绒毛因为<<childhim>>的举动漫天飘散。<<your_bird_text>><<= $monster ? "把<<childhim>>抓住放到了一旁。" : "把<<childhim>>叼起放到了一旁。">><br><</if>>
+没一会儿，你把最后几根支棱出来的小树枝稳当地塞进巢的底部，确认好每个部分都搭建完毕。你退开，站在<<your_bird_text>>身边，看着<<babyhawks>>开心地扑进新搭建的巢里，在巢里蹦蹦跳跳。
+<br><br>
+
+你和<<hawkText>>一起待在<<babyhawks>>的笑声和尖叫声里休息了一会儿。<<tiredness -6>><<ltiredness>>
+<br><br>
+
+<<link [[继续|Bird Tower Build]]>><<endevent>><</link>>
 <br>

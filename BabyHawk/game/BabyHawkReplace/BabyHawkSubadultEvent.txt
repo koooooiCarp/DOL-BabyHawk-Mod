@@ -114,9 +114,9 @@
 		<</if>>
 		<br><br>
 
-		<<link [[一起去|Bird Tower BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
+		<<link [[一起去|BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
 		<br>
-		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><<bird_pass 10>><</link>>
+		<<link [[留下观看|BabyHawk FirstFlight Stay]]>><<bird_pass 10>><</link>>
 		<br>
 	<<else>>
 		<<if $monster is 1>>
@@ -126,7 +126,7 @@
 		<</if>>
 		<br><br>
 
-		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><</link>>
+		<<link [[留下观看|BabyHawk FirstFlight Stay]]>><</link>>
 		<br>
 	<</if>>
 
@@ -153,9 +153,9 @@
 		<</if>>
 		<br><br>
 
-		<<link [[一起去|Bird Tower BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
+		<<link [[一起去|BabyHawk FirstFlight]]>><<bird_pass 10>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
 		<br>
-		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><<bird_pass 10>><</link>>
+		<<link [[留下观看|BabyHawk FirstFlight Stay]]>><<bird_pass 10>><</link>>
 		<br>
 	<<else>>
 		<<if $monster is 1>>
@@ -165,7 +165,7 @@
 		<</if>>
 		<br><br>
 
-		<<link [[留下观看|Bird Tower BabyHawk FirstFlight Stay]]>><</link>>
+		<<link [[留下观看|BabyHawk FirstFlight Stay]]>><</link>>
 		<br>
 	<</if>>
 <</if>>

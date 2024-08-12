@@ -1,0 +1,22 @@
+        <<case "otherNest">>
+				<<switch $bird.upgrades.otherNest>>
+					<<case 0>>
+						<span class="red">没有备用巢 (0)</span>：你的孩子和你们睡在一个巢里。有点挤。
+						<<set $_upgrade.passage to "BabyHawk Build OtherNest">>
+						<<set $_upgrade.timeTaken to 60>>
+						<<set $_upgrade.materialsUsed to {
+							wood: 4,
+							fabric: 4,
+							sticks: 8,
+							leaves: 8,
+							leather: 8,
+						}>>
+						<<set $_upgrade.upgradesRequired to {
+							tools: 1
+						}>>
+						<<set $_upgrade.activityRequired to ["build","brood","rest","sleep"]>>
+						<<set $_upgrade.housekeeping to 300>>
+					<<case 1>>
+						<span class="green">小小的巢 (1)</span>：给孩子们的临时居所。
+				<</switch>>
+        <<case "nest">>

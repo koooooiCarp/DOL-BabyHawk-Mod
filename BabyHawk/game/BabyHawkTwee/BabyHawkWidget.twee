@@ -47,7 +47,6 @@
 <<widget "BabyHawkClearVariable">>
 	<<set $SubadultIDcopy to undefined>>
 	<<set $SubadultIDs to undefined>>
-	<<set $ImmatureIDscopy to undefined>>
 	<<set $ImmatureIDs to undefined>>
 	<<set $child1 to undefined>>
 	<<set $child2 to undefined>>

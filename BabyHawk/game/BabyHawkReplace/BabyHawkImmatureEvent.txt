@@ -13,7 +13,7 @@
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>
-<<set $ImmatureIDcopy to clone($ImmatureIDs)>>
+
 <<set $ImmatureTotal to $ImmatureIDs.length>>
 <<if $ImmatureTotal gte 3>>
 	<<set $child1 to $ImmatureIDs.pluck()>>
@@ -55,7 +55,6 @@
 	<br><br>
 	
 	<<if !$firstSeen_Immature>>
-	<<set $firstSeen_Immature to true>>
 	你和<<your_bird_text>>面面相觑。
 	<br>
 		<<if $speech_attitude is "meek">>
@@ -100,10 +99,29 @@
 		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<pass 5>><</link>>
 		<br>
 	<<else>>
-	
+		你转头看向<<your_bird_text>>，<<bHis>>的羽毛兴奋地蓬起，显然已经做了新一轮教学的准备。
+		<br>
+		你们<<= $monster is 1 ? "相视一笑" : "默契地对视">>，开始整理小鹰的羽毛。你的孩子已经换上了一身新的羽毛，相比起初次飞行的时候，<<babyhawksthem>>的羽翼更结实，更丰满，除了羽毛的边缘光滑，没有磨损的痕迹，几乎与你的翅膀别无二致。
+		<br>
+		你向后退，将你的孩子完整地纳入视野中。<<babyhawks>>身姿挺拔，脚爪有力，稚嫩但美丽的羽毛在风中摇晃。
+		<br><br>
+
+		<span class="green"><<babyhawksthem>>已经做好了学习狩猎的准备。</span>
+		<br><br>
+
+		<<if $monster is 1>>
+			检查完毕，<<your_bird_text>>用认真的语气宣告，"我会教会<<babyhawks>>狩猎。"
+		<<else>>
+			检查完毕，<<your_bird_text>>发出一声尖鸣，宣告着狩猎的开始。
+		<</if>>
+		<<bHe>>从塔上跃了出去，你也紧随其后飞下，在空中放慢了速度等待<<babyhawks>>追上你们。
+		<br><br>
+
+		<<if $ImmatureTotal gte 3>>小鹰在你们身后成群结队地跟着。你有些担心之后的场面会有多么混乱。<br><br><</if>>
+
+		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<pass 5>><</link>>
+		<br>
 	<</if>>
-
-
 
 	<<exitAll>>
 <</if>>
