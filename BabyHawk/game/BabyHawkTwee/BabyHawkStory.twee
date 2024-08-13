@@ -464,7 +464,7 @@
 <</if>>
 你们<<if !$firstSeen_Immature>>都沉浸在感慨中，<</if>>安静地拥抱了一会儿。<<stress -12>><<trauma -6>><<lstress>><<ltrauma>>
 <br>
-过了一会儿，<<bHe>>放开你，回到了栖木上。
+过了一会儿，<<bHe>>放开你，回到了栖木上。<<set $bird.timer to 35>>
 <br><br>
 <<if !$firstSeen_Immature>>
 	<<set $firstSeen_Immature to true>>

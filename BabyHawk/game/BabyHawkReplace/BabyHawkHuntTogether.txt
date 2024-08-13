@@ -1,0 +1,22 @@
+<<effects>>
+
+<<if Object.values($children).find(child => (child.location == "otherNest")) and $rng lte 10 and $daily.babyhawkHuntAsk isnot true>>
+    <<set $daily.babyhawkHuntAsk to true>><<getChildrenIds `{location: "otherNest"}` "both">><<set _childrenTotal to _childrenIds.length>>
+    <!-- 随机有1-MAX只小鹰参与狩猎 -->
+    <<set $hawksTotal to random(1, _childrenTotal)>>
+    <<set $hawksIDs to []>>
+    <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
+        <<set $hawksIDs[_cc] to _childrenIds.pluck()>>
+    <</for>>
+    在你出发之前，<<= $hawksTotal gt 1 ? "一阵喧闹的" : "一声稚嫩的">>啾鸣声从你身后传来，截住了你的脚步。<<childrenNames $hawksIDs>>飞到了你的身边，冲着你叽喳叫。
+    <br><br>
+    <<babyhawksthem>>似乎想要和你一起去狩猎。
+    <br><br>
+
+    <<link [[带上你的孩子|BabyHawk Hunt Accept]]>><</link>>
+    <br>
+    <<link [[拒绝|BabyHawk Hunt Refuse]]>><</link>>
+    <br>
+    <<exitAll>>
+<</if>>    
+

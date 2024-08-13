@@ -18,7 +18,7 @@
 <</widget>>
 
 <<widget "babyhawks">>
-	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
 		<<set $_text_output to "孩子们">>
 	<<else>>
 		<<set $_text_output to "<<childname>>">>
@@ -27,7 +27,7 @@
 <</widget>>
 
 <<widget "babyhawksthem">>
-	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
 		<<set $_text_output to "他们">>
 	<<else>>
 		<<set $_text_output to "<<childhim>>">>
@@ -36,7 +36,7 @@
 <</widget>>
 
 <<widget "babyhawksyou">>
-	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1>>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
 		<<set $_text_output to "你们">>
 	<<else>>
 		<<set $_text_output to "你">>
@@ -48,10 +48,74 @@
 	<<set $SubadultIDcopy to undefined>>
 	<<set $SubadultIDs to undefined>>
 	<<set $ImmatureIDs to undefined>>
+	<<set $hawksIDs to undefined>>
 	<<set $child1 to undefined>>
 	<<set $child2 to undefined>>
 	<<set $child3 to undefined>>
 	<<set $child4 to undefined>>
 	<<set $SubadultTotal to undefined>>
 	<<set $ImmatureTotal to undefined>>
+	<<set $hawksTotal to undefined>>
+<</widget>>
+
+
+<<widget "babyhawkicon">>
+	<<switch _args[0]>>
+		<<case "children">>
+			<<run Object.values($children).forEach(child => {
+				if (child.location is "otherNest") {
+					if (!T.childrenIconSelect) T.childrenIconSelect = [];
+					T.childrenIconSelect.push(child.childId);
+				}
+			})>>
+			<<if _childrenIconSelect.length gte 2>>
+				<<set $_child1 to _childrenIconSelect.pluck()>>
+				<<set $_child2 to _childrenIconSelect.pluck()>>
+				<<if $children[$_child1].features.monster is $children[$_child2].features.monster>>
+					<<if $children[$_child1].features.monster is "monster">>
+						<<set _childIconFilter1 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour)>>
+						<<set _childIconFilter2 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour)>>
+						<<set $_baseIcon to "birdTower/child_harpies.png">>
+						<<set $_skinIcon1 to "birdTower/child_harpies_skin1.png">>
+						<<set $_skinIcon2 to "birdTower/child_harpies_skin2.png">>
+						<span class="icon-container">
+							<<icon $_baseIcon>>
+							<span @style="_childIconFilter1">
+								<<icon $_skinIcon2>>
+							</span>
+							<span @style="_childIconFilter2">
+								<<icon $_skinIcon1>>
+							</span>
+						</span>
+					<<else>>
+						<<icon "birdTower/child_hawks.png">>
+					<</if>>
+				<<else>>
+					<<set _childIconFilter = "filter: " + ($children[$_child1].features.monster is "monster" ? setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour) : setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour))>>
+					<<set $_baseIcon to "birdTower/child_birds.png">>
+					<<set $_skinIcon to "birdTower/child_birds_skin.png">>
+					<span class="icon-container">
+						<<icon $_baseIcon>>
+						<span @style="_childIconFilter">
+							<<icon $_skinIcon>>
+						</span>
+					</span>
+				<</if>>
+			<<else>>
+				<<if $children[_childrenIconSelect[0]].features.monster is "monster">>
+					<<set _childIconFilter = "filter: " + setup.colours.getSkinCSSFilter($children[_childrenIconSelect[0]].features.skinColour)>>
+					<<set $_baseIcon to "birdTower/child_harpy.png">>
+					<<set $_skinIcon to "birdTower/child_harpy_skin.png">>
+					<span class="icon-container">
+						<<icon $_baseIcon>>
+						<span @style="_childIconFilter">
+							<<icon $_skinIcon>>
+						</span>
+					</span>
+				<<else>>
+					<<icon "birdTower/child_hawk.png">>
+				<</if>>
+			<</if>>
+		<<default>><<icon "birdTower/tower.png">>
+	<</switch>>
 <</widget>>

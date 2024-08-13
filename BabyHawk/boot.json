@@ -12,7 +12,8 @@
     "game/BabyHawkReplace/BabyHawkSubadultEvent.txt",
     "game/BabyHawkReplace/BabyHawkImmatureEvent.txt",
     "game/BabyHawkReplace/BabyHawkOtherNestBuild.txt",
-    "game/BabyHawkReplace/BabyHawkOtherNestUpgrade.txt"
+    "game/BabyHawkReplace/BabyHawkOtherNestUpgrade.txt",
+    "game/BabyHawkReplace/BabyHawkHuntTogether.txt"
   ],
   "scriptFileList": [
     "game/BabyHawkjs/hawkBabyActivity.js"
@@ -20,7 +21,9 @@
   "tweeFileList": [
     "game/BabyHawkTwee/BabyHawkWidget.twee",
     "game/BabyHawkTwee/BabyHawkFood.twee",
-    "game/BabyHawkTwee/BabyHawkStory.twee"
+    "game/BabyHawkTwee/BabyHawkStory.twee",
+    "game/BabyHawkTwee/BabyHawkImmature.twee",
+    "game/BabyHawkTwee/HuntTogetherEvent.twee"
   ],
   "addonPlugin": [
     {
@@ -28,6 +31,12 @@
       "addonName": "TweeReplacerAddon",
       "modVersion": "1.0.0",
       "params": [
+        {
+          "passage": "Childrens Home",
+          "findString": "\"both\">>",
+          "replace": "\"both\">><<BabyHawkInit>>",
+          "_comment1": "初始化变量"
+        },
         {
           "passage": "Widgets Bird",
           "findString": "!$daily.birdBabyFeed",
@@ -66,6 +75,12 @@
           "findString": "<<set $location",
           "replace": "<<set $atBirdTower to 1>><<set $location",
           "_comment1": "检定PC今日是否在鹰塔"
+        },
+        {
+          "passage": "Widgets children",
+          "findString": "<<widget \"hawkChildActivity\">>\n\t<span class=\"no-numberify\">",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkPrintSize.txt",
+          "_comment1": "提示孩子的增重"
         },
         {
           "passage": "Widgets children",
@@ -116,16 +131,16 @@
           "_comment1": "新巢升级需求"
         },
         {
-          "passage": "Childrens Home",
-          "findString": "\"both\">>",
-          "replace": "\"both\">><<BabyHawkInit>>",
-          "_comment1": "初始化变量"
+          "passage": "Bird Tower",
+          "findString": "<<if $bird.clean gte 100>>",
+          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><<set $exitPassage to $passage>><</link>><</if>><br><br><<if $bird.clean gte 100>>",
+          "_comment1": "新巢选项"
         },
         {
-          "passage": "Widgets children",
-          "findString": "<<widget \"hawkChildActivity\">>\n\t<span class=\"no-numberify\">",
-          "replaceFile": "game/BabyHawkReplace/BabyHawkPrintSize.txt",
-          "_comment1": "提示孩子的增重"
+          "passage": "Bird Hunt Start Alone",
+          "findString": "<<effects>>",
+          "replaceFile": "game/BabyHawkReplace/BabyHawkHuntTogether.txt",
+          "_comment1": "和鹰崽一起狩猎，随机发生在PC的独自狩猎中"
         }
       ]
     },
