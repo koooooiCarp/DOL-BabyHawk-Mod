@@ -16,14 +16,16 @@
     "game/BabyHawkReplace/BabyHawkHuntTogether.txt"
   ],
   "scriptFileList": [
-    "game/BabyHawkjs/hawkBabyActivity.js"
+    "game/BabyHawkjs/hawkBabyActivity.js",
+    "game/BabyHawkjs/hawkBabyHuntTogether.js"
   ],
   "tweeFileList": [
     "game/BabyHawkTwee/BabyHawkWidget.twee",
     "game/BabyHawkTwee/BabyHawkFood.twee",
     "game/BabyHawkTwee/BabyHawkStory.twee",
     "game/BabyHawkTwee/BabyHawkImmature.twee",
-    "game/BabyHawkTwee/HuntTogetherEvent.twee"
+    "game/BabyHawkTwee/HuntTogetherEvent.twee",
+    "game/BabyHawkTwee/HuntTogetherWidget.twee"
   ],
   "addonPlugin": [
     {

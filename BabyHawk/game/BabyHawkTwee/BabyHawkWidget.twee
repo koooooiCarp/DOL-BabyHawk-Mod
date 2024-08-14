@@ -44,20 +44,17 @@
 <<if $_text_output>><<print $_text_output>><</if>>
 <</widget>>
 
-<<widget "BabyHawkClearVariable">>
+<<widget "BabyHawkStoryClean">>
 	<<set $SubadultIDcopy to undefined>>
 	<<set $SubadultIDs to undefined>>
 	<<set $ImmatureIDs to undefined>>
-	<<set $hawksIDs to undefined>>
 	<<set $child1 to undefined>>
 	<<set $child2 to undefined>>
 	<<set $child3 to undefined>>
 	<<set $child4 to undefined>>
 	<<set $SubadultTotal to undefined>>
 	<<set $ImmatureTotal to undefined>>
-	<<set $hawksTotal to undefined>>
 <</widget>>
-
 
 <<widget "babyhawkicon">>
 	<<switch _args[0]>>

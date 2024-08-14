@@ -125,7 +125,7 @@
 	<</if>>
 <br>
 <</if>>
-<<BabyHawkClearVariable>><<bird_perch_options>>
+<<BabyHawkStoryClean>><<bird_perch_options>>
 
 
 :: BabyHawk FirstFlight Stay
@@ -472,7 +472,7 @@
 你把收集到的材料放进战利品堆里，满意地环顾你的高塔。
 <br>
 
-<<link [[继续|Bird Tower Build]]>><<pass 5>><<BabyHawkClearVariable>><<endevent>><</link>>
+<<link [[继续|Bird Tower Build]]>><<pass 5>><<BabyHawkStoryClean>><<endevent>><</link>>
 <br>
 
 :: BabyHawk Build OtherNest
@@ -544,5 +544,5 @@
 你和<<hawkText>>一起待在<<babyhawks>>的笑声和尖叫声里休息了一会儿。<<tiredness -6>><<ltiredness>>
 <br><br>
 
-<<link [[继续|Bird Tower Build]]>><<BabyHawkClearVariable>><<endevent>><</link>>
+<<link [[继续|Bird Tower Build]]>><<BabyHawkStoryClean>><<endevent>><</link>>
 <br>

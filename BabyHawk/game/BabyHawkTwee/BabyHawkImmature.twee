@@ -54,5 +54,5 @@
 :: BabyHawk Hunt Refuse
 你摇了摇头，拒绝了<<babyhawksthem>>。<<babyhawks>>抱着你的胳膊发出一阵不满的抱怨声，放你离开了。
 <br><br>
-<<link [[继续|Bird Hunt Start Alone]]>><<BabyHawkClearVariable>><</link>>
+<<link [[继续|Bird Hunt Start Alone]]>><<HuntTogetherClean>><</link>>
 <br>
