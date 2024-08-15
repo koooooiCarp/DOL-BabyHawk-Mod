@@ -46,7 +46,8 @@
         <br><br>
 <</if>>
 <<babyhawksthem>>跟随着你张开翅膀从塔上跃下。
-<br><br>
+<br>
+
 <<link [[继续|BabyHawk Hunt Goal]]>><<endevent>><</link>>
 <br>
 

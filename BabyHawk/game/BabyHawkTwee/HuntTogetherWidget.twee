@@ -250,3 +250,65 @@
 		<br>
 	<</if>>
 <</widget>>
+
+<<widget "babyhawk_hunt_return">>
+	<<if $bird.hunts.weight gte (3+$hawksTotal)>>
+		你再也拿不下更多东西了。你开始返回高塔。
+		<br><br>
+
+		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_time_check _returnTime "silent">>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<br>
+	<<elseif $stress gte $stressmax or isPlayerNonparasitePregnancyEnding()>>
+		你没有继续飞行的力气了。你无力的翅膀使你的飞行动作变成了笨拙而急速的下降滑行。你的视野逐渐变黑。
+		<br><br>
+
+		<<babyhawks>>急促的叫声在你的脑后响起，但很快被模糊不清的哗啦声掩盖。你的身体感到冰冷。
+		<br><br>
+
+		你感觉到半空中有什么抓住了你，随着你再次开始上升，你的耳膜感到一阵胀痛。
+		<br><br>
+			
+		<<link [[继续 (?:??)|BabyHawk Hunt Passout]]>><<bird_pass _returnTime>><</link>>
+		<br>
+	<<elseif $pain gte 90>>
+		<<babyhawks>>飞到你的身边，<<= $cmonster ? "拉住了你的手" : "轻轻啄了你一口">>。这轻微的触碰却让你因疼痛而皱起了眉头。你伤得太重，无法继续打猎了。你们掉头开始往家的方向返回。
+		<br><br>
+
+		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_time_check _returnTime "silent">>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<br>
+	<<elseif $bird.hunts.timer gte 60>>
+		<<babyhawks>>翅膀的扇动变得很慢，看起来非常疲惫。
+		<<if $hawksTotal gt 1>><<childhim $leaderID>><<else>><<childname $leaderID>>带着其他孩子们<</if>>落在了附近的树上歇脚。
+		<br><br>
+
+		<<= $hawksTotal gt 1 ? "孩子们" : "你的孩子">>的体力还不足以支撑太长的飞行，是时候回家了。你们调转方向开始返回城堡。
+		<br><br>
+
+		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_time_check _returnTime "silent">>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<br>
+	<<else>>
+		你回到更高的空中。
+		<<if $bird.hunts.timer gte 40>>
+			<<babyhawks>>开始变得有些疲惫了。
+		<<elseif Time.dayState is "dusk" and $bird.hunts.timer gte 60 and !$daily.birdNightWarning>>
+			<!-- 不能正常触发因为我还没想好狩猎时间限制 -->
+			<<set $daily.birdNightWarning to true>>
+			<<babyhawks>>望着地平线上逐渐落下的太阳。
+			<<if hasClumsy()>><<set _ID to hasClumsy()>>
+				<<childname _ID>>有些不安地喳喳叫。
+				<br><br>
+			<</if>>
+		<</if>>
+		<<endevent>>
+		<<if _huntFail is 1>><<set $phase to 2>><</if>>
+		<br><br>
+		
+		<<babyhawk_hunt_options>>
+	<</if>>
+<</widget>>

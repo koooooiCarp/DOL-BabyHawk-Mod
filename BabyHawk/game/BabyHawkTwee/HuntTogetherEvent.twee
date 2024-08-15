@@ -1,514 +1,3 @@
-:: BabyHawk Hunt Goal
-<<set $outside to 1>><<set $location to "moor">><<effects>><<flight_effects>>
-<<if !$bird.hunts.loot>>
-	<<set $bird.hunts.loot to {}>>
-	<<set $bird.hunts.lootAmount to 0>>
-	<<set $bird.hunts.weight to (Weather.precipitation is "rain" ? 1 : 0)>>
-	<<set $bird.hunts.goal to "">>
-	<<set $bird.hunts.direction to "">>
-	<<set $bird.hunts.distanceNorth to 0>>
-	<<set $bird.hunts.distanceEast to 0>>
-	<<set $bird.hunts.timer to 0>>
-	<<set $moor to 40>>
-
-    <<hawks_leader_select>>
-<</if>>
-<<if $phase is 1>>
-	你决定另找其它目标。
-<<elseif $phase is 2>>
-	你问你的孩子，你们能否猎点其他东西。
-<<else>>
-	你乘着风飞在高空中。
-	<<if Weather.precipitation is "rain">>
-		雨让你的反抗更加困难，但你还是坚持着。<<gtiredness>><<tiredness 2>>
-	<</if>>
-<</if>>
-<br><br>
-你打算猎点什么？
-<br>
-<<if $bird.hunts.lurkers is true>>
-	<<link [[潜伏者|BabyHawk Hunt Direction]]>><<set $bird.hunts.goal to "lurkers">><</link>>
-	<br>
-<</if>>
-<<if $bird.hunts.materials is true>>
-	<<link [[材料|BabyHawk Hunt Direction]]>><<set $bird.hunts.goal to "materials">><</link>>
-	<br>
-<</if>>
-<<if $bird.hunts.valuables is true>>
-	<<link [[贵重物品|BabyHawk Hunt Direction]]>><<set $bird.hunts.goal to "valuables">><</link>>
-	<br>
-<</if>>
-
-<<link [[让你的孩子做决定|BabyHawk Hunt Direction]]>><<set $phase to 1>><<set $bird.hunts.goal to "babyhawk">><</link>>
-<br>
-<<set $phase to 0>>
-
-:: BabyHawk Hunt Direction
-<<effects>><<flight_effects>><<childSelect $leaderID>>
-<<if $phase is 1>>
-	你告诉<<= $cmonster ? "小哈比" : "小鹰">><<if $hawksTotal gt 1>>们<</if>>，你想
-<<else>>
-	你决定
-<</if>>
-<<switch $bird.hunts.goal>>
-	<<case "lurkers">>找一些合适的猎物来捕猎。
-	<<case "materials">>找些能用来升级高塔的东西。
-	<<case "valuables">>找些贵重物品，或一些夺人眼球的东西。
-	<<case "babyhawk">>跟着<<babyhawksthem>>。
-<</switch>>
-<br><br>
-
-<<flight_time_check 20 "silent">>
-<<if $bird.hunts.goal is "babyhawk">>
-	<<set _directionPool to []>>
-	<<if $bird.hunts.distanceNorth lt 5 and $bird.hunts.distanceNorth isnot -1>>
-		<<run _directionPool.pushUnique("north")>>
-	<</if>>
-	<<if $bird.hunts.distanceEast lt 5 and $bird.hunts.distanceEast isnot -1>>
-		<<run _directionPool.pushUnique("east")>>
-	<</if>>
-	<<if $bird.hunts.distanceNorth gt -5 and $bird.hunts.distanceNorth isnot 1>>
-		<<run _directionPool.pushUnique("south")>>
-	<</if>>
-	<<if $bird.hunts.distanceEast gt -5 and $bird.hunts.distanceEast isnot 1>>
-		<<run _directionPool.pushUnique("west")>>
-	<</if>>
-	<<set $bird.hunts.direction to _directionPool.pluck()>>
-	<<if $hawks_leader is "dominant">>
-		<<childname>>尖鸣着回应你，向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞去。<<if $hawksTotal gt 1>>其他孩子追上了<<childhe>>。<</if>>
-	<<elseif $hawks_leader is "clever">>
-		<<childname>>尖鸣着回应你，<<if $hawksTotal gt 1>><<childhe>>转过头冲着其他孩子叽喳几声，<</if>>然后开始向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞去。
-	<<else>>
-        <<babyhawksthem>>茫然地回望你。<<childname>>四下张望，随后选中了<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>边。<<if $hawksTotal gt 1>>其他孩子看起来没有意见，跟着<<childhe>>飞行。<</if>>
-    <</if>>
-	<<switch $bird.hunts.direction>>
-		<<case "north">><<set $bird.hunts.distanceNorth++>>
-		<<case "east">><<set $bird.hunts.distanceEast++>>
-		<<case "south">><<set $bird.hunts.distanceNorth-->>
-		<<case "west">><<set $bird.hunts.distanceEast-->>
-	<</switch>>
-	<<babyhawk_loot_select>>
-	<br><br>
-
-	<<link [[继续 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Event]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
-	<br>
-<<else>>
-	<<if $hawks_leader is "dominant">>
-		<<babyhawks>>尖鸣着回应。<<if $hawksTotal gt 1>><<childname>>的鸣叫声中似乎带着些许不满。<</if>>
-	<<elseif $hawks_leader is "clever">>
-		<<childname>>尖鸣着回应你，<<= $hawksTotal gt 1 ? "<<babyhawks>>" : "<<childhe>>">>等待着你的行动。
-	<<else>>
-        <<babyhawks>>叽喳着回应你，<<babyhawksthem>>等待着你的行动。
-    <</if>>
-    <br><br>
-	你心中有了主意，决定了狩猎的方向：
-	<br>
-
-	<<if $bird.hunts.distanceNorth lt 5>>
-		<<link [[北 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Event]]>><<set $bird.hunts.direction to "north">><<set $bird.hunts.distanceNorth++>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
-		<br>
-	<</if>>
-	<<if $bird.hunts.distanceEast lt 5>>
-		<<link [[东 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Event]]>><<set $bird.hunts.direction to "east">><<set $bird.hunts.distanceEast++>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
-		<br>
-	<</if>>
-	<<if $bird.hunts.distanceNorth gt -5>>
-		<<link [[南 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Event]]>><<set $bird.hunts.direction to "south">><<set $bird.hunts.distanceNorth-->><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
-		<br>
-	<</if>>
-	<<if $bird.hunts.distanceEast gt -5>>
-		<<link [[西 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Event]]>><<set $bird.hunts.direction to "west">><<set $bird.hunts.distanceEast-->><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
-		<br>
-	<</if>>
-<</if>>
-
-
-:: BabyHawk Hunt Event []
-<<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>>
-<<if $phase is 2>>
-	你无视了遇到的挫折，继续打猎。
-<</if>>
-<<if $bird.hunts.goal is "babyhawk">>
-	你跟着<<babyhawks>>向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞行，希望能发现些什么。
-<<else>>
-	你们一起向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞去，希望能发现什么。
-<</if>>
-<<if Weather.precipitation is "rain">>雨水让你的搜索变得更加困难。<<elseif Weather.precipitation is "snow">>雪让你的搜索变得更加困难。<</if>>
-<<if $daily.birdHuntPhysique is undefined>>
-	<<set $daily.birdHuntPhysique to 0>><<physique 1>>
-<<elseif $daily.birdHuntPhysique lt 3>>
-	<<set $daily.birdHuntPhysique++>><<physique 1>>
-<</if>>
-<br><br>
-<<endevent>>
-
-<<cleareventpool>>
-<<if $stress gte $stressmax or isPlayerNonparasitePregnancyEnding()>>
-	你没有继续飞行的力气了。你无力的翅膀使你的飞行动作变成了笨拙而急速的下降滑行。你的视野逐渐变黑。
-	<br><br>
-
-    <<babyhawks>>急促的叫声在你的脑后响起，但很快被模糊不清的哗啦声掩盖。你的身体感到冰冷。
-	<br><br>
-
-	你感觉到半空中有什么抓住了你，随着你再次开始上升，你的耳膜感到一阵胀痛。
-    <br><br>
-		
-	<<link [[继续 (?:??)|BabyHawk Hunt Passout]]>><<bird_pass _returnTime>><</link>>
-	<br>
-<<elseif _distanceTotal is 0>>
-	你正在城堡上空。<span class="blue">你发现不了任何东西，除非你飞得更远些。</span>
-	<br><br>
-
-	<<endevent>>
-	<<babyhawk_hunt_options>>
-<<elseif $daily.huntRemyCampNorth is $bird.hunts.distanceNorth and $daily.huntRemyCampEast is $bird.hunts.distanceEast>>
-	<<if $daily.huntRemyAlerted>>
-		你们接近了曾经侵扰过的营地。<span class="red">这里的人非常警惕，眼睛一直盯着天空。</span>
-		<br><br>
-        <<if hasClever()>><<set _ID to hasClever()>>
-			<<childname _ID>>羽毛炸起，发出一声警戒的尖啸。这让地面上的人立刻开始谨慎地寻找声源。
-			<br><br>
-		<</if>>
-        你认为你最好带着<<babyhawks>>离他们远点。
-        <br><br>
-		<<endevent>>
-		<<set $phase to 2>>
-		<<flight_hunt_options>>
-	<<elseif $daily.huntRemyBurnt>>
-		闷烧的营地在你下方。这个景象让你感到宽慰，但你今天不会再找到任何东西了。
-		<br><br>
-        <<if hasSympathy()>><<set _ID to hasSympathy()>>
-			<<childname _ID>>好奇地盯着燃烧着的帐篷。你拍了拍<<childhis _ID>>的脑袋。
-			<br><br>
-		<</if>>
-		<<endevent>>
-		<<flight_hunt_options>>
-	<<else>>
-		<<if $daily.huntRemyCamp>>
-			你正在 
-			<<if $remy_seen is "farm" or $remy_seen is "livestock" or $livestock_intro isnot undefined>>
-				雷米手下的营地上方。
-			<<else>>
-				营地上方。 
-			<</if>>
-		<<else>>
-			<<set $daily.huntRemyCamp to true>>
-			你注意到几个帐篷。有人似乎搭了营地。你能看到营地主人坐在外面。
-			<<if $remy_seen is "farm" or $remy_seen is "livestock" or $livestock_intro isnot undefined>>
-				你从那些人穿着的制服认出了他们。<span class="red">是雷米的手下。</span>
-			<<else>>
-				他们中的一些拿着分叉的金属棍，另一些拿着网。他们看起来十分危险。
-			<</if>>
-		<</if>>
-		<br><br>
-        <span class="blue">你不能带着<<= $hawksTotal gt 1 ? "孩子们" : "你的孩子">>冒险侵扰他们。</span>
-        <br><br>
-		<<link [[避开他们|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</if>>
-<<elseif $daily.emptyCampNorth is $bird.hunts.distanceNorth and $daily.emptyCampEast is $bird.hunts.distanceEast>>
-	<<if Time.dayState isnot "night">>
-		<<if $daily.emptyCamp>>
-			你在废弃营地的上空。
-		<<else>>
-			你看到一个开阔空地，中间有一个冒烟的火坑。垃圾和其他物品散落在四周。看起来有人曾在这里逗留过。他们可能留下了一些对你有用的东西。
-		<</if>>
-		<br><br>
-
-		<<if $daily.emptyCampLoot is 0>>
-			<span class="purple">已经被洗劫一空了。</span>
-			<br><br>
-		<<else>>
-			<<link [[着陆 (0:02)|Bird Hunt Scavenge Party Site]]>><<endevent>><<bird_pass 2>><</link>>
-			<br>
-		<</if>>
-	<<else>>
-		你看到一片开阔的空地上篝火熊熊，周围围满了人——他们似乎在跳舞和享乐。现在这里的人太多，你无法靠近。
-		<br><br>
-	<</if>>
-	<<flight_hunt_options>>
-<<elseif ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is 3) or ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is -3)>>
-	附近一座山顶上有一根高高的石柱。石柱底部完全被茂密的植物覆盖，其间一条小路穿过了灌木丛。
-	<<if Time.dayState is "night">>
-		这是个伏击的好地方，但现在太暗了。
-		<br><br>
-	<<else>>
-		这是个伏击的好地方。
-		<br><br>
-
-		<<link [[着陆 (0:02)|Bird Hunt Ambush Point]]>><<endevent>><<bird_pass 2>><</link>>
-		<br>
-	<</if>>
-	<<flight_hunt_options>>
-<<else>>
-
-	<<addinlineevent "bird_hunt_nothing" _flight_hunt_chance.nothing>>
-		<<rng 3>>
-		过了一会儿，你还是没发现任何感兴趣的东西。
-		<<switch $rng>>
-			<<case 1>>
-				<!-- Nothing -->
-			<<case 2>>
-				<<switch Weather.precipitation>>
-					<<case "none">>
-						<<if !Weather.overcast>>
-							<<switch Time.dayState>>
-								<<case "dawn">>晨曦亲吻地平线，你变得格外的警觉。<<stress -6>><<lstress>>
-								<<case "day">>你在空中滑翔着，享受着温暖的阳光。<<stress -6>><<lstress>>
-								<<case "dusk">>日落余晖笼罩着荒原。<<stress -6>><<lstress>>
-								<<case "night">>荒原已经入夜了，却出乎意料的安宁。<<stress -6>><<lstress>>
-							<</switch>>
-						<<else>>
-							一阵强风拂过，让你安稳地滑行了几分钟。<<stress -6>><<lstress>>
-						<</if>>
-					<<case "rain">>雨点拍打在你身上。<<stress 6>><<gstress>>
-					<<case "snow">>你在远离地面的一片闪闪发光的白色虚空中滑行。皑皑白雪让你仿佛置身于另一个世界的幻梦中。<<stress -6>><<trauma -3>><<lstress>><<ltrauma>>
-				<</switch>>
-			<<case 3>>
-				你暂时分神了一会，享受着飞翔的感觉。<<trauma -3>><<ltrauma>>
-		<</switch>>
-		<br><br>
-
-		<<endevent>>
-		<<set $phase to 2>>
-		<<flight_hunt_options>>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_camp" _flight_hunt_chance.materials>>
-		你注意到有个露营完后的废址。或许还留着值得带走的东西。
-		<br><br>
-
-		<<link [[搜索这片地区 (0:05)|Bird Hunt Camp]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_dead_tree" _flight_hunt_chance.materials>>
-		你发现了一棵叶子掉光的树。虽然它看着老而凋零，但树枝看起来仍然足够健康，可以用于你的巢穴。 
-		<br><br>
-
-		<<link [[着陆 (0:05)|Bird Hunt Dead Tree]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_sticks" _flight_hunt_chance.materials>>
-		你注意到一堆粗大的树枝。
-		<<if $bird.hunts.materials is false>>
-			你也许能用它们来升级你的巢。
-		<</if>>
-		<br><br>
-
-		<<link [[着陆 (0:05)|Bird Hunt Sticks]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_leaves" _flight_hunt_chance.materials>>
-		你发现地上有一大片散落的叶子。
-		<<if Time.season is "winter" or Time.season is "autumn">>
-			这些叶子在枯萎的枝叶间显得尤其突出，看起来质量很高。
-		<</if>>
-		这些叶子会很适合用来建巢的。
-		<br><br>
-
-		<<link [[着陆 (0:05)|Bird Hunt Leaves]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_underbrush" (_flight_hunt_chance.materials - Math.floor($bird.hunts.distanceEast / 2))>>
-		你注意到一簇枯萎的枝叶。也许能从这里面轻松收集到材料。
-		<br><br>
-
-		<<link [[着陆 (0:05)|Bird Hunt Underbrush]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_flowers" (_flight_hunt_chance.materials + Math.floor($bird.hunts.distanceEast / 2))>>
-		你注意到一片颜色鲜亮的花丛。
-		<br><br>
-
-		<<link [[着陆 (0:05)|Bird Hunt Flowers]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<if $bird.upgrades.tarp is 0 and !$bird.hunts.loot.tarp>>
-		<<addinlineevent "bird_hunt_tarp" _flight_hunt_chance.materials>>
-			你注意到两块巨大的岩石间有块很大的蓝色防水布，它在雨中形成了一个避雨处。附近似乎没人。你也许能把它占为己有。
-			<br><br>
-
-			<<link [[拿上防水布 (0:05)|Bird Hunt Tarp]]>><<bird_pass 5>><</link>>
-			<br>
-			<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-			<br>
-		<</addinlineevent>>
-	<</if>>
-
-	<<addinlineevent "bird_hunt_lurkers_1" _flight_hunt_chance.lurkers>>
-		<<if $bird.hunts.duo is true>>
-			<<npc "Great Hawk">>
-			巨鹰发出一声小小的尖鸣，引起你的注意。你看见草地上有些潜伏者。它们似乎正在休息。 
-			<<if $monster is 1>>
-				"猎物没有察觉。现在是突袭的好时机。"
-			<<else>>
-				<<bHe>>发出另一声压低的尖鸣，表明想要发动袭击。
-			<</if>>
-			<br><br>
-
-			<<link [[狩猎它们 (0:05)|Bird Hunt Lurkers GH]]>><<bird_pass 5>><</link>>
-			<br>
-		<<else>>
-			你发现草地上有些潜伏者。它们似乎正在休息。
-			<br><br>
-
-			<<link [[狩猎它们 (0:05)|Bird Hunt Lurkers Alone]]>><<bird_pass 5>><</link>>
-			<br>
-		<</if>>
-		<<link [[无视它们|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_lurkers_2" _flight_hunt_chance.lurkers>>
-		你注意到有只潜伏者孤零零地前进着。
-		<br><br>
-
-		<<link [[狩猎 (0:05)|Bird Hunt Lurkers Few]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_shiny" _flight_hunt_chance.valuables>>
-		泥沼里有一个闪光的亮点吸引了你的目光。
-		<br><br>
-
-		<<link [[调查 (0:05)|Bird Hunt Shiny]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_shiny_pond" _flight_hunt_chance.valuables>>
-		你发现池塘深处有东西在一闪一闪。也许水面之下有什么有趣的东西。 
-		<br><br>
-
-		<<link [[调查 (0:05)|Bird Hunt Pond Dive]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_animals_1" _flight_hunt_chance.other>>
-		<<rng 2>><<set _beastGen to ($rng is 1 ? "cat" : "fox")>><<if _beastGen is "cat">><<beastNEWinit 1 cat>><<else>><<beastNEWinit 1 fox>><</if>>
-		你发现下方有只孤零零的<<beasttype>>。
-		<<rng 100>>
-		<<if $rng gte 60>>
-			<<set $phase to 1>>
-			<<bHes>><<if $monster isnot 1>>叼<<else>>拿<</if>>着什么东西。
-		<</if>>
-		<br><br>
-
-		<<link [[观察 (0:05)|Bird Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
-		<br>
-		<<link [[着陆 (0:05)|Bird Hunt Animal Land]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[尖叫|Bird Hunt Animal Screech]]>><<stress -3>><</link>><<lstress>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_animals_2" _flight_hunt_chance.other>>
-		<<beastNEWinit 1 fox>><<beastPARTNERinit 1 fox 0>>
-		你发现两只 
-		<<if ($monster isnot 1) or ($NPCList[0].pronoun is "m" and $NPCList[1].pronoun is "m") or ($NPCList[0].pronoun is "f" and $NPCList[1].pronoun is "f")>>
-			<<beastsplural>>
-		<<else>>
-			一公一母的狐狸人
-		<</if>>
-		在下方打闹着，但你无法在这个高度判断那是在玩耍还是打架。
-		<br><br>
-
-		<<link [[着陆以凑近看 (0:05)|Bird Hunt Foxes Land]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[尖叫|Bird Hunt Animal Screech]]>><<stress -3>><<set $phase to 4>><</link>><<lstress>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<addinlineevent "bird_hunt_people_watch" (Math.floor($bird.hunts.distanceNorth / 2))>>
-		你发现两个人在荒原上走着。
-		<br><br>
-
-		<<link [[跟上 (0:10)|Bird Hunt People Watching]]>><<bird_pass 10>><</link>>
-		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-
-	<<if !$daily.birdPlaneChase>>
-		<<addinlineevent "babyhawk_hunt_plane" _flight_hunt_chance.other>>
-			<<set $daily.birdPlaneChase to true>>
-			一个闪光的亮点吸引了你的目光。不过这一次，是在你们的上方。你看见一架飞机在远远的高空飞行。<<babyhawks>>也看见了它。 
-			<<if $bird.hunts.goal is "hawk">>
-				<<if $monster is 1>>
-					“<<Wife>>！看啊！空中有个闪亮的大东西！快来，我们得拿到它！”<<bhe>>兴奋地叫道。
-				<<else>>
-					<<bHe>>非常兴奋地大声尖叫。<<bHe>>肯定很喜欢飞机。
-				<</if>>
-				<br><br>
-
-				你还没来得及开口，<<bhe>>就开始追起飞机。不想被抛下，你飞在<<bhim>>身后。
-				<br><br>
-
-				<<link [[继续|Bird Hunt Plane Chase]]>><</link>>
-				<br>
-			<<else>>
-				<<if $monster is 1>>
-					“<<Wife>>！看啊！空中有个闪亮的大东西！快来，我们得拿到它！”<<bhe>>兴奋地叫道。
-				<<else>>
-					<<bHe>>因纯粹的兴奋而大声尖叫。<<bHe>>肯定很喜欢飞机。<<bHe>>开始朝着你鸣叫，试着说服你跟上它。
-				<</if>> 
-				<br><br>
-
-				你知道你抓不到它，但显然你的<<if $monster is 1>><<nnpc_wife "Great Hawk">><<else>>伴侣<</if>>仍然想试试。
-				<br><br>
-
-				<<link [[追逐飞机 (0:20)|Bird Hunt Plane Chase]]>><<bird_pass 20>><<set $phase to 0>><<npcincr "Great Hawk" love 1>><</link>><<glove>>
-				<br>
-				<<link [[无视|Bird Hunt Plane Chase]]>><<set $phase to 1>><<npcincr "Great Hawk" love -1>><</link>><<llove>>
-				<br>
-			<</if>>
-		<</addinlineevent>>
-	<</if>>
-
-	<<if (_distanceNorthSouth gte 4 or _distanceEastWest gte 4) and !Object.values($children).find(child => child.childId == "orphanHawk1")>>
-		<<addinlineevent "bird_hunt_orphan" 2>>
-			<<childSelect "orphanHawk1">>
-			<!-- 可以把这个事件改成孤儿崽回顾过去？ -->
-			你的<<if $monster is 1>><<nnpc_wife "Great Hawk">>倒吸一口气<<else>>伴侣发出一声惊讶的叽喳声<</if>>，示意你注意下方的灌木。
-			<br><br>
-
-			<span class="gold">是一个躺在地上的<<if $cmonster is 1>>哈比<<else>>鹰<</if>>宝宝。</span><span class="red">附近完全没看见<<childhis>>双亲的行踪。</span>
-			<br><br>
-
-			<<link "降落 (0:05)" "Bird Hunt Chick Approach">><<bird_pass 5>><</link>>
-			<br>
-		<</addinlineevent>>
-	<</if>>
-
-	<<runeventpool>>
-<</if>>
 
 :: BabyHawk Hunt Passout []
 <<effects>>
@@ -536,7 +25,7 @@
 	<<else>>
 		<<bHe>>和<<babyhawks>>开始急切地喳喳叫，显得十分惊慌。
 	<</if>>
-	你安慰了他们，表示你没事。
+	你安慰了他们，表示你没事。<<babyhawks>>用脑袋蹭着你。
 	<<if $monster is 1>>
         "你确定吗？"<<bhe>>依然十分关切。
 	<<else>>
@@ -559,7 +48,8 @@
 <<if $bird.hunts.lootAmount is 0>>
 <!-- 啥也没捕到，小孩不情愿回去，可以和后续单独狩猎接轨，让孩子自己再打会儿 -->
     <<if $hawks_leader is "dominant">>
-        <<childname>>大声尖鸣，尾巴一转飞向了远离高塔的方向。看起来<<childhim>>还想继续狩猎。<<if $hawksTotal gt 1>>其他孩子留在了你身边，你们踏上返程。<<else>>你独自一人飞回了高塔。<</if>>
+        <<childname>>大声尖鸣，尾巴一转飞向了远离高塔的方向。<br>
+		看起来<<childhim>>还想继续狩猎。<<if $hawksTotal gt 1>>其他孩子留在了你身边，你们踏上返程。<<else>>你独自一人飞回了高塔。<</if>>
         <<set $children[$leaderID].localVariables.activity to "hunting">>
         <<set $hawksTotal -= 1>>
     <<elseif $hawks_leader is "clever">>
@@ -576,3 +66,311 @@
 
 <<link [[继续|Bird Hunt Return]]>><<endevent>><</link>>
 <br>
+
+:: BabyHawk Hunt Plane Chase
+<<effects>><<childSelect $leaderID>>
+<<if $hawks_leader is "clever">>
+	你飞在你的孩子身后，<<childname>>正<<if $hawksTotal gt 1>>在最前方领头，<</if>>尽可能快地追着飞机。
+	<<if $athletics gte 600>>你紧紧跟着<<babyhawksthem>>。<<else>><<babyhawksthem>>的速度令你震惊，你努力跟上<<childname>>。<</if>>
+	<br><br>
+
+	你们一起追了飞机几分钟，直到它最终飞出了视野。
+	<br><br>
+	
+	<<childname>>失望地叫着，但看起来仍然坚定。你怀疑这不会是<<childhim>>最后一次尝试抓飞机。
+	<br><br>
+
+	<<babyhawk_hunt_options>>
+<<else>>
+	你飞在你的孩子身后，<<babyhawks>>正尽可能快地追着飞机。
+	<<if $athletics gte 400>>你紧紧跟着<<babyhawksthem>>。<<else>>你努力跟上<<babyhawksthem>>。<</if>>
+	<br><br>
+
+	你们一起追了飞机几分钟，直到<<babyhawks>>气喘吁吁地停下，看着它最终飞出了视野。<<babyhawksthem>>冲着天空失望地叫着。
+	<br><br>
+	
+	你带着<<babyhawks>>到附近的树干上歇息了一会儿。<<tiredness -6>>
+	<br><br>
+
+	<<babyhawk_hunt_options>>
+<</if>>
+
+:: BabyHawk Hunt Ignore
+<<effects>><<flight_distance_check>>
+<<if $bird.hunts.goal is "babyhawk">>
+	你告诉<<babyhawks>>无视它，然后看向了别处。
+	<br><br>
+
+	<<if $hawks_leader is "clever" or "dominant">>
+		<<childname $leaderID>>尖鸣着回应。
+	<<else>>
+		<<babyhawks>>尖鸣着回应。
+	<</if>>
+<<else>>
+	你们决定无视它，然后看向别处。
+<</if>>
+<br><br>
+<<endevent>>
+<<babyhawk_hunt_options>>
+
+:: BabyHawk Hunt Scavenge Party Site
+<<effects>><<endevent>>
+<<set $daily.emptyCamp to true>>
+你和<<babyhawks>>降落在这片区域外围。<<babyhawksthem>>环顾着四周。
+<<if hasClever()>><<set _ID to hasClever()>>
+	<<childname _ID>>激动地叽喳叫着，埋头在垃圾堆里翻找起来。
+<</if>>
+<br><br>
+
+<<if $daily.emptyCampLoot is undefined>>
+	<<set $daily.emptyCampLoot to 4>>
+<</if>>
+
+<<switch $daily.emptyCampLoot>>
+	<<case 4>>到处都是垃圾，你觉得自己肯定能找到一些有用的东西。
+	<<case 3>>你已经翻找过了一部分垃圾，不过还有很多可以搜寻的部分。
+	<<case 2>>你已经找到了许多东西，但应该还有很多等待发现。
+	<<case 1>>你已经几乎翻遍了所有位置，已经没有什么可以发现的了。
+<</switch>>
+翻找垃圾并不是一件有意思的事情，但和你的<<= $hawksTotal gt 1 ? "孩子们" : "孩子">>一起，让效率更高了。
+<br>
+
+<<set _time to 10-($hawksTotal*2)>><<if _time lt 0>><<set _time to 1>><<set _showtime to '01'>><<elseif _time lt 10>><<set _showtime to '0'+_time>><<else>><<set _showtime to _time>><</if>>
+<<link [[翻找 (0:<<print _showtime>>)|BabyHawk Hunt Scavenge]]>><<bird_pass _time>><</link>>
+<br>
+
+:: BabyHawk Hunt Scavenge
+<<effects>><<endevent>>
+<<if !$daily.emptyCampFox and $rng gte 80>>
+	<<beastNEWinit 1 fox>>
+	<<set $daily.emptyCampFox to true>>
+	<<if $hawks_leader is "dominant">>
+		你和<<babyhawks>>环顾四周，寻找着有用的东西。
+		<br><br>
+
+		就在你翻找垃圾的时候，你听见背后传来一个声音。你转身，看见<<childname $leaderID>>正冲着一只<<beasttype>>尖啸。
+		<br><br>
+
+		<<bHis>>的耳朵向后压，停在原地看着你和你的<<= $cmonster ? "小哈比" : "小鹰">>。<<gstress>>
+		<br>
+		<<childname $leaderID>>和<<bhe>>对视僵持了几秒，随后猛地扑打翅膀，尖鸣着扑向了<<beasttype>>！
+		<<if $hawksTotal gt 1>>其他孩子也扑了过来，他们的尖叫声让<<beasttype>>的尾巴紧张地蓬起。<</if>>
+		<br><br>
+		
+		这只<<beasttype>>当即转身逃跑了。
+		<br>
+		你的孩子继续尖鸣着驱赶<<bhim>>，没有追上去。
+		<br><br>
+
+		你赶到<<babyhawks>>身边，安抚着<<babyhawksthem>>，将<<babyhawksthem>>揽入一个怀抱以表示感谢。<<childname $leaderID>>自豪地啾啾叫着。<<lstress>>
+		<br><br>
+
+		你们回到搜寻中。
+		<br><br>
+
+		<<link [[继续|BabyHawk Hunt Scavenge]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		你和<<babyhawks>>环顾四周，寻找着有用的东西。
+		<br><br>
+
+		就在你翻找垃圾时，你听见背后传来一个声音。你转身，看见一个<<beasttype>>向你冲来！<<bHe>>跳起来，将你按在了地上。<<gpain>><<pain 5>>
+		<br><br>
+
+		<<if $monster is 1>>
+			"这是我发现的，我不会无缘由地放弃。我得找点乐子。"<<bhe>>说。
+		<<else>>
+			<<bHe>>胜利地嘤嘤叫着，用鼻子戳了戳你。
+		<</if>>
+		<br><br>
+
+		眼冒金星，你看到<<= $cmonster ? "小哈比" : "小鹰">><<if $hawksTotal gt 1>>们<</if>>在<<beasttype>>身后出现，猛地扑到了<<bhis>>的背上！
+		<br>
+		<<beasttype>>毫无防备，发出疼痛的大叫声，你趁机蹬开<<bhe>>。
+		<br><br>
+
+		<<bHe>>恼怒地试图<<= $monster ? "伸手抓住" : "转头咬向">>你的孩子，却被你一拳打中了下巴，吃痛地畏缩。
+		这只<<beasttype>>在你们混乱的攻势中败下阵来，逃跑了。
+		<br><br>
+
+		<<babyhawks>>跳到你身边，担心地啾啾叫着。你把<<babyhawksthem>>揽入一个安抚的怀抱里，确认<<babyhawksthem>>没有受伤。<<lstress>>
+		<br><br>
+
+		休息了一会儿，你们继续回到搜寻中。<<bird_pass 3>>
+		<br><br>
+
+		<<link [[继续|BabyHawk Hunt Scavenge]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<set $daily.emptyCampLoot-->>
+	你和<<babyhawks>>环顾四周，想寻找有用的东西。
+	<br><br>
+
+	<<if $rng gte 70>>
+		<<select_random_clothes_limited "upper" "lower" "under_upper" "under_lower" "legs" "hands">>
+		你对那些垃圾都没什么兴趣，但你还是找到了
+		<<if _random_clothes isnot "piece of fabric">>
+			<<if setup.clothes[_random_slot][_random_index].word is "an">>
+				一件
+			<<elseif setup.clothes[_random_slot][_random_index].word is "a">>
+				一件
+			<<else>>
+				一双
+			<</if>>
+			_random_clothes。
+			<<if $bird.upgrades.wardrobe is 1>>
+				你可以拿上它，或者直接撕掉来获取一些布料。
+			<<else>>
+				你并没有可以存放它的地方，你只能将它撕掉来获取布料。
+			<</if>> 
+		<<else>>
+			一些破损的布料。
+		<</if>>
+		<br><br>
+		<<if _random_clothes isnot "piece of fabric">>
+			<<if $worn[_random_slot].cursed is 1>>
+				<<set _cursedPrevent to true>>
+			<</if>>
+			<<set _outfitPrimaryWear to setup.clothes[_random_slot][$worn[_random_slot].index].outfitPrimary>>
+			<<if _outfitPrimaryWear isnot undefined>>
+				<<for _outfitSlot, _value range _outfitPrimaryWear>>
+					<<if $worn[_outfitSlot].cursed is 1>>
+						<<set _cursedPrevent to true>>
+					<</if>>
+				<</for>>
+			<</if>>
+			<<if !_cursedPrevent>>
+				<<if $worn[_random_slot].name isnot "naked">>
+					<<if $bird.upgrades.wardrobe is 1>>
+						<<link [[穿上|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 1>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear">><</link>>
+						<span class="blue">你的$worn[_random_slot].cn_name_cap将被替换。</span>
+					<<else>>
+						<<link [[穿上|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 1>><<generalRuined _random_slot>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear">><<flight_hunt_get "fabric" 1>><</link>>
+						<span class="blue">你的$worn[_random_slot].cn_name_cap将被替换。</span>
+					<</if>>
+				<<else>>
+					<<link [[穿上|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 1>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear">><</link>>
+				<</if>>
+			<</if>>
+			<br>
+			<<link [[撕成布料|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 2>><<flight_hunt_get "fabric" 1>><</link>>
+			<br>
+			<<if $bird.upgrades.wardrobe is 1>>
+				<<link [[偷窃|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 3>><<flight_hunt_get "clothing" 1 _random_slot _random_index>><</link>>
+				<br>
+			<</if>>
+		<<else>>
+			<<link [[偷窃|BabyHawk Hunt Scavenge Clothes]]>><<set $phase to 4>><<flight_hunt_get "fabric" 3>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<if $rng gte 30>>
+			<<if $rng gte 66>>
+				在一堆没用的垃圾中，你成功找到一些残破的衣服。<<flight_hunt_get "fabric" 1>>
+			<<else>>
+				在一堆没用的垃圾中，你成功找到一些残破的衣服。这些衣服破损的太严重，无法再缝补好了。虽然，它们仍能作为有用的材料。<<flight_hunt_get "fabric" 2>>
+			<</if>>
+			<br><br>
+
+			<<babyhawks>>看着你的新发现。<<babyhawksthem>>凑过来用脑袋磨蹭着布料，享受着布料的柔软。
+			<br><br>
+		<<else>>
+			<<if $rng gte 18>>
+				大部分垃圾很无聊，并不能引起你的注意，但你还是成功找到了一些闪亮亮的好东西。<<flight_hunt_get "junk" 1>> 
+			<<elseif $rng gte 9>>
+				大部分垃圾很无聊，并不能引起你的注意，但你还是成功找到了一些闪亮亮的好东西。<<flight_hunt_get "junk" 2>>
+			<<else>>
+				你成功找到了一个全是空罐的坑。幸运的发现。<<flight_hunt_get "junk" 3>> 
+			<</if>>
+			<br><br>
+
+			你的孩子凑过来<<= $cmonster ? "用手" : "用喙">>敲了敲其中一个空罐头，让它发出清脆的响声。
+			<<if hasClever()>><<set _ID to hasClever()>>
+				<<childname _ID>>围绕着这些东西欢呼雀跃。<<childhe _ID>>看起来真的很喜欢这些闪亮亮。
+			<</if>>
+			<br><br>
+		<</if>>
+		<<if $bird.hunts.weight gte (3+$hawksTotal)>>
+			你再也拿不下更多东西了。你飞向空中，开始返回高塔。
+			<br><br>
+
+			<<flight_distance_check>><<HuntTogetherClean>>
+			<<flight_time_check _returnTime "silent">>
+			<<link [[回到城堡 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<<elseif $daily.emptyCampLoot lte 0>>
+			你再次看了一眼周围。你已经拿走了所有值钱的东西，现在能做到只有离开了。
+
+			<<endevent>>
+			<<babyhawk_hunt_return>>
+		<<else>>
+			<<switch $daily.emptyCampLoot>>
+				<<case 3>>你已经翻找过了一部分垃圾，不过还有很多可以搜寻的部分。
+				<<case 2>>你已经找到了许多东西，但应该还有很多等待发现。
+				<<case 1>>你已经几乎翻遍了所有位置，已经没有什么可以发现的了。
+			<</switch>>
+			<br><br>
+			<<set _time to 10-($hawksTotal*2)>><<if _time lt 0>><<set _time to 1>><<set _showtime to '01'>><<elseif _time lt 10>><<set _showtime to '0'+_time>><<else>><<set _showtime to _time>><</if>>
+			<<link [[继续搜寻 (0:<<print _showtime>>)|BabyHawk Hunt Scavenge]]>><<bird_pass _time>><</link>>
+			<br>
+			<<link [[离开|BabyHawk Hunt Scavenge Leave]]>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: BabyHawk Hunt Scavenge Clothes []
+<<effects>>
+<<switch $phase>>
+	<<case 1>>你穿上它，向你的孩子展示着。
+	<<case 2>>你将它撕碎，以便携带。
+	<<case 3>>你将它夹在胳膊底下。
+	<<case 4>>你将衣服尽可能地叠好，以便携带。然后你将它夹在胳膊底下。
+<</switch>>
+<br><br>
+
+<<babyhawks>>看着你的新发现。<<babyhawksthem>>凑过来用脑袋磨蹭着布料，享受着布料的柔软。
+<br><br>
+
+<<if $phase is 1 and hasSympathy()>><<set _ID to hasSympathy()>>
+	<<childname _ID>>好奇地看着你换上新的"羽毛"。<<childhe _ID>>试图模仿你的举动，把脑袋塞进了<<print either("一个塑料袋","一个包装袋","一块破损的布料")>>里。
+	<br>
+	<<childhe _ID>>立刻被困在了里面，不断发出烦恼的啁啾声。
+	<br>
+	你不禁失笑，伸手把<<childhe _ID>>解放了出来。
+	<br><br>
+<</if>>
+
+<<if $bird.hunts.weight gte (3+$hawksTotal)>>
+	你再也拿不下更多东西了。你飞向空中，开始返回高塔。
+	<br><br>
+
+	<<flight_distance_check>><<HuntTogetherClean>>
+	<<flight_time_check _returnTime "silent">>
+	<<link [[回到城堡 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+<<elseif $daily.emptyCampLoot lte 0>>
+	你再次看了一眼周围。你已经拿走了所有值钱的东西，现在能做到只有离开了。
+
+	<<endevent>>
+	<<babyhawk_hunt_return>>
+<<else>>
+	<<switch $daily.emptyCampLoot>>
+		<<case 3>>你已经翻找过了一部分垃圾，不过还有很多可以搜寻的部分。
+		<<case 2>>你已经找到了许多东西，但应该还有很多等待发现。
+		<<case 1>>你已经几乎翻遍了所有位置，已经没有什么可以发现的了。
+	<</switch>>
+	<br><br>
+	<<set _time to 10-($hawksTotal*2)>><<if _time lt 0>><<set _time to 1>><<set _showtime to '01'>><<elseif _time lt 10>><<set _showtime to '0'+_time>><<else>><<set _showtime to _time>><</if>>
+	<<link [[继续搜寻 (0:<<print _showtime>>)|BabyHawk Hunt Scavenge]]>><<bird_pass _time>><</link>>
+	<br>
+	<<link [[离开|BabyHawk Hunt Scavenge Leave]]>><</link>>
+	<br>
+<</if>>
+
+:: BabyHawk Hunt Scavenge Leave
+<<effects>>
+你认为自己已经找到得够多了，于是准备离开。<<babyhawks>>跟上了你。
+<br><br>
+
+<<endevent>>
+<<babyhawk_hunt_return>>
