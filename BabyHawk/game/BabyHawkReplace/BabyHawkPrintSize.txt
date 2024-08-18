@@ -1,7 +1,0 @@
-<<widget "hawkChildActivity">>
-	<span class="no-numberify">
-<<if $children[_args[0]].localVariables.sizeHint>>
-	<span class="teal">由于近来的丰富饮食，<<childname>>的体型好像增大了一点儿。</span>
-	<br>
-	<<run delete $children[_args[0]].localVariables.sizeHint>>
-<</if>>
