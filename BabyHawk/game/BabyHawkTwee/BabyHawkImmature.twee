@@ -1,0 +1,59 @@
+:: BabyHawk Childrens Home
+<<getChildrenIds `{location: "otherNest"}` "both">>
+你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
+<<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
+	<<if !$daily.childrenHomeEvent>>
+		<<set $daily.childrenHomeEvent to [$location]>>
+	<<else>>
+		<<run $daily.childrenHomeEvent.push($location)>>
+	<</if>>
+	<<cleareventpool>>
+	<<childrenEvents $location $passage>>
+	<<if _eventpool.length>>
+		<<runeventpool>>
+		<<exit>>
+	<</if>>
+<</if>>
+<br><br>
+<<childViewerDisplay _childrenIds>>
+<br><br>
+<<link [[返回|$exitPassage]]>><<unset $exitPassage>><</link>>
+
+:: BabyHawk Hunt Accept
+你点点头，<<babyhawks>>爆发出一阵喜悦的欢呼声。
+<<if ($bird.activity is "sing" or $bird.activity is "groom") and $bird.state is "home">>
+        <!-- 大鹰目击的反应，现在直接套用原文改了一下你→你们，要写专门的差分吗？ -->
+        <<if $bird.injured gte 1>>
+            <<beasttype>>动了动。
+            <<if $monster is 1>>
+                "狩猎愉快，"<<bhe>>试图掩藏自己声音里的一点点羞愧，"早点回来。"
+            <<else>>
+                在你接近栖木边缘时，<<bHe>>羞愧地叽喳叫起来，祝愿你们的狩猎能够顺利。
+            <</if>>
+        <<else>>
+            <<beasttype>>动了动。
+            <<if $monster is 1>>
+                <<if Time.dayState is "night">>
+                    <<set $daily.birdNightWarning to true>>
+                    "在晚上打猎吗？会很难，祝你们好运，"<<bhe>>说，"早点回来。"
+                <<else>>
+                    "祝你们狩猎顺利，"<<bhe>>说，"早点回来。"
+                <</if>>
+            <<else>>
+                当你走近栖木的边缘时，<<bhe>>发出了鸣叫声，祝你们打猎顺利。
+            <</if>>
+        <</if>>
+        <br><br>
+<</if>>
+<<babyhawksthem>>跟随着你张开翅膀从塔上跃下。
+<br>
+
+<<link [[继续|BabyHawk Hunt Goal]]>><<endevent>><</link>>
+<br>
+
+
+:: BabyHawk Hunt Refuse
+你摇了摇头，拒绝了<<babyhawksthem>>。<<babyhawks>>抱着你的胳膊发出一阵不满的抱怨声，放你离开了。
+<br><br>
+<<link [[继续|Bird Hunt Start Alone]]>><<HuntTogetherClean>><</link>>
+<br>
