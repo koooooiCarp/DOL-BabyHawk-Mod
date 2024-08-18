@@ -1,0 +1,133 @@
+<<bird_schedule>>
+
+<<if Object.values($children).find(child => (child.localVariables.growHintFledgling == 1))>>
+
+<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<set _childrenTotal to _childrenIds.length>>
+<<set _FledglingIDs to []>>
+<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
+	<<if $children[_childrenIds[_cc]].localVariables.growHintFledgling is 1>>
+		<<set _FledglingIDs.push(_childrenIds[_cc])>>
+		<<run delete $children[_childrenIds[_cc]].localVariables.growHintFledgling>>
+	<</if>>
+	<<updateChildActivity _childrenIds[_cc]>>
+<</for>>
+<<set _FledglingTotal to _FledglingIDs.length>>
+<<if _FledglingTotal gte 3>>
+	<<set _child1 to _FledglingIDs.pluck()>>
+	<<set _child2 to _FledglingIDs.pluck()>>
+	<<set _child3 to _FledglingIDs.pluck()>>
+<<elseif _FledglingTotal gte 2>>
+	<<set _child1 to _FledglingIDs.pluck()>>
+	<<set _child2 to _FledglingIDs.pluck()>>
+<<elseif _FledglingTotal gte 1>>
+	<<set _child1 to _FledglingIDs.pluck()>>
+<<else>>
+	BUG:无法找到对应ID，请汇报作者。
+<</if>>
+
+<<childSelect _child1>>
+你看见<<childname>>正在趴在巢边眼巴巴地望着你。你走到巢边，<<childHe>>努力撑起身子，试图够到你。
+<<switch random(1,2)>>
+	<<case 1>>尝试无果后，<<childhe>>便大声<<childcry>>了起来。你连忙将<<childhe>>抱起，
+	<<case 2>>但在你能弯下腰抱起<<childhim>>之前，<<childhe>>拍打翅膀，猛地扑进了你的怀里。
+<</switch>>
+这时你才发现，怀中的<<childname>>浅色的<span class="teal">绒毛间长出了一些颜色不同的新羽。</span>
+<br><br>
+
+<<if !$firstSeen_Fledgling>>
+	<<set $firstSeen_Fledgling to true>>
+	<<if _childrenTotal gte 2>>
+	你惊讶地检查了其他孩子的羽毛，
+		<<if _FledglingTotal gte 4>>
+			发现其他孩子们身上也有相同的迹象。
+		<<elseif _FledglingTotal gte 3>>
+			发现<<childname _child2>>和<<childname _child3>>身上也有相同的迹象。
+		<<elseif _FledglingTotal gte 2>>
+			发现<<childname _child2>>身上也有相同的迹象。
+		<<else>>
+			但暂且只有<<childhe>>一只身上有这样的迹象。
+		<</if>><br>
+	<</if>>
+	
+	<<if $bird.state is "home">>
+		<<npc "Great Hawk">>
+		你叫来了<<your_bird_text>>，<<bHe>>
+		<<switch $bird.activity>>
+			<<case "sleep" "rest">>动了动，醒了过来，
+			<<case "build" "brood">>歪着脑袋看向你，
+			<<case "bathe">>跳出雨水池，<<if $monster is 1>>走向<<else>>跳向<</if>>你，
+			<<default>>跳了过来，
+		<</switch>>查看你怀中的<<childname>>。
+		意识到自己看见什么后，<<bhe>>开心地膨起了羽毛。
+		<br>
+		<<if $monster is 1>>
+			"我们的孩子正在茁壮成长。"<<bHe>>将你和孩子一同揽入怀中，展开自己的翅膀为你讲解，"<<childname>>的新羽毛正在替换旧的绒毛，<<childhe>>的翅膀会更有力，更健壮。"
+			<br>
+			哈比用手温柔地轻梳着<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。"<<childname>>会需要更多的食物。我会为了孩子们捕到更多猎物的。"
+		<<else>>
+			<<bhe>>展开翅膀，展示般的拍打着，用喙轻啄<<bhis>>的翅膀根部。这让你想起巨鹰每天清理羽毛的样子，看来这是正常的旧羽脱落，换成新羽的过程。
+			<br>
+			巨鹰温柔地轻啄<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。<<bhis>>的动作渐渐停了下来，望向塔外的荒原，似乎做好了为孩子狩猎的准备。
+		<</if>>
+	<<else>>
+		<<if $sciencetrait gte 3>>
+		你了解一些鸟类的基本知识，雏鸟在孵化后很短的一段时间里就会开始经历第一次换羽，将身上的绒毛脱去，长出真正的羽毛。这些新羽毛会更加有助于<<childname>>的保暖和移动。
+		在新羽的生长过程中，你的孩子一定会需要更多的食物来补充能量。
+		<<else>>
+		你了解一些鸟类的常识，小鸟在孵化后不久就会将身上的绒毛脱去，长出新的羽毛。这个过程中，你的孩子一定会需要更多的食物。
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<span class="blue">孩子的食量随着成长而增加了。</span>
+	<br><br>
+
+	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<br>
+<<else>>
+看来<<childname>>也进入了换羽期。
+	<<if _childrenTotal gte 2>>
+	你检查了其他孩子的羽毛，
+		<<if _FledglingTotal gte 4>>
+			发现其他孩子们也开始了换羽。
+		<<elseif _FledglingTotal gte 3>>
+			发现<<childname _child2>>和<<childname _child3>>也开始了换羽。
+		<<elseif _FledglingTotal gte 2>>
+			发现<<childname _child2>>也开始了换羽。
+		<<else>>
+			但暂且只有<<childhe>>一只刚刚开始换羽。
+		<</if>><br><<childSelect _child1>>
+	<</if>>
+
+		<<if $bird.state is "home">>
+		<<npc "Great Hawk">>
+		<<your_bird_text "cap">>
+		<<switch $bird.activity>>
+			<<case "sleep" "rest">>眯着眼睛醒了过来，
+			<<case "build" "brood">>看向你，
+			<<case "bathe">>从雨水池里起身，
+			<<default>>跳了过来，
+		<</switch>>靠近查看你怀中的<<childname>>。
+		意识到自己看见什么后，<<bhe>>骄傲地膨起了羽毛。
+		<br>
+		<<if $monster is 1>>
+			"<<babyhawks>>正在茁壮成长。"<<bHe>>将你和孩子一同揽入怀中，亲昵地磨蹭脸颊，"<<childname>>也很健康。谢谢你，<<wife>>。"<<npcincr "Great Hawk" love 1>><<glove>>
+			<br>
+			哈比用手温柔地轻梳着<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。"<<childname>>会需要更多的食物。我会为了孩子们捕到更多猎物的。"
+		<<else>>
+			<<bhe>>展开翅膀，发出一声自豪的啸叫，用脑袋亲昵地磨蹭你。<<npcincr "Great Hawk" love 1>><<glove>>
+			<br>
+			巨鹰温柔地轻啄<<childname>>身上的绒毛，一些松动的绒毛脱落了下来，像一团柳絮一般飘散在空中。<<bhis>>的动作渐渐停了下来，望向塔外的荒原，似乎做好了为孩子狩猎的准备。
+		<</if>>
+	<<else>>
+		看起来你需要为孩子们准备更多的食物了。
+	<</if>>
+	<br><br>
+
+	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+<<exitAll>>
+<</if>>
