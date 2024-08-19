@@ -157,7 +157,7 @@
 		<<if $hawksTotal gt 1>>其他孩子也扑了过来，他们的尖叫声让<<beasttype>>的尾巴紧张地蓬起。<</if>>
 		<br><br>
 		
-		这只<<beasttype>>当即转身逃跑了。
+		<span class="green">这只<<beasttype>>当即转身逃跑了。</span>
 		<br>
 		你的孩子继续尖鸣着驱赶<<bhim>>，没有追上去。
 		<br><br>
@@ -190,7 +190,7 @@
 		<br><br>
 
 		<<beasttype>>恼怒地试图<<= $monster ? "伸手抓住" : "转头咬向">>你的孩子，却被你一拳打中了下巴，吃痛地嗷嗷叫。
-		这只<<beasttype>>在你们混乱的攻势中败下阵来，逃跑了。
+		<span class="green">这只<<beasttype>>在你们混乱的攻势中败下阵来，逃跑了。</span>
 		<br><br>
 
 		<<babyhawks>>跳到你身边，担心地啾啾叫着。你把<<babyhawksthem>>揽入一个安抚的怀抱里，确认<<babyhawksthem>>没有受伤。<<lstress>>
@@ -476,7 +476,7 @@
 		<<if $hawksTotal gte 4>>
 			得益于孩子们的小体型，<<childname $leaderID>>钻进树冠之间，落在了那根树枝的根部，叽喳叫着呼唤其他孩子。他们看了一会儿，一起跳到大树枝上。
 			<br>
-			<span class="green">他们的重量让树枝发出嘎吱的脆响</span>。你连忙让所有孩子退开，他们一起飞，这根大树枝就不堪重负地断裂，掉在了地上。
+			<span class="green">他们的重量让树枝发出嘎吱的脆响。</span>你连忙让所有孩子退开，他们一起飞，这根大树枝就不堪重负地断裂，掉在了地上。
 			<br><br>
 
 			你小心地爬下树，查看你的成果。<<childrenNames $hawksIDs>>正围着这根完整的大树枝跳来跳去。这根大树枝本身肯定能派上用场，而它上面的一些小树枝也能有些用处。
@@ -681,11 +681,11 @@
 		<<if $hawks_leader is "dominant">>
 			而此时<<childname $leaderID>>从<<beasttype>>身后靠近，猛地用爪子踩住了<<beasttype>>的尾巴。
 			<br>
-			<<beasttype>>因疼痛而尖叫，四处乱窜试图挣开<<childname $leaderID>>的爪子。<<bHe>>在最终溜走前留下了一地飘散的毛发。
+			<<beasttype>>因疼痛而尖叫，四处乱窜试图挣开<<childname $leaderID>>的爪子。<span class="green"><<bHe>>在最终溜走前留下了一地飘散的毛发。</span>
 		<<elseif $hawks_leader is "clever">>
 			而此时<<childname $leaderID>>从<<beasttype>>身后靠近，猛地发出一声尖啸。
 			<br>
-			<<beasttype>>被吓得炸毛，<<bHe>>环顾四周，发现自己不知不觉间已经被你们包围了。<<bHe>>立刻放弃袭击的念头逃走了。
+			<<beasttype>>被吓得炸毛，<<bHe>>环顾四周，发现自己不知不觉间已经被你们包围了。<span class="green"><<bHe>>立刻放弃袭击的念头逃走了。</span>
 		<<else>>
 			<<if $hawksTotal gt 1>>
 			其他孩子也凑过来，学着<<childname _ID>>模仿<<beasttype>>的叫声。孩子们似乎把这当做了一种特别的歌唱练习，玩得不亦乐乎。
@@ -695,12 +695,12 @@
 
 			<<if $rng gte 50>>
 				<<if $monster is 1>>
-					"<<if $hawksTotal gt 1>>一群<</if>>怪胎！"<<bHe>><<if $NPCList[0].type.includes("fox")>>呲起牙<<else>>嘶嘶叫着<</if>>，放弃了袭击的念头，逃走了。
+					"<<if $hawksTotal gt 1>>一群<</if>>怪胎！"<<bHe>><<if $NPCList[0].type.includes("fox")>>呲起牙<<else>>嘶嘶叫着<</if>>，<span class="green">放弃了袭击的念头，逃走了。</span>
 				<<else>>
-					<<bHe>>最后在<<= $hawksTotal gt 1 ? "孩子们的古怪合奏" : "<<childname _ID>>的古怪模仿秀">>中放弃了袭击的念头，逃走了。
+					<<bHe>>最后在<<= $hawksTotal gt 1 ? "孩子们的古怪合奏" : "<<childname _ID>>的古怪模仿秀">>中放弃了袭击的念头，<span class="green">逃走了。</span>
 				<</if>>
 			<<else>>
-				<<bHe>>发出一声恼怒的咆哮，猛地扑向了<<childname _ID>>！
+				<<bHe>>发出一声恼怒的咆哮，<span class="red">猛地扑向了<<childname _ID>>！</span>
 				<<if $bestialitydisable is "f">>
 					你下意识挡在了<<childname _ID>>的面前，被<<beasttype>>扑倒在地。
 					<br><br>
@@ -735,7 +735,7 @@
 <<else>>
 	<<babyhawk_hunt_return>>
 <</if>>
-
+<!-- 保证本场战斗敌方只会使用攻击而不是试图撅PC。-->
 :: BabyHawk Hunt Underbrush Fight
 <<if $fightstart is 1>>
 	<<set $fightstart to 0>>
@@ -744,20 +744,24 @@
 	<<beastCombatInit>>
 	<<set $enemytrust to -100>>
 	<<set $enemyanger to 200>>
-	<span class="blue">你看到<<babyhawks>>尖啸着扑到<<beasttype>>的身上。</span>
-	<br><br>
-	<<set $enemyhealth -= $hawksTotal*20>>
+	<<set $timer to 1>>
 <</if>>
 
-<<set _rng to random(0, $hawksTotal-1)>>
-<<switch random(1,4)>>
-	<<case 1>><span class="blue"><<childname $hawksIDs[_rng]>>的爪子没入<<beasttype>>的皮毛。<<bHe>>尖叫着攻击你们。</span>
-	<<case 2>><span class="blue"><<childname $hawksIDs[_rng]>><<= $cmonster ? "扯下了" : "啄下了">><<beasttype>>一大撮毛。<<bHe>>吃痛地<<if $NPCList[0].type.includes("fox")>>嗷嗷叫<<else>>喵喵叫<</if>>。</span>
-	<<case 3>><span class="blue"><<childname $hawksIDs[_rng]>><<= $cmonster ? "抓住" : "叼住">><<beasttype>>的耳朵撕扯。<<beasttype>>猛地甩头，试图甩开<<childhim _hawksIDcopy[_rng]>>。</span>
-	<<case 4>><span class="blue"><<childname $hawksIDs[_rng]>>拍打着翅膀紧紧抓着<<beasttype>>不放。羽毛和绒毛漫天飞散。</span>
-<</switch>>
-<br><br>
-<<set $enemyhealth -= $hawksTotal*20>>
+<<if $timer is 1>>
+	<span class="blue">你看到<<babyhawks>>尖啸着扑到<<beasttype>>的身上。</span>
+	<br><br>
+	<<set $enemyhealth -= $hawksTotal*10>>
+<<else>>
+	<<set _rng to random(0, $hawksTotal-1)>>
+	<<switch random(1,4)>>
+		<<case 1>><span class="blue"><<childname $hawksIDs[_rng]>>的爪子没入<<beasttype>>的皮毛。<<bHe>>尖叫着攻击你们。</span>
+		<<case 2>><span class="blue"><<childname $hawksIDs[_rng]>><<= $cmonster ? "扯下了" : "啄下了">><<beasttype>>一大撮毛。<<bHe>>吃痛地<<if $NPCList[0].type.includes("fox")>>嗷嗷叫<<else>>喵喵叫<</if>>。</span>
+		<<case 3>><span class="blue"><<childname $hawksIDs[_rng]>><<= $cmonster ? "抓住" : "叼住">><<beasttype>>的耳朵撕扯。<<beasttype>>猛地甩头，试图甩开<<childhim $hawksIDs[_rng]>>。</span>
+		<<case 4>><span class="blue"><<childname $hawksIDs[_rng]>>拍打着翅膀紧紧抓着<<beasttype>>不放。羽毛和绒毛漫天飞散。</span>
+	<</switch>>
+	<br><br>
+<<set $enemyhealth -= $hawksTotal*20>><<set $enemytrust to -100>><<set $enemyanger to 200>>
+<</if>>
 
 <<effects>>
 <<effectsman>>
@@ -786,7 +790,7 @@
 
 	<<tearful>>你站了起来。
 <<elseif $enemyhealth lte 0>>
-	<<bHe>>翻滚离开你身边，落进灌木丛里。
+	<<bHe>>翻滚离开你身边，落进灌木丛里。<<earnFeat "Wild Animals">>
 	<br><br>
 
 	<<tearful>>你振作了起来。
@@ -795,7 +799,7 @@
 <</if>>
 <<clotheson>>
 <<endcombat>>
-<<earnFeat "Wild Animals">>
+
 你抱住冲进你怀里的<<babyhawks>>，<<babyhawksthem>>亲昵地蹭着你的脸颊，发出担心的颤鸣。
 <br>
 你们互相安慰检查着休息了好一会儿才离开。<<ltiredness>><<tiredness -10>><<lpain>><<pain -10>>
@@ -803,3 +807,397 @@
 <br><br>
 
 <<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Flowers
+<<effects>><<childSelect $leaderID>>
+你降落在花丛中。<<babyhawks>>落在你身后。
+<br><br>
+
+这里没有什么特别有用的东西，但确实很漂亮。
+<br>
+
+<<link [[在花丛中小憩 (0:15)|BabyHawk Hunt Flowers Relax]]>><<set $phase to 1>><<bird_pass 15>><<stress -6>><<tiredness -2>><</link>><<lstress>><<ltiredness>>
+<br>
+<<if !$daily.birdFlowerCrown>>
+	<<link [[为你的孩子做一顶花环 (0:25)|BabyHawk Hunt Flowers Relax]]>><<set $phase to 2>><<bird_pass 25>><</link>><<tendingdifficulty 1 300>>
+	<br>
+<</if>>
+<<if $worn.head.name isnot "flower crown">>
+	<<link [[为你自己做一顶花环 (0:25)|BabyHawk Hunt Flowers Relax]]>><<set $phase to 3>><<bird_pass 25>><</link>><<tendingdifficulty 1 200>>
+	<br>
+<</if>>
+<<link [[离开|BabyHawk Hunt Flowers Leave]]>><</link>>
+<br>
+
+:: BabyHawk Hunt Flowers Leave
+<<effects>>
+<<flight_hunt_return>>
+
+:: BabyHawk Hunt Flowers Relax
+<<effects>>
+<<switch $phase>>
+	<<case 1>>
+		你躺在花丛里。<br>
+		<<if hasClumsy()>><<set _ID1 to hasClumsy()>>
+			<<childname _ID1>>好奇地低头看着你，然后在你身边躺下。没过多久<<childhim _ID1>>就钻到了你的怀里，放松地依偎着你。<<lstress>><<stress -6>>
+			<br>
+		<</if>>
+		<<if hasSympathy()>><<set _ID2 to hasSympathy()>>
+			<<childname _ID2>>在一旁用爪子刨着地面。你翻过身看向<<childhim _ID2>>，看起来<<childhim _ID2>>在地上找到了一小队蚂蚁，正好奇地观察着它们。<<lstress>><<stress -6>>
+			<br>
+		<</if>>
+		<<if hasClever()>><<set _ID3 to hasClever()>>
+			<<childname _ID3>>在不远处追逐着花丛里的蝴蝶。<<lstress>><<stress -6>>
+			<br>
+		<</if>>
+		<<if hasDominant()>><<set _ID4 to hasDominant()>>
+			<<childname _ID4>>也坐下来，梳理自己因飞行而翘起的羽毛。<<lstress>><<stress -6>>
+			<br>
+		<</if>>
+		<br>
+		放空一段时间感觉不错。
+		<br><br>
+
+		你决定不在这里停留太久。
+		<br><br>
+
+		<<babyhawk_hunt_return>>
+	<<case 2>>
+		你开始挑选你能找到的最漂亮的花，然后把它们缠成一个花冠。你把它举到<<childname>>的头上，试着调整它的大小。
+		<<if $hawks_leader is "clever">>
+			<<childHe>>好奇地看着你。
+		<<else>>
+			当你这么做时，<<childHe>>试图把脑袋塞进花环里。你轻拍<<childhim>>的额头，示意<<childhim>>把花冠还回来。
+		<</if>>
+		<br><br>
+
+		你做好了花冠，并示意<<childhim>>低下头。
+		<<if $tendingSuccess>>
+			<<set $daily.birdFlowerCrown to true>>
+			<span class="green">它戴在头上很合适。</span>
+			<<if $cmonster is 1>>
+				<<childname>>抬爪去触摸它，花瓣的柔软触感似乎让<<childhim>>很满意。
+			<<else>>
+				<<childname>>晃了几次头，试图甩掉它，但很快就习惯了。<<childHe>>啾啾叫着，似乎很喜欢花冠散发出的香味。
+			<</if>>
+			<<trauma -8>><<lltrauma>>
+		<<else>>
+			很合适，<span class="red">但它很快就散架了。</span>
+			<<if $cmonster is 1>>
+				<<childname>>捡起飘落的花瓣，花瓣的柔软触感似乎让<<childhim>>很满意。
+			<<else>>
+				<<childname>>冲你歪着头。
+			<</if>>
+		<</if>>
+		<<tending 1>><<gtending>>
+		<br><br>
+
+		<<if $hawksTotal gt 1>>
+			<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
+			<<childrenNames _hawksIDcopy>>也凑过来，冲你叽叽喳喳地叫着，想要一个同样的花冠。
+			<br><br>
+			<<bird_pass 5*($hawksTotal-1)>>
+			你又花了些时间给每个孩子做一顶花冠，
+			<<if $tendingSuccess>>
+				最终，他们各个都戴着五颜六色的花冠，兴高采烈地到一旁玩耍。
+			<<else>>
+				但无一例外都散架了。尽管如此，孩子们看起来依然很满意，用爪子把散落的花瓣揉成一团，享受着花瓣的触感和香味。
+			<</if>>
+			<<trauma -8>><<lltrauma>>
+			<<tending $hawksTotal-1>><<gtending>>
+			<br><br>
+		<</if>>
+		你决定不在这里停留太久。
+		<br><br>
+
+		<<babyhawk_hunt_return>>
+	<<case 3>>
+		你开始挑选你能找到的最漂亮的花，然后把它们缠成一个花环。几分钟后，你做好花冠戴上。
+		<br><br>
+
+		<<if $tendingSuccess>>
+			<<if isConnectedToHood("head")>>
+				<<toggleHood>>
+			<</if>>
+			<<headwear 14>>
+			<<set $daily.birdFlowerCrown to true>>
+			<span class="green">它很牢固。</span>
+			<<babyhawks>>好奇地看着你换上新的冠羽。
+			<<trauma -8>><<lltrauma>>
+		<<else>>
+			<span class="red">它很快就散架了。</span>
+			<<babyhawks>>好奇地看着这些飘散的花瓣。
+		<</if>>
+		<<tending 1>><<gtending>>
+		<br><br>
+
+		你决定不在这里停留太久。
+		<br><br>
+
+		<<babyhawk_hunt_return>>
+<</switch>>
+<!-- 狩猎回去之后再检查是否每个人都吃饱了，没吃饱就吃掉潜伏者，吃饱了就放入战利品堆 -->
+:: BabyHawk Hunt Lurkers Lot
+<<effects>><<childSelect $leaderID>>
+你和<<babyhawks>>包围了潜伏者，<<childname>>
+<<if $hawks_leader is "dominant">>
+	盯着其中一只潜伏者。<<childHe>>已经锁定目标了。
+<<else>>
+	看着你，等着你选择目标。
+<</if>>
+有一只落单的，还有几只紧靠在一起。
+<br><br>
+
+<<link [[狩猎落单的那只|BabyHawk Hunt Lurkers Lot Single]]>><</link>><<dancedifficulty 1 600-$hawksTotal*50>>
+<br>
+<<link [[狩猎凑在一起的两只|BabyHawk Hunt Lurkers Lot Double]]>><</link>><<dancedifficulty 300 1200-$hawksTotal*50>>
+<br>
+<<link [[狩猎一整群|BabyHawk Hunt Lurkers Lot Group]]>><</link>><<dancedifficulty 600 1200>><<tendingdifficulty 1 700>>
+<br>
+
+:: BabyHawk Hunt Lurkers Lot Single
+<<effects>>
+你盯着落单的那只潜伏者，再看了看你的孩子。你们都决定好目标了。你跟着<<babyhawksthem>>俯冲而下。
+<br><br>
+
+<<childname>>成功用爪子抓住了一只。
+<<if $hawksTotal gt 1>>
+	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
+	<<childrenNames _hawksIDcopy>>也扑向潜伏者。
+<</if>>
+<br><br>
+<<dancedifficulty 1 600-$hawksTotal*50 true>>
+<<if $danceSuccess>>
+	其他潜伏者跳着逃开了，<span class="green">但你还是抓到了一只</span>。你带着战利品飞回空中。
+	<br><br>
+	<<flight_hunt_get "lurkers" 2>>
+<<else>>
+	其他潜伏者跳着逃开了，你的目标<span class="red">躲开了你的俯冲</span>，你只抓到了空气。你试着再去捉另一只，但它们已经全逃了。你空着手回到了空中。
+	<br><br>
+	<<set _huntFail to 1>>
+	<<childname>>发出小声的叽喳叫，安慰着你。至少，<<childhim>>并没有失败。
+	<<flight_hunt_get "lurkers" 1>>
+<</if>>
+<br><br>
+
+<<if $hawksTotal gt 1>>
+	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	你看向其他孩子们，
+	<<if _rng is 0>>
+		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+	<<elseif _rng is $hawksTotal-1>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<<else>>
+		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<for _i;_i<_pop;i++>>
+			<<run _hawksIDcopy.pop()>>
+		<</for>><<set _total to _hawksIDcopy.length>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<</if>>
+	<br><br>
+<</if>>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Lurkers Lot Double
+<<effects>>
+想证明你的能力，你盯着那对潜伏者。为了表示你想先进攻，你向侧边倾斜。<<if $hawks_leader is "dominant">><<childname>><<= $cmonster ? "不满地哼了一声。" : "不满地敲了敲喙。">><<else>><<babyhawks>>跟在你的身后。<</if>>
+<br><br>
+
+你继续从高处盘旋，等待完美的时机。你看到它了，你的狩猎本能开始发挥作用，你开始俯冲。
+<br><br>
+
+<<dancedifficulty 300 1200-$hawksTotal*50 true>>
+<<if $danceSuccess>>
+	你的动作很快，<span class="green">足够在它们恢复前就抓住了它们。</span>另一只潜伏者跳了起来，想要逃跑，但它的动作太慢了。<<childname>>在半空抓住了它。你飞进了云层中，你的孩子也跟上了你。
+	<<flight_hunt_get "lurkers" 3>>
+<<else>>
+	<span class="red">但是你太慢了。</span>其他的潜伏者跳起来拦截了你。你偏离了路径，侧身落地。<<pain 3>><<gpain>>
+	<br><br>
+
+	没等潜伏者跳到你身上，一声尖鸣划破了空气。<<babyhawks>>猛扑到潜伏者群当中，试图在混乱的局面里抓住猎物。你拍了拍身上的尘土，重新起飞。<<childname>>飞到你身边，<<childHe>>似乎也错失了<<childhis>>的猎物。
+	<<set _huntFail to 1>>
+<</if>>
+<br><br>
+
+<<if $hawksTotal gt 1>>
+	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	你看向其他孩子们，
+	<<if _rng is 0>>
+		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+	<<elseif _rng is $hawksTotal-1>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<<else>>
+		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<for _i;_i<_pop;i++>>
+			<<run _hawksIDcopy.pop()>>
+		<</for>><<set _total to _hawksIDcopy.length>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<</if>>
+	<br><br>
+<</if>>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Lurkers Lot Group
+<<effects>>
+想证明你的能力，你盯着整群潜伏者。为了表示你想先进攻，你向侧边倾斜。<<if $hawks_leader is "dominant">><<childname>><<= $cmonster ? "不满地哼了一声。" : "不满地敲了敲喙。">><<else>><<babyhawks>>跟在你的身后。<</if>>
+<br><br>
+
+你继续在高处盘旋，等待完美的时机。你看到它了，你的狩猎本能开始发挥作用。你发出一声尖叫，然后开始俯冲。
+<br><br>
+
+<<dancedifficulty 600 1200 true>><<tendingdifficulty 1 700 true>>
+<<if $danceSuccess and $tendingSuccess>>
+	<span class="green">刹那间，恐怖无处遁形。</span>你的尖叫声让潜伏者们瘫痪。你速度极快，足以在它们恢复之前抓住它们。你的感官前所未有地敏锐。你两手各抓住一个潜伏者，准备重返天空。但你瞄到范围内的另一只潜伏者，身体自行移动，双脚直接踩上去，也抓到了它。<<childname>>在空中捕捉到一个。你升上云端，和你的孩子会合。
+	<<flight_hunt_get "lurkers" 4>>
+	<<earnFeat "Feather Trick">>
+<<else>>
+	<span class="red">但是你太慢了。</span>其他的潜伏者跳起来拦截了你。你偏离了路径，侧身落地。<<pain 3>><<gpain>>
+	<br><br>
+
+	没等潜伏者跳到你身上，一声尖鸣划破了空气。<<babyhawks>>猛扑到潜伏者群当中，试图在混乱的局面里抓住猎物。你拍了拍身上的尘土，重新起飞。<<childname>>飞到你身边，<<childHe>>似乎也错失了<<childhis>>的猎物。
+	<<set _huntFail to 1>>
+<</if>>
+<br><br>
+
+<<if $hawksTotal gt 1>>
+	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	你看向其他孩子们，
+	<<if _rng is 0>>
+		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+	<<elseif _rng is $hawksTotal-1>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<<else>>
+		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<for _i;_i<_pop;i++>>
+			<<run _hawksIDcopy.pop()>>
+		<</for>><<set _total to _hawksIDcopy.length>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<br><br>
+		<<flight_hunt_get "lurkers" _rng>>
+	<</if>>
+	<br><br>
+<</if>>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Lurkers Few
+<<effects>><<childSelect $leaderID>>
+潜伏者移动得相当快，在灌木丛之间穿梭。你不认为你能在飞行中抓住它。
+
+你可以等到它停下来再伏击它，或者是在地面上追击它。
+<br><br>
+
+<<if $hawks_leader is "clever">>
+	<<babyhawks>>等待着，想要看你会怎么做。
+<<else>>
+	<<babyhawks>>紧盯着灌木丛的动静，爪子轻轻地虚握着，显得跃跃欲试，似乎迫不及待地想要捕猎这只潜伏者。
+<</if>>
+<br><br>
+<!-- 小鹰自己拿东西 -->
+<<if ($bird.hunts.weight-$hawksTotal) gt 0>>
+	<<set _athlDiffMin to ($bird.hunts.weight-$hawksTotal)*50>>
+<<else>>
+	<<set _athlDiffMin to 0>>
+<</if>>
+<<set _athlDiffMax to (_athlDiffMin + 500)>>
+<<set $skulduggerydifficulty to 500>>
+<<if $hawks_leader isnot "clever">>
+	<<link [[让你的孩子捕猎|BabyHawk Hunt Lurkers Few PokemonGo]]>><</link>>
+	<br>
+<</if>>
+<<link [[伏击|BabyHawk Hunt Lurkers Few Ambush]]>><</link>><<skulduggerydifficulty>>
+<br>
+<<link [[追赶|BabyHawk Hunt Lurkers Few Chase]]>><</link>><<athleticsdifficulty _athlDiffMin _athlDiffMax>>
+<br>
+
+:: BabyHawk Hunt Lurkers Few PokemonGo
+<<switch $speech_attitude>>
+	<<case "bratty">>	你指着地面上的潜伏者，指挥你的<<= $cmonster ? "小哈比" : "小鹰">>。"就决定是你了，<<childname>>！去吧！"
+	<<case "meek">>		"你、<<babyhawksyou>>想试试的话就去吧。"你绕着<<babyhawks>>飞行，鼓励<<babyhawksthem>>。
+	<<case "neutral">>	"<<babyhawksyou>>去吧。"你窃笑，"让我看看<<babyhawksyou>>的本事。"
+<</switch>>
+<br><br>
+
+<<babyhawks>>尖鸣一声，从高空向猎物俯冲而去。潜伏者立刻注意到了<<babyhawksthem>>，并且开始逃跑。
+<br><br>
+它的动作敏捷，反复改变移动的方向，把追逐在后面的<<= $cmonster ? "小哈比" : "小鹰">><<if $hawksTotal gt 1>>们<</if>>甩开一大截距离。
+<<if hasClumsy()>><<set _ID to hasClumsy()>>
+	<<childname _ID>>在一个猛地急转弯之下失去平衡，脸着地撞向了地面。
+	<br>
+<</if>>
+<<babyhawksthem>>尖啸着，最后一次猛扑潜伏者，但它飞快钻入了一条缝隙，消失不见了。
+<br><br>
+
+<<babyhawks>>懊丧地低鸣，飞回了你的身边。你安抚了<<babyhawksthem>>好一会儿。
+<br><br>
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Lurkers Few Ambush
+<<effects>>
+你等待潜伏者开始休息，悄悄着陆。你记住了它的位置，小心地溜过去。
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+	<span class="green">你成功溜到了它身后。</span>趁潜伏者浑然不觉时，你
+	<<if $farm_stage gte 10>>
+		把你的网扔向它。它在网中努力挣扎，
+	<<else>>
+		跳过去抓住它。它在你的手中挣扎，
+	<</if>>
+	但是很快就放弃了。
+	<br><br>
+
+	<<babyhawks>>降落在你的身边唧唧叫着，似乎对你类似于陆地生物的捕猎方法感到好奇。
+	<<if $hawks_leader is "clever" and $farm_stage gte 10>>
+		<<childname>>好奇地用爪子抓挠你的网，在抓破网兜前被你及时制止了。
+	<</if>>
+	<br><br>
+
+	<<flight_hunt_get "lurkers" 1>>
+<<else>>
+	就在你抵达它原先在的位置时，你<span class="red">扑了个空</span>。它肯定是听见你的动静逃跑了。
+	<br><br>
+
+	<<babyhawks>>降落在你的身边，随后向一个方向跑去。看起来<<babyhawksthem>>从上空看到了潜伏者的逃跑方向，你跟着<<babyhawksthem>>，一路追到了地面上的一处大缝隙。
+	<br>
+	看来潜伏者从这里逃走了。
+	<<set _huntFail to 1>>
+<</if>>
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Lurkers Few Chase
+<<effects>>
+你降落在它附近，开始奔跑。潜伏者立刻注意到了你，并且开始逃跑。
+<<if $athleticsSuccess>>
+	<span class="green">你设法跟上了它。</span>很快，这只生物就进入了你触手可及的范围内。你跳上并牢牢抓住了它。它挣扎了一会，但很快就放弃了。
+	<br><br>
+
+	<<babyhawks>>降落在一旁，为你高兴地叽喳叫着。
+	<br><br>
+
+	<<flight_hunt_get "lurkers" 1>>
+	<<babyhawk_hunt_return>>
+<<else>>
+	<span class="red">潜伏者实在是太快了。</span>它溜得更快，不一会你就被懊丧地甩开。
+	<br><br>
+
+	你回到<<babyhawks>>身边，<<babyhawksthem>>围绕着你叽喳叫。
+	<br><br>
+
+	<<set _huntFail to 1>>
+	<<babyhawk_hunt_return>>
+<</if>>

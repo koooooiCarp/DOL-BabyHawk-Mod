@@ -217,21 +217,23 @@
 			<br><br>
 		<<else>>
 			<<link [[着陆 (0:02)|BabyHawk Hunt Scavenge Party Site]]>><<endevent>><<bird_pass 2>><</link>>
-			<br>
+			<br><br>
 		<</if>>
 	<<else>>
 		你看到一片开阔的空地上篝火熊熊，周围围满了人——他们似乎在跳舞和享乐。现在这里的人太多，你无法靠近。
 		<br><br>
 		
-		这些移动的人影似乎让你的孩子感到相当迷惑。<<babyhawksthem>>绕着篝火上空的烟柱飞行了几圈。这些人正忙于派对，没有发现你们。
+		这些移动的人影似乎让你的孩子感到相当迷惑。<<babyhawksthem>>绕着篝火上空的烟柱飞行了几圈。
+		<br>
+		这些人正忙于派对，没有发现你们。
 		<br>
 		<<if hasSympathy()>><<set _ID to hasSympathy()>>
 			<<childname _ID>>在你身边轻轻地跟着人群中的音乐声鸣唱。<<lstress>><<stress -5>>
 		<</if>>
-		<br>
+		<br><br>
 	<</if>>
 	<<babyhawk_hunt_options>>
-<!--这个部分太大了！我还没想好怎么做
+/*<!-- 这个部分太大了！我还没想好怎么做 -->
 <<elseif ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is 3) or ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is -3)>>
 	附近一座山顶上有一根高高的石柱。石柱底部完全被茂密的植物覆盖，其间一条小路穿过了灌木丛。
 	<<if Time.dayState is "night">>
@@ -242,10 +244,10 @@
 		<br><br>
 
 		<<link [[着陆 (0:02)|Bird Hunt Ambush Point]]>><<endevent>><<bird_pass 2>><</link>>
-		<br>
+		<br><br>
 	<</if>>
-	<<flight_hunt_options>>
--->
+	<<babyhawk_hunt_options>>
+*/
 <<else>>
 
 	<<addinlineevent "babyhawk_hunt_nothing" _flight_hunt_chance.nothing>>
@@ -335,47 +337,42 @@
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_flowers" (_flight_hunt_chance.materials + Math.floor($bird.hunts.distanceEast / 2))>>
+	<<addinlineevent "babyhawk_hunt_flowers" (_flight_hunt_chance.materials + Math.floor($bird.hunts.distanceEast / 2))>>
 		你注意到一片颜色鲜亮的花丛。
 		<br><br>
 
-		<<link [[着陆 (0:05)|Bird Hunt Flowers]]>><<bird_pass 5>><</link>>
+		<<link [[着陆 (0:05)|BabyHawk Hunt Flowers]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_lurkers_1" _flight_hunt_chance.lurkers>>
-		<<if $bird.hunts.duo is true>>
-			<<npc "Great Hawk">>
-			巨鹰发出一声小小的尖鸣，引起你的注意。你看见草地上有些潜伏者。它们似乎正在休息。 
-			<<if $monster is 1>>
-				"猎物没有察觉。现在是突袭的好时机。"
-			<<else>>
-				<<bHe>>发出另一声压低的尖鸣，表明想要发动袭击。
-			<</if>>
+	<<addinlineevent "babyhawk_hunt_lurkers_1" _flight_hunt_chance.lurkers>>
+		<<if $hawks_leader is "dominant">>
+			<<childname $leaderID>>发出一声小小的尖鸣，引起你的注意。你看见草地上有些潜伏者。它们似乎正在休息。 
+			<<childHe $leaderID>>发出另一声压低的尖鸣，表明想要发动袭击。
 			<br><br>
 
-			<<link [[狩猎它们 (0:05)|Bird Hunt Lurkers GH]]>><<bird_pass 5>><</link>>
+			<<link [[狩猎它们 (0:05)|BabyHawk Hunt Lurkers Lot]]>><<bird_pass 5>><</link>>
 			<br>
 		<<else>>
 			你发现草地上有些潜伏者。它们似乎正在休息。
 			<br><br>
 
-			<<link [[狩猎它们 (0:05)|Bird Hunt Lurkers Alone]]>><<bird_pass 5>><</link>>
+			<<link [[狩猎它们 (0:05)|BabyHawk Hunt Lurkers Lot]]>><<bird_pass 5>><</link>>
 			<br>
 		<</if>>
-		<<link [[无视它们|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视它们|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_lurkers_2" _flight_hunt_chance.lurkers>>
+	<<addinlineevent "babyhawk_hunt_lurkers_2" _flight_hunt_chance.lurkers>>
 		你注意到有只潜伏者孤零零地前进着。
 		<br><br>
 
-		<<link [[狩猎 (0:05)|Bird Hunt Lurkers Few]]>><<bird_pass 5>><</link>>
+		<<link [[狩猎 (0:05)|BabyHawk Hunt Lurkers Few]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
