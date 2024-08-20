@@ -12,7 +12,6 @@
     <br><br>
     <<babyhawksthem>>似乎想要和你一起去狩猎。
     <br><br>
-    
     <<link [[带上你的孩子|BabyHawk Hunt Accept]]>><</link>>
     <br>
     <<link [[拒绝|BabyHawk Hunt Refuse]]>><</link>>

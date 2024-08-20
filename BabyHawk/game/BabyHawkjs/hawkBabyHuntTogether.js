@@ -16,6 +16,20 @@ function hasDominant() {
 }
 window.hasDominant = hasDominant;
 
+function getAllDominant() {
+	T.tempIDs = [];
+	let i = 0;
+
+	for (i = 0; i < V.hawksTotal; i++){
+		if(V.children[V.hawksIDs[i]].localVariables.trait == "dominant"){
+			T.tempIDs.push(V.hawksIDs[i]);
+		}
+	}
+
+	return T.tempIDs;
+}
+window.getAllDominant = getAllDominant;
+
 function hasClever() {
 	let tempID = undefined;
 	let i = 0;
@@ -32,6 +46,20 @@ function hasClever() {
 	return tempID;
 }
 window.hasClever = hasClever;
+
+function getAllClever() {
+	T.tempIDs = [];
+	let i = 0;
+
+	for (i = 0; i < V.hawksTotal; i++){
+		if(V.children[V.hawksIDs[i]].localVariables.trait == "clever"){
+			T.tempIDs.push(V.hawksIDs[i]);
+		}
+	}
+
+	return T.tempIDs;
+}
+window.getAllClever = getAllClever;
 
 function hasSympathy() {
 	let tempID = undefined;
@@ -50,6 +78,20 @@ function hasSympathy() {
 }
 window.hasSympathy = hasSympathy;
 
+function getAllSympathy() {
+	T.tempIDs = [];
+	let i = 0;
+
+	for (i = 0; i < V.hawksTotal; i++){
+		if(V.children[V.hawksIDs[i]].localVariables.trait == "sympathy"){
+			T.tempIDs.push(V.hawksIDs[i]);
+		}
+	}
+
+	return T.tempIDs;
+}
+window.getAllSympathy = getAllSympathy;
+
 function hasClumsy() {
 	let tempID = undefined;
 	let i = 0;
@@ -66,3 +108,17 @@ function hasClumsy() {
 	return tempID;
 }
 window.hasClumsy = hasClumsy;
+
+function getAllClumsy() {
+	T.tempIDs = [];
+	let i = 0;
+
+	for (i = 0; i < V.hawksTotal; i++){
+		if(V.children[V.hawksIDs[i]].localVariables.trait == "clumsy"){
+			T.tempIDs.push(V.hawksIDs[i]);
+		}
+	}
+
+	return T.tempIDs;
+}
+window.getAllClumsy = getAllClumsy;

@@ -117,8 +117,8 @@
 <<effects>><<endevent>>
 <<set $daily.emptyCamp to true>>
 你和<<babyhawks>>降落在这片区域外围。<<babyhawksthem>>环顾着四周。
-<<if hasClever()>><<set _ID to hasClever()>>
-	<<childname _ID>>激动地叽喳叫着，埋头在垃圾堆里翻找起来。
+<<if getAllClever()>>
+	<<childrenNames _tempIDs>>激动地叽喳叫着，埋头在垃圾堆里翻找起来。
 <</if>>
 <br><br>
 
@@ -286,8 +286,8 @@
 			<br><br>
 
 			你的孩子凑过来<<= $cmonster ? "用手" : "用喙">>敲了敲其中一个空罐头，让它发出清脆的响声。
-			<<if hasClever()>><<set _ID to hasClever()>>
-				<<childname _ID>>围绕着这些东西欢呼雀跃。<<childhe _ID>>看起来真的很喜欢这些闪亮亮。
+			<<if getAllClever()>>
+				<<childrenNames _tempIDs>>围绕着这些东西欢呼雀跃。<<= getAllClever().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>看起来真的很喜欢这些闪亮亮。
 			<</if>>
 			<br><br>
 		<</if>>
@@ -838,20 +838,20 @@
 <<switch $phase>>
 	<<case 1>>
 		你躺在花丛里。<br>
-		<<if hasClumsy()>><<set _ID1 to hasClumsy()>>
-			<<childname _ID1>>好奇地低头看着你，然后在你身边躺下。没过多久<<childhim _ID1>>就钻到了你的怀里，放松地依偎着你。<<lstress>><<stress -6>>
+		<<if getAllClumsy()>>
+			<<childrenNames _tempIDs>>好奇地低头看着你，然后在你身边躺下。没过多久<<= getAllClumsy().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>就钻到了你的怀里，放松地依偎着你。<<lstress>><<stress -6>>
 			<br>
 		<</if>>
-		<<if hasSympathy()>><<set _ID2 to hasSympathy()>>
-			<<childname _ID2>>在一旁用爪子刨着地面。你翻过身看向<<childhim _ID2>>，看起来<<childhim _ID2>>在地上找到了一小队蚂蚁，正好奇地观察着它们。<<lstress>><<stress -6>>
+		<<if getAllSympathy()>>
+			<<childrenNames _tempIDs>>在一旁用爪子刨着地面。你翻过身看向<<childhim _ID2>>，看起来<<childhim _ID2>>在地上找到了一小队蚂蚁，正好奇地观察着它们。<<lstress>><<stress -6>>
 			<br>
 		<</if>>
-		<<if hasClever()>><<set _ID3 to hasClever()>>
-			<<childname _ID3>>在不远处追逐着花丛里的蝴蝶。<<lstress>><<stress -6>>
+		<<if getAllClever()>>
+			<<childrenNames _tempIDs>>在不远处追逐着花丛里的蝴蝶。<<lstress>><<stress -6>>
 			<br>
 		<</if>>
-		<<if hasDominant()>><<set _ID4 to hasDominant()>>
-			<<childname _ID4>>也坐下来，梳理自己因飞行而翘起的羽毛。<<lstress>><<stress -6>>
+		<<if getAllDominant()>>
+			<<childrenNames _tempIDs>>也坐下来，梳理自己因飞行而翘起的羽毛。<<lstress>><<stress -6>>
 			<br>
 		<</if>>
 		<br>
@@ -947,10 +947,10 @@
 <</if>>
 有一只落单的，还有几只紧靠在一起。
 <br><br>
-
-<<link [[狩猎落单的那只|BabyHawk Hunt Lurkers Lot Single]]>><</link>><<dancedifficulty 1 600-$hawksTotal*50>>
+<<set _Single to 600-$hawksTotal*50>><<set _Double to 1200-$hawksTotal*50>>
+<<link [[狩猎落单的那只|BabyHawk Hunt Lurkers Lot Single]]>><</link>><<dancedifficulty 1 _Single>>
 <br>
-<<link [[狩猎凑在一起的两只|BabyHawk Hunt Lurkers Lot Double]]>><</link>><<dancedifficulty 300 1200-$hawksTotal*50>>
+<<link [[狩猎凑在一起的两只|BabyHawk Hunt Lurkers Lot Double]]>><</link>><<dancedifficulty 300 _Double>>
 <br>
 <<link [[狩猎一整群|BabyHawk Hunt Lurkers Lot Group]]>><</link>><<dancedifficulty 600 1200>><<tendingdifficulty 1 700>>
 <br>
@@ -966,7 +966,7 @@
 	<<childrenNames _hawksIDcopy>>也扑向潜伏者。
 <</if>>
 <br><br>
-<<dancedifficulty 1 600-$hawksTotal*50 true>>
+<<set _Single to 600-$hawksTotal*50>><<dancedifficulty 1 _Single true>>
 <<if $danceSuccess>>
 	其他潜伏者跳着逃开了，<span class="green">但你还是抓到了一只</span>。你带着战利品飞回空中。
 	<br><br>
@@ -1011,8 +1011,7 @@
 
 你继续从高处盘旋，等待完美的时机。你看到它了，你的狩猎本能开始发挥作用，你开始俯冲。
 <br><br>
-
-<<dancedifficulty 300 1200-$hawksTotal*50 true>>
+<<set _Double to 1200-$hawksTotal*50>><<dancedifficulty 300 _Double true>>
 <<if $danceSuccess>>
 	你的动作很快，<span class="green">足够在它们恢复前就抓住了它们。</span>另一只潜伏者跳了起来，想要逃跑，但它的动作太慢了。<<childname>>在半空抓住了它。你飞进了云层中，你的孩子也跟上了你。
 	<<flight_hunt_get "lurkers" 3>>
@@ -1056,8 +1055,7 @@
 
 你继续在高处盘旋，等待完美的时机。你看到它了，你的狩猎本能开始发挥作用。你发出一声尖叫，然后开始俯冲。
 <br><br>
-
-<<dancedifficulty 600 1200 true>><<tendingdifficulty 1 700 true>>
+<<dancedifficulty 600 1200>><<tendingdifficulty 1 700>>
 <<if $danceSuccess and $tendingSuccess>>
 	<span class="green">刹那间，恐怖无处遁形。</span>你的尖叫声让潜伏者们瘫痪。你速度极快，足以在它们恢复之前抓住它们。你的感官前所未有地敏锐。你两手各抓住一个潜伏者，准备重返天空。但你瞄到范围内的另一只潜伏者，身体自行移动，双脚直接踩上去，也抓到了它。<<childname>>在空中捕捉到一个。你升上云端，和你的孩子会合。
 	<<flight_hunt_get "lurkers" 4>>
@@ -1136,8 +1134,8 @@
 <<babyhawks>>尖鸣一声，从高空向猎物俯冲而去。潜伏者立刻注意到了<<babyhawksthem>>，并且开始逃跑。
 <br><br>
 它的动作敏捷，反复改变移动的方向，把追逐在后面的<<= $cmonster ? "小哈比" : "小鹰">><<if $hawksTotal gt 1>>们<</if>>甩开一大截距离。
-<<if hasClumsy()>><<set _ID to hasClumsy()>>
-	<<childname _ID>>在一个猛地急转弯之下失去平衡，脸着地撞向了地面。
+<<if getAllClumsy()>>
+	<<childrenNames _tempIDs>>在一个猛地急转弯之下失去平衡，脸着地撞向了地面。
 	<br>
 <</if>>
 <<babyhawksthem>>尖啸着，最后一次猛扑潜伏者，但它飞快钻入了一条缝隙，消失不见了。
@@ -1200,4 +1198,390 @@
 
 	<<set _huntFail to 1>>
 	<<babyhawk_hunt_return>>
+<</if>>
+
+:: BabyHawk Hunt Shiny
+<<effects>><<flight_distance_check>>
+你在附近降落并开始搜索。
+<br><br>
+
+<<rng 7>>
+<<switch $rng>>
+	<<case 1>>
+		你在一些高草中筛出了一颗子弹。它看起来有些年头了。博物馆馆长可能会愿意收购这东西。
+		<<flight_hunt_get "valuables" 1 "antique bullet">>
+	<<case 2>>
+		<<set _looted to either("watch", "ring", "necklace", "bracelet")>>
+		你在一个小水坑里找到了个东西。是一<<print _looted.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>。一定是有人在旅游时弄丢了。
+		<<flight_hunt_get "valuables" 1 _looted>>
+	<<case 3>>
+		你发现它从一小块沙地里伸出来。你把它挖出来，发现是一个饮料罐。毫无价值，但闪亮得令人愉悦。
+		<<flight_hunt_get "junk" 1>>
+	<<case 4>>
+		你很容易就在一片凹陷的草地上发现了它。一个锡罐。一文不值，但闪亮得令人愉悦。
+		<<flight_hunt_get "junk" 1>>
+	<<case 5>>
+		搜索一会儿后，你再次看到了它。这是一小堆因风雨而磨损的金属废料。毫无价值，但闪亮得令人愉悦。
+		<<flight_hunt_get "junk" 3>>
+	<<case 6>>
+		<<select_random_clothes_limited "upper">>
+		你看到它挂在折断的树枝间。是
+		<<if _random_clothes isnot "piece of fabric" and setup.clothes[_random_slot][_random_index].type.includes("formal")>>
+			一件破烂的_random_clothes，纽扣闪闪发亮。
+		<<else>>
+			<<set _random_clothes to "piece of fabric">>
+			一件坏掉的制服，上面有些闪闪发亮的纽扣。可以分出上好的废布和闪亮的垃圾。
+		<</if>>
+		<<if _random_clothes isnot "piece of fabric">>
+			<<if $worn[_random_slot].cursed is 1>>
+				<<set _cursedPrevent to true>>
+			<</if>>
+			<<set _outfitPrimaryWear to setup.clothes[_random_slot][$worn[_random_slot].index].outfitPrimary>>
+			<<if _outfitPrimaryWear isnot undefined>>
+				<<for _outfitSlot, _value range _outfitPrimaryWear>>
+					<<if $worn[_outfitSlot].cursed is 1>>
+						<<set _cursedPrevent to true>>
+					<</if>>
+				<</for>>
+			<</if>>
+			<<if $bird.upgrades.wardrobe is 1>>
+				你可以把它撕成废布和闪闪发光的垃圾，或者带回塔里。
+			<<else>>
+				塔上没地方放这些东西。露天堆放几个小时就会变成废布和闪闪发光的垃圾。
+			<</if>>
+			<br><br>
+
+			<<if !_cursedPrevent>>
+				<<if $worn[_random_slot].name isnot "naked">>
+					<<if $bird.upgrades.wardrobe is 1>>
+						<<link [[穿上|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 1>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear" "damaged">><</link>>
+						<span class="blue">你的$worn[_random_slot].cn_name_cap将被替换。</span>
+					<<else>>
+						<<link [[穿上|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 1>><<generalRuined _random_slot>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear" "damaged">><<flight_hunt_get "fabric" 1>><</link>>
+						<span class="blue">你的$worn[_random_slot].cn_name_cap将被替换。</span>
+					<</if>>
+				<<else>>
+					<<link [[穿上|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 1>><<flight_hunt_get "clothing" 1 _random_slot _random_index "wear" "damaged">><</link>>
+				<</if>>
+			<</if>>
+			<br>
+			<<link [[撕碎|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 2>><<flight_hunt_get "fabric" 1>><<flight_hunt_get "junk" 1>><</link>>
+			<br>
+			<<if $bird.upgrades.wardrobe is 1>>
+				<<link [[接受|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 3>><<flight_hunt_get "clothing" 1 _random_slot _random_index "take" "damaged">><</link>>
+				<br>
+			<</if>>
+		<<else>>
+			<br><br>
+
+			<<link [[接受|BabyHawk Hunt Shiny Clothes]]>><<set $phase to 2>><<flight_hunt_get "fabric" 1>><<flight_hunt_get "junk" 1>><</link>>
+			<br>
+		<</if>>
+	<<default>>
+		你看见它被埋在尘土里。只是一些碎掉的玻璃而已。你将它们埋得更深，以防有人踩中。
+		<<set _huntFail to 1>>
+<</switch>>
+<<if $rng isnot 6>>
+	你重新起飞，回到了你的孩子身边。<<if $rng lte 5>><<if getAllClever()>><<childname _tempIDs[_rng]>>看起来为新的亮闪闪而感到开心。<</if>><</if>>
+	<br><br>
+
+	<<babyhawk_hunt_return>>
+<</if>>
+
+:: BabyHawk Hunt Shiny Clothes
+<<effects>>
+<<switch $phase>>
+	<<case 1>>你穿上了它，无视了它破破烂烂的状态。
+	<<case 2>>你快速将它撕碎，以便携带。
+	<<case 3>>你将它夹在胳膊底下。
+<</switch>>
+你重新起飞，回到了你的孩子身边。<<childname $leaderID>>看起来为你的发现而感到开心。
+<br><br>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Pond Dive
+<<effects>>
+你和<<babyhawks>>降落在池塘前。
+你现在更清楚地看见了那个闪光。那里似乎有不止一样东西。多亏了你超凡的视力，你看出了那里有一个小小的、微弱的闪光物件，旁边是一个更大的闪光。它们几乎都被埋住了。
+<br><br>
+
+<<set _rng to random(0, $hawksTotal-1)>>
+<<childname _rng>>用爪子点了点水面，颤抖了一下。<<babyhawksthem>>围着池塘转圈，看起来不是很想打湿自己的羽毛。
+<br><br>
+
+要把两个东西都弄到手也许会是个挑战，但并不是不可能的。
+<br><br>
+
+<<link [[拿那个大的闪光物体|BabyHawk Hunt Pond Dive 2]]>><<set $phase to 1>><</link>><<swimmingdifficulty 400 700>>
+<br>
+<<link [[试着把两个物体都拿到手|BabyHawk Hunt Pond Dive 2]]>><<set $phase to 2>><</link>><<swimmingdifficulty 600 900>>
+<br>
+
+:: BabyHawk Hunt Pond Dive 2
+<<effects>>
+<<unset $swimmingSuccess>>
+<<noClothingCheck>>
+<<strip>>
+<<if _nude is false>>你脱掉衣服，将它们藏在附近的一丛灌木里。<</if>>
+<<if $phase is 1>>
+	<<silently>><<swimmingdifficulty 400 700>><</silently>>
+	你滑进池塘，游到了闪光的正上方。<<water>>你深吸一口气，潜了下去。昏暗的水中，你难以辨别方向。 
+	<<if $swimmingSuccess>>
+		<span class="green">你保持镇静，有条不紊地游得更深。</span>你到了光芒的源头。你看到 
+		<<if $rng gte 30>>
+			一堆金属垃圾，大概是有人乱扔垃圾。你迅速攫取你的战利品，游回水面。<<flight_hunt_get "junk" 2>>
+		<<else>>
+			<<set _looted1 to either("ring", "necklace", "bracelet")>><<set _looted2 to either("ring", "necklace", "bracelet")>>
+			<<if _looted1 is _looted2>>
+				两<<print _looted1.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>，大概是有人弄丢了。你迅速抓起你的战利品，游回水面。<<flight_hunt_get "valuables" 2 _looted1>>
+			<<else>>
+				一<<print _looted1.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>和一<<print _looted2.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>，大概是有人弄丢了。你迅速抓起你的战利品，游回水面。<<flight_hunt_get "valuables" 1 _looted2>>
+			<</if>>
+		<</if>>
+		<br><br>
+
+		冒出水面后，你重新往下看了看。水底的泥土被搅乱，你很难看清另一个物体的位置了。
+		<br><br>
+
+		你游到岸边，离开了水面。<<clotheson>>
+		<<babyhawks>>凑过来查看你的收获。
+		<<if $hawks_leader is "dominant">>
+			<<childname $leaderID>>似乎对你游泳的本领非常惊讶。你能看出<<childHe $leaderID>>相当羡慕你的游泳技能。
+		<<elseif $hawks_leader is "clever">>
+			<<childname $leaderID>>高兴地唧唧叫着，对你的新发现很满意。
+		<<else>>
+			<<childname $leaderID>>帮你梳理打湿的翅羽，<<childHe $leaderID>>似乎相当佩服你能随时脱下大部分羽毛的本领。
+		<</if>>
+		<br><br>
+		<</if>>
+
+		<<endevent>>
+		<<babyhawk_hunt_return>>
+	<<else>>
+		你认为速战速决会比较好，于是加快了速度。<span class="red">你的不耐心导致你丢失了目标。</span>你花了多些时间才再次确认它的位置，而此时你的氧气快耗尽了。你迅速游了过去，抓住那个闪光的物体，但你已经开始有些难以坚持了。你想办法游回了水面上，但却在挣扎中弄丢了战利品。<<stress 12>><<ggstress>>
+		<br><br>
+
+		你从水面冒出来时，花了好些时间平稳呼吸，然后再次看向下方。之前那些闪光全都消失不见了，它们似乎被你在恐慌中踢起的沙子掩埋了。你游到岸边，离开了水面。
+		<<if getAllSympathy()>>
+			<<childrenNames _tempIDs>>凑过来，安抚性地叽喳叫着，帮你梳理打湿的翅羽。
+		<</if>>
+		<<babyhawks>>晃头晃脑地看着水下，似乎很遗憾你错失了亮闪闪。
+		
+		<<clotheson>>
+		<<endevent>>
+		<<babyhawk_hunt_return>>
+	<</if>>
+<<else>>
+	<<silently>><<swimmingdifficulty 600 900>><</silently>>
+	你滑进池塘，游到了闪光的正上方。你深吸一口气，潜了下去。昏暗的水中，你难以辨别方向。
+	<<if $swimmingSuccess>>
+		<span class="green">你维持着镇定，娴熟地潜入更深处。</span>你来到了闪光点的源头。
+		你看见
+		<<if $rng gte 30>>
+			一堆金属垃圾，大概是有人乱扔垃圾。你迅速攫取你的战利品，游回水面。<<flight_hunt_get "junk" 2>>
+		<<else>>
+			<<set _looted1 to either("ring", "necklace", "bracelet")>><<set _looted2 to either("ring", "necklace", "bracelet")>>
+			<<if _looted1 is _looted2>>
+				两<<print _looted1.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>，大概是有人弄丢了。你迅速抓起你的战利品，游回水面。<<flight_hunt_get "valuables" 2 _looted1>>
+			<<else>>
+				一<<print _looted1.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>和一<<print _looted2.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>，大概是有人弄丢了。你迅速抓起你的战利品，游回水面。<<flight_hunt_get "valuables" 1 _looted2>>
+			<</if>>
+		<</if>>
+		<br><br>
+
+		<<set _looted3 to either("ring", "necklace", "bracelet")>>
+		拿走它们之后，你开始挖掘埋在下面的东西。你扒开沙子，发现了<<if _looted3 is _looted1>>又一<<print _looted1.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>><<else>>一<<print _looted3.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>><</if>>。<<flight_hunt_get "valuables" 1 _looted3>>
+		<br><br>
+
+		在双手都抓着东西的情况下游泳并不是一件容易的事，但你优秀的技巧使得你没有任何困难地在水中移动。你到达了水面，然后游回了岸边，满足于自己的发现。<<clotheson>>
+		<<babyhawks>>凑过来查看你的收获。
+		<<if $hawks_leader is "dominant">>
+			<<childname $leaderID>>似乎对你游泳的本领非常惊讶。你能看出<<childHe $leaderID>>相当羡慕你的游泳技能。
+		<<elseif $hawks_leader is "clever">>
+			<<childname $leaderID>>高兴地唧唧叫着，对你的新发现很满意。
+		<<else>>
+			<<childname $leaderID>>帮你梳理打湿的翅羽，<<childHe $leaderID>>似乎相当佩服你能随时脱下大部分羽毛的本领。
+		<</if>>
+		<br><br>
+		<</if>>
+
+		<<endevent>>
+		<<babyhawk_hunt_return>>
+	<<else>>
+		你游得很慢，试图保存氧气。<span class="red">但你太过谨慎，氧气逐渐耗光。</span>你依旧坚持自己的计划，开始挖掘被掩埋的物件。将它的大部分挖掘出来时，你意识到自己已经没有时间完成全部工作了。
+		<br><br>
+
+		你试图找到你看到的第一个物体，但你的快速搜索激起了沙子扰乱了视线，使它很难看到。你别无选择，只能浮出水面。
+		<br><br>
+
+		当你从水里出来时，你花了一点时间来呼吸，然后再往下看时，你没有看到任何你要找的东西的迹象。你只得游到岸边离开水面。
+		<<if getAllSympathy()>>
+			<<childrenNames _tempIDs>>凑过来，安抚性地叽喳叫着，帮你梳理打湿的翅羽。
+		<</if>>
+		<<babyhawks>>晃头晃脑地看着水下，似乎很遗憾你错失了亮闪闪。
+		<<clotheson>>
+		<<endevent>>
+		<<babyhawk_hunt_return>>
+	<</if>>
+<</if>>
+
+:: BabyHawk Hunt Animal Watch
+<<effects>>
+你们下降了一些高度，在空中观察了一会儿<<beasttype>>。
+<<if $NPCList[0].type.includes("fox")>>
+	<<if $phase is 1>>
+		<<bHe>>在一小块土面前开始挖掘，将那个物件扔进去，埋好，然后跑走了。
+	<<else>>
+		<<bHe>>蜷缩在一小块土地上，打着盹。
+	<</if>>
+<<else>>
+	<<if $phase is 1>>
+		<<bHe>>将那东西扔在地上，对着它拍来拍去。过了一会儿，<<bhe>>又把它捡回来，然后跑走了。
+	<<else>>
+		<<bHe>>蜷缩在一小块土地上，打着盹。
+	<</if>>
+<</if>>
+<br><br>
+
+<<if getAllSympathy()>>
+	<<childrenNames _tempIDs>>全程专注地盯着<<beasttype>>，似乎对<<bhim>>相当好奇。
+	<br><br>
+<</if>>
+<<if hasClever() and $phase is 1 and $NPCList[0].type.includes("fox")>><<set _ID to hasClever()>>
+	<<childname _ID>>似乎对那个物件很好奇。<<childhe _ID>>冲你叽喳叫，向地面飞去。
+	<br><br>
+
+	你跟着<<childhe _ID>>落地，确认<<beasttype>>已经不在附近，随后帮助你的孩子刨开地面。
+	<br>
+	你们很快挖出了<<bhe>>之前<<if $monster isnot 1>>叼<<else>>拿<</if>>着的那个小物件。
+	<<flight_hunt_get_random>>
+	<br><br>
+
+	<<childname _ID>>看起来很满意。你们拿着东西离开了。
+	<br><br>
+<</if>>
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Animal Land
+<<effects>>
+<<if $NPCList[0].type.includes("fox")>>/*狐狸狐狸*/
+	你们降落在<<beasttype>>面前，大张着翅膀。
+	<<if $NPCList[0].traits.includesAny("cowardly")>>
+		<<bHe>>立刻对着你们尖叫起来，然后跑走了。<<bHe>>落下了什么东西。
+		<<if $hawks_leader is "dominant">>
+			<<childname $leaderID>>似乎很愉快，挺胸昂首地走过去捡起了那个物件。
+		<</if>>
+		<<flight_hunt_get_random>>
+		<br><br>
+		<<babyhawk_hunt_return>>
+	<<elseif $NPCList[0].traits.includesAny("friendly", "clumsy", "clever")>>
+		<<bHe>>停下来，冲你歪着脑袋。
+		<<if $bird.hunts.duo is true>>
+			<<bHe>>犹豫着开始靠近你，直到你的配偶降落在你身后。<<bHe>>转身逃跑了。
+			<br><br>
+
+			<<endevent>><<npc "Great Hawk">><<person1>>
+			巨鹰好奇地歪着头，仿佛是在想自己是否做错了什么。
+			<<if $monster is 1>>
+				"懦弱的生物。"
+			<</if>>
+			<br><br>
+
+			<<flight_hunt_return>>
+		<<else>>
+			<<if $monster is 1>>
+				<<if $NPCList[0].traits.includes("clever")>>
+					"我、我什么都没偷，我发誓！"
+					<<if $phase is 1>>
+						<<bHe>>将那个东西移动到身后，仿佛想要藏起来不被你看到。
+					<</if>>
+				<<else>>
+					"哦，哇哦，你的翅膀好大好漂亮！你不会吃我的，对吧？"
+				<</if>>
+			<</if>>
+			<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
+			<br><br>
+
+			<<if $phase is 1>>
+				<<link [[拿走那个物件|Bird Hunt Fox Take]]>><</link>>
+				<br>
+			<</if>>
+			<<if $bestialitydisable is "f" and $deviancy gte 35>>
+				<<link [[推倒|Bird Hunt Fox Sex]]>><<set $sexstart to 1>><</link>><<deviant3>>
+				<br>
+			<</if>>
+			<<link [[爱抚|Bird Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+			<br>
+		<</if>>
+	<<elseif $NPCList[0].traits.includes("territorial")>>
+		<<bHe>>立刻采取了防御的姿势，对你低吼着。
+		<<if $monster is 1>>
+			"我不怕你，可恶的哈比！去对着其他家伙尖叫吧！"
+		<</if>>
+		<<bHe>>向前迈近一步，准备好突袭。
+		<br><br>
+
+		<<if $bird.hunts.duo is true>>
+			<<npc "Great Hawk" 2>>
+			突然，<<bhes 0>>被上方某个东西按在了地上。 
+			<<person2>>
+			<<if $monster is 1>>
+				"没礼貌。你是这样跟邻居打招呼的吗。"你的<<beasttype 1>>在<<person1>><<beasttypes>>的背上笑着说道。
+			<<else>>
+				你的<<beasttype 1>>在<<person1>><<beasttypes>>背上发出胜利的叫声。
+			<</if>>
+			<br><br>
+			
+			<<bHe>>挣扎着。
+			<<if $NPCList[0].monster is "monster">>
+				"好吧，我会乖乖的。从我身上下去。"
+			<</if>>
+			你的配偶稍微松开了<<beasttype>>一点，而<<beasttype>>立刻趁机跑掉了。
+			<<if $phase is 1>>
+				<<bHe>>留下了什么东西。
+				<<flight_hunt_get_random>>
+				<<person2>>
+				<<if $monster is 1>>
+					"陆地上的兽类总是会弄丢自己的猎物。不错的发现，<<wife>>。"
+				<<else>>
+					<<beasttype>>似乎很愉快。
+				<</if>>
+			<<else>>
+				<br><br>
+				<<person2>>
+				<<if $monster is 1>>
+					"这些家伙不适合作为猎物。我们应该去猎一些小一点的目标。"
+				<<else>>
+					巨鹰跳到你身边，轻蹭着你，迫切想要重新开始狩猎。
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<flight_hunt_return>>
+		<<else>>
+			<<if $bestialitydisable is "f">>
+				你根本没时间逃跑，<<bhe>>就向你猛冲过来。
+				<br><br>
+
+				<<link [[继续|Bird Hunt Fox Sex]]>><<set $molestationstart to 1>><</link>>
+				<br>
+			<<else>>
+				你想要飞到天上避开<<bhe>>，但<<bhe>>更快一步攻击到了你几下。<<beastescape>>
+				<br><br>
+
+				<<flight_hunt_return>>
+			<</if>>
+		<</if>>
+	<<else>>
+		<<bHe>>从后退几步，冲你低吼着，然后迅速逃走了。
+		<br><br>
+
+		<<flight_hunt_return>>
+	<</if>>
+<<else>>
+	你准备降落到<<beasttype>>面前，但<<bhe>>好像察觉到了你。<<bHe>>迅速开始逃跑，然后钻进了一个树坑里。
+	<br><br>
+
+	<<flight_hunt_return>>
 <</if>>

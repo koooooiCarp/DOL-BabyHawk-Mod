@@ -5,12 +5,12 @@
 
 <!-- 需要重新调整机制，35天出巢后的小鸟需要一次吃一整只潜伏者，出巢前都是一只喂所有孩子。 -->
 <<if Object.values($children).find(child => (child.localVariables.stage is "Fledgling" or child.localVariables.stage is "Subadult"))>>
-	<<set $hasGrown to true>>
+	<<set _hasGrown to true>>
 <<else>>
-	<<set $hasGrown to false>>
+	<<set _hasGrown to false>>
 <</if>>
 
-<<if $hasGrown>>
+<<if _hasGrown>>
 	<<if Object.values($children).find(child => (child.localVariables.growHintFledgling is 1 or child.localVariables.growHintSubadult is 1))>>
 		<span class="blue">你靠近巢时，乞食的叽喳声比过去还要响亮。孩子们的食量似乎增加了一些。</span>
 		<br>

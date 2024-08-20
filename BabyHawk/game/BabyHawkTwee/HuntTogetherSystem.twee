@@ -174,8 +174,8 @@
 	<<elseif $daily.huntRemyBurnt>>
 		闷烧的营地在你下方。这个景象让你感到宽慰，但你今天不会再找到任何东西了。
 		<br><br>
-        <<if hasSympathy()>><<set _ID to hasSympathy()>>
-			<<childname _ID>>好奇地盯着燃烧着的帐篷。你拍了拍<<childhis _ID>>的脑袋。
+        <<if getAllSympathy()>>
+			<<childrenNames _tempIDs>>好奇地盯着燃烧着的帐篷。你拍了拍<<childhis _ID>>的脑袋。
 			<br><br>
 		<</if>>
 		<<endevent>>
@@ -227,8 +227,8 @@
 		<br>
 		这些人正忙于派对，没有发现你们。
 		<br>
-		<<if hasSympathy()>><<set _ID to hasSympathy()>>
-			<<childname _ID>>在你身边轻轻地跟着人群中的音乐声鸣唱。<<lstress>><<stress -5>>
+		<<if getAllSympathy()>>
+			<<childrenNames _tempIDs>>在你身边轻轻地跟着人群中的音乐声鸣唱。<<lstress>><<stress -5>>
 		<</if>>
 		<br><br>
 	<</if>>
@@ -351,17 +351,13 @@
 		<<if $hawks_leader is "dominant">>
 			<<childname $leaderID>>发出一声小小的尖鸣，引起你的注意。你看见草地上有些潜伏者。它们似乎正在休息。 
 			<<childHe $leaderID>>发出另一声压低的尖鸣，表明想要发动袭击。
-			<br><br>
-
-			<<link [[狩猎它们 (0:05)|BabyHawk Hunt Lurkers Lot]]>><<bird_pass 5>><</link>>
-			<br>
 		<<else>>
 			你发现草地上有些潜伏者。它们似乎正在休息。
-			<br><br>
-
-			<<link [[狩猎它们 (0:05)|BabyHawk Hunt Lurkers Lot]]>><<bird_pass 5>><</link>>
-			<br>
 		<</if>>
+		<br><br>
+
+		<<link [[狩猎它们 (0:05)|BabyHawk Hunt Lurkers Lot]]>><<bird_pass 5>><</link>>
+		<br>
 		<<link [[无视它们|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
@@ -376,27 +372,28 @@
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_shiny" _flight_hunt_chance.valuables>>
-		泥沼里有一个闪光的亮点吸引了你的目光。
+	<<addinlineevent "babyhawk_hunt_shiny" _flight_hunt_chance.valuables>>
+		泥沼里有一个闪光的亮点吸引了你<<if getAllClever()>>和<<childrenNames _tempIDs>><</if>>的目光。
 		<br><br>
 
-		<<link [[调查 (0:05)|Bird Hunt Shiny]]>><<bird_pass 5>><</link>>
+		<<link [[调查 (0:05)|BabyHawk Hunt Shiny]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_shiny_pond" _flight_hunt_chance.valuables>>
+	<<addinlineevent "babyhawk_hunt_shiny_pond" _flight_hunt_chance.valuables>>
+		<<if getAllClever()>><<childrenNames _tempIDs>>冲着地面发出一声小小的尖鸣。<</if>>
 		你发现池塘深处有东西在一闪一闪。也许水面之下有什么有趣的东西。 
 		<br><br>
 
-		<<link [[调查 (0:05)|Bird Hunt Pond Dive]]>><<bird_pass 5>><</link>>
+		<<link [[调查 (0:05)|BabyHawk Hunt Pond Dive]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_animals_1" _flight_hunt_chance.other>>
+	<<addinlineevent "babyhawk_hunt_animals_1" _flight_hunt_chance.other>>
 		<<rng 2>><<set _beastGen to ($rng is 1 ? "cat" : "fox")>><<if _beastGen is "cat">><<beastNEWinit 1 cat>><<else>><<beastNEWinit 1 fox>><</if>>
 		你发现下方有只孤零零的<<beasttype>>。
 		<<rng 100>>
@@ -405,14 +402,14 @@
 			<<bHes>><<if $monster isnot 1>>叼<<else>>拿<</if>>着什么东西。
 		<</if>>
 		<br><br>
-
-		<<link [[观察 (0:05)|Bird Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
+		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地叽喳叫，在你身边盘旋飞行，似乎希望你停下来观察<<beasttype>>。<br><br><</if>>
+		<<link [[观察 (0:05)|BabyHawk Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
 		<br>
-		<<link [[着陆 (0:05)|Bird Hunt Animal Land]]>><<bird_pass 5>><</link>>
+		<<link [[着陆 (0:05)|BabyHawk Hunt Animal Land]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[尖叫|Bird Hunt Animal Screech]]>><<stress -3>><</link>><<lstress>>
+		<<link [[尖叫|BabyHawk Hunt Animal Screech]]>><<stress -3>><</link>><<lstress>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 

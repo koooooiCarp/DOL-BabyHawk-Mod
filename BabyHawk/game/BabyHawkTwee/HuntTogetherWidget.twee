@@ -5,6 +5,10 @@
 	<<run delete $hawksTotal>>
 	<<run delete $leaderID>>
 	<<run delete $hawks_leader>>
+	<<run delete $firstShown_South>>
+	<<run delete $firstShown_Nouth>>
+	<<run delete $firstShown_West>>
+	<<run delete $firstShown_East>>
 <</widget>>
 
 <!-- 选择参与狩猎的小鹰领队 -->
@@ -191,22 +195,25 @@
 		<<if $bird.hunts.distanceNorth is 5>>
 			农田延伸至北方，那里是你们领地的边境。
 			<br>
-			<<if hasSympathy()>><<set _ID to hasSympathy()>>
-				<<childname _ID>>在你的身后探头探脑，似乎对农田里移动的各种生物很感兴趣。
+			<<if getAllSympathy() and !$firstShown_North>><<set $firstShown_North to 1>>
+				<<childrenNames _tempIDs>>在你的身后探头探脑，似乎对农田里移动的各种生物很感兴趣。
 				<br>
 			<</if>>
 		<<elseif $bird.hunts.distanceEast is 5>>
 			继续往东飞去的话，你可能会进入自己并不熟悉的危险的领域。
 			<br>
-			<<if hasDominant()>><<set _ID to hasDominant()>>
-				<<childname _ID>>专心致志地盯着爪下的荒原寻找猎物。<<childhis _ID>>终有一天会找到新的猎场，但不是现在。
+			<<if getAllDominant() and !$firstShown_East>><<set $firstShown_East to 1>>
+				<<childrenNames _tempIDs>>专心致志地盯着爪下的荒原寻找猎物。<<= getAllDominant().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>终有一天会找到新的猎场，但不是现在。
 				<br>
 			<</if>>
 		<<elseif $bird.hunts.distanceNorth is -5>>
 			你感觉越往南面飞去，你的方向感就越加丧失。也许掉头返回才是明智选择。
 			<br>
-			<<if hasClever()>><<set _ID to hasClever()>>
-				<<childname _ID>>似乎有些紧张，<<childhis _ID>>的羽毛微微蓬起，盯着荒原的更远方。
+			<<if getAllClever() and !$firstShown_South>><<set _rng to random(0,getAllClever().length-1)>><<set $firstShown_South to 1>>
+				<<childname _tempIDs[_rng]>>似乎有些紧张，<<childhis _tempIDs[_rng]>>的羽毛微微蓬起，盯着荒原的更远方。
+				<<if getAllClever().length gt 1>>
+					<<run _tempIDs = _tempIDs.filter(item => item !== _tempIDs[_rng])>><<childrenNames _tempIDs>>叽喳叫着安抚<<childhim _tempIDs[_rng]>>。
+				<</if>>
 				<br>
 			<</if>>
 		<<elseif $bird.hunts.distanceEast is -5>>
@@ -216,8 +223,8 @@
 				森林延伸至西面。
 			<</if>>
 			<br>
-			<<if hasClumsy()>><<set _ID to hasClumsy()>>
-				<<childname _ID>>好奇地望着茂密的森林。也许错综复杂的林间正适合小小的<<childhis _ID>>练习飞行呢。
+			<<if getAllClumsy() and !$firstShown_West>><<set $firstShown_West to 1>>
+				<<childrenNames _tempIDs>>好奇地望着茂密的森林。也许错综复杂的林间正适合小小的<<= getAllClumsy().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>练习飞行呢。
 				<br>
 			<</if>>
 		<</if>>
