@@ -26,7 +26,7 @@ function getAllDominant() {
 		}
 	}
 
-	return T.tempIDs;
+	return T.tempIDs.length;
 }
 window.getAllDominant = getAllDominant;
 
@@ -57,7 +57,7 @@ function getAllClever() {
 		}
 	}
 
-	return T.tempIDs;
+	return T.tempIDs.length;
 }
 window.getAllClever = getAllClever;
 
@@ -88,7 +88,7 @@ function getAllSympathy() {
 		}
 	}
 
-	return T.tempIDs;
+	return T.tempIDs.length;
 }
 window.getAllSympathy = getAllSympathy;
 
@@ -119,6 +119,6 @@ function getAllClumsy() {
 		}
 	}
 
-	return T.tempIDs;
+	return T.tempIDs.length;
 }
 window.getAllClumsy = getAllClumsy;

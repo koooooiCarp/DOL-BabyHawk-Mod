@@ -982,20 +982,20 @@
 
 <<if $hawksTotal gt 1>>
 	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
-	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _multi to _hawksIDcopy.length-1>>
 	你看向其他孩子们，
 	<<if _rng is 0>>
-		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+		<<childrenNames _hawksIDcopy>>的爪中<<if _multi>>全都<</if>>空空荡荡的，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
 	<<elseif _rng is $hawksTotal-1>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>都各自<</if>>抓着一只潜伏者，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<<else>>
-		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<set _i to 0>><<set _pop to _hawksIDcopy.length-_rng>>
 		<<for _i;_i<_pop;i++>>
 			<<run _hawksIDcopy.pop()>>
-		<</for>><<set _total to _hawksIDcopy.length>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<</for>><<set _multi to _rng>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<</if>>
@@ -1026,20 +1026,20 @@
 
 <<if $hawksTotal gt 1>>
 	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
-	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _multi to _hawksIDcopy.length-1>>
 	你看向其他孩子们，
 	<<if _rng is 0>>
-		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+		<<childrenNames _hawksIDcopy>>的爪中<<if _multi>>全都<</if>>空空荡荡的，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
 	<<elseif _rng is $hawksTotal-1>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>都各自<</if>>抓着一只潜伏者，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<<else>>
-		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<set _i to 0>><<set _pop to _hawksIDcopy.length-_rng>>
 		<<for _i;_i<_pop;i++>>
 			<<run _hawksIDcopy.pop()>>
-		<</for>><<set _total to _hawksIDcopy.length>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<</for>><<set _multi to _rng>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<</if>>
@@ -1055,7 +1055,7 @@
 
 你继续在高处盘旋，等待完美的时机。你看到它了，你的狩猎本能开始发挥作用。你发出一声尖叫，然后开始俯冲。
 <br><br>
-<<dancedifficulty 600 1200>><<tendingdifficulty 1 700>>
+<<dancedifficulty 600 1200 true>><<tendingdifficulty 1 700 true>>
 <<if $danceSuccess and $tendingSuccess>>
 	<span class="green">刹那间，恐怖无处遁形。</span>你的尖叫声让潜伏者们瘫痪。你速度极快，足以在它们恢复之前抓住它们。你的感官前所未有地敏锐。你两手各抓住一个潜伏者，准备重返天空。但你瞄到范围内的另一只潜伏者，身体自行移动，双脚直接踩上去，也抓到了它。<<childname>>在空中捕捉到一个。你升上云端，和你的孩子会合。
 	<<flight_hunt_get "lurkers" 4>>
@@ -1071,20 +1071,20 @@
 
 <<if $hawksTotal gt 1>>
 	<<set _hawksIDcopy to clone($hawksIDs)>><<run _hawksIDcopy = _hawksIDcopy.filter(item => item !== $leaderID)>>
-	<<set _rng to random(0, $hawksTotal-1)>><<set _total to _hawksIDcopy.length>>
+	<<set _rng to random(0, $hawksTotal-1)>><<set _multi to _hawksIDcopy.length-1>>
 	你看向其他孩子们，
 	<<if _rng is 0>>
-		<<childrenNames _hawksIDcopy>>的爪中<<if _total>>全都<</if>>空空荡荡的，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
+		<<childrenNames _hawksIDcopy>>的爪中<<if _multi>>全都<</if>>空空荡荡的，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>低声哀鸣着，一副垂头丧气的样子。
 	<<elseif _rng is $hawksTotal-1>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>都各自<</if>>抓着一只潜伏者，<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>都各自<</if>>抓着一只潜伏者，<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>正盘旋在高空自豪地高鸣。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<<else>>
-		<<set _i to 0>><<set _pop to _total-_rng>>
+		<<set _i to 0>><<set _pop to _hawksIDcopy.length-_rng>>
 		<<for _i;_i<_pop;i++>>
 			<<run _hawksIDcopy.pop()>>
-		<</for>><<set _total to _hawksIDcopy.length>>
-		<<childrenNames _hawksIDcopy>>的爪里<<if _total>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _total ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
+		<</for>><<set _multi to _rng>>
+		<<childrenNames _hawksIDcopy>>的爪里<<if _multi>>各<</if>>有一只潜伏者，但其他孩子就没那么幸运了。<<= _multi ? "他们" : "<<childhim _hawksIDcopy>>">>耀武扬威地高鸣着炫耀自己狩猎成功，而其他孩子只能眼巴巴地看着。
 		<br><br>
 		<<flight_hunt_get "lurkers" _rng>>
 	<</if>>
@@ -1282,7 +1282,7 @@
 		<<set _huntFail to 1>>
 <</switch>>
 <<if $rng isnot 6>>
-	你重新起飞，回到了你的孩子身边。<<if $rng lte 5>><<if getAllClever()>><<childname _tempIDs[_rng]>>看起来为新的亮闪闪而感到开心。<</if>><</if>>
+	你重新起飞，回到了你的孩子身边。<<if $rng lte 5>><<if getAllClever()>><<childname _tempIDs[0]>>看起来为新的亮闪闪而感到开心。<</if>><</if>>
 	<br><br>
 
 	<<babyhawk_hunt_return>>
@@ -1307,11 +1307,11 @@
 <br><br>
 
 <<set _rng to random(0, $hawksTotal-1)>>
-<<childname _rng>>用爪子点了点水面，颤抖了一下。<<babyhawksthem>>围着池塘转圈，看起来不是很想打湿自己的羽毛。
+<<childname $hawksIDs[_rng]>>用爪子点了点水面，颤抖了一下。<<babyhawksthem>>围着池塘转圈，看起来不是很想打湿自己的羽毛。
 <br><br>
 
 要把两个东西都弄到手也许会是个挑战，但并不是不可能的。
-<br><br>
+<br>
 
 <<link [[拿那个大的闪光物体|BabyHawk Hunt Pond Dive 2]]>><<set $phase to 1>><</link>><<swimmingdifficulty 400 700>>
 <br>
@@ -1354,7 +1354,6 @@
 			<<childname $leaderID>>帮你梳理打湿的翅羽，<<childHe $leaderID>>似乎相当佩服你能随时脱下大部分羽毛的本领。
 		<</if>>
 		<br><br>
-		<</if>>
 
 		<<endevent>>
 		<<babyhawk_hunt_return>>
@@ -1404,7 +1403,6 @@
 			<<childname $leaderID>>帮你梳理打湿的翅羽，<<childHe $leaderID>>似乎相当佩服你能随时脱下大部分羽毛的本领。
 		<</if>>
 		<br><br>
-		<</if>>
 
 		<<endevent>>
 		<<babyhawk_hunt_return>>
@@ -1466,7 +1464,7 @@
 :: BabyHawk Hunt Animal Land
 <<effects>>
 <<if $NPCList[0].type.includes("fox")>>/*狐狸狐狸*/
-	你们降落在<<beasttype>>面前，大张着翅膀。
+	你降落在<<beasttype>>面前，大张着翅膀。
 	<<if $NPCList[0].traits.includesAny("cowardly")>>
 		<<bHe>>立刻对着你们尖叫起来，然后跑走了。<<bHe>>落下了什么东西。
 		<<if $hawks_leader is "dominant">>
@@ -1475,45 +1473,97 @@
 		<<flight_hunt_get_random>>
 		<br><br>
 		<<babyhawk_hunt_return>>
-	<<elseif $NPCList[0].traits.includesAny("friendly", "clumsy", "clever")>>
+	<<elseif $NPCList[0].traits.includesAny("clever")>>
 		<<bHe>>停下来，冲你歪着脑袋。
-		<<if $bird.hunts.duo is true>>
-			<<bHe>>犹豫着开始靠近你，直到你的配偶降落在你身后。<<bHe>>转身逃跑了。
-			<br><br>
-
-			<<endevent>><<npc "Great Hawk">><<person1>>
-			巨鹰好奇地歪着头，仿佛是在想自己是否做错了什么。
-			<<if $monster is 1>>
-				"懦弱的生物。"
-			<</if>>
-			<br><br>
-
-			<<flight_hunt_return>>
-		<<else>>
-			<<if $monster is 1>>
-				<<if $NPCList[0].traits.includes("clever")>>
-					"我、我什么都没偷，我发誓！"
-					<<if $phase is 1>>
-						<<bHe>>将那个东西移动到身后，仿佛想要藏起来不被你看到。
-					<</if>>
-				<<else>>
-					"哦，哇哦，你的翅膀好大好漂亮！你不会吃我的，对吧？"
-				<</if>>
-			<</if>>
-			<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
-			<br><br>
-
+		<<if $monster is 1>>
+			"我、我什么都没偷，也没有偷蛋！我发誓！"
 			<<if $phase is 1>>
-				<<link [[拿走那个物件|Bird Hunt Fox Take]]>><</link>>
-				<br>
+				<<bHe>>将那个东西移动到身后，仿佛想要藏起来不被你看到。
 			<</if>>
-			<<if $bestialitydisable is "f" and $deviancy gte 35>>
-				<<link [[推倒|Bird Hunt Fox Sex]]>><<set $sexstart to 1>><</link>><<deviant3>>
-				<br>
+		<</if>>
+		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
+		<br><br>
+		<<if getAllSympathy()>><<childname _tempIDs[0]>>饶有兴趣地观察着<<bhis>>蓬起的尾巴。<<beasttype>>很快把尾巴团进了两腿之间。<br><br><</if>>
+		<<if hasClever() and $phase is 1>><<set _ID to hasClever()>>
+			<<childname _ID>>在你们对峙的时候偷偷溜到了<<beasttype>>的身后，拿走了<<bHe>>藏着的物件。
+			<br>
+			<<if $rng gte 50>>
+				<<beasttype>>尖叫一声，<<if $monster is 1>>"见鬼！什么时候？！"<</if>><<bHe>>恼怒地冲你们呲牙，转身跑开了。
+				<br><br>
+
+				<<if getAllSympathy()>><<childrenNames _tempIDs>>遗憾地看着<<bHe>>跑远。<</if>>
+				<<childname _ID>>自豪地展示<<childhis _ID>>的新收获。<<flight_hunt_get_random>>
+				<br><br>
+				<<link [[离开|BabyHawk Hunt Fox Leave]]>><</link>>
+				<br><<exitAll>>
+			<<else>>
+				<<bHe>>看起来没有注意到。<<flight_hunt_get_random>>
+				<br><br>
 			<</if>>
-			<<link [[爱抚|Bird Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<<elseif $phase is 1>>
+			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
 			<br>
 		<</if>>
+		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<br>
+	<<elseif $NPCList[0].traits.includesAny("clumsy")>>
+		<<bHe>>停下来，冲你歪着脑袋。
+		<<if $monster is 1>>
+			"哦，哇哦，你的翅膀好大好漂亮！你们不会吃我的，对吧？"
+		<</if>>
+		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
+		<br><br>
+		<<if getAllSympathy()>><<childname _tempIDs[0]>>饶有兴趣地观察着<<bhis>>蓬起的尾巴。这让<<bHis>>的尾巴炸毛得更厉害了。<br><br><</if>>
+		<<if hasClever() and $phase is 1>><<set _ID to hasClever()>>
+			<<childname _ID>>在你们对峙的时候偷偷溜到了<<beasttype>>的身后，拿走了那个物件。
+			<br>
+			<<bHe>>看起来没有注意到。<<flight_hunt_get_random>>
+			<br><br>
+		<<elseif $phase is 1>>
+			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<br>
+	<<elseif $NPCList[0].traits.includesAny("friendly")>>
+		<<bHe>>停下来，冲你歪着脑袋。
+		<<if $monster is 1>>
+			"哦，哇哦，你的翅膀好大好漂亮！你不会吃我的，对吧？"
+		<</if>>
+		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
+		<br><br>
+		<<if getAllSympathy()>><<childSelect _tempIDs[0]>><<set _they to (getAllSympathy().length gt 1 ? "他们" : "<<childhe>>")>>
+			<<childrenNames _tempIDs>>饶有兴趣地观察着<<bhis>>蓬起的尾巴。
+			<<beasttype>>发现了<<print _they>>的目光，摇晃了几下尾巴。
+			<<childname>>跟着尾巴的轨迹晃动脑袋。
+			<br><br>
+
+			<<if $monster is 1>>
+				<<bHe>>咯咯笑，"真可爱。<<print _they>>是你的孩子吗？"
+				<<bHe>>上半身趴在地上，冲着<<= $cmonster ? "小哈比" : "小鹰">>摇尾巴，"想和我一起玩吗？"
+			<<else>>
+				<<bHe>>从喉咙里发出呜呜声，尾巴摇得更欢了。
+				<<bHe>>趴在地上，做出邀请一起玩耍的姿势。
+			<</if>>
+
+			你的孩子<<if getAllSympathy().length gt 1>>们<</if>>犹豫地绕着<<beasttype>>转圈。
+			<br><br>
+			<<link [[旁观|BabyHawk Hunt Fox Play Yes]]>><</link>>
+			<br>
+			<<link [[带着你的孩子离开|BabyHawk Hunt Fox Play No]]>><</link>>
+			<br><<exitAll>>
+		<</if>>
+		<<if hasClever() and $phase is 1>><<set _ID to hasClever()>>
+			<<childname _ID>>在你们对峙的时候偷偷溜到了<<beasttype>>的身后，拿走了那个物件。
+			<br>
+			<<bHe>>看起来没有注意到。<<flight_hunt_get_random>>
+			<br><br>
+		<<elseif $phase is 1>>
+			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<br>
 	<<elseif $NPCList[0].traits.includes("territorial")>>
 		<<bHe>>立刻采取了防御的姿势，对你低吼着。
 		<<if $monster is 1>>
@@ -1585,3 +1635,123 @@
 
 	<<flight_hunt_return>>
 <</if>>
+
+:: BabyHawk Hunt Fox Take
+<<effects>>
+你伸出手，示意<<bhim>>将那样东西交出来。
+<br><br>
+
+<<if $monster is 1>>
+	<<if $NPCList[0].traits.includes("clever")>>
+		<<bHe>>一边喘着气，一边呜呜叫着，拿出了藏在背后的东西。
+	<<else>>
+		"哦，这样就行吗？好吧。"<<bHe>>从背后拿出了那个东西。
+	<</if>>
+<<else>>
+	<<bHe>>犹豫地将它从背后拿了出来。
+<</if>>
+<<flight_hunt_get_random>>
+<<set $phase to 3>>
+<br><br>
+
+<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+<br>
+<<link [[离开|BabyHawk Hunt Fox Leave]]>><</link>>
+<br>
+
+:: BabyHawk Hunt Fox Leave
+<<effects>>
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Fox Play No
+<<effects>>
+你不认为让你的孩子和一只<<beasttype>>一起玩是个好主意。
+<br><br>
+
+你张开翅膀，发出一声威吓的尖啸，吓得<<beasttype>>又一次炸毛。
+<br>
+<<if $monster is 1>>
+	"好，好吧。"<<bHe>>仓惶地转身逃跑了。
+<<else>>
+	<<bHe>>沮丧地呜呜叫，转身逃走了。
+<</if>>
+<<if $phase is 1>>
+	<<bHe>>留下了什么东西。
+	<<flight_hunt_get_random>>
+<</if>>
+<br><br>
+
+<<if getAllSympathy()>>
+	抱怨般地大叫着，<<childrenNames _tempIDs>>跟你一起回到空中。
+<</if>>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Fox Play Yes
+<<effects>>
+你决定看看<<beasttype>>准备做些什么。
+<<run getAllSympathy()>><<childSelect _tempIDs[0]>><<set _they to (getAllSympathy().length gt 1 ? "他们" : "<<childhe>>")>>
+<br><br>
+
+<<beasttype>>继续摇晃着尾巴，直到<<childname>>犹豫着上前，试图靠近那根毛茸茸的大尾巴。在<<childhe>>接触到<<beasttype>>之前，<<bHe>>忽地躲开，绕到<<childname>>的身侧扑向<<childhim>>。<<gstress>>
+<br>
+<<childname>>被惊得飞起，但<<beasttype>>只是停在原地，又一次趴下摇尾巴等待<<childname>>靠近。这样反复的几次来往之后，你明白了这场游戏的运作方式：互相扑尾巴。
+<br>
+你的孩子也一样理解了，<<if getAllSympathy().length gt 1>><<childrenNames _tempIDs>>都加入了进来，<</if>>他们开始了循环往复的互相追逐。
+<br><br>
+
+你站在一旁，确保他们没有伸出爪子互相伤害。一只<<beasttype>>和一<<= getAllSympathy().length gt 1 ? "群" : "只">><<= $cmonster ? "小哈比" : "小鹰">>一起用模拟狩猎的方式玩耍，如果西里斯知道这件事，<<nnpc_him "Sirris">>可能会开启一场新的生态调研。
+<br><br>
+
+<<if $hawksTotal gt getAllSympathy().length>>
+其他孩子不明就里地看了一会儿，最终还是遵循本能加入了自己的<<childsiblings _tempIDs>>。<<beasttype>><<= $monster ? "气喘吁吁地笑着，" : "发出许多尖锐的吠叫，">>似乎很享受扑到一大群<<= $cmonster ? "小哈比" : "小鹰">>中间的感觉。
+<br>
+<</if>>
+<<if $phase is 1>>
+	<<beasttype>>还掏出了
+	<<rng 5>>
+	<<switch $rng>>
+		<<case 1>>一根大木棍
+		<<case 2>>一只潜伏者
+		<<case 3>>一块破损的布料
+		<<case 4>>一块特别闪亮的石头
+		<<default>>
+			<<set _looted to either("watch", "ring", "necklace", "bracelet")>>
+			一<<print _looted.replace("watch", "块手表").replace("ring", "个指环").replace("necklace", "条项链").replace("bracelet", "条手链")>>
+	<</switch>>作为玩具，似乎是<<bHe>>之前找到的东西。
+	你的孩子把这些东西在空中抛来抛去，而<<beasttype>>负责奋力跳起，试图在空中截住它。
+	<br><br>
+<</if>>
+
+<<bird_pass 20>>
+他们玩了好一会儿，直到<<beasttype>>精疲力竭地躺在地上，气喘吁吁地吐着舌头。
+<<if $monster is 1>>
+	<<bHe>>高兴地大笑，"真好玩！孩子们总是很有精力。"
+<<else>>
+	<<bHe>>发出了几声听起来有点像笑声的高声吠叫，尾巴开心地摇晃着。
+<</if>>
+<<babyhawks>>也落在地上休息，看起来心满意足。<<stress -6>><<lstress>><<trauma -6>><<ltrauma>>
+<br>
+你走向<<beasttype>>，轻轻抚摸<<bHe>>。
+<<if $monster is 1>>
+	"谢谢你们陪我玩，"<<bhe>>说道。"我真希望所有的大鸟都像你一样……"
+<</if>>
+<<bHe>>用鼻子蹭了蹭你，然后起身钻进了灌木丛。
+<br><br>
+
+<<if $phase is 1>>
+	<<bHe>>留下了玩具作为礼物。
+	<<switch $rng>>
+		<<case 1>><<flight_hunt_get "sticks" 1>>
+		<<case 2>><<flight_hunt_get "lurkers" 1>>
+		<<case 3>><<flight_hunt_get "fabric" 1>>
+		<<case 4>><<flight_hunt_get "junk" 1>>
+		<<default>><<flight_hunt_get "valuables" 1 _looted>>
+	<</switch>>
+	<br><br>
+<</if>>
+
+<<babyhawk_hunt_return>>
+
+:: BabyHawk Hunt Fox Pet
+<<babyhawk_hunt_return>>
