@@ -48,12 +48,12 @@
 <<if $bird.hunts.lootAmount is 0>>
 <!-- 啥也没捕到，小孩不情愿回去，可以和后续单独狩猎接轨，让孩子自己再打会儿 -->
     <<if $hawks_leader is "dominant">>
-        <<childname>>大声尖鸣，尾巴一转飞向了远离高塔的方向。<br>
+        <<childname>>大声尖鸣，尾巴一转，飞向了远离高塔的方向。<br>
 		看起来<<childhim>>还想继续狩猎。<<if $hawksTotal gt 1>>其他孩子留在了你身边，你们踏上返程。<<else>>你独自一人飞回了高塔。<</if>>
         <<set $children[$leaderID].localVariables.activity to "hunting">>
         <<set $hawksTotal -= 1>>
     <<elseif $hawks_leader is "clever">>
-        <<childname>>发出抱怨的小小叫声，<<childhim>>两爪空空，还想继续狩猎。你们踏上返程。
+        <<childname>>发出小小的抱怨声，<<childhim>>两爪空空，还想继续狩猎。你们踏上返程。
     <<else>>
         两爪空空，<<babyhawksthem>>回应你的叫声里带上了沮丧。你们踏上返程。
     <</if>>
@@ -74,7 +74,7 @@
 	<<if $athletics gte 600>>你紧紧跟着<<babyhawksthem>>。<<else>><<babyhawksthem>>的速度令你震惊，你努力跟上<<childname>>。<</if>>
 	<br><br>
 
-	你们一起追了飞机几分钟，直到它最终飞出了视野。
+	你们一起追了飞机好几分钟，直到它最终飞出视野。
 	<br><br>
 	
 	<<childname>>失望地叫着，但看起来仍然坚定。你怀疑这不会是<<childhim>>最后一次尝试抓飞机。
@@ -151,10 +151,10 @@
 		就在你翻找垃圾的时候，你听见背后传来一个声音。你转身，看见<<childname $leaderID>>正冲着一只<<beasttype>>尖啸。
 		<br><br>
 
-		<<bHis>>的耳朵向后压，停在原地看着你和你的<<= $cmonster ? "小哈比" : "小鹰">>。<<gstress>>
+		<<bHis>>的耳朵向后压，停在原地看着你和<<= $cmonster ? "小哈比" : "小鹰">>。<<gstress>>
 		<br>
-		<<childname $leaderID>>和<<bhe>>对视僵持了几秒，随后猛地扑打翅膀，尖鸣着扑向了<<beasttype>>！
-		<<if $hawksTotal gt 1>>其他孩子也扑了过来，他们的尖叫声让<<beasttype>>的尾巴紧张地蓬起。<</if>>
+		<<childname $leaderID>>和<<bhe>>对视僵持了几秒，随后猛地拍打翅膀，尖鸣着扑向了<<beasttype>>！
+		<<if $hawksTotal gt 1>>其他孩子也扑向<<bhim>>，他们的尖叫声让<<beasttype>>紧张地蓬起尾巴。<</if>>
 		<br><br>
 		
 		<span class="green">这只<<beasttype>>当即转身逃跑了。</span>
@@ -162,10 +162,10 @@
 		你的孩子继续尖鸣着驱赶<<bhim>>，没有追上去。
 		<br><br>
 
-		你赶到<<babyhawks>>身边，安抚着<<babyhawksthem>>，将<<babyhawksthem>>揽入一个怀抱以表示感谢。<<childname $leaderID>>自豪地啾啾叫着。<<lstress>>
+		你赶到<<babyhawks>>身边，安抚着<<babyhawksthem>>，将<<babyhawksthem>>揽入一个怀抱以示感谢。<<childname $leaderID>>自豪地啾啾叫着。<<lstress>>
 		<br><br>
 
-		你们回到搜寻中。
+		你们回到搜寻当中。
 		<br><br>
 
 		<<link [[继续|BabyHawk Hunt Scavenge]]>><<endevent>><</link>>
@@ -193,10 +193,10 @@
 		<span class="green">这只<<beasttype>>在你们混乱的攻势中败下阵来，逃跑了。</span>
 		<br><br>
 
-		<<babyhawks>>跳到你身边，担心地啾啾叫着。你把<<babyhawksthem>>揽入一个安抚的怀抱里，确认<<babyhawksthem>>没有受伤。<<lstress>>
+		<<babyhawks>><<= $hawksTotal gt 1 ? "围在" : "凑到">>你身边，担心地啾啾叫着。你把<<babyhawksthem>>揽入一个安抚的怀抱里，确认<<babyhawksthem>>没有受伤。<<lstress>>
 		<br><br>
 
-		休息了一会儿，你们继续回到搜寻中。<<bird_pass 3>>
+		休息了一会儿，你们继续回到搜寻当中。<<bird_pass 3>>
 		<br><br>
 
 		<<link [[继续|BabyHawk Hunt Scavenge]]>><<endevent>><</link>>
@@ -285,7 +285,7 @@
 			<</if>>
 			<br><br>
 
-			你的孩子凑过来<<= $cmonster ? "用手" : "用喙">>敲了敲其中一个空罐头，让它发出清脆的响声。
+			你的孩子凑过来<<= $cmonster ? "敲了敲" : "啄了啄">>其中一个空罐头，让它发出清脆的响声。
 			<<if getAllClever()>>
 				<<childrenNames _tempIDs>>围绕着这些东西欢呼雀跃。<<= getAllClever() gt 1 ? "他们" : "<<childhim _tempIDs>>" >>看起来真的很喜欢这些闪亮亮。
 			<</if>>
@@ -329,7 +329,7 @@
 <</switch>>
 <br><br>
 
-<<babyhawks>>看着你的新发现。<<babyhawksthem>>凑过来用脑袋磨蹭着布料，享受着布料的柔软。
+<<babyhawks>>看着你的新发现，凑过来用脑袋磨蹭着布料，享受着布料的柔软。
 <br><br>
 
 <<if $phase is 1 and hasSympathy()>><<set _ID to hasSympathy()>>
@@ -408,7 +408,7 @@
 			<<set _rng to random(0, $hawksTotal-2)>>
 			<<childname $leaderID>>和<<childname _hawksIDcopy[_rng]>>一起抓起了另一根原木。
 		<<else>>
-			<<childHe>>用爪子抓起另一根较小的原木。木头对<<childhim>>来说似乎稍微有点沉，但<<childname>>还是成功飞了起来。
+			<<childHe>>用爪子抓起另一根较小的原木。木头对<<childhim>>来说似乎稍微有点沉，但<<childhim>>还是成功飞了起来。
 		<</if>>
 		<br><br>
 			
@@ -417,8 +417,8 @@
 	<<case 2>>
 		你随便收集了几块布料，希望之后能派上用场。
 		<br><br>
-		<<if hasClumsy()>><<set _ID to hasClumsy()>>
-			你转过身寻找你的孩子，却发现不知何时<<childname _ID>>钻到了一大片布料底下。<<childhim _ID>>正因找不到逃脱的方式而唧唧大叫。
+		<<if hasClumsy()>><<set _ID to hasClumsy()>>/*需要润色*/
+			你转过身寻找你的孩子，却发现不知何时<<childname _ID>>钻到了一大片布料底下。<<childhe _ID>>正被困在当中，烦恼地大声鸣叫。
 			<br><br>
 			你把<<childhim _ID>>解救了出来。
 			<br><br>
@@ -427,7 +427,7 @@
 		<<babyhawk_hunt_return>>
 	<<case 3>>
 		<<if $housekeepingSuccess>>
-			你成功找到了更多有用的布料，有几块更结实的部分吸引了你。<<babyhawks>>试图拿起这堆布料，却一不小心用爪子划出了一个破洞。
+			你成功找到了更多有用的布料，有几块更结实的部分吸引了你。<<childhe $leaderID>>试图拿起这堆布料，却一不小心用爪子划出了一个破洞。
 			<br>
 			你拿上了剩下的布料。
 			<<flight_hunt_get "fabric" 2>>
@@ -474,7 +474,7 @@
 		<br><br>
 
 		<<if $hawksTotal gte 4>>
-			得益于孩子们的小体型，<<childname $leaderID>>钻进树冠之间，落在了那根树枝的根部，叽喳叫着呼唤其他孩子。他们看了一会儿，一起跳到大树枝上。
+			得益于孩子们的小体型，<<childname $leaderID>>钻进树冠之间，落在了那根树枝的根部，叽喳叫着呼唤<<childhis $leaderID>>的<<childsiblings $hawksIDs>>。他们在<<childname $leaderID>>的引导下钻进荆棘枝条之间，落到大树枝上。
 			<br>
 			<span class="green">他们的重量让树枝发出嘎吱的脆响。</span>你连忙让所有孩子退开，他们一起飞，这根大树枝就不堪重负地断裂，掉在了地上。
 			<br><br>
@@ -488,7 +488,7 @@
 			<<endevent>>
 			<<babyhawk_hunt_return>>
 		<<elseif $athleticsSuccess>>
-			你小心地往上爬，<span class="green">最终够到了那根快掉下去的树枝</span>。你摆好姿势，踢向它。<<childhim $leaderID>>也跟着跳了过来，<<if $hawksTotal gt 1>>呼唤其他孩子<</if>>落在树枝上并用重量帮助你。
+			你小心地往上爬，<span class="green">最终够到了那根快掉下去的树枝</span>。你摆好姿势，踢向它。<<childhim $leaderID>>也跟着跳了过来，<<if $hawksTotal gt 1>>呼唤其他孩子一起<</if>>落在树枝上并用重量帮助你。
 			<br>
 			你只用了几脚就把树枝从树上踢断了。伴随着一声令人满意的裂响，树枝掉到了地上。 
 			<br><br>
@@ -505,7 +505,7 @@
 
 			你摔在了地上，瞬间感到头晕目眩。你花了好一会儿才重新调整好呼吸。<<pain 5>><<gpain>>
 			<br>
-			你重新恢复视野时，<<childname $leaderID>><<if $hawksTotal gt 1>>和你的孩子们<</if>>正站在你的身边，冲你发出担忧的唧唧叫。
+			你重新恢复视野时，你的孩子<<if $hawksTotal gt 1>>们<</if>>正站在你的身边，冲你发出担忧的唧唧叫。
 			<br><br>
 			
 			你刚才攀爬的树现在已经没有任何可供你再次攀爬的东西了，再说你也没有力气再爬一次。至少你折断的其中一根树枝可能能派上用场。<<flight_hunt_get "sticks" 1>>
@@ -534,7 +534,7 @@
 
 			你摔在了地上，瞬间感到头晕目眩。你花了好一会儿才重新调整好呼吸。<<pain 5>><<gpain>>
 			<br>
-			你重新恢复视野时，<<childname $leaderID>><<if $hawksTotal gt 1>>和你的孩子们<</if>>正站在你的身边，冲你发出担忧的唧唧叫。
+			你重新恢复视野时，你的孩子<<if $hawksTotal gt 1>>们<</if>>正站在你的身边，冲你发出担忧的唧唧叫。
 			<br><br>
 			
 			你刚才攀爬的树现在已经没有任何可供你再次攀爬的东西了，再说你也没有力气再爬一次。至少你折断的其中一根树枝可能能派上用场。<<flight_hunt_get "sticks" 1>>
@@ -547,9 +547,9 @@
 <<else>>
 	你让<<babyhawks>>协助你摇树。
 	<<babyhawksthem>>看起来并不是很明白你要做什么，但还是模仿着你的动作抓住树枝。
-	你在树底下开始摇树，而<<if $hawksTotal gt 1>>他们分散着站在树杈上摇树。<<else>><<babyhawksthem>>在高处摇树。<</if>>
+	你站在树底下，而<<if $hawksTotal gt 1>>他们分散着站在树杈上，<<else>><<babyhawksthem>>在高处，<</if>>你们一起开始摇树。
 	<<if $rng gte (70-$hawksTotal*10)>>
-		你尝试了几分钟，但最终树枝发出巨大的咔嚓声折断了。<<babyhawksthem>>跟着落下的树枝飞了下来，你查看成果。这根大树枝本身肯定能派上用场，而它上面的一些小树枝也能有些用处。<<flight_hunt_get "wood" 1>> <<flight_hunt_get "sticks" 2>>
+		你尝试了好几分钟，但最终树枝发出巨大的咔嚓声折断了。<<babyhawks>>跟着落下的树枝飞了下来，你查看成果。这根大树枝本身肯定能派上用场，而它上面的一些小树枝也能有些用处。<<flight_hunt_get "wood" 1>> <<flight_hunt_get "sticks" 2>>
 		<br><br>
 		<<babyhawks>>似乎从中获得了不少乐趣。
 		<br><br>
@@ -576,9 +576,9 @@
 :: BabyHawk Hunt Sticks 2
 你拿上其中一根树枝，然后示意你的孩子拿上另一根。<<set _rng to random(0, $hawksTotal-1)>><<childSelect $hawksIDs[_rng]>>
 <<if $cmonster is 1>>
-	<<childname>>把另一根抓在爪子里。
+	<<childname>>把那根树枝抓在爪子里。
 <<else>>
-	<<childname>>用喙啄着树枝，似乎很满意。<<childHe>>抓起了它。
+	<<childname>>低头衔起树枝。
 <</if>>
 <br><br>
 
@@ -603,7 +603,7 @@
 		<<babyhawk_hunt_return>>
 	<<else>><<childSelect $leaderID>>
 		<<if $hawks_leader is "clever">>
-			<<childname>>突然停下了，歪着脑袋看着自己的爪下。<<childHe>>用爪子刨动地面，嘎嘎叫起来。地面在<<childhis>>的爪下显示出了不稳定的迹象。是流沙。
+			<<childname>>突然停下，歪着脑袋看着自己的爪下。<<childHe>>用爪子刨动地面，嘎嘎叫起来。地面在<<childhis>>的爪下显示出了不稳定的迹象。是流沙。
 			<br><br>
 
 			<<if $hawksTotal gt 1>>其他的孩子好奇地凑近，观察着缓慢移动的地面。你让孩子们保持距离。<br><br><</if>>
@@ -614,13 +614,13 @@
 			<<flight_hunt_get "leaves" 2>>
 			<<babyhawk_hunt_return>>
 		<<else>>
-			<<childname>>跳过去叼起一片叶子，随后开始下陷。<span class="red">是流沙！</span>这些叶子可能是用来标记流沙的，或者是用来掩藏它的。
+			<<childname>>走过去叼起一片叶子，随后<<childhe>>开始下陷。<span class="red">是流沙！</span>这些叶子可能是用来标记流沙的，或者是用来掩藏它的。
 			<br><br>
 
-			<<childHe>>惊慌地大叫，拍打翅膀试图挣脱，但只是让<<childhimself>>陷得更深了。<<if $hawksTotal gt 1>>其他的孩子围绕着<<childhim>>嘎嘎叫着，束手无策。<</if>>
+			<<childHe>>惊慌地大叫，拍打翅膀试图挣脱，但只是让<<childhimself>>陷得更深了。<<if $hawksTotal gt 1>>其他的孩子围着<<childhim>>嘎嘎叫着，束手无策。<</if>>
 			<br><br>
 
-			你连忙抓住<<childname>><<if $cmonster>>的胳膊<</if>>把<<childhim>>拉了出来。<<childHe>>浑身羽毛炸起，受了不少惊吓。你安抚了<<childhim>>好一会儿才继续上路。
+			你连忙抓住<<childname>><<if $cmonster>>的胳膊<</if>>把<<childhim>>拉了出来。<<childHe>>浑身羽毛炸起，受了不少惊吓。你安抚了<<childhim>>好一会儿才重新上路。
 			<br><br>
 
 			<<set _huntFail to 1>>
