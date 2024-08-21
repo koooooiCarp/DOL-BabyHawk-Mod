@@ -1,5 +1,12 @@
 :: Widget BabyHawk [widget]
 
+<<widget 'BabyhawkTestFunc'>>
+<<setupOptions>>
+<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
+<br>
+<<link [[召唤小鹰大军|Babyhawk Test Func]]>><<endevent>><</link>>
+<</widget>>
+
 <<widget "BabyHawkInit">>
 <<if $BabyHawkInit is undefined>>
 

@@ -1,5 +1,5 @@
 
-//simpleFrameworks.addto('iModInit', 'BabyHawkInit');
+simpleFrameworks.addto('iModOptions', 'BabyhawkTestFunc');
 
 /*
 	初始化生长阶段;

@@ -287,7 +287,7 @@
 
 			你的孩子凑过来<<= $cmonster ? "用手" : "用喙">>敲了敲其中一个空罐头，让它发出清脆的响声。
 			<<if getAllClever()>>
-				<<childrenNames _tempIDs>>围绕着这些东西欢呼雀跃。<<= getAllClever().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>看起来真的很喜欢这些闪亮亮。
+				<<childrenNames _tempIDs>>围绕着这些东西欢呼雀跃。<<= getAllClever() gt 1 ? "他们" : "<<childhim _tempIDs>>" >>看起来真的很喜欢这些闪亮亮。
 			<</if>>
 			<br><br>
 		<</if>>
@@ -839,7 +839,7 @@
 	<<case 1>>
 		你躺在花丛里。<br>
 		<<if getAllClumsy()>>
-			<<childrenNames _tempIDs>>好奇地低头看着你，然后在你身边躺下。没过多久<<= getAllClumsy().length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>就钻到了你的怀里，放松地依偎着你。<<lstress>><<stress -6>>
+			<<childrenNames _tempIDs>>好奇地低头看着你，然后在你身边躺下。没过多久<<= getAllClumsy() gt 1 ? "他们" : "<<childhim _tempIDs>>" >>就钻到了你的怀里，放松地依偎着你。<<lstress>><<stress -6>>
 			<br>
 		<</if>>
 		<<if getAllSympathy()>>
@@ -1467,6 +1467,7 @@
 	你降落在<<beasttype>>面前，大张着翅膀。
 	<<if $NPCList[0].traits.includesAny("cowardly")>>
 		<<bHe>>立刻对着你们尖叫起来，然后跑走了。<<bHe>>落下了什么东西。
+		<br><br>
 		<<if $hawks_leader is "dominant">>
 			<<childname $leaderID>>似乎很愉快，挺胸昂首地走过去捡起了那个物件。
 		<</if>>
@@ -1480,6 +1481,7 @@
 			<<if $phase is 1>>
 				<<bHe>>将那个东西移动到身后，仿佛想要藏起来不被你看到。
 			<</if>>
+			<br>
 		<</if>>
 		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
 		<br><br>
@@ -1504,12 +1506,13 @@
 			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
 			<br>
 		<</if>>
-		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<<link [[抚摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
 		<br>
 	<<elseif $NPCList[0].traits.includesAny("clumsy")>>
 		<<bHe>>停下来，冲你歪着脑袋。
 		<<if $monster is 1>>
 			"哦，哇哦，你的翅膀好大好漂亮！你们不会吃我的，对吧？"
+			<br>
 		<</if>>
 		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
 		<br><br>
@@ -1523,16 +1526,17 @@
 			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
 			<br>
 		<</if>>
-		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<<link [[抚摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
 		<br>
 	<<elseif $NPCList[0].traits.includesAny("friendly")>>
 		<<bHe>>停下来，冲你歪着脑袋。
 		<<if $monster is 1>>
 			"哦，哇哦，你的翅膀好大好漂亮！你不会吃我的，对吧？"
+			<br>
 		<</if>>
 		<<bHis>>的尾巴炸毛了，很明显非常害怕你，却因为你的目光而无法移动。
 		<br><br>
-		<<if getAllSympathy()>><<childSelect _tempIDs[0]>><<set _they to (getAllSympathy().length gt 1 ? "他们" : "<<childhe>>")>>
+		<<if getAllSympathy()>><<childSelect _tempIDs[0]>><<set _they to (getAllSympathy() gt 1 ? "他们" : "<<childhe>>")>>
 			<<childrenNames _tempIDs>>饶有兴趣地观察着<<bhis>>蓬起的尾巴。
 			<<beasttype>>发现了<<print _they>>的目光，摇晃了几下尾巴。
 			<<childname>>跟着尾巴的轨迹晃动脑袋。
@@ -1546,7 +1550,7 @@
 				<<bHe>>趴在地上，做出邀请一起玩耍的姿势。
 			<</if>>
 
-			你的孩子<<if getAllSympathy().length gt 1>>们<</if>>犹豫地绕着<<beasttype>>转圈。
+			你的孩子<<if getAllSympathy() gt 1>>们<</if>>犹豫地绕着<<beasttype>>转圈。
 			<br><br>
 			<<link [[旁观|BabyHawk Hunt Fox Play Yes]]>><</link>>
 			<br>
@@ -1562,7 +1566,7 @@
 			<<link [[拿走那个物件|BabyHawk Hunt Fox Take]]>><</link>>
 			<br>
 		<</if>>
-		<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+		<<link [[抚摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
 		<br>
 	<<elseif $NPCList[0].traits.includes("territorial")>>
 		<<bHe>>立刻采取了防御的姿势，对你低吼着。
@@ -1654,7 +1658,7 @@
 <<set $phase to 3>>
 <br><br>
 
-<<link [[摸摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
+<<link [[抚摸|BabyHawk Hunt Fox Pet]]>><<stress -3>><</link>><<lstress>>
 <br>
 <<link [[离开|BabyHawk Hunt Fox Leave]]>><</link>>
 <br>
@@ -1690,21 +1694,21 @@
 :: BabyHawk Hunt Fox Play Yes
 <<effects>>
 你决定看看<<beasttype>>准备做些什么。
-<<run getAllSympathy()>><<childSelect _tempIDs[0]>><<set _they to (getAllSympathy().length gt 1 ? "他们" : "<<childhe>>")>>
+<<run getAllSympathy()>><<childSelect _tempIDs[0]>>
 <br><br>
 
 <<beasttype>>继续摇晃着尾巴，直到<<childname>>犹豫着上前，试图靠近那根毛茸茸的大尾巴。在<<childhe>>接触到<<beasttype>>之前，<<bHe>>忽地躲开，绕到<<childname>>的身侧扑向<<childhim>>。<<gstress>>
 <br>
 <<childname>>被惊得飞起，但<<beasttype>>只是停在原地，又一次趴下摇尾巴等待<<childname>>靠近。这样反复的几次来往之后，你明白了这场游戏的运作方式：互相扑尾巴。
 <br>
-你的孩子也一样理解了，<<if getAllSympathy().length gt 1>><<childrenNames _tempIDs>>都加入了进来，<</if>>他们开始了循环往复的互相追逐。
+你的孩子也一样理解了，<<if getAllSympathy() gt 1>><<childrenNames _tempIDs>>都加入了进来，<</if>>他们开始了循环往复的互相追逐。
 <br><br>
 
-你站在一旁，确保他们没有伸出爪子互相伤害。一只<<beasttype>>和一<<= getAllSympathy().length gt 1 ? "群" : "只">><<= $cmonster ? "小哈比" : "小鹰">>一起用模拟狩猎的方式玩耍，如果西里斯知道这件事，<<nnpc_him "Sirris">>可能会开启一场新的生态调研。
+你站在一旁，确保他们没有伸出爪子互相伤害。一只<<beasttype>>和一<<= getAllSympathy() gt 1 ? "群" : "只">><<= $cmonster ? "哈比" : "小鹰">>一起用模拟狩猎的方式玩耍，如果西里斯知道这件事，<<nnpc_him "Sirris">>可能会开启一场新的生态调研。
 <br><br>
 
-<<if $hawksTotal gt getAllSympathy().length>>
-其他孩子不明就里地看了一会儿，最终还是遵循本能加入了自己的<<childsiblings _tempIDs>>。<<beasttype>><<= $monster ? "气喘吁吁地笑着，" : "发出许多尖锐的吠叫，">>似乎很享受扑到一大群<<= $cmonster ? "小哈比" : "小鹰">>中间的感觉。
+<<if $hawksTotal gt getAllSympathy()>>
+其他孩子不明就里地看了一会儿，最终还是遵循本能加入了自己的<<childsiblings _tempIDs>>。<<beasttype>><<= $monster ? "笑着喘息，" : "发出许多尖锐的吠叫，">>似乎很享受扑到一大群<<= $cmonster ? "小哈比" : "小鹰">>中间的感觉。
 <br>
 <</if>>
 <<if $phase is 1>>
@@ -1750,7 +1754,7 @@
 	<</switch>>
 	<br><br>
 <</if>>
-
+<<earnFeat "Dances with Fox">>
 <<babyhawk_hunt_return>>
 
 :: BabyHawk Hunt Fox Pet

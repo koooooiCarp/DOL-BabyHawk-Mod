@@ -1,0 +1,318 @@
+:: Babyhawk Test Func
+<<set $children["dominantHawk1"] to {
+				childId: "dominantHawk1",
+				birthId: 1001,
+                name: "大强",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "dominant"
+                },
+				gender: "f",
+				features: {
+					size: "large",
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+				
+}>>
+<<set $children["dominantHawk2"] to {
+				childId: "dominantHawk2",
+				birthId: 1002,
+                name: "中强",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "dominant"
+                },
+				gender: "m",
+				features: {
+					size: "normal",
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: 0
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["dominantHawk3"] to {
+				childId: "dominantHawk3",
+				birthId: 1003,
+                name: "小强",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "dominant"
+                },
+				gender: "f",
+				features: {
+					size: "normal",
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["cleverHawk1"] to {
+				childId: "cleverHawk1",
+				birthId: 1004,
+                name: "大聪明",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clever"
+                },
+				gender: "f",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["cleverHawk2"] to {
+				childId: "cleverHawk2",
+				birthId: 1005,
+                name: "中聪明",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clever"
+                },
+				gender: "m",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: 0
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["cleverHawk3"] to {
+				childId: "cleverHawk3",
+				birthId: 1006,
+                name: "小聪明",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clever"
+                },
+				gender: "m",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["sympathyHawk1"] to {
+				childId: "sympathyHawk1",
+				birthId: 1007,
+                name: "大善",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "sympathy"
+                },
+				gender: "f",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["sympathyHawk2"] to {
+				childId: "sympathyHawk2",
+				birthId: 1008,
+                name: "中善",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "sympathy"
+                },
+				gender: "m",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: 0
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["sympathyHawk3"] to {
+				childId: "sympathyHawk3",
+				birthId: 1009,
+                name: "小善",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "sympathy"
+                },
+				gender: "f",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["clumsyHawk1"] to {
+				childId: "clumsyHawk1",
+				birthId: 1010,
+                name: "大笨",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clumsy"
+                },
+				gender: "f",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["clumsyHawk2"] to {
+				childId: "clumsyHawk2",
+				birthId: 1011,
+                name: "中笨",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clumsy"
+                },
+				gender: "m",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: 0
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+<<set $children["clumsyHawk3"] to {
+				childId: "clumsyHawk3",
+				birthId: 1012,
+                name: "小笨",
+				mother: "unknown hawk",
+				father: "unknown hawk",
+				motherKnown: false,
+				fatherKnown: false,
+				type: "hawk",
+                birthLocation: "unknown",
+                location: "otherNest",
+                localVariables: {
+                    trait: "clumsy"
+                },
+				gender: "m",
+				features: {
+					size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+					eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+					hairColour: ["white", "brown"][random(0,1)],
+					skinColour: random(1, 100) lte $blackchance ? "dark" : "light",
+					monster: "monster"
+				},
+				laid: {day: 28, month: 1, year: 361},
+				born: {day: 1, month: 1, year: 2000}
+                
+}>>
+
+<<getChildrenIds `{location: "otherNest",}` "both">>
+<<childViewerDisplay _childrenIds>>
+<br><br>
+<<link [[继续|Bird Tower]]>><<endevent>><</link>>

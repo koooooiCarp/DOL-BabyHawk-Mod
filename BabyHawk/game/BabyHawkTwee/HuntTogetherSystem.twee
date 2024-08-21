@@ -119,8 +119,48 @@
 	<</if>>
 <</if>>
 
-
 :: BabyHawk Hunt Event
+<<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
+<<if $phase is 2>>
+	你无视了遇到的挫折，继续打猎。
+<</if>>
+<<if $bird.hunts.goal is "babyhawk">>
+	你跟着<<babyhawks>>向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞行，希望能发现些什么。
+<<else>>
+	你们一起向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞去，希望能发现什么。
+<</if>>
+<<if Weather.precipitation is "rain">>雨水让你的搜索变得更加困难。<<elseif Weather.precipitation is "snow">>雪让你的搜索变得更加困难。<</if>>
+<<if $daily.birdHuntPhysique is undefined>>
+	<<set $daily.birdHuntPhysique to 0>><<physique 1>>
+<<elseif $daily.birdHuntPhysique lt 3>>
+	<<set $daily.birdHuntPhysique++>><<physique 1>>
+<</if>>
+<br><br>
+<<endevent>>
+<<cleareventpool>>
+	<<addinlineevent "babyhawk_hunt_animals_1" _flight_hunt_chance.other>>
+		<<rng 2>><<set _beastGen to ($rng is 1 ? "cat" : "fox")>><<if _beastGen is "cat">><<beastNEWinit 1 cat>><<else>><<beastNEWinit 1 fox>><</if>>
+		你发现下方有只孤零零的<<beasttype>>。
+		<<rng 100>>
+		<<if $rng gte 60>>
+			<<set $phase to 1>>
+			<<bHes>><<if $monster isnot 1>>叼<<else>>拿<</if>>着什么东西。
+		<</if>>
+		<br><br>
+		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地叽喳叫，在你身边盘旋飞行，似乎希望你停下来观察<<beasttype>>。<br><br><</if>>
+		<<link [[观察 (0:05)|BabyHawk Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
+		<br>
+		<<link [[着陆 (0:05)|BabyHawk Hunt Animal Land]]>><<bird_pass 5>><</link>>
+		<br>
+		<<link [[尖叫|BabyHawk Hunt Animal Screech]]>><<stress -3>><</link>><<lstress>>
+		<br>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
+		<br>
+	<</addinlineevent>>
+<<runeventpool>>
+
+
+:: AWW Hunt Event
 <<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
 <<if $phase is 2>>
 	你无视了遇到的挫折，继续打猎。

@@ -12,5 +12,12 @@
         "difficulty": 2,
         "series": "",
         "filter": ["All", "Social"]
+    },
+    "Dances with Fox":{
+        "title": "与狐共舞",
+        "desc": "见证一段跨物种友谊",
+        "difficulty": 3,
+        "series": "",
+        "filter": ["All", "Social"]
     }
 }

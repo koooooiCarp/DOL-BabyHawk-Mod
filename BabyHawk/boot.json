@@ -26,7 +26,8 @@
     "game/BabyHawkTwee/BabyHawkImmature.twee",
     "game/BabyHawkTwee/HuntTogetherSystem.twee",
     "game/BabyHawkTwee/HuntTogetherEvent.twee",
-    "game/BabyHawkTwee/HuntTogetherWidget.twee"
+    "game/BabyHawkTwee/HuntTogetherWidget.twee",
+    "game/BabyHawkTwee/TestFunc.twee"
   ],
   "addonPlugin": [
     {
@@ -136,7 +137,7 @@
         {
           "passage": "Bird Tower",
           "findString": "<<if $bird.clean gte 100>>",
-          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><<set $exitPassage to $passage>><</link>><</if>><br><br><<if $bird.clean gte 100>>",
+          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><<set $exitPassage to $passage>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
           "_comment1": "新巢选项"
         },
         {
