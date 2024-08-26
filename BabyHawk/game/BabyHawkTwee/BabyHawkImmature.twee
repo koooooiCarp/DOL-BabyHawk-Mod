@@ -1,6 +1,7 @@
 :: BabyHawk Childrens Home
-<<getChildrenIds `{location: "otherNest"}` "both">>
+<<getChildrenIds `{location: "otherNest"}` "both">><<set $otherNest to true>>
 你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
+<<if $babyhawk_GoldRing>><span class="gold">那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。</span><br><br><</if>>
 <<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
 	<<if !$daily.childrenHomeEvent>>
 		<<set $daily.childrenHomeEvent to [$location]>>
@@ -17,7 +18,7 @@
 <br><br>
 <<childViewerDisplay _childrenIds>>
 <br><br>
-<<link [[返回|$exitPassage]]>><<unset $exitPassage>><</link>>
+<<link [[返回|$exitPassage]]>><<unset $exitPassage>><<unset $otherNest>><</link>>
 
 :: BabyHawk Hunt Accept
 你点点头，<<babyhawks>>爆发出一阵喜悦的欢呼声。

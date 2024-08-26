@@ -120,6 +120,17 @@
 					<<icon "birdTower/child_hawk.png">>
 				<</if>>
 			<</if>>
+		<<case "Gold Ring">>
+			/*<<set _RingIconFilter = "filter: " + window.colorNameTranslate(setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable, "hex")>>*/
+			<<set _colour = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
+
+			<<set $_baseIcon to "babyhawk/gold_ring.png">>
+			<<set $_gemIcon to "babyhawk/gold_ring_gem.png">>
+			<<icon $_baseIcon infront>>
+			<span @class="'eye-' + _colour.replace(/ /g, '-')">
+				<span class="colour-eye" style="color:#6E4E11;"><<icon $_gemIcon>></span>
+			</span>
+		
 		<<default>><<icon "birdTower/tower.png">>
 	<</switch>>
 <</widget>>

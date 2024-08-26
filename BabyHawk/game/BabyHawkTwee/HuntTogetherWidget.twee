@@ -254,7 +254,7 @@
 		<br>
 		<<flight_distance_check>>
 		<<flight_time_check _returnTime "silent">>
-		<<link [[返回城堡 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><<set $phase to 1>><</link>><<print _fatigueText>>
+		<<link [[返回城堡 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><<set $phase to 1>><</link>><<print _fatigueText>>
 		<br>
 	<</if>>
 <</widget>>
@@ -262,12 +262,12 @@
 <<widget "babyhawk_hunt_return">>
 	<<childSelect $leaderID>>
 	<<if $bird.hunts.weight gte (3+$hawksTotal)>>
-		你再也拿不下更多东西了。你开始返回高塔。
+		你再也拿不下更多东西了。你们开始返回高塔。
 		<br><br>
 
-		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_distance_check>>
 		<<flight_time_check _returnTime "silent">>
-		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
 		<br>
 	<<elseif $stress gte $stressmax or isPlayerNonparasitePregnancyEnding()>>
 		你没有继续飞行的力气了。你无力的翅膀使你的飞行动作变成了笨拙而急速的下降滑行。你的视野逐渐变黑。
@@ -285,9 +285,9 @@
 		<<babyhawks>>飞到你的身边，<<= $cmonster ? "拉住了你的手" : "轻轻啄了你一口">>。这轻微的触碰却让你因疼痛而皱起了眉头。你伤得太重，无法继续打猎了。你们掉头开始往家的方向返回。
 		<br><br>
 
-		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_distance_check>>
 		<<flight_time_check _returnTime "silent">>
-		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
 		<br>
 	<<elseif $bird.hunts.timer gte 60>>
 		<<babyhawks>>翅膀的扇动变得很慢，看起来非常疲惫。
@@ -297,16 +297,16 @@
 		<<= $hawksTotal gt 1 ? "孩子们" : "你的孩子">>的体力还不足以支撑太长的飞行，是时候回家了。你们调转方向开始返回城堡。
 		<br><br>
 
-		<<flight_distance_check>><<HuntTogetherClean>>
+		<<flight_distance_check>>
 		<<flight_time_check _returnTime "silent">>
-		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|Bird Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
+		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
 		<br>
 	<<else>>
-		你回到更高的空中。
+		你们回到更高的空中。
 		<<if $bird.hunts.timer gte 40>>
 			<<babyhawks>>开始变得有些疲惫了。
 		<<elseif Time.dayState is "dusk" and $bird.hunts.timer gte 60 and !$daily.birdNightWarning>>
-			<!-- 不能正常触发因为我还没想好狩猎时间限制 -->
+			<!-- 大概不能正常触发因为我还没想好狩猎时间限制 -->
 			<<set $daily.birdNightWarning to true>>
 			<<babyhawks>>望着地平线上逐渐落下的太阳。
 			<<if hasClumsy()>><<set _ID to hasClumsy()>>

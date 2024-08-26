@@ -147,13 +147,13 @@ function hawkBabyActivity(childId) {
 		}
 	} else if (between(T.childTotalDays, 65, 200)) {//长的越大活动越接近于巨鹰的活动时间表，即每天固定洗澡;理毛;狩猎（唱歌？
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
-			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
+			activity = activity.concat(["sleepingWithGreatHawk", "sleeping"]);
 		} else {
 			activity = activity.concat(["rest", "explore", "reaching", "practicefly", "preenSubadult", "perchSubadult", "batheSelf"]);
 		}
 	} else if (between(T.childTotalDays, 89, 200)) {//单独狩猎期，把孩子搬出去住新窝，修改location以和其他孩子区分
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
-			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
+			activity = activity.concat(["sleeping"]);
 		} else {
 			activity = activity.concat(["rest", "explore", "reaching", "practicefly","practicehunt", "preenSubadult", "perchSubadult", "batheSelf"]);
 		}

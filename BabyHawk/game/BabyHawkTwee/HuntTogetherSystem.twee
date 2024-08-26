@@ -118,7 +118,6 @@
 		<br>
 	<</if>>
 <</if>>
-
 :: BabyHawk Hunt Event
 <<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
 <<if $phase is 2>>
@@ -137,28 +136,20 @@
 <</if>>
 <br><br>
 <<endevent>>
-<<cleareventpool>>
-	<<addinlineevent "babyhawk_hunt_animals_1" _flight_hunt_chance.other>>
-		<<rng 2>><<set _beastGen to ($rng is 1 ? "cat" : "fox")>><<if _beastGen is "cat">><<beastNEWinit 1 cat>><<else>><<beastNEWinit 1 fox>><</if>>
-		你发现下方有只孤零零的<<beasttype>>。
-		<<rng 100>>
-		<<if $rng gte 60>>
-			<<set $phase to 1>>
-			<<bHes>><<if $monster isnot 1>>叼<<else>>拿<</if>>着什么东西。
-		<</if>>
-		<br><br>
-		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地叽喳叫，在你身边盘旋飞行，似乎希望你停下来观察<<beasttype>>。<br><br><</if>>
-		<<link [[观察 (0:05)|BabyHawk Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
-		<br>
-		<<link [[着陆 (0:05)|BabyHawk Hunt Animal Land]]>><<bird_pass 5>><</link>>
-		<br>
-		<<link [[尖叫|BabyHawk Hunt Animal Screech]]>><<stress -3>><</link>><<lstress>>
-		<br>
-		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
-		<br>
-	<</addinlineevent>>
-<<runeventpool>>
 
+<<cleareventpool>>
+<<addinlineevent "babyhawk_hunt_orphan" 1>>
+			<<childSelect "orphanHawk1">><<set $firstSeen_orphanNest to true>>
+			你的<<childname>>发出一声惊讶的叽喳声，示意你注意下方的灌木。
+			<br><br>
+			
+			你没注意到任何特别的东西，但<<childname>>已经拍打着翅膀向着地面飞去，你只好跟上<<childhim>>。
+			<br><br>
+
+			<<link "降落 (0:05)" "BabyHawk Hunt OrphanHawk Nest">><<bird_pass 5>><</link>>
+			<br>
+<</addinlineevent>>
+<<runeventpool>>
 
 :: AWW Hunt Event
 <<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
@@ -459,26 +450,26 @@
 		<<if ($monster isnot 1) or ($NPCList[0].pronoun is "m" and $NPCList[1].pronoun is "m") or ($NPCList[0].pronoun is "f" and $NPCList[1].pronoun is "f")>>
 			<<beastsplural>>
 		<<else>>
-			一公一母的狐狸人
+			一大一小的狐狸人
 		<</if>>
 		在下方打闹着，但你无法在这个高度判断那是在玩耍还是打架。
 		<br><br>
-
-		<<link [[着陆以凑近看 (0:05)|Bird Hunt Foxes Land]]>><<bird_pass 5>><</link>>
+		<<if getAllSympathy()>><<childrenNames _tempIDs>>目不转睛地盯着它们，似乎很感兴趣。<br><br><</if>>
+		<<link [[着陆以凑近看 (0:05)|BabyHawk Hunt Foxes Land]]>><<bird_pass 5>><</link>>
 		<br>
-		<<link [[尖叫|Bird Hunt Animal Screech]]>><<stress -3>><<set $phase to 4>><</link>><<lstress>>
+		<<link [[尖叫|BabyHawk Hunt Animal Screech]]>><<stress -3>><<set $phase to 4>><</link>><<lstress>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
-	<<addinlineevent "bird_hunt_people_watch" (Math.floor($bird.hunts.distanceNorth / 2))>>
+	<<addinlineevent "babyhawk_hunt_people_watch" (Math.floor($bird.hunts.distanceNorth / 2))>>
 		你发现两个人在荒原上走着。
 		<br><br>
-
-		<<link [[跟上 (0:10)|Bird Hunt People Watching]]>><<bird_pass 10>><</link>>
+		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地对你叽喳叫，似乎希望能仔细观察他们。<br><br><</if>>
+		<<link [[跟上 (0:10)|BabyHawk Hunt People Watching]]>><<bird_pass 10>><</link>>
 		<br>
-		<<link [[无视|Bird Hunt Ignore]]>><<endevent>><</link>>
+		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
 
@@ -497,20 +488,73 @@
 		<</addinlineevent>>
 	<</if>>
 
-	<<if (_distanceNorthSouth gte 4 or _distanceEastWest gte 4) and !Object.values($children).find(child => child.childId == "orphanHawk1")>>
-		<<addinlineevent "bird_hunt_orphan" 2>>
-			<<childSelect "orphanHawk1">>
-			<!-- 可以把这个事件改成孤儿崽回顾过去？ -->
-			你的<<if $monster is 1>><<nnpc_wife "Great Hawk">>倒吸一口气<<else>>伴侣发出一声惊讶的叽喳声<</if>>，示意你注意下方的灌木。
+	<!-- 把这个事件改成孤儿崽回顾过去？ -->
+	<<if !$firstSeen_orphanNest and (_distanceNorthSouth gte 4 or _distanceEastWest gte 4) and hasOrphan()>>
+		<<set _chance to 0>>
+		<<if $leaderID is "orphanHawk1">><<set _chance += 1>><</if>><<if $bird.hunt.goal is "babyhawk">><<set _chance += 1>><</if>>
+		<<addinlineevent "babyhawk_hunt_orphan" _chance>>
+			<<childSelect "orphanHawk1">><<set $firstSeen_orphanNest to true>>
+			你的<<childname>>发出一声惊讶的叽喳声，示意你注意下方的灌木。
+			<br><br>
+			
+			你没注意到任何特别的东西，但<<childname>>已经拍打着翅膀向着地面飞去，你只好跟上<<childhim>>。
 			<br><br>
 
-			<span class="gold">是一个躺在地上的<<if $cmonster is 1>>哈比<<else>>鹰<</if>>宝宝。</span><span class="red">附近完全没看见<<childhis>>双亲的行踪。</span>
-			<br><br>
-
-			<<link "降落 (0:05)" "Bird Hunt Chick Approach">><<bird_pass 5>><</link>>
+			<<link "降落 (0:05)" "BabyHawk Hunt OrphanHawk Nest">><<bird_pass 5>><</link>>
 			<br>
 		<</addinlineevent>>
 	<</if>>
+	
 
 	<<runeventpool>>
+<</if>>
+
+:: BabyHawk Hunt Return
+<<effects>>
+<<set $moor to 100>>
+<<if $phase is 1>>
+	<<if $bird.hunts.goal is "babyhawk">>
+		你示意<<babyhawks>>回城堡。<<babyhawksthem>>跟了上来。
+	<<else>>
+		你们踏上返程。
+	<</if>>
+<<elseif $phase is 2>>
+	你决定及时止损，返回你们的家。
+<</if>>
+很快，你就再次看见了城堡。
+你们降落在栖木上<<if $bird.upgrades.decor gte 3>>，<<babyhawks>>跟在你身后穿过帘子<</if>>，
+<<if $bird.hunts.duo is false and $bird.state is "home" and birdEggsReady("Great Hawk")>>
+	但你马上意识到有什么不对劲。
+	<<birdEggLayEvent "huntReturn">>
+<<elseif $bird.hunts.lootAmount is 0>>
+	对失败的狩猎感到沮丧。<<trauma 12>><<ggtrauma>>
+	<br><br>
+
+	<<if $bird.state is "home" and $bird.activity isnot "sleep">>
+		<<npc "Great Hawk">><<person1>>
+			你的<<beasttype>><<if $monster is 1>>走<<else>>跃<</if>>向你们。
+			<<if $monster is 1>>
+				"很高兴看到你们回来。"<<bHe>>注意到你没有带来任何东西，"不是每次狩猎都能成功的，"<<bhe>>试图安慰你和<<babyhawks>>。
+			<<else>>
+				<<bHe>>注意到你们没有带来任何东西。<<bHe>>温柔地用喙磨蹭着你，试图安慰你。
+			<</if>>
+		<br><br>
+	<</if>>
+
+	<<flight_hunt_end>><<HuntTogetherClean>>
+	<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	对狩猎的成功感到满足。
+	<br>
+	<<switch $bird.upgrades.decor>>
+		<<case 1>>经过一番修整，高塔变得十分舒适温馨。<<stress -6>><<lstress>>
+		<<case 2>>你的狩猎战利品让你感到自己真的回到了家。<<stress -12>><<llstress>>
+		<<case 3>>你的狩猎战利品让你感到自己真的回到了家。<<stress -24>><<lllstress>>
+		<<case 4>>终于回家了。<<stress -36>><<trauma -6>><<lllstress>><<ltrauma>>
+		<<case 5>>终于回家了。银条<<if Time.dayState is "night">>温柔地反射着宁静的月光。<<else>>在你的塔上洒下宁静的倒影。<</if>><<set $stress to 0>><<trauma -6>><<lllstress>><<ltrauma>>
+		<<default>>
+	<</switch>>
+	<br>
+	<<flight_hunt_loot>><<HuntTogetherClean>>
 <</if>>

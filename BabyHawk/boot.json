@@ -13,7 +13,8 @@
     "game/BabyHawkReplace/GrowStage3_ImmatureEvent.txt",
     "game/BabyHawkReplace/OtherNestBuild.txt",
     "game/BabyHawkReplace/OtherNestUpgrade.txt",
-    "game/BabyHawkReplace/HuntTogetherAsk.txt"
+    "game/BabyHawkReplace/HuntTogetherAsk.txt",
+    "game/BabyHawkReplace/FeedHawkSelf.txt"
   ],
   "scriptFileList": [
     "game/BabyHawkjs/hawkBabyActivity.js",
@@ -28,6 +29,10 @@
     "game/BabyHawkTwee/HuntTogetherEvent.twee",
     "game/BabyHawkTwee/HuntTogetherWidget.twee",
     "game/BabyHawkTwee/TestFunc.twee"
+  ],
+  "additionBinaryFile": [
+    "img/misc/icon/babyhawk/gift_gold_ring.png",
+    "img/misc/icon/babyhawk/gold_ring.png"
   ],
   "addonPlugin": [
     {
@@ -141,10 +146,28 @@
           "_comment1": "新巢选项"
         },
         {
+          "passage": "Children Activity Events",
+          "findString": "<</link>>",
+          "replace": "<</link>><</if>>",
+          "_comment1": "新巢返回选项1"
+        },
+        {
+          "passage": "Children Activity Events",
+          "findString": "<<link",
+          "replace": "<<if $otherNest>><<link [[继续|BabyHawk Childrens Home]]>><<unset $exitPassage>><<unset $otherNest>><</link>><<else>><<link",
+          "_comment1": "新巢返回选项2"
+        },
+        {
           "passage": "Bird Hunt Start Alone",
           "findString": "<<effects>>",
           "replaceFile": "game/BabyHawkReplace/HuntTogetherAsk.txt",
           "_comment1": "和鹰崽一起狩猎，随机发生在PC的独自狩猎中"
+        },
+        {
+          "passage": "Widgets Bird",
+          "findString": "<<if $_lurkerLoot gte 1>>",
+          "replaceFile": "game/BabyHawkReplace/FeedHawkSelf.txt",
+          "_comment1": "和鹰崽一起狩猎，回家后进食"
         }
       ]
     },
@@ -178,6 +201,18 @@
               "game/BabyHawkjs/BabyHawkFeat.json"
           ]
       }
+    },
+    {
+      "modName": "BeautySelectorAddon",
+      "addonName": "BeautySelectorAddon",
+      "modVersion": "^2.0.0",
+      "params": {
+          "type": "BabyHawkImg",
+          "imgFileList": [
+            "img/misc/icon/babyhawk/gold_ring_gem.png",
+            "img/misc/icon/babyhawk/gold_ring.png"
+          ]
+      }
     }
   ],
   "dependenceInfo": [
@@ -192,6 +227,10 @@
     {
       "modName": "ReplacePatcher",
       "version": "^1.0.0"
+    },
+    {
+      "modName": "BeautySelectorAddon",
+      "version": "^2.0.0"
     },
     {
       "modName": "Simple Frameworks",
