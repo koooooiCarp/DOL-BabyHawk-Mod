@@ -2,7 +2,7 @@
 :: BabyHawk Hunt Passout
 <<effects>>
 <<npc "Great Hawk">><<person1>>
-<<if isPlayerNonparasitePregnancyEnding()>>
+<<if isPregnancyEnding()>>
 	你的面前是<<beasttype>>的整张脸。
 	<<if $monster is 1>>
 		<<bHe>>对你说了些什么，但那些单词听起来令人费解。
@@ -45,7 +45,9 @@
 你告诉你的<<babyhawks>>，你想回城堡了。
 <br><br>
 
-<<if $bird.hunts.lootAmount is 0>>
+<<if $babyhawk_GoldRing_Hint>>
+	<<childname "orphanHawk1">>高兴地尖鸣回应你，<<childhis>>的爪里还抓着<<childhis>>的戒指。
+<<elseif $bird.hunts.lootAmount is 0>>
 <!-- 啥也没捕到，小孩不情愿回去，可以和后续单独狩猎接轨，让孩子自己再打会儿 -->
     <<if $hawks_leader is "dominant">>
         <<childname>>大声尖鸣，尾巴一转，飞向了远离高塔的方向。<br>
@@ -2057,7 +2059,7 @@
 		"再闹我就把你丢给大鹰吃掉！"
 	<</if>>
 	<br>
-	小<<beasttype 1>>夹起尾巴呜呜地叫着，安顿下来跟着<<print _mom>>一起离开了。
+	小<<beasttype 1>>夹起尾巴发出可怜的呜呜声，安顿下来跟着<<print _mom>>一起离开了。
 <<elseif $NPCList[0].traits.includes("clever")>>
 	好几次尝试后，小<<beasttype 1>>猛地一扑，成功咬住了大狐狸的大尾巴。<<bHe 0>>尖声叫着原地跳起。
 	<<if $monster>>
@@ -2307,11 +2309,11 @@
 <br><br>
 <<link [[收下戒指|BabyHawk Hunt OrphanHawk RingForAntique]]>><</link>>
 <br>
-<<link [[把戒指留给<<childname>>|BabyHawk Hunt OrphanHawk RingForToy]]>><</link>>
+<<link [[把戒指留给<<childname>>|BabyHawk Hunt OrphanHawk RingForToy]]>><<set $babyhawk_GoldRing to 1>><</link>>
 <br>
 
 :: BabyHawk Hunt OrphanHawk Nest Special
-<<effects>>
+<<effects>><<set _colourname = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].name>><<set _colourEye = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
 几分钟过去了，你们掰碎了大部分还勉强纠缠在一块儿的树枝，但除了一些小虫以外什么也没发现。<<childname>>伤心地啾啾叫着，独自飞到一颗高处的树杈上待着。
 <br><br>
 
@@ -2327,16 +2329,17 @@
 <br>
 你意识到了什么，再次抬头呼唤你的孩子，随后开始挖掘这块地面。没一会儿，土里就漏出了一丝闪亮的微光。
 <br>
-<<babyhawkicon "Gold Ring">><span class="gold">一枚黄金制成的戒指，上面镶嵌着一颗<<print setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].name>>宝石，被一些看起来像是葡萄的雕刻花纹所包围。</span>
+<<babyhawkicon "Gold Ring">><span class="gold">一枚黄金制成的戒指，上面镶嵌着一颗<<print _colourname>>宝石，被一些看起来像是葡萄的雕刻花纹所包围。</span>
 <br>
 <<childname>>落在你的身边，激动地<<= $cmonster ? "破涕为笑" : "唧唧鸣叫">>。<<childHe>>绕着你开心地转圈，发出各种各样的兴奋叫声。看来这就是<<childHe>>在找的东西了。
 <br><br>
 
-<<childname>>扑进你的怀里，颤鸣着轻蹭你。<<childHe>>看起来心满意足。
+你迎着光举起戒指，宝石折射出的炫目光芒让<<childname>>安静下来，认真地盯着它。你意识到这颗宝石和<span @class="'eye-' + _colourEye.replace(/ /g, '-')"><span class="colour-eye" style="color:#6E4E11;">你孩子的眼睛</span></span>共享同一种颜色。<<lltrauma>><<trauma -10>>
 <br><br>
-<<link [[收下戒指|BabyHawk Hunt OrphanHawk RingForAntique]]>><</link>>
-<br>
-<<link [[把戒指留给<<childname>>|BabyHawk Hunt OrphanHawk RingForToy]]>><</link>>
+
+<<childname>>钻进你的怀里，<<childhis>>的羽毛轻蹭着你。<<childHe>>看起来心满意足。
+<br><br>
+<<link [[把戒指留给<<childname>>|BabyHawk Hunt OrphanHawk RingForToy]]>><<set $babyhawk_GoldRing to 2>><</link>>
 <br>
 
 :: BabyHawk Hunt OrphanHawk RingForAntique
@@ -2346,13 +2349,12 @@
 
 <<babyhawks>>看着你放好这枚戒指，高兴地跟着你一起离开。
 <br><br>
-
+<<set $bird.hunts.weight += 0.2>>
 <<babyhawk_hunt_return>>
 
 :: BabyHawk Hunt OrphanHawk RingForToy
 <<effects>>
-你把这枚戒指递给<<childname>>。<<childHe>>从你手里<<= $cmonster ? "接过" : "叼过">>戒指，高兴地叽喳叫。
+你把这枚戒指递给<<childname>>。<<childHe>>从你手里<<= $cmonster ? "接过" : "叼过">>戒指，对你高兴地叽喳叫。
 <br><br>
-
-<<set $babyhawk_GoldRing to true>>
+<<set $bird.hunts.weight += 0.2>><<set $bird.hunts.lootAmount += 1>><<set $babyhawk_GoldRing_Hint to true>>
 <<babyhawk_hunt_return>>

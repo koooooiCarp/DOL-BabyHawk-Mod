@@ -269,7 +269,7 @@
 		<<flight_time_check _returnTime "silent">>
 		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
 		<br>
-	<<elseif $stress gte $stressmax or isPlayerNonparasitePregnancyEnding()>>
+	<<elseif $stress gte $stressmax or isPregnancyEnding()>>
 		你没有继续飞行的力气了。你无力的翅膀使你的飞行动作变成了笨拙而急速的下降滑行。你的视野逐渐变黑。
 		<br><br>
 

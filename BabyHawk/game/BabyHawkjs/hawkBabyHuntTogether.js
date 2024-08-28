@@ -180,6 +180,6 @@ function getAllHungry() {
 		}
 	}
 
-	return Number;
+	return T.tempIDs.length;
 }
 window.getAllHungry = getAllHungry;

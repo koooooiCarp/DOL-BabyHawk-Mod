@@ -1,0 +1,31 @@
+<<if !$firstSeen_NestlinginDanger and $bird.hunts.duo is true and $dateCount.GreatHawkHunts gte 20 and $bird.hunts.timer gte 45 and (_distanceNorthSouth gte 4 or _distanceEastWest lte -4) and Object.values($children).find(child => (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling"))>>
+	/* 仅发生一次，要求当前位置在最北边or最西边，和大鹰一起狩猎期间，入侵者从南边偷偷溜进来，巢里有留巢期小鸟。要求这么多到底谁能触发？总之这基本上是入侵者事件的育雏期变体，因此要写到见过入侵者的差分……或者干脆设置成见过入侵者才触发？懒得给入侵者事件里写差分了 */
+		<<addinlineevent "babyhawk_hunt_trespasser" 3>>
+			<<beastNEWinit 1 hawk>><<npc "Great Hawk" 2>><<person2>>
+			<<if $NPCList[1].monster is "monster">>
+				<<set $monster to 1>>
+				<<set $NPCList[0].monster to "monster">>
+				<<set $NPCList[0].type to "harpy">>
+			<<else>>
+				<<set $monster to 0>>
+				<<set $NPCList[0].monster to "">>
+				<<set $NPCList[0].type to "hawk">>
+			<</if>>
+			<<your_bird_text "cap">>突然变得很激动。<<bhis 1>>的一些羽毛都竖了起来。
+			<br><br>
+			<<if $monster is 1>>
+				"外来者，我能闻到——"一声尖鸣打断了<<bhim 1>>。有东西向你们猛冲过来。那东西来自天空，就在你们附近！
+			<<else>>
+				<<bHe 1>>发出一声啸叫，但和你以前听过的不一样。这一声似乎是个警告，又或者是挑衅。<<bHe>>立刻收到了回应——另一声尖鸣从附近响起。这个声音迅速靠近，你发现有什么东西正从空中向你们冲来。
+			<</if>>
+			<br><br>
+
+			那东西很大，你感觉它的全部重量直接撞向了你。你的耳朵嗡鸣起来，而它将你拽离了天空。<<ggpain>><<pain 8>>
+			<br><br>
+
+			<<link [[继续|Bird Hunt Trespasser]]>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if Weather.bloodMoon>>

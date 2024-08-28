@@ -165,6 +165,10 @@ function hawkBabyActivity(childId) {
 		activity = activity.filter(item => item !== "beg");
 	}
 
+	if (childId == "orphanHawk1" && V.babyhawk_GoldRing) {//孤儿小鹰玩戒指
+		activity.push("GoldRing");
+	}
+
 	if (activity.length) {
 		child.localVariables.activity = activity[random(0, activity.length - 1)];
 		child.localVariables.event = true;

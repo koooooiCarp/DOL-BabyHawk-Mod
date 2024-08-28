@@ -118,6 +118,7 @@
 		<br>
 	<</if>>
 <</if>>
+
 :: BabyHawk Hunt Event
 <<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
 <<if $phase is 2>>
@@ -138,40 +139,7 @@
 <<endevent>>
 
 <<cleareventpool>>
-<<addinlineevent "babyhawk_hunt_orphan" 1>>
-			<<childSelect "orphanHawk1">><<set $firstSeen_orphanNest to true>>
-			你的<<childname>>发出一声惊讶的叽喳声，示意你注意下方的灌木。
-			<br><br>
-			
-			你没注意到任何特别的东西，但<<childname>>已经拍打着翅膀向着地面飞去，你只好跟上<<childhim>>。
-			<br><br>
-
-			<<link "降落 (0:05)" "BabyHawk Hunt OrphanHawk Nest">><<bird_pass 5>><</link>>
-			<br>
-<</addinlineevent>>
-<<runeventpool>>
-
-:: AWW Hunt Event
-<<effects>><<flight_distance_check>><<babyhawk_hunt_chance>><<flight_effects>><<childSelect $leaderID>>
-<<if $phase is 2>>
-	你无视了遇到的挫折，继续打猎。
-<</if>>
-<<if $bird.hunts.goal is "babyhawk">>
-	你跟着<<babyhawks>>向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞行，希望能发现些什么。
-<<else>>
-	你们一起向<<print $bird.hunts.direction.replace("north","北").replace("south","南").replace("west","西").replace("east","东")>>飞去，希望能发现什么。
-<</if>>
-<<if Weather.precipitation is "rain">>雨水让你的搜索变得更加困难。<<elseif Weather.precipitation is "snow">>雪让你的搜索变得更加困难。<</if>>
-<<if $daily.birdHuntPhysique is undefined>>
-	<<set $daily.birdHuntPhysique to 0>><<physique 1>>
-<<elseif $daily.birdHuntPhysique lt 3>>
-	<<set $daily.birdHuntPhysique++>><<physique 1>>
-<</if>>
-<br><br>
-<<endevent>>
-
-<<cleareventpool>>
-<<if $stress gte $stressmax or isPlayerNonparasitePregnancyEnding()>>
+<<if $stress gte $stressmax or isPregnancyEnding()>>
 	你没有继续飞行的力气了。你无力的翅膀使你的飞行动作变成了笨拙而急速的下降滑行。你的视野逐渐变黑。
 	<br><br>
 
@@ -213,7 +181,7 @@
 		<<flight_hunt_options>>
 	<<else>>
 		<<if $daily.huntRemyCamp>>
-			你正在 
+			你正在
 			<<if $remy_seen is "farm" or $remy_seen is "livestock" or $livestock_intro isnot undefined>>
 				雷米手下的营地上方。
 			<<else>>

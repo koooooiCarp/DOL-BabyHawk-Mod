@@ -14,7 +14,8 @@
     "game/BabyHawkReplace/OtherNestBuild.txt",
     "game/BabyHawkReplace/OtherNestUpgrade.txt",
     "game/BabyHawkReplace/HuntTogetherAsk.txt",
-    "game/BabyHawkReplace/FeedHawkSelf.txt"
+    "game/BabyHawkReplace/FeedHawkSelf.txt",
+    "game/BabyHawkReplace/NestlingHuntEvent.txt"
   ],
   "scriptFileList": [
     "game/BabyHawkjs/hawkBabyActivity.js",
@@ -32,7 +33,20 @@
   ],
   "additionBinaryFile": [
     "img/misc/icon/babyhawk/gift_gold_ring.png",
-    "img/misc/icon/babyhawk/gold_ring.png"
+    "img/misc/icon/babyhawk/gold_ring.png",
+    "img/misc/icon/babyhawk/gold_ring_amber.png",
+    "img/misc/icon/babyhawk/gold_ring_dark_blue.png",
+    "img/misc/icon/babyhawk/gold_ring_green.png",
+    "img/misc/icon/babyhawk/gold_ring_grey.png",
+    "img/misc/icon/babyhawk/gold_ring_hazel.png",
+    "img/misc/icon/babyhawk/gold_ring_light_blue.png",
+    "img/misc/icon/babyhawk/gold_ring_light_green.png",
+    "img/misc/icon/babyhawk/gold_ring_light_grey.png",
+    "img/misc/icon/babyhawk/gold_ring_lime_green.png",
+    "img/misc/icon/babyhawk/gold_ring_pink.png",
+    "img/misc/icon/babyhawk/gold_ring_purple.png",
+    "img/misc/icon/babyhawk/gold_ring_red.png",
+    "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
   ],
   "addonPlugin": [
     {
@@ -167,7 +181,13 @@
           "passage": "Widgets Bird",
           "findString": "<<if $_lurkerLoot gte 1>>",
           "replaceFile": "game/BabyHawkReplace/FeedHawkSelf.txt",
-          "_comment1": "和鹰崽一起狩猎，回家后进食"
+          "_comment1": "和鹰崽一起狩猎，回城后的处理"
+        },
+        {
+          "passage": "Bird Hunt Event",
+          "findString": "<<if Weather.bloodMoon>>",
+          "replaceFile": "game/BabyHawkReplace/NestlingHuntEvent.txt",
+          "_comment1": "留巢期的特殊入侵事件，发生在狩猎期间"
         }
       ]
     },
@@ -210,7 +230,21 @@
           "type": "BabyHawkImg",
           "imgFileList": [
             "img/misc/icon/babyhawk/gold_ring_gem.png",
-            "img/misc/icon/babyhawk/gold_ring.png"
+            "img/misc/icon/babyhawk/gold_ring.png",
+            "img/misc/icon/babyhawk/gold_ring_amber.png",
+            "img/misc/icon/babyhawk/gold_ring_dark_blue.png",
+            "img/misc/icon/babyhawk/gold_ring_green.png",
+            "img/misc/icon/babyhawk/gold_ring_grey.png",
+            "img/misc/icon/babyhawk/gold_ring_hazel.png",
+            "img/misc/icon/babyhawk/gold_ring_light_blue.png",
+            "img/misc/icon/babyhawk/gold_ring_light_green.png",
+            "img/misc/icon/babyhawk/gold_ring_light_grey.png",
+            "img/misc/icon/babyhawk/gold_ring_lime_green.png",
+            "img/misc/icon/babyhawk/gold_ring_pink.png",
+            "img/misc/icon/babyhawk/gold_ring_purple.png",
+            "img/misc/icon/babyhawk/gold_ring_red.png",
+            "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
+            
           ]
       }
     }

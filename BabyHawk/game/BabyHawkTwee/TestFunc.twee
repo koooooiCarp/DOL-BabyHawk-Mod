@@ -1,4 +1,4 @@
-:: Babyhawk Test Func
+:: Babyhawk Test Many Hawks
 <<set $children["dominantHawk1"] to {
 				childId: "dominantHawk1",
 				birthId: 1001,
@@ -316,3 +316,53 @@
 <<childViewerDisplay _childrenIds>>
 <br><br>
 <<link [[继续|Bird Tower]]>><<endevent>><</link>>
+
+:: BabyHawk Test Gold Ring
+<<set _i to 0>><<set _colour to null>>
+<<set _availableColours = ["dark blue", "light blue", "purple", "hazel", "amber", "green", "light green", "lime green", "grey", "light grey", "red", "pink"].filter(x => !$makeup.owned.eyelenses.includes(x))>><<set _availableColoursEN = ["dark blue", "light blue", "purple", "hazel", "amber", "green", "light green", "lime green", "grey", "light grey", "red", "pink"]>><<set _availableColoursCN = ["深蓝色", "浅蓝色", "紫色", "榛子色", "琥珀色", "绿色", "浅绿色", "青绿色", "灰色", "浅灰色", "红色", "粉红色"]>>
+手绘；eye染色；clothes染色；
+<br>
+<<for _i, _colour range _availableColours>>
+	<span @class="'eye-' + _colour.replace(/ /g, '-')"><span class="colour-eye" style="color:#6E4E11;"><<print _availableColoursCN[_availableColoursEN.indexOf(_colour)]>>：</span></span>
+	<br>
+		/* 手绘，直接调用图片 */  
+		<<set $_gem11Icon to "babyhawk/gold_ring_"+_colour.replace(/ /g, '_')+".png">>
+		<<icon $_gem11Icon>>
+		&nbsp;&nbsp;
+		/* 眼睛的着色渲染，棕色底 */ 
+		<<set $_baseIcon to "babyhawk/gold_ring.png">>
+		<<set $_gemIcon to "babyhawk/gold_ring_gem_DARKER.png">>
+
+		<<icon $_baseIcon infront>>
+		<span @class="'eye-' + _colour.replace(/ /g, '-')">
+			<span class="colour-eye" style="color:#6E4E11;"><<icon $_gemIcon>></span>
+		</span>
+		&nbsp;&nbsp;
+		/* 服装的着色渲染，红色底，需要重定向 */
+		<<if _colour is "amber">>
+			<<set _colour to "tangerine">>
+		<<elseif _colour is "hazel">>
+			<<set _colour to "brown">>
+		<<elseif _colour is "dark blue">>
+			<<set _colour to "blue">>
+		<<elseif _colour is "light grey">>
+			<<set _colour to "silver">>
+		<<elseif _colour is "pink">>
+			<<set _colour to "light pink">>
+		<<elseif _colour is "light blue">>
+			<<set _colour to "teal">>
+		<</if>>
+
+		<<set $_baseIcon to "babyhawk/gold_ring.png">>
+		<<set $_gemIcon to "babyhawk/gold_ring_gem.png">>
+
+		<<icon $_baseIcon infront>>
+		<span @class="'clothes-' + _colour.replace(/ /g, '-')">
+			<<icon $_gemIcon>>
+		</span>
+		&nbsp;&nbsp;
+	<br>
+<</for>>
+<br><br>
+<<link [[继续|Bird Tower]]>><<endevent>><</link>>
+<br>
