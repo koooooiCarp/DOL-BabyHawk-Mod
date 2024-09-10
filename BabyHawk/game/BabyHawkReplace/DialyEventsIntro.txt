@@ -2,26 +2,62 @@
 	<<childHe>>在巢里<<set _rng to random(1,4)>><<childcry _rng>>着。你一靠近，<<childhe>>便抬起头来对你大张着嘴。
 	<br>
 	<<if $bird.materials.lurkers gte 1>>
-	<<link "给<<childhim>>喂食一只潜伏者 (0:15)" "Children Activity Events">><<set $bird.materials.lurkers -=1>><<pass 15>><<set $childActivityEvent to {event:"begHawk", childid:_args[0]}>><</link>> |
+	<<link "给<<childhim>>喂食一只潜伏者 (0:15)" "BabyHawk Activity Events">><<set $bird.materials.lurkers -=1>><<pass 15>><<set $childActivityEvent to {event:"begHawk", childid:_args[0]}>><</link>> |
 	<<else>>
 	<span class="blue">你的巢里没有潜伏者了。</span>
 	<</if>>
-<<case "flutter">>
+<<case "GreatHawk">>
+	<<if $bird.state is "home" and ["build","brood","rest"].includes($bird.activity)>><<npc "Great Hawk">>
+		<<switch $bird.activity>>
+			<<case "build">>
+				<<childHe>>跟在正在筑巢的<<hawkText>>身后。
+				<br>
+				<<link "观察他们 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_build", childid:_args[0]}>><</link>> |
+			<<case "brood">>
+				<<if $children[_args[0]].location is "tower">>
+					<<childHe>>正试图钻进孵蛋的<<hawkText>>身下。
+				<<else>>
+					<<childHe>>好奇地看着正在孵蛋的<<hawkText>>。
+				<</if>>
+				<br>
+				<<link "观察他们 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_brood", childid:_args[0]}>><</link>> |
+			<<case "rest">>
+				<<your_bird_text>>正在对<<childHe>>轻声<<= $monster ? "说些什么" : "唧唧叫">>。
+				<br>
+				<<link "听听 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_rest", childid:_args[0]}>><</link>> |
+		<</switch>>
+	<<else>>
+		<<childHe>>在巢里<<print either("休息","发呆","好奇地观察四周","打瞌睡")>>。
+	<</if>>
+<<case "GoldRing">>
+	<<childHe>>正在巢里把玩着那枚金戒指。
+	<br>
+<<case "Fledgling_fly">>
 	<<childHe>>正在巢里扑打着翅膀。
 	<br>
-	<<link "帮<<childhim>>尝试飞行 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"flutter", childid:_args[0]}>><</link>> |
-<<case "explore">>
+	<<link "帮<<childhim>>尝试飞行 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Fledgling_fly", childid:_args[0]}>><</link>> |
+<<case "Fledgling_explore">>
 	<<childHe>>不在巢里。
 	<br>
-	<<link "寻找<<childhim>> (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"exploreHawk", childid:_args[0]}>><</link>> |
-<<case "preenFledgling">>
+	<<link "寻找<<childhim>> (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Fledgling_explore", childid:_args[0]}>><</link>> |
+<<case "Fledgling_preen">>
 	<<childHe>>正在和自己的翅膀做斗争。
 	<br>
-	<<link "帮<<childhim>>整理羽毛 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"preenFledgling", childid:_args[0]}>><</link>> |
-<<case "perchHop">>
+	<<link "帮<<childhim>>整理羽毛 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Fledgling_preen", childid:_args[0]}>><</link>> |
+<<case "Fledgling_perch">>
 	<<childHe>>向外看着栖木。
 	<br>
-	<<link "带<<childhim>>去栖木那里 (0:15)" "Children Activity Events">><<pass 15>><<set $childActivityEvent to {event:"perchHop", childid:_args[0]}>><</link>> |
+	<<link "带<<childhim>>去栖木那里 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Fledgling_perch", childid:_args[0]}>><</link>> |
+<<case "Subadult_fly">>
+	<<childHe>>正在高塔附近练习飞行。
+	<br>
+	<<link "守望<<childhim>> (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Subadult_fly", childid:_args[0]}>><</link>> |
 <<case "rest">>/* 可以考虑做性格差分 */
-	<<childHe>>在巢里<<print either("休息","发呆","好奇地观察四周","打瞌睡")>>。
+	<<switch $children[_args[0]].localVariables.trait>>
+		<<case "clumsy">>	<<childHe>>在巢里<<print either("休息","望着天空","探头探脑地望着你","发呆","打瞌睡")>>。
+		<<case "sympathy">>	<<childHe>>在巢里<<print either("休息","望着天空","好奇地观察四周","发呆","打瞌睡")>>。
+		<<case "clever">>	<<childHe>>在巢里<<print either("休息","望着天空","望着你，看着你走来走去","衔着树枝玩耍","团成一团睡觉")>>。
+		<<case "dominant">>	<<childHe>>在巢里<<print either("休息","望着天空","拆家，拔掉了好几根小树枝","磨爪","团成一团睡觉")>>。
+		<<default>>	<<childHe>>在巢里<<print either("休息","发呆","好奇地观察四周","打瞌睡")>>。
+	<</switch>>
 <<case "lurkerEat">>

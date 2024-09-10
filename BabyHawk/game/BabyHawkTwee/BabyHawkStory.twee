@@ -77,7 +77,6 @@
 <br>
 
 
-
 :: BabyHawk FirstFlight Back
 <<childSelect $child1>>
 你们在天空中上下翻飞，用身体教导<<babyhawks>>如何适应天空。
@@ -476,14 +475,12 @@
 
 :: BabyHawk Build OtherNest
 <<npc "Great Hawk">><<person1>>
-<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
-<<set _childrenTotal to _childrenIds.length>>
-<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-	<<if $children[_childrenIds[_cc]].localVariables.stage is "Immature" and $children[_childrenIds[_cc]].localVariables.growHintImmature isnot 1 and $children[_childrenIds[_cc]].location is "tower">>
-		<<set $children[_childrenIds[_cc]].location to "otherNest">>
-	<</if>>
-	<<updateChildActivity _childrenIds[_cc]>>
-<</for>>
+<<run Object.values(V.children).forEach(child => {
+	if (child.location == "tower" && child.localVariables.stage == "Immature" && child.localVariables.growHintImmature != 1) {
+		child.location = "otherNest";
+		updateChildActivity(child.childId);
+	}
+})>>
 <<getChildrenIds `{location: "otherNest"}` "both">>
 <<set $ImmatureTotal to _childrenIds.length>>
 <<if $ImmatureTotal gte 3>>

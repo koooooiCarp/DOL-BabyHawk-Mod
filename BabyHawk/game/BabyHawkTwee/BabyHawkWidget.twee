@@ -10,6 +10,12 @@
 <br>
 <</widget>>
 
+<<widget 'BabyhawkModWarning'>>
+	<div id="exportWarning" @class="'no-numberify'">
+		<span class="lblue">&#24744;&#27491;&#22312;&#27983;&#35272;&#30340;&#39029;&#38754;&#26159;&#26469;&#33258;&#40560;&#23453;&#23453;&#65288;&#66;&#97;&#98;&#121;&#72;&#97;&#119;&#107;&#65289;&#27169;&#32452;&#30340;&#20869;&#23481;&#65281;&#35831;&#21247;&#19982;&#21407;&#29256;&#20869;&#23481;&#28151;&#28102;&#126;</span>
+	</div>
+<</widget>>
+
 <<widget "BabyHawkInit">>
 <<if $BabyHawkInit is undefined>>
 
@@ -70,7 +76,7 @@
 	<<switch _args[0]>>
 		<<case "children">>/* 修改查找地点为otherNest */
 			<<run Object.values($children).forEach(child => {
-				if (child.location is "otherNest") {
+				if (child.location == "otherNest") {
 					if (!T.childrenIconSelect) T.childrenIconSelect = [];
 					T.childrenIconSelect.push(child.childId);
 				}

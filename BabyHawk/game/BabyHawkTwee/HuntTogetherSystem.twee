@@ -161,8 +161,8 @@
 	<<if $daily.huntRemyAlerted>>
 		你们接近了曾经侵扰过的营地。<span class="red">这里的人非常警惕，眼睛一直盯着天空。</span>
 		<br><br>
-        <<if hasClever()>><<set _ID to hasClever()>>
-			<<childname _ID>>羽毛炸起，发出一声警戒的尖啸。这让地面上的人立刻开始谨慎地寻找声源。
+        <<if getHawkTrait("clever")>>
+			<<childname _tempIDs[0]>>羽毛炸起，发出一声警戒的尖啸。这让地面上的人立刻开始谨慎地寻找声源。
 			<br><br>
 		<</if>>
         你认为你最好带着<<babyhawks>>离他们远点。
@@ -173,8 +173,8 @@
 	<<elseif $daily.huntRemyBurnt>>
 		闷烧的营地在你下方。这个景象让你感到宽慰，但你今天不会再找到任何东西了。
 		<br><br>
-        <<if getAllSympathy()>>
-			<<childrenNames _tempIDs>>好奇地盯着燃烧着的帐篷。你拍了拍<<childhis _ID>>的脑袋。
+        <<if getHawkTrait("sympathy")>>
+			<<childrenNames _tempIDs[0]>>好奇地盯着燃烧着的帐篷。你拍了拍<<childhis _tempIDs[0]>>的脑袋。
 			<br><br>
 		<</if>>
 		<<endevent>>
@@ -226,7 +226,7 @@
 		<br>
 		这些人正忙于派对，没有发现你们。
 		<br>
-		<<if getAllSympathy()>>
+		<<if getHawkTrait("sympathy")>>
 			<<childrenNames _tempIDs>>在你身边轻轻地跟着人群中的音乐声鸣唱。<<lstress>><<stress -5>>
 		<</if>>
 		<br><br>
@@ -372,7 +372,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "babyhawk_hunt_shiny" _flight_hunt_chance.valuables>>
-		泥沼里有一个闪光的亮点吸引了你<<if getAllClever()>>和<<childrenNames _tempIDs>><</if>>的目光。
+		泥沼里有一个闪光的亮点吸引了你<<if getHawkTrait("clever")>>和<<childrenNames _tempIDs>><</if>>的目光。
 		<br><br>
 
 		<<link [[调查 (0:05)|BabyHawk Hunt Shiny]]>><<bird_pass 5>><</link>>
@@ -382,7 +382,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "babyhawk_hunt_shiny_pond" _flight_hunt_chance.valuables>>
-		<<if getAllClever()>><<childrenNames _tempIDs>>冲着地面发出一声小小的尖鸣。<</if>>
+		<<if getHawkTrait("clever")>><<childrenNames _tempIDs>>冲着地面发出一声小小的尖鸣。<</if>>
 		你发现池塘深处有东西在一闪一闪。也许水面之下有什么有趣的东西。 
 		<br><br>
 
@@ -401,7 +401,7 @@
 			<<bHes>><<if $monster isnot 1>>叼<<else>>拿<</if>>着什么东西。
 		<</if>>
 		<br><br>
-		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地叽喳叫，在你身边盘旋飞行，似乎希望你停下来观察<<beasttype>>。<br><br><</if>>
+		<<if getHawkTrait("sympathy")>><<childrenNames _tempIDs>>热切地叽喳叫，在你身边盘旋飞行，似乎希望你停下来观察<<beasttype>>。<br><br><</if>>
 		<<link [[观察 (0:05)|BabyHawk Hunt Animal Watch]]>><<trauma -3>><<bird_pass 5>><</link>><<ltrauma>>
 		<br>
 		<<link [[着陆 (0:05)|BabyHawk Hunt Animal Land]]>><<bird_pass 5>><</link>>
@@ -422,7 +422,7 @@
 		<</if>>
 		在下方打闹着，但你无法在这个高度判断那是在玩耍还是打架。
 		<br><br>
-		<<if getAllSympathy()>><<childrenNames _tempIDs>>目不转睛地盯着它们，似乎很感兴趣。<br><br><</if>>
+		<<if getHawkTrait("sympathy")>><<childrenNames _tempIDs>>目不转睛地盯着它们，似乎很感兴趣。<br><br><</if>>
 		<<link [[着陆以凑近看 (0:05)|BabyHawk Hunt Foxes Land]]>><<bird_pass 5>><</link>>
 		<br>
 		<<link [[尖叫|BabyHawk Hunt Animal Screech]]>><<stress -3>><<set $phase to 4>><</link>><<lstress>>
@@ -434,7 +434,7 @@
 	<<addinlineevent "babyhawk_hunt_people_watch" (Math.floor($bird.hunts.distanceNorth / 2))>>
 		你发现两个人在荒原上走着。
 		<br><br>
-		<<if getAllSympathy()>><<childrenNames _tempIDs>>热切地对你叽喳叫，似乎希望能仔细观察他们。<br><br><</if>>
+		<<if getHawkTrait("sympathy")>><<childrenNames _tempIDs>>热切地对你叽喳叫，似乎希望能仔细观察他们。<br><br><</if>>
 		<<link [[跟上 (0:10)|BabyHawk Hunt People Watching]]>><<bird_pass 10>><</link>>
 		<br>
 		<<link [[无视|BabyHawk Hunt Ignore]]>><<endevent>><</link>>

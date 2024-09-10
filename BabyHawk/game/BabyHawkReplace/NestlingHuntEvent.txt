@@ -1,6 +1,8 @@
-<<if !$firstSeen_NestlinginDanger and $bird.hunts.duo is true and $dateCount.GreatHawkHunts gte 20 and $bird.hunts.timer gte 45 and (_distanceNorthSouth gte 4 or _distanceEastWest lte -4) and Object.values($children).find(child => (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling"))>>
+<<if !$firstSeen_NestlinginDanger and $bird.trespasser and $bird.hunts.duo is true and $bird.materials.lurkers gt 3 and $dateCount.GreatHawkHunts gte 20 and $bird.hunts.timer gte 45 and (_distanceNorthSouth gte 4 or _distanceEastWest lte -4) and Object.values($children).find(child => (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling")) isnot undefined>>
 	/* 仅发生一次，要求当前位置在最北边or最西边，和大鹰一起狩猎期间，入侵者从南边偷偷溜进来，巢里有留巢期小鸟。要求这么多到底谁能触发？总之这基本上是入侵者事件的育雏期变体，因此要写到见过入侵者的差分……或者干脆设置成见过入侵者才触发？懒得给入侵者事件里写差分了 */
+	/* 还要要求巢里有至少3只潜伏者，因为概念上外来者是来偷吃的。真是服！ */
 		<<addinlineevent "babyhawk_hunt_trespasser" 3>>
+			<<set $firstSeen_NestlinginDanger to true>><<BabyhawkModWarning>>
 			<<beastNEWinit 1 hawk>><<npc "Great Hawk" 2>><<person2>>
 			<<if $NPCList[1].monster is "monster">>
 				<<set $monster to 1>>
@@ -14,16 +16,25 @@
 			<<your_bird_text "cap">>突然变得很激动。<<bhis 1>>的一些羽毛都竖了起来。
 			<br><br>
 			<<if $monster is 1>>
-				"外来者，我能闻到——"一声尖鸣打断了<<bhim 1>>。有东西向你们猛冲过来。那东西来自天空，就在你们附近！
+				"外来者，在塔的附近——"<<bhe 1>>高声尖鸣着警告，立刻向塔的方向飞去。
 			<<else>>
-				<<bHe 1>>发出一声啸叫，但和你以前听过的不一样。这一声似乎是个警告，又或者是挑衅。<<bHe>>立刻收到了回应——另一声尖鸣从附近响起。这个声音迅速靠近，你发现有什么东西正从空中向你们冲来。
+				<<bHe 1>>发出一声啸叫，但和你以前听过的不一样。这一声似乎是个警告。<<bHe 1>>立刻向塔的方向飞去。
 			<</if>>
 			<br><br>
 
-			那东西很大，你感觉它的全部重量直接撞向了你。你的耳朵嗡鸣起来，而它将你拽离了天空。<<ggpain>><<pain 8>>
+			得益于你锐利的眼神，你能看见一个很小的身影从南边逐渐接近你的高塔。
+			<span class="red">是另一只<<beasttype>>。</span>
+			<br>
+			而你的孩子此时正在塔里独自待着。<<ggstress>><<stress 8>>
 			<br><br>
-
-			<<link [[继续|Bird Hunt Trespasser]]>><</link>>
+			
+			<<bHis 1>>飞行的速度前所未有地快，你尽力跟上<<bhim 1>>。
+			<br><br>
+			<<flight_time_check _returnTime "silent">>
+			<<set _flightTime to Math.floor(_flightTime / 2)>>
+			<<set _hoursPassed to Math.floor(_flightTime / 60)>>
+			<<set _minutesPassed to _flightTime % 60>>
+			<<link [[返回城堡 (<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Trespasser]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<set $phase to 0>><</link>><<print _fatigueText>>
 			<br>
 		<</addinlineevent>>
 	<</if>>

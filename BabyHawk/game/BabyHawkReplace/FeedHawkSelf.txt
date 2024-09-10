@@ -1,14 +1,13 @@
 <<if $_lurkerLoot gte 1>>/*先处理小鹰以免后续减成负值了*/
 	<<if getAllHungry() gte 1>>
-		<<set _FeedHawkSelf to getAllHungry()>>
 		<<childrenNames _tempIDs>>抓着带回来的潜伏者回到了巢里，开始狼吞虎咽地进食。
-		<<set $bird.materials.lurkers -= _FeedHawkSelf>>
-		<<set $_lurkerLoot -= _FeedHawkSelf>>
+		<<set $bird.materials.lurkers -= _length>>
+		<<set $_lurkerLoot -= _length>>
 		<br><br>
 	<</if>>
 <</if>>
 <<if $babyhawk_GoldRing_Hint>>
-	<<babyhawkicon "Gold Ring">>你看到<<childname "orphanHawk1">>把那枚金戒指放进了自己的巢里。
+	<<babyhawkicon "Gold Ring">><<if $babyhawk_GoldRing_Hint is 1>>你看到<<childname "orphanHawk1">>把那枚金戒指放进了自己的巢里。<<else>>一枚金戒指。<</if>>
 	<<unset $babyhawk_GoldRing_Hint>>
 	<br><br>
 <</if>>

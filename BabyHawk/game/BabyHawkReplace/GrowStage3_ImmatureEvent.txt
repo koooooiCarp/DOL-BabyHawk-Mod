@@ -1,7 +1,7 @@
 <<if Object.values($children).find(child => (child.localVariables.growHintImmature == 1 && child.localVariables.growHintSubadult != 1)) and $bird.hunts.unlocked is true and Weather.precipitation isnot "rain">>
 
 <<set $dateCount.Total++>><<set $dateCount.GreatHawkHunts++>><<unset $birdPerch>>
-
+<<BabyhawkModWarning>>
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set $ImmatureIDs to []>>

@@ -1,7 +1,7 @@
 <<bird_schedule>>
 
 <<if Object.values($children).find(child => (child.localVariables.growHintFledgling == 1))>>
-
+<<BabyhawkModWarning>>
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set _FledglingIDs to []>>

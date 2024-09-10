@@ -195,23 +195,23 @@
 		<<if $bird.hunts.distanceNorth is 5>>
 			农田延伸至北方，那里是你们领地的边境。
 			<br>
-			<<if getAllSympathy() and !$firstShown_North>><<set $firstShown_North to 1>>
+			<<if getHawkTrait("sympathy") and !$firstShown_North>><<set $firstShown_North to 1>>
 				<<childrenNames _tempIDs>>在你的身后探头探脑，似乎对农田里移动的各种生物很感兴趣。
 				<br>
 			<</if>>
 		<<elseif $bird.hunts.distanceEast is 5>>
 			继续往东飞去的话，你可能会进入自己并不熟悉的危险的领域。
 			<br>
-			<<if getAllDominant() and !$firstShown_East>><<set $firstShown_East to 1>>
-				<<childrenNames _tempIDs>>专心致志地盯着爪下的荒原寻找猎物。<<= getAllDominant() gt 1 ? "他们" : "<<childhim _tempIDs>>" >>终有一天会找到新的猎场，但不是现在。
+			<<if getHawkTrait("dominant") and !$firstShown_East>><<set $firstShown_East to 1>>
+				<<childrenNames _tempIDs>>专心致志地盯着爪下的荒原寻找猎物。<<= _length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>终有一天会找到新的猎场，但不是现在。
 				<br>
 			<</if>>
 		<<elseif $bird.hunts.distanceNorth is -5>>
 			你感觉越往南面飞去，你的方向感就越加丧失。也许掉头返回才是明智选择。
 			<br>
-			<<if getAllClever() and !$firstShown_South>><<set _rng to random(0,getAllClever()-1)>><<set $firstShown_South to 1>>
+			<<if getHawkTrait("clever") and !$firstShown_South>><<set _rng to random(0,_length-1)>><<set $firstShown_South to 1>>
 				<<childname _tempIDs[_rng]>>似乎有些紧张，<<childhis _tempIDs[_rng]>>的羽毛微微蓬起，盯着荒原的更远方。
-				<<if getAllClever() gt 1>>
+				<<if _length gt 1>>
 					<<run _tempIDs = _tempIDs.filter(item => item !== _tempIDs[_rng])>><<childrenNames _tempIDs>>叽喳叫着安抚<<childhim _tempIDs[_rng]>>。
 				<</if>>
 				<br>
@@ -223,8 +223,8 @@
 				森林延伸至西面。
 			<</if>>
 			<br>
-			<<if getAllClumsy() and !$firstShown_West>><<set $firstShown_West to 1>>
-				<<childrenNames _tempIDs>>好奇地望着茂密的森林。也许错综复杂的林间正适合小小的<<= getAllClumsy() gt 1 ? "他们" : "<<childhim _tempIDs>>" >>练习飞行呢。
+			<<if getHawkTrait("clumsy") and !$firstShown_West>><<set $firstShown_West to 1>>
+				<<childrenNames _tempIDs>>好奇地望着茂密的森林。也许错综复杂的林间正适合小小的<<= _length gt 1 ? "他们" : "<<childhim _tempIDs>>" >>练习飞行呢。
 				<br>
 			<</if>>
 		<</if>>
@@ -309,8 +309,8 @@
 			<!-- 大概不能正常触发因为我还没想好狩猎时间限制 -->
 			<<set $daily.birdNightWarning to true>>
 			<<babyhawks>>望着地平线上逐渐落下的太阳。
-			<<if hasClumsy()>><<set _ID to hasClumsy()>>
-				<<childname _ID>>有些不安地喳喳叫。
+			<<if getHawkTrait("clumsy")>>
+				<<childname _tempIDs[0]>>有些不安地喳喳叫。
 				<br><br>
 			<</if>>
 		<</if>>

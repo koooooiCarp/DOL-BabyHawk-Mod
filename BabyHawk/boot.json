@@ -1,11 +1,10 @@
 {
   "name": "BabyHawk",
-  "version": "0.1",
+  "version": "1.0",
   "additionFile": [
     "readme.md",
     "game/BabyHawkjs/BabyHawkFeat.json",
     "game/BabyHawkReplace/DialyEventsIntro.txt",
-    "game/BabyHawkReplace/DialyEventsActions.txt",
     "game/BabyHawkReplace/PrintDetails.txt",
     "game/BabyHawkReplace/PrintSizeHint.txt",
     "game/BabyHawkReplace/GrowStage1_FledglingEvent.txt",
@@ -34,18 +33,6 @@
   "additionBinaryFile": [
     "img/misc/icon/babyhawk/gift_gold_ring.png",
     "img/misc/icon/babyhawk/gold_ring.png",
-    "img/misc/icon/babyhawk/gold_ring_amber.png",
-    "img/misc/icon/babyhawk/gold_ring_dark_blue.png",
-    "img/misc/icon/babyhawk/gold_ring_green.png",
-    "img/misc/icon/babyhawk/gold_ring_grey.png",
-    "img/misc/icon/babyhawk/gold_ring_hazel.png",
-    "img/misc/icon/babyhawk/gold_ring_light_blue.png",
-    "img/misc/icon/babyhawk/gold_ring_light_green.png",
-    "img/misc/icon/babyhawk/gold_ring_light_grey.png",
-    "img/misc/icon/babyhawk/gold_ring_lime_green.png",
-    "img/misc/icon/babyhawk/gold_ring_pink.png",
-    "img/misc/icon/babyhawk/gold_ring_purple.png",
-    "img/misc/icon/babyhawk/gold_ring_red.png",
     "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
   ],
   "addonPlugin": [
@@ -112,12 +99,6 @@
           "_comment1": "鹰崽新增随机日常互动"
         },
         {
-          "passage": "Children Activity Events",
-          "findString": "<<case \"sleepingStrokeHawk\">>",
-          "replaceFile": "game/BabyHawkReplace/DialyEventsActions.txt",
-          "_comment1": "鹰崽新增随机日常互动事件"
-        },
-        {
           "passage": "Bird Tower",
           "findString": "<<bird_schedule>>",
           "replaceFile": "game/BabyHawkReplace/GrowStage1_FledglingEvent.txt",
@@ -156,7 +137,7 @@
         {
           "passage": "Bird Tower",
           "findString": "<<if $bird.clean gte 100>>",
-          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><<set $exitPassage to $passage>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
+          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
           "_comment1": "新巢选项"
         },
         {
@@ -231,18 +212,6 @@
           "imgFileList": [
             "img/misc/icon/babyhawk/gold_ring_gem.png",
             "img/misc/icon/babyhawk/gold_ring.png",
-            "img/misc/icon/babyhawk/gold_ring_amber.png",
-            "img/misc/icon/babyhawk/gold_ring_dark_blue.png",
-            "img/misc/icon/babyhawk/gold_ring_green.png",
-            "img/misc/icon/babyhawk/gold_ring_grey.png",
-            "img/misc/icon/babyhawk/gold_ring_hazel.png",
-            "img/misc/icon/babyhawk/gold_ring_light_blue.png",
-            "img/misc/icon/babyhawk/gold_ring_light_green.png",
-            "img/misc/icon/babyhawk/gold_ring_light_grey.png",
-            "img/misc/icon/babyhawk/gold_ring_lime_green.png",
-            "img/misc/icon/babyhawk/gold_ring_pink.png",
-            "img/misc/icon/babyhawk/gold_ring_purple.png",
-            "img/misc/icon/babyhawk/gold_ring_red.png",
             "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
             
           ]

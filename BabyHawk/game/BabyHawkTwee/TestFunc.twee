@@ -312,7 +312,7 @@
                 
 }>>
 
-<<getChildrenIds `{location: "otherNest",}` "both">>
+<<getChildrenIds `{location: "otherNest"}` "both">>
 <<childViewerDisplay _childrenIds>>
 <br><br>
 <<link [[继续|Bird Tower]]>><<endevent>><</link>>

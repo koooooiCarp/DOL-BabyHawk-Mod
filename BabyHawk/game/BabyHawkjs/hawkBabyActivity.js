@@ -1,6 +1,21 @@
 
 simpleFrameworks.addto('iModOptions', 'BabyhawkTestFunc');
 
+simpleFrameworks.addto('iModHeader', {
+    passage: ['Bird Tower Hunt End BabyHawk','BabyHawk Hunt Accept','BabyHawk Hunt Refuse','BabyHawk Hunt Passout','BabyHawk Hunt Return Ask',
+		'Bird Tower FoodForOne BabyHawk','Bird Tower FoodForAll BabyHawk','BabyHawk Childrens Home','BabyHawk Activity Events',
+		'BabyHawk FirstFlight','BabyHawk FirstFlight Back','BabyHawk FirstFlight End','BabyHawk FirstFlight Stay',
+		'BabyHawk FirstHunt Intro','BabyHawk FirstHunt Intro 2','BabyHawk FirstHunt Intro 3','BabyHawk FirstHunt Intro 4','BabyHawk FirstHunt Intro 5','BabyHawk FirstHunt Intro 6','BabyHawk FirstHunt Intro 7',
+		'BabyHawk Build OtherNest','BabyHawk Hunt Goal','BabyHawk Hunt Direction','BabyHawk Hunt Event','BabyHawk Hunt Return',
+		'BabyHawk Hunt Plane Chase','BabyHawk Hunt Ignore','BabyHawk Hunt Scavenge Party Site','BabyHawk Hunt Scavenge','BabyHawk Hunt Scavenge Clothes','BabyHawk Hunt Scavenge Leave','BabyHawk Hunt Camp','BabyHawk Hunt Camp 2','BabyHawk Hunt Exit',
+		'BabyHawk Hunt Dead Tree','BabyHawk Hunt Dead Tree 2','BabyHawk Hunt Sticks','BabyHawk Hunt Sticks 2','BabyHawk Hunt Leaves','BabyHawk Hunt Underbrush','BabyHawk Hunt Underbrush 2','BabyHawk Hunt Underbrush Fight','BabyHawk Hunt Underbrush Fight Finish',
+		'BabyHawk Hunt Flowers','BabyHawk Hunt Flowers Leave','BabyHawk Hunt Flowers Relax','BabyHawk Hunt Lurkers Lot','BabyHawk Hunt Lurkers Lot Single','BabyHawk Hunt Lurkers Lot Double','BabyHawk Hunt Lurkers Lot Group','BabyHawk Hunt Lurkers Few','BabyHawk Hunt Lurkers Few PokemonGo','BabyHawk Hunt Lurkers Few Ambush','BabyHawk Hunt Lurkers Few Chase',
+		'BabyHawk Hunt Shiny','BabyHawk Hunt Shiny Clothes','BabyHawk Hunt Pond Dive','BabyHawk Hunt Pond Dive 2','BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
+		'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
+		'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
+	],
+    widget: 'BabyhawkModWarning',
+});
 /*
 	初始化生长阶段;
 	总体换羽过程比现实苍鹰推后一个阶段，总而言之不要太在意和现实的契合度，这里是dol！;
@@ -131,31 +146,31 @@ function hawkBabyActivity(childId) {
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
+			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe","GreatHawk"]);
 		}
-	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 ，我想在这个阶段写一个入侵事件，外来者试图掏鸟巢，然后展现苍鹰超牛的飞行狩猎打架技巧，比如空中0秒转弯之类的……以及压制敌人之后拔毛……总而言之攻击性要强！*/
+	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe"]);
+			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe","GreatHawk"]);
 		}
 	} else if (between(T.childTotalDays, 35, 64)) {/* "Fledgling"：幼鸟，长出稚羽，已离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "explore", "reaching", "flutter", "preenFledgling", "perchHop", "batheSelf"]);
+			activity = activity.concat(["rest", "reaching", "Fledgling_explore", "Fledgling_fly", "Fledgling_preen", "Fledgling_perch", "batheSelf","GreatHawk"]);
 		}
-	} else if (between(T.childTotalDays, 65, 200)) {//长的越大活动越接近于巨鹰的活动时间表，即每天固定洗澡;理毛;狩猎（唱歌？
+	} else if (between(T.childTotalDays, 65, 200)) {/* "Subadult"：亚成鸟，初次飞行，还没学狩猎 */ //长的越大活动越接近于巨鹰的活动时间表，即每天固定洗澡;理毛;狩猎（唱歌？
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "explore", "reaching", "practicefly", "preenSubadult", "perchSubadult", "batheSelf"]);
+			activity = activity.concat(["rest", "reaching", "Fledgling_explore", "Subadult_fly", "preenSubadult", "perchSubadult", "batheSelf","GreatHawk"]);
 		}
-	} else if (between(T.childTotalDays, 89, 200)) {//单独狩猎期，把孩子搬出去住新窝，修改location以和其他孩子区分
+	} else if (between(T.childTotalDays, 89, 200)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "explore", "reaching", "practicefly","practicehunt", "preenSubadult", "perchSubadult", "batheSelf"]);
+			activity = activity.concat(["rest", "reaching", "explore", "practicefly","practicehunt", "preenImmature", "perchImmature", "batheSelf","GreatHawk"]);
 		}
 	}
 	if (child.localVariables.stage != "Immature" && child.localVariables.FeededDaily < 2) {//乞食
@@ -182,7 +197,7 @@ window.hawkBabyActivity = hawkBabyActivity;
 new TimeEvent('onDay', 'DailyBabyHawkCheck')
 	.Action(timeData => {
 		Object.values(V.children).forEach(child => {
-			if (child.type == "hawk" && child.location == "tower" && !child.eggTimer) {
+			if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
 				/* 检测初始化 */
 				BabyHawkInitCheck(child.childId);
 				/* 检测喂食情况 */
@@ -191,9 +206,23 @@ new TimeEvent('onDay', 'DailyBabyHawkCheck')
 				updateSize(child.childId);
 				/* 检测成长阶段 */
 				updateGrowStage(child.childId);
+				/* 更新事件 */
+				updateChildActivity(child.childId);
 			}
 		})
 		V.atBirdTower = 0;
+	});
+
+new TimeEvent('onHour', 'updateBabyHawkActivity')
+	.Action(timeData => {
+		if(V.location == "tower"){
+			Object.values(V.children).forEach(child => {
+				if (child.type == "hawk" && !child.eggTimer) {
+					/* 更新事件 */
+					updateChildActivity(child.childId);
+				}
+			})
+		}
 	});
 
 /*

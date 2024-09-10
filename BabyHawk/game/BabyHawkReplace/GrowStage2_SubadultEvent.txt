@@ -1,7 +1,7 @@
 <<birdEggLayEvent "perch">>
 
 <<elseif Object.values($children).find(child => (child.localVariables.growHintSubadult == 1)) and $bird.state is "home" and ["groom","sing"].includes($bird.activity) and Weather.precipitation isnot "rain">>
-
+<<BabyhawkModWarning>>
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set $SubadultIDs to []>>
