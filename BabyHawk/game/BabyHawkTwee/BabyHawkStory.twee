@@ -222,7 +222,7 @@
 
 :: BabyHawk FirstHunt Intro
 <<set $outside to 1>><<effects>>
-你们在荒原上空翱翔，寻找着任何可见的猎物。<<hawkText>>和你时飞时停，让孩子们自由地探索这片天地。
+你们在荒原上空翱翔，寻找着任何可见的猎物。<<GreatHawk>>和你时飞时停，让孩子们自由地探索这片天地。
 <br><br>
 <!-- 我不知道怎么在当前活动id$ImmatureIDcopy里find，这写法太傻比了 -->
 <<set _childT to Object.values($children).find(child => (child.localVariables.trait == "clever" && child.localVariables.activity == "lurkerEat" && child.localVariables.stage == "Immature"))>>
@@ -291,7 +291,7 @@
 <<set _childT to Object.values($children).find(child => (child.localVariables.trait == "sympathy" && child.localVariables.activity == "lurkerEat" && child.localVariables.stage == "Immature"))>>
 <<childname _childT>>似乎不太在乎你的配偶的警告，<<childhe _childT>>拍打着翅膀想要追上<<print _beastGen>>仔细观察，但很快就跟丢了。
 <br>
-你安抚了<<hawkText>>一会儿才重新上路，期间<<babyhawks>>已经失去了对<<print _beastGen>>的兴趣。
+你安抚了<<GreatHawk>>一会儿才重新上路，期间<<babyhawks>>已经失去了对<<print _beastGen>>的兴趣。
 <br>
 
 <<link [[继续|BabyHawk FirstHunt Intro 4]]>><<pass 5>><</link>>
@@ -323,7 +323,7 @@
 
 你指引<<babyhawks>>注意远方的景象，随后转身飞向塔的方向，让<<babyhawksthem>>跟随自己到更安全的地方寻找猎物。
 <br>
-你的孩子似乎对冉冉升起的烟火相当好奇，但<<hawkText>>挡住了<<babyhawksthem>>，用身体划分活动区域的界限。<<bHe>>带着<<babyhawks>>跟上了你。
+你的孩子似乎对冉冉升起的烟火相当好奇，但<<GreatHawk>>挡住了<<babyhawksthem>>，用身体划分活动区域的界限。<<bHe>>带着<<babyhawks>>跟上了你。
 <br>
 
 <<link [[继续|BabyHawk FirstHunt Intro 5]]>><<pass 5>><</link>>
@@ -343,7 +343,7 @@
 	<<case "meek">>		"让我来吧。<<nnpc_wife "Great Hawk">>可以帮忙看着<<babyhawks>>吗？"你请求巨鹰。
 	<<case "neutral">>	"让我来吧。"你微笑，重新分配你们的职责，"<<nnpc_wife "Great Hawk">>可以负责看着我们。"
 <</switch>>
-<<hawkText>><<if C.npc["Great Hawk"].dom gte 50>>犹豫地<</if>><<= $monster ? "点点头" : "叫了一声">>，飞向更高处盘旋守护着你们，防卫任何可能的威胁。
+<<GreatHawk>><<if C.npc["Great Hawk"].dom gte 50>>犹豫地<</if>><<= $monster ? "点点头" : "叫了一声">>，飞向更高处盘旋守护着你们，防卫任何可能的威胁。
 <br><br>
 
 <<switch $speech_attitude>>
@@ -454,7 +454,7 @@
 
 <<babyhawks>>抓着自己的猎物回到巢里，立刻开始高兴地进食。
 <br>
-<<hawkText>>凑到你的身边，
+<<GreatHawk>>凑到你的身边，
 <<if $monster is 1>>
 	在你的脸上轻啄。
 <<else>>
@@ -521,7 +521,7 @@
 你们开始搭建新巢。<<babyhawks>>从巢里抬起头，看着你们忙忙碌碌地搬运材料。没一会儿，<<babyhawksthem>>也跳出来跟在你们身后。
 <br><br>
 
-你们选中了高塔的另一个角落来放置新巢。你将大块的木材互相交叠作为基底，而<<hawkText>>负责将每根小树枝和短原木穿插其中，搭建成巢穴的基础框架。
+你们选中了高塔的另一个角落来放置新巢。你将大块的木材互相交叠作为基底，而<<GreatHawk>>负责将每根小树枝和短原木穿插其中，搭建成巢穴的基础框架。
 <br>
 <<childname>>学着你的配偶的样子，把一根根小树枝戳进缝隙间，<<childhim>>看起来玩得很开心。
 <br>
@@ -537,7 +537,7 @@
 没一会儿，你把最后几根支棱出来的小树枝稳当地塞进巢的底部，确认好每个部分都搭建完毕。你退开，站在<<your_bird_text>>身边，看着<<babyhawks>>开心地扑进新搭建的巢里，在巢里蹦蹦跳跳。
 <br><br>
 
-你和<<hawkText>>一起待在<<babyhawks>>的笑声和尖叫声里休息了一会儿。<<tiredness -6>><<ltiredness>>
+你和<<GreatHawk>>一起待在<<babyhawks>>的笑声和尖叫声里休息了一会儿。<<tiredness -6>><<ltiredness>>
 <br><br>
 
 <<link [[继续|Bird Tower Build]]>><<BabyHawkStoryClean>><<endevent>><</link>>

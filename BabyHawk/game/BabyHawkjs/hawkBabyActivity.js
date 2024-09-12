@@ -146,31 +146,31 @@ function hawkBabyActivity(childId) {
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe","GreatHawk"]);
+			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
 		}
 	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe","GreatHawk"]);
+			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe", "GreatHawk"]);
 		}
 	} else if (between(T.childTotalDays, 35, 64)) {/* "Fledgling"：幼鸟，长出稚羽，已离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "reaching", "Fledgling_explore", "Fledgling_fly", "Fledgling_preen", "Fledgling_perch", "batheSelf","GreatHawk"]);
+			activity = activity.concat(["rest", "crying", "reaching", "explore", "Fledgling_fly", "Fledgling_preen", "Fledgling_perch", "batheSelf", "GreatHawk"]);
 		}
 	} else if (between(T.childTotalDays, 65, 200)) {/* "Subadult"：亚成鸟，初次飞行，还没学狩猎 */ //长的越大活动越接近于巨鹰的活动时间表，即每天固定洗澡;理毛;狩猎（唱歌？
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "reaching", "Fledgling_explore", "Subadult_fly", "preenSubadult", "perchSubadult", "batheSelf","GreatHawk"]);
+			activity = activity.concat(["rest", "reaching", "explore", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf", "GreatHawk"]);
 		}
 	} else if (between(T.childTotalDays, 89, 200)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "reaching", "explore", "practicefly","practicehunt", "preenImmature", "perchImmature", "batheSelf","GreatHawk"]);
+			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "practicehunt", "batheSelf", "GreatHawk"]);
 		}
 	}
 	if (child.localVariables.stage != "Immature" && child.localVariables.FeededDaily < 2) {//乞食
@@ -180,8 +180,13 @@ function hawkBabyActivity(childId) {
 		activity = activity.filter(item => item !== "beg");
 	}
 
-	if (childId == "orphanHawk1" && V.babyhawk_GoldRing) {//孤儿小鹰玩戒指
+	if (child.childId == "orphanHawk1" && V.babyhawk_GoldRing) {//孤儿小鹰玩戒指
 		activity.push("GoldRing");
+	}
+
+	if (child.location == "otherNest") {//单独狩猎，后面单独做功能
+		activity.push("hunting");
+		//这里可以做一个小概率的乞食事件，啃老啊！
 	}
 
 	if (activity.length) {
@@ -220,6 +225,7 @@ new TimeEvent('onHour', 'updateBabyHawkActivity')
 				if (child.type == "hawk" && !child.eggTimer) {
 					/* 更新事件 */
 					updateChildActivity(child.childId);
+					/* 取消更新事件的时间限制：hawkBabyActivity(child.childId); */
 				}
 			})
 		}

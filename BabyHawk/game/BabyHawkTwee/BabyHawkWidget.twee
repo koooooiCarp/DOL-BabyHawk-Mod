@@ -60,6 +60,14 @@
 <<if $_text_output>><<print $_text_output>><</if>>
 <</widget>>
 
+<<widget "GreatHawk">><<silently>>
+	<<if ($greathawkmonster is 2) or ($monster is 1)>>
+		<<set _text_output to "哈比">>
+	<<else>>
+		<<set _text_output to "巨鹰">>
+	<</if>>
+<</silently>><<print _text_output>><</widget>>
+
 <<widget "BabyHawkStoryClean">>
 	<<set $SubadultIDcopy to undefined>>
 	<<set $SubadultIDs to undefined>>
@@ -135,28 +143,14 @@
 			<<else>>
 				<<set _colour = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
 				/* 导向服装着色渲染器 */
-				<<if _colour is "amber">>
-					<<set _colour to "tangerine">>
-				<<elseif _colour is "hazel">>
-					<<set _colour to "brown">>
-				<<elseif _colour is "dark blue">>
-					<<set _colour to "blue">>
-				<<elseif _colour is "light grey">>
-					<<set _colour to "silver">>
-				<<elseif _colour is "pink">>
-					<<set _colour to "light pink">>
-				<<elseif _colour is "light blue">>
-					<<set _colour to "teal">>
-				<</if>>
-
 				<<set $_baseIcon to "babyhawk/gold_ring.png">>
-				<<set $_gemIcon to "babyhawk/gold_ring_gem.png">>
+				<<set $_gemIcon to "babyhawk/gold_ring_gem_DARKER.png">>
 
 				<<icon $_baseIcon infront>>
-				<span @class="'clothes-' + _colour.replace(/ /g, '-')">
-					<<icon $_gemIcon>>
+				<span @class="'eye-' + _colour.replace(/ /g, '-')">
+					<span class="colour-eye" style="color:#6E4E11;"><<icon $_gemIcon>></span>
 				</span>
-		<</if>>
+			<</if>>
 		<<default>><<icon "birdTower/tower.png">>
 	<</switch>>
 <</widget>>

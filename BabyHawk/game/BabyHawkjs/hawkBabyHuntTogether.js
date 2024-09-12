@@ -88,7 +88,7 @@ function getAllHungry() {
 	}
 
 	for (i = 0; i < Number; i++){
-		if(V.children[V.hawksIDs[i]].localVariables.FeededDaily < 1){
+		if(V.children[V.hawksIDs[i]].localVariables.FeededDaily < 2){
 			V.children[V.hawksIDs[i]].localVariables.activity = "lurkerEat";
 			V.children[V.hawksIDs[i]].localVariables.FeededDaily++;
 			updateChildActivity(V.hawksIDs[i]);
