@@ -240,7 +240,7 @@
 <</if>>
 <br>
 
-<<link [[继续|BabyHawk FirstHunt Intro 2]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 2]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 2
@@ -266,7 +266,7 @@
 	巨鹰在一旁接过你们的收获，帮助你们减轻负担。
 <</if>>
 <br>
-<<link [[继续|BabyHawk FirstHunt Intro 3]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 3]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 3
@@ -294,7 +294,7 @@
 你安抚了<<GreatHawk>>一会儿才重新上路，期间<<babyhawks>>已经失去了对<<print _beastGen>>的兴趣。
 <br>
 
-<<link [[继续|BabyHawk FirstHunt Intro 4]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 4]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 4
@@ -326,7 +326,7 @@
 你的孩子似乎对冉冉升起的烟火相当好奇，但<<GreatHawk>>挡住了<<babyhawksthem>>，用身体划分活动区域的界限。<<bHe>>带着<<babyhawks>>跟上了你。
 <br>
 
-<<link [[继续|BabyHawk FirstHunt Intro 5]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 5]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 5
@@ -362,7 +362,7 @@
 "<<print speechDif("现在轮到你了。","现在自己试试看吧。","好了，现在自己试试看吧。")>>"<<= $children[$child1].localVariables.trait is "clusmy" ? "你把潜伏者揣在怀里，用动作拒绝<<childhim>>。" : "你在<<childhim>>身边盘旋，鼓励着你的孩子。">>
 <br>
 
-<<link [[继续|BabyHawk FirstHunt Intro 6]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 6]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 6
@@ -432,7 +432,7 @@
 休息片刻，你们重新飞上天空。
 <br>
 
-<<link [[继续|BabyHawk FirstHunt Intro 7]]>><<pass 5>><</link>>
+<<link [[继续|BabyHawk FirstHunt Intro 7]]>><<bird_pass 5>><</link>>
 <br>
 
 :: BabyHawk FirstHunt Intro 7
@@ -470,7 +470,7 @@
 你把收集到的材料放进战利品堆里，满意地环顾你的高塔。
 <br>
 
-<<link [[继续|Bird Tower Build]]>><<pass 5>><<BabyHawkStoryClean>><<endevent>><</link>>
+<<link [[继续|Bird Tower Build]]>><<bird_pass 5>><<BabyHawkStoryClean>><<endevent>><</link>>
 <br>
 
 :: BabyHawk Build OtherNest

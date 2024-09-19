@@ -14,7 +14,8 @@
     "game/BabyHawkReplace/OtherNestUpgrade.txt",
     "game/BabyHawkReplace/HuntTogetherAsk.txt",
     "game/BabyHawkReplace/FeedHawkSelf.txt",
-    "game/BabyHawkReplace/NestlingHuntEvent.txt"
+    "game/BabyHawkReplace/NestlingHuntEvent.txt",
+    "game/BabyHawkReplace/HuntAloneEvent.txt"
   ],
   "scriptFileList": [
     "game/BabyHawkjs/hawkBabyActivity.js",
@@ -24,7 +25,7 @@
     "game/BabyHawkTwee/BabyHawkWidget.twee",
     "game/BabyHawkTwee/BabyHawkFood.twee",
     "game/BabyHawkTwee/BabyHawkStory.twee",
-    "game/BabyHawkTwee/BabyHawkImmature.twee",
+    "game/BabyHawkTwee/BabyHawkDialyEvent.twee",
     "game/BabyHawkTwee/HuntTogetherSystem.twee",
     "game/BabyHawkTwee/HuntTogetherEvent.twee",
     "game/BabyHawkTwee/HuntTogetherWidget.twee",
@@ -32,8 +33,7 @@
   ],
   "additionBinaryFile": [
     "img/misc/icon/babyhawk/gift_gold_ring.png",
-    "img/misc/icon/babyhawk/gold_ring.png",
-    "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
+    "img/misc/icon/babyhawk/gold_ring.png"
   ],
   "addonPlugin": [
     {
@@ -79,12 +79,6 @@
           "findString": "<<if $children[_args[0]].localVariables.interactionsTotal>>",
           "replaceFile": "game/BabyHawkReplace/PrintDetails.txt",
           "_comment1": "详细信息中显示喂食次数统计"
-        },
-        {
-          "passage": "Bird Tower",
-          "findString": "<<set $location",
-          "replace": "<<set $atBirdTower to 1>><<set $location",
-          "_comment1": "检定PC今日是否在鹰塔"
         },
         {
           "passage": "Widgets children",
@@ -165,6 +159,12 @@
           "_comment1": "和鹰崽一起狩猎，回城后的处理"
         },
         {
+          "passage": "Moor",
+          "findString": "<<elseif $eventskip is 0>>",
+          "replaceFile": "game/BabyHawkReplace/HuntAloneEvent.txt",
+          "_comment1": "在荒原探索时随机遇见单独狩猎的鹰崽"
+        },
+        {
           "passage": "Bird Hunt Event",
           "findString": "<<if Weather.bloodMoon>>",
           "replaceFile": "game/BabyHawkReplace/NestlingHuntEvent.txt",
@@ -211,9 +211,7 @@
           "type": "BabyHawkImg",
           "imgFileList": [
             "img/misc/icon/babyhawk/gold_ring_gem.png",
-            "img/misc/icon/babyhawk/gold_ring.png",
-            "img/misc/icon/babyhawk/gold_ring_gem_DARKER.png"
-            
+            "img/misc/icon/babyhawk/gold_ring.png"
           ]
       }
     }

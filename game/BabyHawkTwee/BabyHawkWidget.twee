@@ -1,0 +1,306 @@
+:: Widget BabyHawk [widget]
+
+<<widget 'BabyhawkTestFunc'>>
+	<<setupOptions>>
+	<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
+	<br>
+	<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
+	<br>
+	<<link [[看看七彩戒指|BabyHawk Test Gold Ring]]>><<endevent>><</link>>
+	<br>
+<</widget>>
+
+<<widget 'BabyhawkModWarning'>>
+	<div id="exportWarning" @class="'no-numberify'">
+		<span class="lblue">&#24744;&#27491;&#22312;&#27983;&#35272;&#30340;&#39029;&#38754;&#26159;&#26469;&#33258;&#40560;&#23453;&#23453;&#65288;&#66;&#97;&#98;&#121;&#72;&#97;&#119;&#107;&#65289;&#27169;&#32452;&#30340;&#20869;&#23481;&#65281;&#35831;&#21247;&#19982;&#21407;&#29256;&#20869;&#23481;&#28151;&#28102;&#126;</span>
+	</div>
+<</widget>>
+
+<<widget "BabyHawkInit">>
+<<if $BabyHawkInit is undefined>>
+
+	<<run Object.values($children).forEach(child => {
+		if (child.type == "hawk" && child.location == "tower" && !child.eggTimer) 
+		{
+			child.localVariables.FeededTotal = initFeededDays(child.childId);
+			child.localVariables.FeededDaily = 0;
+			initGrowStage(child.childId);
+			initTrait(child.childId);
+		}
+	})>>
+	
+	<<set $BabyHawkInit to true>>
+<</if>>
+<</widget>>
+
+<<widget "babyhawks">>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
+		<<set $_text_output to "孩子们">>
+	<<else>>
+		<<set $_text_output to "<<childname>>">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
+<<widget "babyhawksthem">>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
+		<<set $_text_output to "他们">>
+	<<else>>
+		<<set $_text_output to "<<childhim>>">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
+<<widget "babyhawksyou">>
+	<<if $SubadultTotal gt 1 or $ImmatureTotal gt 1 or $hawksTotal gt 1>>
+		<<set $_text_output to "你们">>
+	<<else>>
+		<<set $_text_output to "你">>
+	<</if>>
+<<if $_text_output>><<print $_text_output>><</if>>
+<</widget>>
+
+<<widget "GreatHawk">><<silently>>
+	<<if ($greathawkmonster is 2) or ($monster is 1)>>
+		<<set _text_output to "哈比">>
+	<<else>>
+		<<set _text_output to "巨鹰">>
+	<</if>>
+<</silently>><<print _text_output>><</widget>>
+
+<<widget "BabyHawkStoryClean">>
+	<<set $SubadultIDcopy to undefined>>
+	<<set $SubadultIDs to undefined>>
+	<<set $ImmatureIDs to undefined>>
+	<<set $child1 to undefined>>
+	<<set $hawksIDs[0] to undefined>>
+	<<set $hawksIDs[1] to undefined>>
+	<<set $child4 to undefined>>
+	<<set $SubadultTotal to undefined>>
+	<<set $ImmatureTotal to undefined>>
+<</widget>>
+
+<<widget "babyhawkicon">>
+	<<switch _args[0]>>
+		<<case "children">>/* 修改查找地点为otherNest */
+			<<run Object.values($children).forEach(child => {
+				if (child.location == "otherNest") {
+					if (!T.childrenIconSelect) T.childrenIconSelect = [];
+					T.childrenIconSelect.push(child.childId);
+				}
+			})>>
+			<<if _childrenIconSelect.length gte 2>>
+				<<set $_child1 to _childrenIconSelect.pluck()>>
+				<<set $_child2 to _childrenIconSelect.pluck()>>
+				<<if $children[$_child1].features.monster is $children[$_child2].features.monster>>
+					<<if $children[$_child1].features.monster is "monster">>
+						<<set _childIconFilter1 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour)>>
+						<<set _childIconFilter2 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour)>>
+						<<set $_baseIcon to "birdTower/child_harpies.png">>
+						<<set $_skinIcon1 to "birdTower/child_harpies_skin1.png">>
+						<<set $_skinIcon2 to "birdTower/child_harpies_skin2.png">>
+						<span class="icon-container">
+							<<icon $_baseIcon>>
+							<span @style="_childIconFilter1">
+								<<icon $_skinIcon2>>
+							</span>
+							<span @style="_childIconFilter2">
+								<<icon $_skinIcon1>>
+							</span>
+						</span>
+					<<else>>
+						<<icon "birdTower/child_hawks.png">>
+					<</if>>
+				<<else>>
+					<<set _childIconFilter = "filter: " + ($children[$_child1].features.monster is "monster" ? setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour) : setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour))>>
+					<<set $_baseIcon to "birdTower/child_birds.png">>
+					<<set $_skinIcon to "birdTower/child_birds_skin.png">>
+					<span class="icon-container">
+						<<icon $_baseIcon>>
+						<span @style="_childIconFilter">
+							<<icon $_skinIcon>>
+						</span>
+					</span>
+				<</if>>
+			<<else>>
+				<<if $children[_childrenIconSelect[0]].features.monster is "monster">>
+					<<set _childIconFilter = "filter: " + setup.colours.getSkinCSSFilter($children[_childrenIconSelect[0]].features.skinColour)>>
+					<<set $_baseIcon to "birdTower/child_harpy.png">>
+					<<set $_skinIcon to "birdTower/child_harpy_skin.png">>
+					<span class="icon-container">
+						<<icon $_baseIcon>>
+						<span @style="_childIconFilter">
+							<<icon $_skinIcon>>
+						</span>
+					</span>
+				<<else>>
+					<<icon "birdTower/child_hawk.png">>
+				<</if>>
+			<</if>>
+		<<case "Gold Ring">>
+			<<if $babyhawk_GoldRing is 1>>/* 非特殊戒指 */
+				<<icon "antiques/antique_gold_ring.png">>
+			<<else>>
+				<<set _colour = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
+
+				<<set $_baseIcon to "babyhawk/gold_ring.png">>
+				<<set $_gemIcon to "babyhawk/gold_ring_gem.png">>
+
+				<<icon $_baseIcon infront>>
+				<span @class="'eye-' + _colour.replace(/ /g, '-')">
+					<span class="colour-eye" style="color:#6E4E11;"><<icon $_gemIcon>></span>
+				</span>
+			<</if>>
+		<<default>><<icon "birdTower/tower.png">>
+	<</switch>>
+<</widget>>
+
+<<widget 'BabyhawkHuntBack'>>
+	<<set $atBirdTower to 1>>
+	/*检定PC今日是否在鹰塔*/
+	<<set _IDs to []>>
+	<<run Object.values(V.children).forEach(child => {
+		if (child.localVariables.timer <= 0) {
+			T.IDs.push(child.childId);
+			child.localVariables.timer = undefined;
+			child.localVariables.activity = "rest";
+		}
+	})>>
+	<<if _IDs.length>><<childSelect _IDs[0]>><<BabyhawkModWarning>>
+		<span class="teal"><<childrenNames _IDs>>回来了。</span>
+		<<= _IDs.length gt 1 ? "他们" : "<<childHe>>">>带回了<<HuntAloneLoot>>。
+		<br><br>
+	<</if>>
+<</widget>>
+
+<<widget 'HuntAloneLoot'>>
+	<<set _total to _IDs.length>>
+	<<for _i to 0; _i lt _total; _i++>>
+		<<if $children[_IDs[_i]].localVariables.FeededDaily < 2>>
+			<<set _loot to "lurkers">>
+			<<set $children[_IDs[_i]].localVariables.activity to "lurkerEat">>
+			<<set $children[_IDs[_i]].localVariables.FeededDaily++>>
+			<<set $bird.materials.lurkers-->>
+		<<elseif $children[_IDs[_i]].localVariables.huntLoot isnot undefined>>
+			<<set _loot to $children[_IDs[_i]].localVariables.huntLoot>>
+			<<set $children[_IDs[_i]].localVariables.huntLoot to undefined>>
+		<<else>>
+			<<set _loot to either("nothing","trash","materials","valuables","lurkers")>>
+		<</if>>
+		<<switch _loot>>
+			<<case "nothing">><<if _total is 1>>……嗯，好像<<childhe>>什么都没有带回来。你摸了摸<<childhim>>的头以示安慰<</if>>
+			<<case "junk">>
+				<<birdicon "junk">>闪闪发光的小垃圾
+			<<case "materials">>
+				<<set _loot to either("leaves","sticks","fabric","wood")>>
+				<<birdicon _loot>><<print _loot.replace("leaves", "大树叶").replace("sticks", "小树枝").replace("fabric", "布料").replace("wood", "木头")>>
+			<<case "valuables">>
+				<<set _loot to either("watch","ring","necklace","bracelet")>>
+				<<birdicon _loot>><<print _loot.replace("watch", "手表").replace("ring", "指环").replace("necklace", "项链").replace("bracelet", "手链")>>
+			<<case "lurkers">>
+				<<birdicon "lurkers">>潜伏者
+		<</switch>>
+		<<if _i isnot _total-1 and _loot isnot "nothing">>、<</if>>
+		<<if _loot isnot "nothing">><<set $bird.materials[_material]++>><</if>>
+	<</for>>
+<</widget>>
+
+<<widget 'eventsMoorBabyhawk'>>
+	<<BabyhawkModWarning>>
+	<!-- 根据小鹰数量写差分（单只、多只小鹰才能触发的不同事件） -->
+	<<getChildrenIds `{location: "otherNest"}` "both">>
+    <!-- 随机有1-MAX只小鹰在外狩猎 -->
+    <<set $hawksTotal to random(1, _childrenIds.length)>>
+    <<set $hawksIDs to []>>
+    <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
+        <<set $hawksIDs[_cc] to _childrenIds.pluck()>>
+		<<set $children[$hawksIDs[_cc]].localVariables.activity to "hunting">>
+		<<set $children[$hawksIDs[_cc]].localVariables.timer to 30>>
+    <</for>>
+	<<childSelect $hawksIDs[0]>>
+	<<cleareventpool>>
+
+	<<if $moor isnot 100>>
+		<<addinlineevent "shadow">>
+			你看见一小片影子从你的脚下掠过。<<childrenNames $hawksIDs>>在你的上方盘旋。<<lstress>><<stress -5>>
+			<br><br>
+			<<if $harpy gte 6>>
+				<<link [[呼唤|Moor BabyHawk Screech]]>><</link>><<harpy>>
+				<br>
+			<</if>>
+			<<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $hawksTotal gt 2>>
+		<<addinlineevent "lot">>
+			你听到一阵喧闹的叽喳声从远处传来。你爬上附近的山岗向远处望去，发现<<childrenNames $hawksIDs>>在一个小池塘里洗澡，好像正玩得十分起劲。<<lstress>><<stress -5>>
+			<br><br>
+			<<link [[观察 (0:10)|Moor BabyHawk Bath]]>><<pass 10>><</link>>
+			<br>
+			<<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $hawksTotal is 2>>
+		<<addinlineevent "pair">>
+			你听到一阵叽喳声从天空传来。<<childrenNames $hawksIDs>>正在空中成对飞行。
+			<br><br>
+			<<if $children[$hawksIDs[0]].localVariables.trait is $children[$hawksIDs[1]].localVariables.trait>>
+				<<switch $children[$hawksIDs[0]].localVariables.trait>>
+				<<case "clumsy">>
+					<<childname $hawksIDs[0]>>的爪中正抓着一只潜伏者。他们飞梭穿过一些树枝，但<<childname $hawksIDs[0]>>没能估计好距离，让潜伏者撞在了树枝上，从爪里掉了下去，正好砸在了<<childname $hawksIDs[1]>>的脑袋上。
+					<br>
+					一阵骚乱后，他们重新抓住了这只潜伏者，在一些唧唧喳喳的讨论后，他们似乎决定就地开吃，把潜伏者带到了附近的树杈上开始进食。<<set $children[$hawksIDs[0]].localVariables.FeededDaily++>><<set $children[$hawksIDs[1]].localVariables.FeededDaily++>>
+				<<case "sympathy">><<childSelect $hawksIDs[1]>>
+					<<childname $hawksIDs[0]>>似乎是累了，<<childhe $hawksIDs[0]>>停在了附近的树枝上歇脚，而<<childname $hawksIDs[1]>>也跟随<<childsiblings $hawksIDs[0]>>来到树枝附近，拍打着翅膀停在了……<<childname $hawksIDs[0]>>身上。
+					<br>
+					<<childHe $hawksIDs[0]>>恼怒地转头，但<<childname $hawksIDs[1]>>已经<<= $cmonster ? "偷笑着" : "咕咕叫着">>飞向另一棵树，跑远了。
+				<<case "clever">>
+					<<childname $hawksIDs[0]>>在接近地面的高度追逐着什么东西，而<<childname $hawksIDs[1]>>在云端盘旋，看准时机从另一端突袭。
+					<br>
+					在他们的围猎下，猎物很快就被扣在爪下。你看见他们重新起飞，爪里各自抓着一只潜伏者。<<set $children[$hawksIDs[0]].localVariables.huntLoot to "lurkers">><<set $children[$hawksIDs[1]].localVariables.huntLoot to "lurkers">>
+				<<case "dominant">>
+					仔细一看，与其说是成对飞行，不如说是<<childname $hawksIDs[0]>>和<<childname $hawksIDs[1]>>正在空中缠斗。<<childname $hawksIDs[1]>>奋力拍打翅膀，对着<<childsiblings $hawksIDs[0]>>大声啸叫，而<<childname $hawksIDs[0]>>不甘示弱，用同样的尖鸣回应。
+					<br>
+					他们旋转着从天空落下。没过多久，<<childname $hawksIDs[0]>>重新起飞，落在不远处的树杈上理毛，<<childname $hawksIDs[1]>>紧随其后回到了天空中。你好奇是什么让他们发生了争斗。
+				<</switch>>
+			<<else>>
+				<<if getHawkTrait("dominant")>><<childSelect  _tempIDs[0]>><!--dom小鹰当领队--><<set $children[_tempIDs[0]].localVariables.huntLoot to "lurkers">>
+					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "dominant" ? $hawksIDs[1] : $hawksIDs[0])>>
+					<<childname>>在前方飞行，而<<childname _otherHawk>>跟在<<childhim>>的身后，努力跟上<<childhis>>的速度。忽然，<<childname>>似乎发现了什么，猛地向下俯冲而去，<<childname _otherHawk>>慢一拍行动，也跟着降落。
+					<br>
+					没过多久，你看见他们重新起飞，但只有<<childname>>的爪里抓着猎物，而<<childname _otherHawk>>空着手回到天空中，对着<<childsiblings _tempIDs[0]>>叽喳叫，试图从<<childhim>>手里分一杯羹。
+					<br>
+					<<childHe _otherHawk>>没能成功，<<childname>><<= $cmonster ? "咯咯的笑着" : "发出一连串炫耀的叽叽叫">>，带着猎物飞远了。
+				<<elseif getHawkTrait("clever")>><<childSelect  _tempIDs[0]>><!--clever小鹰当领队-->
+					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "clever" ? $hawksIDs[1] : $hawksIDs[0])>>
+					<<childname>>在前方飞行，而<<childname _otherHawk>>紧紧跟在<<childhim>>的身后，观察着地面的动静。忽然，<<childname>>似乎发现了什么，<<childhe>>回头对<<childname _otherHawk>>叽喳几声，带着<<childsiblings _otherHawk>>一起降落到地面上。
+					<br>
+					没过多久，你看见他们重新起飞，两只小鹰的爪里都抓着满满当当的亮闪闪，他们高兴地带着战利品飞远了。<<set $children[$hawksIDs[0]].localVariables.huntLoot to "bracelet">><<set $children[$hawksIDs[1]].localVariables.huntLoot to "necklace">>
+				<<elseif getHawkTrait("sympathy")>><<childSelect  _tempIDs[0]>><!--sympathy小鹰当领队，另一只是clumsy-->
+					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "sympathy" ? $hawksIDs[1] : $hawksIDs[0])>>
+					<<childname>>悠闲地在空中滑翔，时不时在<<childname _otherHawk>>身边绕圈飞行，似乎想要<<childhim _otherHawk>>陪自己玩耍。
+					<br>
+					<<childname _otherHawk>>试图跟上<<childsiblings _tempIDs[0]>>的动作，他们互相追逐着尾巴，在空中玩闹了好一会儿才继续上路。
+				<</if>>
+			<</if>><<lstress>><<stress -5>>
+			<br><br>
+			<<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $moor is 100>>
+		<<addinlineevent "home">>
+			你看见一小片影子从你的高塔跃出。你的<<childrenNames $hawksIDs>>正从塔顶出发去狩猎。
+			<br><br><<set $daily.babyhawkMoorEvent to false>>
+			<<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+<</widget>>

@@ -96,7 +96,7 @@
 
 		<<if $ImmatureTotal gte 3>>小鹰在你们身后成群结队地跟着。你有些担心之后的场面会有多么混乱。<br><br><</if>>
 
-		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<pass 5>><</link>>
+		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<bird_pass 5>><</link>>
 		<br>
 	<<else>>
 		你转头看向<<your_bird_text>>，<<bHis>>的羽毛兴奋地蓬起，显然已经做了新一轮教学的准备。
@@ -119,7 +119,7 @@
 
 		<<if $ImmatureTotal gte 3>>小鹰在你们身后成群结队地跟着。你有些担心之后的场面会有多么混乱。<br><br><</if>>
 
-		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<pass 5>><</link>>
+		<<link [[开始打猎 (0:40)|BabyHawk FirstHunt Intro]]>><<bird_pass 5>><</link>>
 		<br>
 	<</if>>
 

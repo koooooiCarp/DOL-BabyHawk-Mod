@@ -69,4 +69,7 @@
 	<</switch>>
 <<case "hunting">>
 	<<childHe>>正在外面狩猎。
+	<<if $children[_args[0]].localVariables.timer is undefined>>
+		<<set $children[_args[0]].localVariables.timer to 30>>
+	<</if>>
 <<case "lurkerEat">>

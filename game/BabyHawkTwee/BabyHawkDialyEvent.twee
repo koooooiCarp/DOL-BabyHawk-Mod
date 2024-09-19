@@ -66,33 +66,6 @@
 <<childInteratedWith>>
 <<set $children[$childActivityEvent.childid].localVariables.event to false>>
 <<switch $childActivityEvent.event>>
-	/* 留着罗宾的是因为我想抄一个学说话叫爸妈的事件 */
-	<<case "Robin">>
-		<<npc "Robin">><<person1>>
-		你走向罗宾，<<childname>>正依偎在<<him>>身上，你听到了二人一起的笑声。
-		<<if $childSelected.mother is "pc">>
-			<<set _playerRole to "妈咪">>
-		<<elseif $childSelected.father is "pc">>
-			<<set _playerRole to "爹地">>
-		<<elseif $player.gender_appearance is "m">>
-			<<set _playerRole to "爹地">>
-		<<else>>
-			<<set _playerRole to "妈咪">>
-		<</if>>
-		<<switch random(1, 5)>>
-			<<case 1>>
-				"我想有人想你了，"罗宾说着的同时把<<childtype>>递给了你。
-			<<case 2>>
-				"这孩子真的好可爱，"罗宾说着的同时把<<childtype>>递给了你。
-			<<case 3>>
-				“看啊，”罗宾说道，“是_playerRole。”罗宾说完之后把<<childtype>>递给了你。
-			<<case 4>>
-				"你能说声_playerRole么？" 罗宾看着<<childtype>>问道，<<childHe>>则用一个不清楚的咕哝声来回应，罗宾把<<childhim>>递给了你。
-			<<default>>
-				"你能指出_playerRole么？" 罗宾对<<childtype>>说道，<<childHe>>虽然没有指出来，但确实在看向你，罗宾把<<childhim>>递给了你。
-		<</switch>>
-		<br><br>
-		你把<<childname>>抱在怀里，而罗宾则凑了过来。这个小家伙的眼神在你和罗宾之间交替着，随后咯咯笑了出来。
     <<case "Hawk_build">><<childSelect $childActivityEvent.childid>>
         <<your_bird_text>>正小心翼翼地重新调整巢里的小树枝，而<<childname>>跟在<<bhim>>身后，
         <<switch $children[$childActivityEvent.childid].localVariables.trait>>
@@ -162,7 +135,7 @@
         你喊着<<childname>>的名字，在高塔里四处寻找<<childhim>>。
         <br><<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
         一阵窸窸窣窣的声音吸引了你，你望向声源，发现
-        <<switch random(1,4)>><!-- 考虑用这个事件设定崽子的性格特征？ -->
+        <<switch random(1,4)>>
         <<case 1>><<childname>>从你们的战利品堆里探出了头。
             <<if $bird.materials.lurkers gte 1>><<childhe>>的嘴里还叼着半只潜伏者。<<set $bird.materials.lurkers -=1>><<set $children[$childActivityEvent.childid].localVariables.FeededDaily++>>
             <<elseif $bird.materials.valuables>><<childhe>>的头上还顶着一块亮闪闪。
@@ -329,18 +302,61 @@
                     <<case "clumsy" "clever">>	<<childHe>>回头对你们鸣叫几声，随后展开翅膀向着荒原飞去。
                     <<default>>			        <<childHe>>向着荒原尖鸣一声，随后展开翅膀跳下高塔。
                     <</switch>>
+                <br><br>
                 <span class="teal"><<childHe>>去狩猎了。</span><<childname>>小小的身影在你们视野里的不远处移动，用自己的身体探索着这片天地。
-                <<set $children[$childActivityEvent.childid].localVariables.activity to "hunting">>
-                <<if _multi>><br><<childrenNames _otherIDs>>停在你们身边，歪着脑袋和你们一起看着<<childsiblings $childActivityEvent.childid>>在空中飞翔。<</if>>
+                <<set $children[$childActivityEvent.childid].localVariables.activity to "hunting">><<set $children[$childActivityEvent.childid].localVariables.timer to 30>>
+                <<if _multi>><br><br><<childrenNames _otherIDs>>停在你们身边，歪着脑袋和你们一起看着<<childsiblings $childActivityEvent.childid>>在空中飞翔。<</if>>
                 <<stress -5>><<lstress>>
             <<else>>
                 <<childname>>走到栖木前端，<<print either("放松地","好奇地")>>从高塔上观察着这片荒原。
                 <<if _multi>><br><<childrenNames _otherIDs>>推搡着<<childhim>>，想要更好的位置，<<childsiblings _IDs>>互相打闹成一片。<</if>>
                 <br><br>
 
-                /* 在这里合唱 */
+                开阔的荒原在你们面前内展开，延伸至无限的远方。天空与你们的距离似乎比地面还要近。你能看出这片景色对你的孩子<<= $harpy gte 6 ? "和你" : "和你的配偶">>有着相同的影响：天空在召唤。
+                <br><br>
+
+                你深吸一口气，开始唱歌，一音接着一音从你嘴里飘出。这是一首轻柔的小曲，随性地歌唱着天空，你的配偶也加入了你。
+                随着你们的哼唱，<<childname>>的啁啾声也加入了进来，<<childhis>>清脆的鸣啼声偶有错音，与你们的歌声合奏，组成了一首完美的小曲。<<stress -5>><<lstress>>	
+                <br><br>
+                
+                <<if _multi>>
+                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你们的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
+                    <br><br>
+                <</if>>
+
+                <<if $monster is 1>>
+                    "<<= _multi ? "孩子们" : "<<childname>>">>很擅长这个。"<<your_bird_text>>看起来对你们的孩子感到很骄傲。
+                <</if>>
             <</if>>
         <<else>>
+            <<if $children[$childActivityEvent.childid].localVariables.FeededDaily < 2 and $children[$childActivityEvent.childid].location is "otherNest">>
+                <<childname>>走到栖木前端，迎着风吹来的方向抖抖自己的羽毛。
+                    <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+                    <<case "clumsy" "clever">>	<<childHe>>回头对你鸣叫几声，随后展开翅膀向着荒原飞去。
+                    <<default>>			        <<childHe>>向着荒原尖鸣一声，随后展开翅膀跳下高塔。
+                    <</switch>>
+                <br><br>
+                <span class="teal"><<childHe>>去狩猎了。</span><<childname>>小小的身影在你的视野的不远处移动，用自己的身体探索着这片天地。
+                <<set $children[$childActivityEvent.childid].localVariables.activity to "hunting">><<set $children[$childActivityEvent.childid].localVariables.timer to 30>>
+                <<if _multi>><br><br><<childrenNames _otherIDs>>停在你身边，歪着脑袋和你一起看着<<childsiblings $childActivityEvent.childid>>在空中飞翔。<</if>>
+                <<stress -5>><<lstress>>
+            <<else>>
+                <<childname>>走到栖木前端，<<print either("放松地","好奇地")>>从高塔上观察着这片荒原。
+                <<if _multi>><br><<childrenNames _otherIDs>>推搡着<<childhim>>，想要更好的位置，<<childsiblings _IDs>>互相打闹成一片。<</if>>
+                <br><br>
+
+                开阔的荒原在你们面前内展开，延伸至无限的远方。天空与你们的距离似乎比地面还要近。你能看出这片景色对你的孩子<<= $harpy gte 6 ? "和你" : "和你的配偶">>有着相同的影响：天空在召唤。
+                <br><br>
+
+                你深吸一口气，开始唱歌，一音接着一音从你嘴里飘出。这是一首轻柔的小曲，随性地歌唱着天空。
+                随着你的哼唱，<<childname>>的啁啾声也加入了进来，<<childhis>>清脆的鸣啼声偶有错音，与你的歌声合奏，组成了一首完美的小曲。<<stress -5>><<lstress>>	
+                <br><br>
+                
+                <<if _multi>>
+                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
+                    <br><br>
+                <</if>>
+            <</if>>
         <</if>>
     <<default>>
 		无法找到该事件。<br>

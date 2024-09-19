@@ -48,12 +48,10 @@
 <<if $babyhawk_GoldRing_Hint is 1>>
 	<<childname "orphanHawk1">>高兴地尖鸣回应你，<<childhis>>的爪里还抓着<<childhis>>的戒指。
 <<elseif $bird.hunts.lootAmount is 0>>
-<!-- 啥也没捕到，小孩不情愿回去，可以和后续单独狩猎接轨，让孩子自己再打会儿 -->
     <<if $hawks_leader is "dominant">>
-        <<childname>>大声尖鸣，尾巴一转，飞向了远离高塔的方向。<br>
-		看起来<<childhim>>还想继续狩猎。<<if $hawksTotal gt 1>>其他孩子留在了你身边，你们踏上返程。<<else>>你独自一人飞回了高塔。<</if>>
-        <<set $children[$leaderID].localVariables.activity to "hunting">>
-        <<set $hawksTotal -= 1>>
+        <<childname>>大声尖鸣抱怨，看起来<<childhim>>还想继续狩猎。无论如何，你们踏上返程。
+        <<set $children[$leaderID].localVariables.activity to "hunting">><<set $children[$leaderID].localVariables.timer to 30>>
+		<!-- 这里没法做单独处理，就不情愿地回家再自己出去狩猎吧！ -->
     <<elseif $hawks_leader is "clever">>
         <<childname>>发出小小的抱怨声，<<childhim>>两爪空空，还想继续狩猎。你们踏上返程。
     <<else>>
@@ -2067,7 +2065,7 @@
 		"再闹我就把你丢给大鹰吃掉！"
 	<</if>>
 	<br>
-	小<<beasttype 1>>夹起尾巴发出可怜的呜呜声，安顿下来跟着<<print _mom>>一起离开了。
+	小<<beasttype 1>>夹起尾巴，发出可怜的呜呜声，安顿下来跟着<<print _mom>>一起离开了。
 <<elseif $NPCList[0].traits.includes("clever")>>
 	好几次尝试后，小<<beasttype 1>>猛地一扑，成功咬住了大狐狸的大尾巴。<<bHe 0>>尖声叫着原地跳起。
 	<<if $monster>>
@@ -2094,7 +2092,7 @@
 <<elseif $NPCList[0].traits.includes("cowardly")>><<childSelect $leaderID>>
 	大狐狸烦恼地呲牙，转过身对着小<<beasttype 1>>低声咆哮。
 	<<if $monster>>
-		"<<print _mom>>在防备危险！不要打扰我，否则会……"
+		"<<print _mom>>在戒备危险！不要打扰我，否则会……"
 	<</if>>
 	<br>
 	<<childname>>想凑近观察，却不小心踩住了一根小树枝。大狐狸被这声脆响吓得猛地蓬起尾巴，叼起孩子转头就跑。

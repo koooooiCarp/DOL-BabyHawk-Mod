@@ -1,0 +1,185 @@
+:: Moor BabyHawk Screech
+<<effects>>
+<<if $pain gte 95>>
+	<<set $phase to 1>>
+	你试图向空中尖啸，但发出的只是一声痛苦的唧唧叫声。
+<<elseif $stress gte ($stressmax / 5) * 3>>
+	<<set $phase to 2>>
+	你对着天空啸叫。它比平时更加尖锐。
+<<elseif $trauma gte ($traumamax / 5) * 3>>
+	<<set $phase to 3>>
+	你呼唤着你的孩子。声音有些空洞。
+<<elseif $tiredness gte (C.tiredness.max / 5) * 3>>
+	<<set $phase to 4>>
+	你向空中发出一声疲惫的尖啸。
+<<else>>
+	<<set $phase to 0>>
+	你对着天空啸叫。
+<</if>>
+<<babyhawks>>听到了你的声音俯冲过来，降落在附近。
+<br><br>
+
+<<if $phase isnot 0>>
+	<<babyhawksthem>>注意到你<<if $phase is 4>>筋疲力尽<<elseif $phase is 1>>痛苦<<else>>不适<</if>>的模样，担忧地绕着你叽喳叫。
+	没等你做出回应，<<babyhawksthem>>就扑进你的怀里，毛茸茸、暖呼呼的羽毛轻蹭着你。你和你的孩子互相拥抱着，让你感到
+    <<switch $phase>>
+        <<case 1>>痛苦正在逐渐消退。<<llpain>><<pain -50>>
+        <<case 2>>放松且安心。<<llstress>><<stress -20>>
+        <<case 3>>自己真切地活着。<<lltrauma>><<trauma -20>>
+        <<case 4>>安心，随后便是昏昏欲睡……实际上，你可能真的小睡了一会儿。<<lltiredness>><<tiredness -20>>
+    <</switch>>
+    <br><br>
+    <<if Weather.bodyTemperature lt 37.5>>
+        <span class="green"><<babyhawks>>温暖的体温在拥抱中传递给了你。</span>
+        <<set Weather.bodyTemperature to 37.5>>
+    <<elseif Weather.bodyTemperature gt 38>>
+        <span class="green"><<babyhawks>>似乎是刚刚从水里出来，羽毛间摸起来凉飕飕的。</span>
+        <<set Weather.bodyTemperature to 38>>
+    <</if>>
+	<<pass 10>>
+    你感觉好多了。你感激地紧紧拥抱你的孩子，让<<babyhawksthem>>发出可爱的被挤压的唧唧声，随后松开了<<babyhawksthem>>。
+<<else>>
+	<<if $cmonster is 1>>
+		<<babyhawksthem>>开心地抱着你的手臂，绕着你叽喳叫。
+	<<else>>
+		<<babyhawksthem>>轻轻蓬起羽毛磨蹭你，发出开心的颤鸣。
+	<</if>>
+<</if>>
+<br>
+
+<<link [[让<<babyhawksthem>>跟你一起回家|Moor BabyHawk Home]]>><</link>>
+<br>
+<<link [[只是拥抱 (0:05)|Moor BabyHawk Hug]]>><<transform bird 1>><<pass 5>><<stress -6>><<trauma -6>><</link>><<ltrauma>><<lstress>>
+<br>
+
+:: Moor BabyHawk Home
+<<effects>>
+<<switch $speech_attitude>>
+	<<case "bratty">>	"要不要我捎<<babyhawksyou>>一程？"
+	<<case "meek">>		"我们一起回家吧？"
+	<<case "neutral">>	"要和我一起回去吗？"
+<</switch>>你伸手挠挠<<babyhawks>>的脑袋，邀请<<babyhawksthem>>和你一起回巢。
+<br><br>
+<<set _returnNum to 0>><<set _tempIDs to []>>
+
+<<if getHawkTrait("clumsy")>>
+    <!--笨拙小鹰百分百跟PC走-->
+    <<childrenNames _tempIDs>>立刻兴奋地回应你。
+    <<set _returnNum += _length>>
+<</if>>
+
+<<if _returnNum lt $hawksTotal>>
+    <!-- 除去笨拙小鹰以外还有其他鹰 -->
+    <<if _returnNum>>其他<</if>><<babyhawks>>歪着脑袋看了你一会儿，
+    <<if _returnNum>>
+        <!-- 笨拙小鹰已经走了，其他鹰就回去继续狩猎。-->
+        冲你叽喳叫几声，展翅飞走了。看起来<<babyhawksthem>>还想继续狩猎。
+    <<else>>
+        <!-- 笨拙0只，小鹰随机回家不回家 -->
+        <<set _rng to random(0, 1)>><<set _returnNum += _rng>>
+        <<if _returnNum>>
+            <!-- 随机一只小鹰一起回 -->
+            <<set _rng to random(0, $hawksTotal-1)>><<set _tempIDs.push($hawksIDs[_rng])>>
+            最终，<<childname $hawksIDs[_rng]>>唧唧叫着回应，跟上了你。
+            <<if _returnNum lt $hawksTotal>>其他孩子冲你们叽喳叫几声，展翅飞走了。看起来他们还想继续狩猎。<</if>> 
+        <<else>>
+            <!-- 没人回 -->
+            冲你叽喳叫几声，展翅飞走了。看起来<<babyhawksthem>>还想继续狩猎。
+        <</if>>
+    <</if>>
+<</if>>
+
+<<if _returnNum>>
+    <!-- 取消狩猎状态 -->
+    <<for _cc to 0; _cc lt _returnNum; _cc++>>
+        <<set $children[_tempIDs[_cc]].localVariables.activity to "rest">>
+        <<set $children[_tempIDs[_cc]].localVariables.timer to undefined>>
+    <</for>>
+    你带着<<childrenNames _tempIDs>>踏上了返程。
+    <br><br>
+    <<set _time to (100-$moor)/5*2>><<if _time lt 10>><<set _showtime to '0'+_time>><<else>><<set _showtime to _time>><</if>>
+    <<link [[继续 (0:_showtime)|Castle Fly]]>><<HuntTogetherClean>><<pass _time>><<endevent>><</link>>
+	<br>
+<<else>>
+    <<switch $speech_attitude>>
+        <<case "bratty">>	你耸耸肩，
+        <<case "meek">>		你挥挥手，
+        <<case "neutral">>	你
+    <</switch>>继续你的旅途。
+    <br><br>
+    <<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Moor BabyHawk Hug
+<<effects>>
+<<if $phase is 2 or $phase is 4>>
+	你抚摸起<<babyhawks>>的羽毛，放松地怀抱着<<babyhawksthem>>。
+<<else>>
+	你轻轻拥抱你的孩子，<<if $phase is 1>>慢慢<</if>>抚摸着<<babyhawksthem>>的羽毛。
+<</if>>
+
+<<if $cmonster is 1>>
+	<<babyhawksthem>><<= $phase ? "发出一声担忧的轻鸣" : "咯咯笑着">>，伸手拥抱着你。
+<<else>>
+	<<babyhawksthem>><<= $phase ? "轻柔啾鸣了一声" : "叽喳叫着">>，用脑袋轻蹭着你。
+<</if>>
+<br><br>
+
+你们就这样依偎了一小会儿，<<= $phase ? "直到<<babyhawks>>啾啾叫着抗议，" : "直到<<babyhawks>>">>从你的怀抱里离开。<<babyhawksthem>>向你告别，再次飞向天空。
+<br><br>
+
+<<if $rng is 1>>
+    <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
+        <<if getChildDays($hawksIDs[_cc]) gte 200 and $children[$hawksIDs[_cc]].localVariables.trait is "clever" and $children[$hawksIDs[_cc]].features.monster and $children[$hawksIDs[_cc]].localVariables.firstWord is undefined>>
+            <<childSelect $hawksIDs[_cc]>>
+            <<if $childSelected.mother is "pc">>
+                <<set _playerRole to "妈妈">>
+            <<elseif $childSelected.father is "pc">>
+                <<set _playerRole to "爸爸">>
+            <<elseif $player.gender_appearance is "m">>
+                <<set _playerRole to "爸爸">>
+            <<else>>
+                <<set _playerRole to "妈妈">>
+            <</if>>
+            "<<print _playerRole>>拜拜，"你听见一句口齿不清的告别，来自你的<<childname>>。<<childHe>>什么时候学会说话了？……
+            <br><br>
+            <<set $children[$hawksIDs[_cc]].localVariables.firstWord to _playerRole>>
+            <<break>>
+        <</if>>
+    <</for>>
+<</if>>
+<<link [[继续|Moor]]>><<endevent>><<set $eventskip to 1>><<HuntTogetherClean>><</link>>
+<br>
+
+:: Moor BabyHawk Bath
+<<effects>>
+你在山岗上坐下，<<= $transformationParts.traits.sharpEyes isnot "disabled" ? "利用你超凡的视力，" : "用手握出一个小圈，通过小圈">>远远地看着你的孩子们。
+<br><br>
+他们在小池塘里抖动着羽毛，把水面搅出一圈圈的波纹，<<= $cmonster ? "用手舀起水" : "用翅膀拍打水面">>向他们的<<childsiblings $hawksIDs>>泼去。
+小<<= $cmonster ? "哈比" : "鹰">>们开心的<<= $cmonster ? "笑声" : "叽喳声">>哪怕隔着相当一段距离也能传到你的耳边。<<trauma -5>><<ltrauma>>
+<br><br>
+<<if getHawkTrait("dominant")>><<childSelect  _tempIDs[0]>>
+<<childname>>在池塘附近徘徊，似乎在警惕附近的生物，但其他孩子向站在岸上的<<childhim>>泼水，惹得<<childhe>>展开翅膀扑通一声跳进了小池塘，和<<childsiblings $hawksIDs>>争斗起来。<<lstress>><<stress -5>>
+<br><br>
+<</if>>
+<<set _rng to random(0, $hawksTotal-1)>><<childSelect $hawksIDs[_rng]>>
+其中一只小<<= $cmonster ? "哈比" : "鹰">>猛地从池塘深处钻了出来，嘴里还叼着一条活蹦乱跳的鱼。<<childHe>>把鱼带到其他孩子身边，他们绕着它戳戳碰碰，观察了好一会儿。
+<br><br>
+你有点担心他们<<= $cmonster ? "会生吃活鱼" : "不知道如何下嘴">>。也许应该找个时间教教你的孩子怎么处理鱼……
+<br>
+<!--哈哈，还是吃了-->
+<<for _cc to 0; _cc lt $hawksTotal; _cc++>>
+    <<set $children[$hawksIDs[_cc]].localVariables.FeededDaily++>>
+<</for>>
+<<if currentSkillValue("skulduggery") gte 800 or (currentSkillValue("skulduggery") gte 600 and $transformationParts.traits.sharpEyes isnot "disabled")>>
+    <<npc "Great Hawk">>
+    在你思考的同时，你眼角的余光发现高处某个树冠里有些奇怪的动静。
+    <br>
+    <span class="green">你很快意识到那是<<your_bird_text>>。</span>
+    看来<<bHe>>也放心不下你们的孩子，选择跟在附近默默守护着他们。<<lstress>><<stress -5>>
+    <br>
+<</if>>
+
+<<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><<endevent>><</link>>
+<br>

@@ -502,7 +502,7 @@
 		<<npc "Great Hawk">><<person1>>
 			你的<<beasttype>><<if $monster is 1>>走<<else>>跃<</if>>向你们。
 			<<if $monster is 1>>
-				"很高兴看到你们回来。"<<bHe>>注意到你没有带来任何东西，"不是每次狩猎都能成功的，"<<bhe>>试图安慰你和<<babyhawks>>。
+				"很高兴看到你回来。"<<bHe>>注意到你没有带来任何东西，"不是每次狩猎都能成功的，"<<bhe>>试图安慰你和<<babyhawks>>。
 			<<else>>
 				<<bHe>>注意到你们没有带来任何东西。<<bHe>>温柔地用喙磨蹭着你，试图安慰你。
 			<</if>>

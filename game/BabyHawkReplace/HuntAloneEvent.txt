@@ -1,0 +1,7 @@
+<<elseif $eventskip is 0>>
+    <!-- 白天、荒原深处、每日一次、十分之一概率遇上小鹰正在单独狩猎 -->
+    <<if Object.values($children).find(child => (child.location == "otherNest"))>>
+        <<set $daily.babyhawkMoorEvent to true>>
+        <<eventsMoorBabyhawk>>
+        <<exitAll>>
+    <</if>>

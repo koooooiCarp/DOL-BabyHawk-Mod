@@ -1,6 +1,6 @@
 <<effects>>
-/* <<if Object.values($children).find(child => (child.location == "otherNest")) and $rng lte 10 and $daily.babyhawkHuntAsk isnot true and !Weather.bloodMoon>> */
-<<if Object.values($children).find(child => (child.location == "otherNest"))>><<BabyhawkModWarning>>
+<<if Object.values($children).find(child => (child.location == "otherNest")) and $rng lte 10 and $daily.babyhawkHuntAsk isnot true and !Weather.bloodMoon>>
+    <<BabyhawkModWarning>>
     <<set $daily.babyhawkHuntAsk to true>><<getChildrenIds `{location: "otherNest"}` "both">><<set _childrenTotal to _childrenIds.length>>
     <!-- 随机有1-MAX只小鹰参与狩猎 -->
     <<set $hawksTotal to random(1, _childrenTotal)>>
