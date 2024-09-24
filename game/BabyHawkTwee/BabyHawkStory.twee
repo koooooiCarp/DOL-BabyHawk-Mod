@@ -56,7 +56,7 @@
 	<br><br>
 <<elseif $SubadultTotal gte 2>><<childSelect $child2>>
 	不甘示弱，<<childname>>也高鸣着飞扑落下，加入你们的飞行队伍。
-	<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+	<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childHe>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childHe>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childHe>>青涩地在空中调整方向，在风的引导下来到你们的身边。
@@ -158,7 +158,7 @@
 	不甘示弱，<<childname $child2>>、<<childname $child3>>和<<childname $child4>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
 	他们的飞行轨迹太过接近，翅膀互相拍打在了一起，齐齐失去了平衡。<<stress 3>><<gstress>><<your_bird_text "cap">>连忙俯冲赶向孩子们，在落地前将小鹰接住，帮助他们重新抬升。
 	<br><br>
-<<elseif $SubadultTotal gte 3>>
+<<elseif $SubadultTotal is 3>>
 	不甘示弱，<<childname $child2>>和<<childname $child3>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
 	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
 		<<switch $children[$child2].localVariables.trait>>
@@ -178,17 +178,16 @@
 		<</switch>>
 	<</if>>
 	<br><br>
-<<elseif $SubadultTotal gte 2>><<childSelect $child2>>
+<<elseif $SubadultTotal is 2>><<childSelect $child2>>
 	不甘示弱，<<childname>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
-	<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+	<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childHe>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childHe>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childHe>>青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
 	<</switch>>
 	<br><br>
-<<else>>
-<<set $childrenIds to [$child1]>>
 <</if>>
+<<childSelect $child1>>
 
 <<if $monster is 1>>
 	巨鹰绕着你们的孩子转圈。<<bHe>>向天空发出一声骄傲的尖鸣，"我们的孩子会是天空的主宰。"
@@ -478,7 +477,7 @@
 <<run Object.values(V.children).forEach(child => {
 	if (child.location == "tower" && child.localVariables.stage == "Immature" && child.localVariables.growHintImmature != 1) {
 		child.location = "otherNest";
-		updateChildActivity(child.childId);
+		hawkBabyActivity(child.childId);
 	}
 })>>
 <<getChildrenIds `{location: "otherNest"}` "both">>

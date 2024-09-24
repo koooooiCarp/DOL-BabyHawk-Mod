@@ -224,24 +224,22 @@ new TimeEvent('onDay', 'DailyBabyHawkCheck')
 				updateSize(child.childId);
 				/* 检测成长阶段 */
 				updateGrowStage(child.childId);
-				/* 更新事件 */
-				updateChildActivity(child.childId);
 			}
 		})
 		V.atBirdTower = 0;
 	});
 
-/*取消更新事件的时间限制：hawkBabyActivity(child.childId);*/
+/* 每小时强制更新事件 
 new TimeEvent('onHour', 'updateBabyHawkActivity')
 	.Cond(V.location == "tower")
 	.Action(timeData => {
 		Object.values(V.children).forEach(child => {
 			if (child.type == "hawk" && !child.eggTimer) {
-				updateChildActivity(child.childId);
+				hawkBabyActivity(child.childId);
 			}
 		})
 	});
-
+*/
 /* 小鹰狩猎定时器 */
 new TimeEvent('onMin', 'BabyHawkHuntTimer')
 	.Cond(V.location == "tower" || V.location == "moor")

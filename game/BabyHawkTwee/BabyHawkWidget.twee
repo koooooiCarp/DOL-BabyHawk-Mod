@@ -1,11 +1,13 @@
 :: Widget BabyHawk [widget]
 
 <<widget 'BabyhawkTestFunc'>>
-	<<setupOptions>>
-	<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
-	<br>
-	查看各种小鹰性格及数量差分的调试按钮：<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
-	<br>
+	<<if $debug>>
+		<<setupOptions>>
+		<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
+		<br>
+		查看各种小鹰性格及数量差分的调试按钮：<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
+		<br>
+	<</if>>
 <</widget>>
 
 <<widget 'BabyhawkModWarning'>>
@@ -197,7 +199,7 @@
 				<<birdicon "lurkers">>潜伏者
 		<</switch>>
 		<<if _i isnot _total-1 and _loot isnot "nothing">>、<</if>>
-		<<if _loot isnot "nothing">><<set $bird.materials[_material]++>><</if>>
+		<<if _loot isnot "nothing">><<set $bird.materials[_loot]++>><</if>>
 	<</for>>
 <</widget>>
 

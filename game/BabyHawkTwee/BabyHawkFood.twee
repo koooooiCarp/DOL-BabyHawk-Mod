@@ -43,7 +43,7 @@
 		<</if>>
 		<br><br>
 		<<link [[继续|Bird Tower]]>><<endevent>><</link>>
-	<<else>><!-- 不够吃 -->
+	<<elseif $bird.materials.lurkers gt 0>><!-- 不够吃 -->
 		你猎到的潜伏者不够所有孩子吃。
 		<br><br>
 		<<for _i to 0; _i lt _childrenTotal; _i++>>
@@ -54,6 +54,13 @@
 			<</capture>>
 		<</for>>
 		<<link [[给所有孩子平均分配|Bird Tower FoodForAll BabyHawk]]>><</link>>
+		<br>
+	<<else>>
+		你手上有$bird.materials.lurkers只潜伏者！这是怎么做到的？<span class="red">这是BUG！请联系模组作者并提供存档。</span>
+		<br><br>
+		<<birdicon "lurkers">>你重新获得了一只潜伏者。<<set $bird.materials.lurkers to 1>>
+		<br><br>
+		<<link [[继续|Bird Tower]]>><<endevent>><</link>>
 		<br>
 	<</if>>
 <<else>>

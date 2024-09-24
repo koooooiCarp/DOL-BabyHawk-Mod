@@ -1,7 +1,7 @@
 :: BabyHawk Childrens Home
 <<getChildrenIds `{location: "otherNest"}` "both">><<set $otherNest to true>>
 你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
-<<babyhawkicon "Gold Ring">>那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。
+<<if $babyhawk_GoldRing>><<babyhawkicon "Gold Ring">>那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。<</if>>
 <br>
 <<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
 	<<if !$daily.childrenHomeEvent>>
