@@ -57,7 +57,7 @@
     <<else>>
         两爪空空，<<babyhawksthem>>回应你的叫声里带上了沮丧。你们踏上返程。
     <</if>>
-<<elseif $bird.hunt.timer lte 30>>
+<<elseif $bird.hunts.timer lte 30>>
     <<babyhawksthem>>唧唧喳喳地叫着，不想这么快就回去。你带着不断抱怨的<<babyhawks>>踏上了返程。
 <<else>>
     <<babyhawksthem>>尖鸣着回应你，你们踏上返程。

@@ -1,0 +1,150 @@
+:: Crafting Bird Tower Cooking Pot Exit
+<<effects>>
+你把材料备齐，下好鱼肉，坐在烹饪锅前等待料理完成。没过一会儿，周围便弥漫着一股熟鱼的味道。好香。<<lstress>><<stress -3>>
+<br><br>
+<<if $rng gte 80 and Object.values($children).find(child => ((child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting")) isnot undefined>>
+<!--小鹰蹭饭--><<set _eaten to true>>
+    <<set _IDs to []>>
+    <<run Object.values(V.children).forEach(child => {
+        if ((child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting") {
+            T.IDs.push(child.childId);
+        }
+    })>>
+    <<set _hawk to _IDs.pluck()>><<childSelect _hawk>>
+    你的身边冒出了一个<<= $cmonster ? "小哈比" : "小鹰">>脑袋，<<childhe>>正期待地盯着煮沸的锅。
+    <br>
+    "<<childname>>，"你揉搓<<childhim>>的头顶，试图让<<childhe>>离沸水远一点。<<childname>><<if $cmonster>>咬着手指，眼睛<</if>>紧紧盯着锅等待着。
+    <br>
+    你把煮好的鱼捞起，<<childname>>立刻<<= $cmonster ? "抓着" : "叨住">>你的<<if setup.clothes.lower[clothesIndex('lower', $worn.lower)].skirt is 1>>裙角，<<elseif $worn.lower.name isnot "naked">>裤脚，<<else>>大腿，哎呦！<<gpain>><<pain 3>> <<childHe>><</if>>不停叽喳叫着想要从你手上拿走熟鱼。
+    <br><br>
+
+    你和<<childhim>>抗争周旋了好一会儿，直到你觉得鱼足够凉了，才把手里的食物放下。<<childname>>扑了过来，狼吞虎咽地开始进食。
+    不出几分钟，<<childhe>>就风卷残云地吃掉了一整条鱼。<<childHe>>满足地坐下，<<= $cmonster ? "吹了吹自己的手掌" : "张开嘴喘着气">>，试图从热乎乎的进食里恢复过来。
+    <br><br>
+
+    至少这证明了你做的鱼很好吃。<<lstress>><<stress -3>>
+    <br><br>
+    <<set $Cooked_Fish-->><<set $children[_hawk].localVariables.FeededDaily++>><<set $children[_hawk].localVariables.activity to "rest">><<pass 5>>
+<<elseif $rng lte 50 and $bird.state is "home">>
+<!--大鹰蹭饭-->
+<<if !$firstSeen_CookedFish>><<set $firstSeen_CookedFish to true>><<set _eaten to true>><<npc "Great Hawk">>
+    被香气吸引，<<your_bird_text>>走到你的身边。
+    <<if $monster>>
+        "<<Wife>>为什么要把鱼放回水里？"<<bhe>>看着锅好奇道。
+        <br>
+    <<else>>
+        <<bHe>>好奇地歪着脑袋，想知道你在做什么。
+    <</if>>
+    你解释道煮熟的鱼更有营养，也更容易下咽。<<bHe>>看起来没能理解。
+    <br><br>
+
+    你把煮好的鱼捞起放凉，让<<GreatHawk>>尝尝没有佐料的熟鱼。<<bHe>>犹豫了好一会儿，鼓起勇气尝试了一小口。
+    <br>
+    入口即化的口感让<<bhe>>惊讶地睁大了眼睛。
+    <<if $monster>>
+        <br><br>
+        "很容易下咽。很适合<<wife>><<if Object.values($children).find(child => (child.type == "hawk" && !child.eggTimer))>>和孩子们<</if>>吃。"
+        <br>
+        <<bhe>>试图再拿一块，但没能控制好力度，鱼片在<<bhis>>的手里粉碎了。
+        <br>
+        "不适合我。"<<bhe>>摇摇头。
+    <<else>>
+        <<bHe>>发出一些肯定的轻鸣声，似乎对熟鱼的柔软程度很满意。
+        <<bHe>>试图再吃一块，但没能控制好力度，鱼片在<<bhis>>的力道下粉碎了，糊了<<bhis>>一嘴。
+        <br>
+        <<your_bird_text>>摇晃脑袋，没能把鱼肉甩下来，沮丧地叫了一声。你笑着将<<bHe>>擦拭干净。
+    <</if>><<lstress>><<stress -3>>
+    <br><br>
+
+    <<GreatHawk>>决定浅尝辄止，<<if $bird.activity is "sleep">>转身回去继续睡觉了。<<else>>转身回到了之前的活动中。<</if>>
+    <br><br>
+<<elseif $bird.activity isnot "sleep" and Object.values($children).find(child => (child.location == "tower" && child.localVariables.FeededDaily < 2)) isnot undefined>><<set _eaten to true>><<npc "Great Hawk">>
+    <<your_bird_text "cap">>看见你在煮鱼，于是凑过来和你一起等着鱼煮好。鱼腥味似乎让<<bhe>>有点饿了。
+    <br><br>
+
+    你把煮好的鱼捞起放凉，而<<GreatHawk>>把那些鱼肉带去了巢里。你能看见小鹰们仰着脑袋等待<<bhe>>一个个喂食。<<lstress>><<stress -3>>
+    <br><br>
+    <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+    <<set _childrenTotal to _childrenIds.length>>
+    <<for $_cc to 0; $_cc lt _childrenTotal; $_cc++>>
+        <<updateChildActivity _childrenIds[$_cc]>>
+        <<set $Cooked_Fish-->>
+        <<set $children[_childrenIds[$_cc]].localVariables.FeededDaily++>>
+    <</for>>
+<</if>>
+<</if>>
+<<if $Cooked_Fish>>
+    <!--通用返回-->
+    你把<<= _eaten ? "剩下的" : "做好的">>熟鱼收好，从烹饪锅前起身。
+    <br>
+<</if>>
+<<getouticon>><<link [[返回|Bird Tower Firepit]]>><<endevent>><</link>>
+
+:: Crafting Bird Tower Work Bench Exit
+<<effects>>
+你从工具箱中拿出必要的工具，和材料一起放在箱顶上一字排开。
+<br><br>
+
+<<if currentSkillValue('housekeeping') lt 200>>
+    你试图用这些简单且粗糙的工具切割鱼肉，但鱼肉表面滑腻腻的粘液让你很难控制下刀的位置。<<if $rng gte 20>>一个手滑，你不小心切到了自己的手指。<<gpain>><<pain 3>><</if>>
+<<elseif currentSkillValue('housekeeping') lt 400>>
+    你试图用这些简单且粗糙的工具切割鱼肉，全部切完后，你发现每一片鱼肉都形态各异。
+<<elseif currentSkillValue('housekeeping') lt 600>>
+    你用小刀把鱼肉切片，尽可能整齐地码好放在一旁。
+<<else>>
+    你用快速且优雅的动作把鱼肉整齐切片，每一片都保证均匀薄透。
+<</if>>
+<br><br>
+
+<<if $rng gte 70>>
+    <<if $rng gte 80 and $bird.state is "home" and $bird.activity isnot "sleep">><<npc "Great Hawk">>
+        <<your_bird_text "cap">>从你身后路过，似乎对你<<= currentSkillValue('housekeeping') gte 600 ? "精湛的技术" : "分割鱼肉的方法">>感到印象深刻。<<ldom>><<npcincr "Great Hawk" dom -1>>
+        <br><br>
+    <</if>>
+    <<if $rng lte 90 and Object.values($children).find(child => ((child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting"))>>
+        <<print either("你的孩子在你身后探头探脑，好奇你正在做些什么。","一只小鹰从你身边探出脑袋，试图悄悄叼走一片生鱼片。")>><<lstress>><<stress -3>>
+        <br><br>
+    <</if>>
+<</if>>
+
+你把做好的生鱼片收好，整理好工具箱。
+<br>
+<<getouticon>><<link [[返回|Bird Tower]]>><<endevent>><</link>>
+
+:: Terraria Extra Food [widget]
+<<widget "TerrariaExtraFood">>
+    <<if $location is "tower">>
+    <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">><<set _childrenTotal to _childrenIds.length>>
+        <<if $Sashimi gte (_childrenTotal * 2) or $Cooked_Fish gte _childrenTotal>><<BabyhawkModWarning>><<set _hawks to (_childrenTotal gt 1 ? "孩子们" : "你的孩子")>><</if>>
+        <<if $Sashimi gte (_childrenTotal * 2)>>
+            你可以把生鱼片喂给_hawks。
+            <<icon "food/Sashimi.png">><<link [[给_hawks吃生鱼片|BabyHawk Feed Terraria Food]]>><<set $phase to "Sashimi">><<set $Sashimi -= (_childrenTotal * 2)>><</link>>
+            <br>
+        <</if>>
+
+        <<if $Cooked_Fish gte _childrenTotal>>
+            你可以把熟鱼喂给_hawks。
+            <br>
+            <<icon "food/Cooked_Fish.png">><<link [[给_hawks吃熟鱼|BabyHawk Feed Terraria Food]]>><<set $phase to "Cooked_Fish">><<set $Cooked_Fish -= _childrenTotal>><</link>>
+            <br><br>
+        <</if>>
+    <</if>>
+<</widget>>
+
+:: BabyHawk Feed Terraria Food
+<<effects>>
+<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<set _childrenTotal to _childrenIds.length>>
+<<for $_cc to 0; $_cc lt _childrenTotal; $_cc++>>
+    <<updateChildActivity _childrenIds[$_cc]>>
+    <<set $children[_childrenIds[$_cc]].localVariables.FeededDaily++>>
+<</for>><<childSelect _childrenIds[0]>>
+<<set _hawks to (_childrenTotal gt 1 ? "小鹰们" : "<<childname>>")>>
+<<switch $phase>>
+    <<case "Sashimi">>
+        你拿出生鱼片，把切好的鱼肉一片一片喂给_hawks。_hawks狼吞虎咽地吃掉了这些鱼。
+    <<case "Cooked_Fish">>
+        你拿出熟鱼，把鱼肉分成一些小团，喂给_hawks。_hawks吃的满脸都是鱼肉泥。
+<</switch>>
+<br><br>
+<<link [[继续|Childrens Home]]>><<endevent>><</link>>

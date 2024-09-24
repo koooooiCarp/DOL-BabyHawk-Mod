@@ -6,12 +6,14 @@
 总喂食次数：<<print $children[_args[0]].localVariables.FeededTotal>>
 <br>
 <</if>>
-<<if $children[_args[0]].localVariables.stage>>
-阶段：<<print $children[_args[0]].localVariables.stage>>
-<br>
-<</if>>
-<<if $children[_args[0]].localVariables.trait>>
-特质：<<print $children[_args[0]].localVariables.trait>>
-<br>
+<<if $cheatdisable is "f">>
+    <<if $children[_args[0]].localVariables.stage>>
+    阶段：<<print $children[_args[0]].localVariables.stage>>
+    <br>
+    <</if>>
+    <<if $children[_args[0]].localVariables.trait>>
+    特质：<<print $children[_args[0]].localVariables.trait>>
+    <br>
+    <</if>>
 <</if>>
 <<if $children[_args[0]].localVariables.interactionsTotal>>

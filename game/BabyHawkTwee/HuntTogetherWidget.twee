@@ -289,7 +289,7 @@
 		<<flight_time_check _returnTime "silent">>
 		<<link [[回到城堡(<<print getTimeString(_hoursPassed, _minutesPassed)>>)|BabyHawk Hunt Return]]>><<set $fatigueMod to _fatigueMod>><<set $flightTime to _flightTime>><<bird_pass _flightTime>><<endevent>><</link>><<print _fatigueText>>
 		<br>
-	<<elseif $bird.hunts.timer gte 60>>
+	<<elseif $bird.hunts.timer gte 90>>
 		<<babyhawks>>翅膀的扇动变得很慢，看起来非常疲惫。
 		<<childname $leaderID>><<if $hawksTotal gt 1>>带着其他孩子们<</if>>落在了附近的树上歇脚。
 		<br><br>
@@ -303,7 +303,7 @@
 		<br>
 	<<else>>
 		你们回到更高的空中。
-		<<if $bird.hunts.timer gte 40>>
+		<<if $bird.hunts.timer gte 50>>
 			<<babyhawks>>开始变得有些疲惫了。
 		<<elseif Time.dayState is "dusk" and $bird.hunts.timer gte 60 and !$daily.birdNightWarning>>
 			<!-- 大概不能正常触发因为我还没想好狩猎时间限制 -->

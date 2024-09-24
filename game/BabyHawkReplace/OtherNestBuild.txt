@@ -1,6 +1,6 @@
 <<effects>>
 <<if $bird.hunts.unlocked is true and Object.values($children).find(child => (child.localVariables.stage == "Immature" && child.localVariables.growHintImmature != 1 && child.location == "tower"))>>
-
+<<BabyhawkModWarning>>
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 

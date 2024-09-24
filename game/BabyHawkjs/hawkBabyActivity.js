@@ -1,4 +1,4 @@
-/*<<if Time.dayState isnot "night" and $moor gte 21 and !$daily.babyhawkMoorEvent and $rng lte 10 and Object.values($children).find(child => (child.location == "otherNest"))>>*/
+
 simpleFrameworks.addto('iModOptions', 'BabyhawkTestFunc');
 
 simpleFrameworks.addto('iModHeader', {
@@ -14,11 +14,12 @@ simpleFrameworks.addto('iModHeader', {
 		'BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
 		'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
 		'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
-		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath'
+		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath',
+		'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food'
 	],
     widget: 'BabyhawkModWarning',
 });
-
+/* 小鹰单独狩猎完成，回塔的显示检查 */
 simpleFrameworks.addto('iModHeader', {
     passage: ['Bird Tower'],
     widget: 'BabyhawkHuntBack',
@@ -75,24 +76,26 @@ function initTrait(childId) {
 	if (getChildDays(child.childId) < 64 || child.localVariables.trait != undefined) {
 		return;
 	}
-	/* 大体型or喂食过多增加dom */
+
+	/* 大体型增加dom；小体型增加clumsy */
 	if (child.features.size == "large") {
 		randomNumber += 0.2;
 	}
+	else if (child.features.size == "small") {
+		randomNumber -= 0.1;
+	}
+	else if (child.features.size == "tiny") {
+		randomNumber -= 0.2;
+	}
+
+	/* 喂食过多增加dom；喂食过少增加clumsy */
 	if (child.localVariables.FeededTotal - getChildDays(child.childId) > 10) {
 		randomNumber += 0.2;
 	}
-	/* 小体型or喂食过少增加clumsy */
-	if (child.features.size == "tiny" ) {
+	else if (getChildDays(child.childId) - child.localVariables.FeededTotal > 5) {
 		randomNumber -= 0.2;
 	}
-	if (child.features.size == "small") {
-		randomNumber -= 0.1;
-	}
-	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 5) {
-		randomNumber -= 0.2;
-	}
-	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 10) {
+	else if (getChildDays(child.childId) - child.localVariables.FeededTotal > 10) {
 		randomNumber = 0;
 	}
 
@@ -180,8 +183,10 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf", "GreatHawk"]);
 		}
+	} else {//这里应该做一个报错但我不知道怎么做
+		activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
 	}
-	if (child.localVariables.stage != "Immature" && child.localVariables.FeededDaily < 2) {//乞食
+	if (child.location != "otherNest" && child.localVariables.FeededDaily < 2) {//乞食
 		activity.push("beg");
 		activity.push("beg");
 	} else {
@@ -237,17 +242,17 @@ new TimeEvent('onHour', 'updateBabyHawkActivity')
 		})
 	});
 
+/* 小鹰狩猎定时器 */
 new TimeEvent('onMin', 'BabyHawkHuntTimer')
 	.Cond(V.location == "tower" || V.location == "moor")
 	.Action(timeData => {
 		Object.values(V.children).forEach(child => {
-			if (timeData.min > 0 && child.localVariables.timer) {
+			if (child.localVariables.timer && timeData.min > 0) {
 				/* 更新定时器 */
 				child.localVariables.timer -= timeData.min;
 			}
 		})
 	});
-
 
 /*
 	初始化检查;
@@ -271,15 +276,16 @@ function updateFeeded(childId) {
 	const child = V.children[childId];
 	if (!child) return null;
 
+	let feed = child.localVariables.FeededDaily;
+	
 	/* PC当天晚上0点前都未踏入塔中，视为不在鹰塔，大鹰自力更生，更新统计喂食次数 */
 	if (!V.atBirdTower && !V.bird.injured && !npcIsPregnant("Great Hawk")) { child.localVariables.FeededTotal++; }
 	/* 离巢后的小鹰每天要吃两顿才够饱，妈呀 */
-	if (child.localVariables.stage == "Immature" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Fledgling") {
-		child.localVariables.FeededTotal += (child.localVariables.FeededDaily >= 2) ? ((child.localVariables.FeededDaily % 2 == 0) ? (child.localVariables.FeededDaily / 2) : ((child.localVariables.FeededDaily - 1) / 2)) : 0;
-	} else {
-		child.localVariables.FeededTotal += child.localVariables.FeededDaily;
+	if (getChildDays(child.childId) > 34) {
+		feed = Math.floor(feed/2);
 	}
 
+	child.localVariables.FeededTotal += feed;
 	child.localVariables.FeededDaily = 0;
 }
 
@@ -317,19 +323,19 @@ function updateGrowStage(childId) {
 	if (child.localVariables.stage == undefined && getChildDays(child.childId) < 14) {
 		/* 雏鸟，没有羽毛 */
 		newStage = "Hatchling";
-	} else if (child.localVariables.stage == "Hatchling" && getChildDays(child.childId) > 14 && getChildDays(child.childId) < 35) {
+	} else if (child.localVariables.stage == "Hatchling" && getChildDays(child.childId) > 14) {
 		/* 雏鸟，长出一层羽毛，未离巢 */
 		newStage = "Nestling";
-	} else if (child.localVariables.stage == "Nestling" && getChildDays(child.childId) > 34 && getChildDays(child.childId) < 65) {
+	} else if (child.localVariables.stage == "Nestling" && getChildDays(child.childId) > 34) {
 		/* 幼鸟，长出初级飞羽，已离巢 */
 		newStage = "Fledgling";
 		child.localVariables.growHintFledgling = 1;
-	} else if (child.localVariables.stage == "Fledgling" && getChildDays(child.childId) > 64 && getChildDays(child.childId) < 90) {
+	} else if (child.localVariables.stage == "Fledgling" && getChildDays(child.childId) > 64) {
 		/* 亚成鸟，长出完整飞羽 */
 		newStage = "Subadult";
 		child.localVariables.growHintSubadult = 1;
 		initTrait(child.childId);
-	} else if (child.localVariables.stage == "Subadult" && getChildDays(child.childId) > 89 && getChildDays(child.childId) < 200) {
+	} else if (child.localVariables.stage == "Subadult" && getChildDays(child.childId) > 89) {
 		/* 留给后续的阶段划分，反正不会成年的 */
 		newStage = "Immature";
 		child.localVariables.growHintImmature = 1;

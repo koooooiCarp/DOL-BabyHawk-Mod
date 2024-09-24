@@ -29,7 +29,8 @@
     "game/BabyHawkTwee/HuntTogetherSystem.twee",
     "game/BabyHawkTwee/HuntTogetherEvent.twee",
     "game/BabyHawkTwee/HuntTogetherWidget.twee",
-    "game/BabyHawkTwee/TestFunc.twee"
+    "game/BabyHawkTwee/TestFunc.twee",
+    "game/BabyHawkTwee/TerrariaFood.twee"
   ],
   "additionBinaryFile": [
     "img/misc/icon/babyhawk/gift_gold_ring.png",
@@ -169,6 +170,12 @@
           "findString": "<<if Weather.bloodMoon>>",
           "replaceFile": "game/BabyHawkReplace/NestlingHuntEvent.txt",
           "_comment1": "留巢期的特殊入侵事件，发生在狩猎期间"
+        },
+        {
+          "passage": "Childrens Home",
+          "findString": "<<if $location is \"home\">>",
+          "replace": "<<TerrariaExtraFood>><<if $location is \"home\">>",
+          "_comment1": "泰拉瑞亚模组联动，用熟鱼和生鱼片喂小鹰"
         }
       ]
     },
@@ -223,7 +230,7 @@
     },
     {
       "modName": "GameVersion",
-      "version": ">=0.5.0.5"
+      "version": ">=0.5.2.8"
     },
     {
       "modName": "ReplacePatcher",

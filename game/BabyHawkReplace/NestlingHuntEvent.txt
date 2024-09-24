@@ -1,7 +1,7 @@
 <<if !$firstSeen_NestlinginDanger and $bird.trespasser and $bird.hunts.duo is true and $bird.materials.lurkers gt 3 and $dateCount.GreatHawkHunts gte 20 and $bird.hunts.timer gte 45 and (_distanceNorthSouth gte 4 or _distanceEastWest lte -4) and Object.values($children).find(child => (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling")) isnot undefined>>
 	/* 仅发生一次，要求当前位置在最北边or最西边，和大鹰一起狩猎期间，入侵者从南边偷偷溜进来，巢里有留巢期小鸟。要求这么多到底谁能触发？总之这基本上是入侵者事件的育雏期变体，因此要写到见过入侵者的差分……或者干脆设置成见过入侵者才触发？懒得给入侵者事件里写差分了 */
 	/* 还要要求巢里有至少3只潜伏者，因为概念上外来者是来偷吃的。真是服！ */
-		<<addinlineevent "babyhawk_hunt_trespasser" 3>>
+		<<addinlineevent "babyhawk_hunt_trespasser" 2>>
 			<<set $firstSeen_NestlinginDanger to true>><<BabyhawkModWarning>>
 			<<beastNEWinit 1 hawk>><<npc "Great Hawk" 2>><<person2>>
 			<<if $NPCList[1].monster is "monster">>

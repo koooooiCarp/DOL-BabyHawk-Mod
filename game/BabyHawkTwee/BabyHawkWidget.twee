@@ -4,9 +4,7 @@
 	<<setupOptions>>
 	<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
 	<br>
-	<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
-	<br>
-	<<link [[看看七彩戒指|BabyHawk Test Gold Ring]]>><<endevent>><</link>>
+	查看各种小鹰性格及数量差分的调试按钮：<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
 	<br>
 <</widget>>
 
@@ -18,7 +16,6 @@
 
 <<widget "BabyHawkInit">>
 <<if $BabyHawkInit is undefined>>
-
 	<<run Object.values($children).forEach(child => {
 		if (child.type == "hawk" && child.location == "tower" && !child.eggTimer) 
 		{
@@ -28,7 +25,6 @@
 			initTrait(child.childId);
 		}
 	})>>
-	
 	<<set $BabyHawkInit to true>>
 <</if>>
 <</widget>>
@@ -73,8 +69,8 @@
 	<<set $SubadultIDs to undefined>>
 	<<set $ImmatureIDs to undefined>>
 	<<set $child1 to undefined>>
-	<<set $hawksIDs[0] to undefined>>
-	<<set $hawksIDs[1] to undefined>>
+	<<set $child2 to undefined>>
+	<<set $child3 to undefined>>
 	<<set $child4 to undefined>>
 	<<set $SubadultTotal to undefined>>
 	<<set $ImmatureTotal to undefined>>
@@ -185,7 +181,7 @@
 			<<set _loot to $children[_IDs[_i]].localVariables.huntLoot>>
 			<<set $children[_IDs[_i]].localVariables.huntLoot to undefined>>
 		<<else>>
-			<<set _loot to either("nothing","trash","materials","valuables","lurkers")>>
+			<<set _loot to either("nothing","junk","materials","valuables","lurkers")>>
 		<</if>>
 		<<switch _loot>>
 			<<case "nothing">><<if _total is 1>>……嗯，好像<<childhe>>什么都没有带回来。你摸了摸<<childhim>>的头以示安慰<</if>>

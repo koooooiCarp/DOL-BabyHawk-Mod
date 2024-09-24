@@ -2,6 +2,7 @@
 <<getChildrenIds `{location: "otherNest"}` "both">><<set $otherNest to true>>
 你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
 <<babyhawkicon "Gold Ring">>那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。
+<br>
 <<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
 	<<if !$daily.childrenHomeEvent>>
 		<<set $daily.childrenHomeEvent to [$location]>>
@@ -316,15 +317,15 @@
                 <br><br>
 
                 你深吸一口气，开始唱歌，一音接着一音从你嘴里飘出。这是一首轻柔的小曲，随性地歌唱着天空，你的配偶也加入了你。
-                随着你们的哼唱，<<childname>>的啁啾声也加入了进来，<<childhis>>清脆的鸣啼声偶有错音，与你们的歌声合奏，组成了一首完美的小曲。<<stress -5>><<lstress>>	
-                <br><br>
+                随着你们的哼唱，<<childname>>的啁啾声也加入了进来，<<childhis>>清脆的鸣啼声偶有错音，与你们的歌声合奏，组成了一首完美的小曲。<<stress -5>><<lstress>>
                 
                 <<if _multi>>
-                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你们的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
                     <br><br>
+                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你们的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
                 <</if>>
 
                 <<if $monster is 1>>
+                    <br><br>
                     "<<= _multi ? "孩子们" : "<<childname>>">>很擅长这个。"<<your_bird_text>>看起来对你们的孩子感到很骄傲。
                 <</if>>
             <</if>>
@@ -353,9 +354,10 @@
                 <br><br>
                 
                 <<if _multi>>
-                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
                     <br><br>
+                    <<childrenNames _otherIDs>>也兴奋地加入了你们的合唱，你的歌声和小鹰们的啁啾交织在一起，形成了一种神奇的和谐。天空本身仿佛也在回应你们的歌唱。<<trauma -5>><<ltrauma>>
                 <</if>>
+                你们坐在栖木上享受着风，度过了一段轻松的时光。
             <</if>>
         <</if>>
     <<default>>
