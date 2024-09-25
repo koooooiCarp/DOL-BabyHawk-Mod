@@ -14,7 +14,7 @@ simpleFrameworks.addto('iModHeader', {
 		'BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
 		'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
 		'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
-		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath',
+		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath','Moor BabyHawk Return',
 		'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food'
 	],
     widget: 'BabyhawkModWarning',

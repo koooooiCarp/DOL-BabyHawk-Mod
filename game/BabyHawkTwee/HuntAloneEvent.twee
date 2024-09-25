@@ -95,10 +95,10 @@
         <<set $children[_tempIDs[_cc]].localVariables.activity to "rest">>
         <<set $children[_tempIDs[_cc]].localVariables.timer to undefined>>
     <</for>>
-    你带着<<childrenNames _tempIDs>>踏上了返程。
+    你带着<<childrenNames _tempIDs>>踏上了返程。<<set $tempIDsCopy to clone(_tempIDs)>>
     <br><br>
     <<set _time to (100-$moor)/5*2>><<if _time lt 10>><<set _showtime to '0'+_time>><<else>><<set _showtime to _time>><</if>>
-    <<link [[继续 (0:_showtime)|Castle Fly]]>><<HuntTogetherClean>><<pass _time>><<endevent>><</link>>
+    <<link [[继续 (0:_showtime)|Moor BabyHawk Return]]>><<HuntTogetherClean>><<pass _time>><<endevent>><</link>>
 	<br>
 <<else>>
     <<switch $speech_attitude>>
@@ -142,7 +142,7 @@
             <<else>>
                 <<set _playerRole to "妈妈">>
             <</if>>
-            "<<print _playerRole>>拜拜，"你听见一句口齿不清的告别，来自你的<<childname>>。<<childHe>>什么时候学会说话了？……
+            "拜拜<<print _playerRole>>，"你听见一句口齿不清的告别，来自你的<<childname>>。<<childHe>>什么时候学会说话了？……
             <br><br>
             <<set $children[$hawksIDs[_cc]].localVariables.firstWord to _playerRole>>
             <<break>>
@@ -182,4 +182,23 @@
 <</if>>
 
 <<link [[继续|Moor]]>><<HuntTogetherClean>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Moor BabyHawk Return
+<<set $location to "tower">><<effects>>
+
+<<npc "Great Hawk">><<set _hawks to ($tempIDsCopy.length gt 1 ? "孩子们" : "<<childname $tempIDsCopy[0]>>")>>
+你带着_hawks飞向高塔，在鸟巢旁降落。
+<<if $bird.state is "home">>
+	<<if $monster is 1>>
+		<<beasttype>>站了起来，用<<bhis>>的胳膊和翅膀环抱住你们：“<<Wife>>，_hawks，欢迎回家。”
+	<<else>>
+		<<beasttype>>激动地扑了过来，在向你们表达问候之后，深情地啄了你一下。
+	<</if>>
+<<else>>
+	<<beasttype>>并不在家。
+<</if>>
+<br><br>
+<<run delete $tempIDsCopy>>
+<<link [[继续|Bird Tower]]>><<endevent>><</link>>
 <br>
