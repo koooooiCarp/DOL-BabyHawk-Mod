@@ -232,7 +232,7 @@
 		<br><br>
 	<</if>>
 	<<babyhawk_hunt_options>>
-/*<!-- 这个部分太大了！我还没想好怎么做 -->
+<!-- 这个部分太大了！我还没想好怎么做 
 <<elseif ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is 3) or ($bird.hunts.distanceNorth is -3 and $bird.hunts.distanceEast is -3)>>
 	附近一座山顶上有一根高高的石柱。石柱底部完全被茂密的植物覆盖，其间一条小路穿过了灌木丛。
 	<<if Time.dayState is "night">>
@@ -246,7 +246,7 @@
 		<br><br>
 	<</if>>
 	<<babyhawk_hunt_options>>
-*/
+-->
 <<else>>
 
 	<<addinlineevent "babyhawk_hunt_nothing" _flight_hunt_chance.nothing>>
@@ -502,7 +502,7 @@
 		<<npc "Great Hawk">><<person1>>
 			你的<<beasttype>><<if $monster is 1>>走<<else>>跃<</if>>向你们。
 			<<if $monster is 1>>
-				"很高兴看到你回来。"<<bHe>>注意到你没有带来任何东西，"不是每次狩猎都能成功的，"<<bhe>>试图安慰你和<<babyhawks>>。
+				"很高兴看到你们回来。"<<bHe>>注意到你们没有带来任何东西，"不是每次狩猎都能成功的，"<<bhe>>试图安慰你和<<babyhawks>>。
 			<<else>>
 				<<bHe>>注意到你们没有带来任何东西。<<bHe>>温柔地用喙磨蹭着你，试图安慰你。
 			<</if>>

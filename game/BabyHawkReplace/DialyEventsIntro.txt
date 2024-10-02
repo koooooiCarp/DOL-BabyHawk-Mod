@@ -29,6 +29,20 @@
 	<<else>>
 		<<childHe>>在巢里<<print either("休息","发呆","好奇地观察四周","打瞌睡")>>。
 	<</if>>
+<<case "weather">>
+	<<if Weather.temperature lte -15 and getBirdBurnTime() lte 0>>
+		<<childHe>>在巢里瑟瑟发抖。
+		<br>
+		<<link "帮<<childhim>>保暖 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_weather_cold", childid:_args[0]}>><</link>> |
+	<<elseif Weather.temperature gte 30>>
+		<<childHe>>在巢里张着嘴巴喘气。
+		<br>
+		<<link "帮<<childhim>>降温 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_weather_hot", childid:_args[0]}>><</link>> |
+	<<else>>
+		<<childHe>>在巢里向外看着天空。
+		<br>
+		<<link "陪伴<<childhim>> (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_weather_mild", childid:_args[0]}>><</link>> |
+	<</if>>
 <<case "GoldRing">>
 	<<childHe>>正在巢里把玩着那枚金戒指。
 <<case "Fledgling_fly">>

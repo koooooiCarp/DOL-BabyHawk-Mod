@@ -50,7 +50,7 @@ function hawkAmount(location = "tower") {
 	let Number = 0;
 
 	Object.values(V.children).forEach(child => {
-		if (child.type == "hawk" && !child.eggTimer && child.location == location) {
+		if (child.type == "hawk" && !child.eggTimer && child.location == location && child.localVariables.activity != "hunting") {
 			Number++;
 		}
 	})

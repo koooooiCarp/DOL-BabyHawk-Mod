@@ -163,34 +163,40 @@ function hawkBabyActivity(childId) {
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe", "GreatHawk"]);
+			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe"]);
 		}
 	} else if (between(T.childTotalDays, 35, 64)) {/* "Fledgling"：幼鸟，长出稚羽，已离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "crying", "reaching", "explore", "Fledgling_fly", "Fledgling_preen", "Fledgling_perch", "batheSelf", "GreatHawk"]);
+			activity = activity.concat(["rest", "crying", "reaching", "explore", "Fledgling_fly", "Fledgling_preen", "Fledgling_perch", "batheSelf"]);
 		}
 	} else if (between(T.childTotalDays, 65, 90)) {/* "Subadult"：亚成鸟，初次飞行，还没学狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "reaching", "explore", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf", "GreatHawk"]);
+			activity = activity.concat(["rest", "reaching", "explore", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
 	} else if (between(T.childTotalDays, 89, 200)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleeping"]);
 		} else {
-			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf", "GreatHawk"]);
+			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
 	} else {//这里应该做一个报错但我不知道怎么做
 		activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
 	}
+
 	if (child.location != "otherNest" && child.localVariables.FeededDaily < 2) {//乞食
 		activity.push("beg");
 		activity.push("beg");
 	} else {
 		activity = activity.filter(item => item !== "beg");
+	}
+
+	if (T.childTotalDays >= 15 && Time.dayState != "night") {//满足年龄之后的通用日常互动
+		activity.push("GreatHawk");
+		activity.push("weather");
 	}
 
 	if (child.childId == "orphanHawk1" && V.babyhawk_GoldRing) {//孤儿小鹰玩戒指
@@ -245,7 +251,7 @@ new TimeEvent('onMin', 'BabyHawkHuntTimer')
 	.Cond(V.location == "tower" || V.location == "moor")
 	.Action(timeData => {
 		Object.values(V.children).forEach(child => {
-			if (child.localVariables.timer && timeData.min > 0) {
+			if (child.localVariables?.timer && timeData.min > 0) {
 				/* 更新定时器 */
 				child.localVariables.timer -= timeData.min;
 			}

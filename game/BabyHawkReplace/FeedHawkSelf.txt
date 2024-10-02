@@ -1,4 +1,4 @@
-<<if $_lurkerLoot gte 1>>/*先处理小鹰以免后续减成负值了*/
+<<if $_lurkerLoot gte 1 and $hawksTotal>>/*先处理小鹰以免后续减成负值了*/
 	<<if getAllHungry() gte 1>>
 		<<childrenNames _tempIDs>>抓着带回来的潜伏者回到了巢里，开始狼吞虎咽地进食。
 		<<set $bird.materials.lurkers -= _length>>

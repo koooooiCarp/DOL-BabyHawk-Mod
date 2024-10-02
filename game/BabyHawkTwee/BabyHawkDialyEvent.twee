@@ -67,6 +67,67 @@
 <<childInteratedWith>>
 <<set $children[$childActivityEvent.childid].localVariables.event to false>>
 <<switch $childActivityEvent.event>>
+    <<case "Hawk_weather_cold">><<set _multi to hawkAmount($children[$childActivityEvent.childid].location)>>
+        你抱起<<childname>>，试图用<<if $harpy gte 6 and ($transformationParts.bird.wings isnot "hidden" or $transformationParts.bird.plumage isnot "hidden")>>你的羽毛<<else>>你的怀抱<</if>>温暖<<childhim>>。
+        <br>
+        <<childHe>>很快就停止了颤抖，趴在你的怀里缓慢地呼吸。你觉得差不多了，想把<<childhim>>放回巢里，但<<childhe>>一离开你的怀抱就又开始颤抖起来。<<if _multi>>其他孩子也凑到你们身边，瑟瑟发抖着挤成一团取暖。<</if>>
+        <br>
+        <<if ($bird.materials.wood gte 1 or $bird.materials.sticks gte 1) and $bird.upgrades.firepit gte 1>>
+            你环顾四周，从你的战利品堆里翻出了<<= $bird.materials.wood gte 1 ? "一块木头" : "一根木棍">>加入了火坑里。
+            燃烧的火坑让整个高塔都逐渐暖和了起来。<br><br>
+            你坐在<<= _multi ? "孩子们" : "<<childname>>">>身边，抱着<<= _multi ? "他们" : "<<childhim>>">>享受了一会儿火焰的温暖。<<lstress>><<stress -5>>
+            <<if Weather.bodyTemperature lt 37.5>><<set Weather.bodyTemperature to 37.5>><</if>>
+            <<if $bird.materials.wood gte 1>>
+                <<set $bird.materials.wood-->><<run Cooker.addBurnTime($bird.firepit, 240 * 60)>>
+			<<else>>
+                <<set $bird.materials.sticks-->><<run Cooker.addBurnTime($bird.firepit, 60 * 60)>>
+            <</if>><<run Weather.Observables.checkForUpdate()>>
+        <<elseif $bird.upgrades.firepit gte 1>>
+            也许你应该把火坑点燃。你翻找你的战利品堆，却发现家里没有多余的木头或木棍了。
+            <br>
+            你只好再抱了一会儿<<childname>>，希望这能帮助<<childhim>>再暖和一点。
+        <<else>>
+            在这个寒冷又空旷的高塔里，你没有什么能用来取暖的。<<gstress>><<stress 3>>
+            <br>
+            你只好再抱了一会儿<<childname>>，期盼着天气能够早日转暖。
+        <</if>>
+        <<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+    <<case "Hawk_weather_hot">><<set _multi to hawkAmount($children[$childActivityEvent.childid].location)>>
+        你抱起<<childname>>走进雨水池，
+        <<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
+            哪怕雨水池被你加热了，泡在里面的感觉也比闷热的空气舒服。
+        <<else>>
+            凉爽的水流让你们都舒服了许多。
+        <</if>>
+        <<if Weather.bodyTemperature gt 38>><<set Weather.bodyTemperature to 38>><</if>>
+        <<set _IDs to []>>
+        <<run Object.values(V.children).forEach(child => {
+            if (child.localVariables.activity == "batheSelf" || child.localVariables.activity == "weather") {
+                T.IDs.push(child.childId);
+                child.localVariables.activity = "rest";
+            }
+        })>>
+        <<set _multi to _IDs.length-1>><<childSelect _IDs[0]>><<run _otherIDs = _IDs.filter(item => item !== $childActivityEvent.childid)>>
+        <<if _multi>><<childrenNames _otherIDs>>也跟上你们，扑进雨水池里拍打着翅膀。<</if>>
+        <br>
+        你帮<<childname>>擦洗<<childhis>>的羽毛，清洗掉身上的污垢。<<if _multi>>其他孩子在一旁拍打水面，让一些水流溅在你们身上。<<childname>>予以回击。<<else>><<childname>>也用小小的水花泼向你。<</if>>
+        <<lstress>><<stress -5>>
+        <br>
+        你们玩了好一会儿水才从雨水池里离开。
+        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+    <<case "Hawk_weather_mild">>
+        你在<<childname>>身边坐下。
+        <br>
+        你随着<<childhis>>的目光向外望去，
+        <<switch Weather.name>>
+            <<case "clear" "lightClouds">>此时天空晴朗，阳光明媚。<<childname>>专注地看着远方，<<childhis>>的羽毛在风中轻轻摇曳，好像正受到天空的召唤。
+            <<case "heavyClouds">>此时的空中密布着厚厚的云层。<<childname>>一动不动地盯着天空，好一会儿你才发现<<childhis>>的脑袋正跟随着一朵<<print either("麋鹿","翅膀","某种你说不出来的","小鹰","小狗","棉花糖","小猫","星星","马匹","枕头")>>形状的云团缓慢转动。
+            <<case "lightPrecipitation">><<= Weather.precipitation is "rain" ? "小雨正淅淅沥沥地下着。" : "空中正飘散着朵朵雪花。">><<childname>>挪动身体挤进你的怀里，好奇地看着外面的风景。
+            <<case "heavyPrecipitation">><<= Weather.precipitation is "rain" ? "外面正大雨倾盆。" : "暴风雪笼罩着整片天空。">><<childname>>有些轻微地颤抖着，你把<<childhe>>揣进怀里，和<<childhe>>一起观赏着狂风肆虐的天空。
+            <<case "thunderStorm">>闪电在云层上撕开一道明亮的口子。<<childname>>的羽毛微微炸起，<<childhe>>一眨不眨地盯着乌云，期待着下一声惊雷或是闪电的到来。
+        <</switch>>
+        <<lstress>><<stress -5>>
+        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
     <<case "Hawk_build">><<childSelect $childActivityEvent.childid>>
         <<your_bird_text>>正小心翼翼地重新调整巢里的小树枝，而<<childname>>跟在<<bhim>>身后，
         <<switch $children[$childActivityEvent.childid].localVariables.trait>>
