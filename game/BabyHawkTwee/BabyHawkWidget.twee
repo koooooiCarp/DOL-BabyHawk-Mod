@@ -251,11 +251,11 @@
 				<<case "clumsy">>
 					<<childname $hawksIDs[0]>>的爪中正抓着一只潜伏者。他们飞梭穿过一些树枝，但<<childname $hawksIDs[0]>>没能估计好距离，让潜伏者撞在了树枝上，从爪里掉了下去，正好砸在了<<childname $hawksIDs[1]>>的脑袋上。
 					<br>
-					一阵骚乱后，他们重新抓住了这只潜伏者，在一些唧唧喳喳的讨论后，他们似乎决定就地开吃，把潜伏者带到了附近的树杈上开始进食。<<set $children[$hawksIDs[0]].localVariables.FeededDaily++>><<set $children[$hawksIDs[1]].localVariables.FeededDaily++>>
+					一阵骚乱后，他们重新抓住了这只潜伏者，在一阵唧唧喳喳的讨论后，他们似乎决定就地开吃，把潜伏者带到了附近的树杈上开始进食。<<set $children[$hawksIDs[0]].localVariables.FeededDaily++>><<set $children[$hawksIDs[1]].localVariables.FeededDaily++>>
 				<<case "sympathy">><<childSelect $hawksIDs[1]>>
 					<<childname $hawksIDs[0]>>似乎是累了，<<childhe $hawksIDs[0]>>停在了附近的树枝上歇脚，而<<childname $hawksIDs[1]>>也跟随<<childsiblings $hawksIDs[0]>>来到树枝附近，拍打着翅膀停在了……<<childname $hawksIDs[0]>>身上。
 					<br>
-					<<childHe $hawksIDs[0]>>恼怒地转头，但<<childname $hawksIDs[1]>>已经<<= $cmonster ? "偷笑着" : "咕咕叫着">>飞向另一棵树，跑远了。
+					<<childHe $hawksIDs[0]>>恼怒地转头抗议，但<<childname $hawksIDs[1]>>已经<<= $cmonster ? "偷笑着" : "咕咕叫着">>飞向另一棵树，跑远了。
 				<<case "clever">>
 					<<childname $hawksIDs[0]>>在接近地面的高度追逐着什么东西，而<<childname $hawksIDs[1]>>在云端盘旋，看准时机从另一端突袭。
 					<br>

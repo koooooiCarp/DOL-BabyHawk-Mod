@@ -15,7 +15,8 @@ simpleFrameworks.addto('iModHeader', {
 		'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
 		'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
 		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath','Moor BabyHawk Return',
-		'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food'
+		'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food',
+		'babyhawkBreastFeed','babyhawkCuddle','babyhawkTalk','babyhawkPlay'
 	],
     widget: 'BabyhawkModWarning',
 });
@@ -45,7 +46,7 @@ function initGrowStage(childId) {
 	} else if (getChildDays(child.childId) > 64 && getChildDays(child.childId) < 90) {
 		stage = "Subadult";/* 亚成鸟，初次飞行 */
 		child.localVariables.growHintSubadult = 1;		/* 开始稚后换羽，可飞行 */ 
-	} else if (getChildDays(child.childId) > 89 && getChildDays(child.childId) < 200) {
+	} else if (getChildDays(child.childId) > 89) {
 		stage = "Immature";/* 亚成鸟，长出完整飞羽，初次狩猎 */
 		child.localVariables.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
 		child.localVariables.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！*/
@@ -177,14 +178,15 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["rest", "reaching", "explore", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
-	} else if (between(T.childTotalDays, 89, 200)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
+	} else if (between(T.childTotalDays, 89, 201)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleeping"]);
 		} else {
 			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
-	} else {//这里应该做一个报错但我不知道怎么做
-		activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
+	} else {//报错处理
+		child.localVariables.activity = "error";
+		return;
 	}
 
 	if (child.location != "otherNest" && child.localVariables.FeededDaily < 2) {//乞食

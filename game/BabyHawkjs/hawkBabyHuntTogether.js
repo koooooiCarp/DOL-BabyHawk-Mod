@@ -45,19 +45,19 @@ function hasOnlyOrphan() {
 }
 window.hasOnlyOrphan = hasOnlyOrphan;
 
-/* 日常互动里检查所有活跃鹰崽数目 */
-function hawkAmount(location = "tower") {
-	let Number = 0;
+/* 日常互动里检查所有活跃鹰崽 */
+function hasActiveHawk(location = "tower") {
+	T.tempIDs = [];
 
 	Object.values(V.children).forEach(child => {
 		if (child.type == "hawk" && !child.eggTimer && child.location == location && child.localVariables.activity != "hunting") {
-			Number++;
+			T.tempIDs.push(child.childId);
 		}
 	})
 
-	return Number;
+	return T.tempIDs.length;
 }
-window.hawkAmount = hawkAmount;
+window.hasActiveHawk = hasActiveHawk;
 /* 默认在鹰塔，Immature期的小鹰位置设置成otherNest */
 /* 日常互动里查找对应性格的小鹰 */
 function hasTraitHawk(trait,location = "tower") {

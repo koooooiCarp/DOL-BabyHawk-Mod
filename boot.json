@@ -1,6 +1,6 @@
 {
   "name": "BabyHawk",
-  "version": "1.0",
+  "version": "1.3",
   "additionFile": [
     "readme.md",
     "game/BabyHawkjs/BabyHawkFeat.json",
@@ -176,6 +176,12 @@
           "findString": "<<if $location is \"home\">>",
           "replace": "<<TerrariaExtraFood>><<if $location is \"home\">>",
           "_comment1": "泰拉瑞亚模组联动，用熟鱼和生鱼片喂小鹰"
+        },
+        {
+          "passage": "Childrens Home",
+          "findString": "<<childrenEvents $location $passage>>",
+          "replace": "<<if $location is \"tower\">><<babyhawkEvents $location $passage>><<else>><<childrenEvents $location $passage>><</if>>",
+          "_comment1": "修改查看页面事件"
         }
       ]
     },

@@ -458,7 +458,7 @@
 
 	<!-- 把这个事件改成孤儿崽回顾过去？ -->
 	<<if !$firstSeen_orphanNest and (_distanceNorthSouth gte 4 or _distanceEastWest gte 4) and hasOrphan()>>
-		<<set _chance to 0>>
+		<<set _chance to 1>>
 		<<if $leaderID is "orphanHawk1">><<set _chance += 1>><</if>><<if $bird.hunt.goal is "babyhawk">><<set _chance += 1>><</if>>
 		<<addinlineevent "babyhawk_hunt_orphan" _chance>>
 			<<childSelect "orphanHawk1">><<set $firstSeen_orphanNest to true>>

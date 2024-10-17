@@ -1,3 +1,7 @@
+<<case "error">>
+	<<childHe>>用脑袋拱你，往你的手里放了一只奇怪的BUG。<br>
+	<span class="red">BUG！请在QQ反馈群<b>974425018</b>进行反馈。</span>
+	<br>
 <<case "beg">>
 	<<childHe>>在巢里<<set _rng to random(1,4)>><<childcry _rng>>着。你一靠近，<<childhe>>便抬起头来对你大张着嘴。
 	<br>

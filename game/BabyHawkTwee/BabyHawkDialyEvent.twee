@@ -3,14 +3,15 @@
 你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
 <<if $babyhawk_GoldRing>><<babyhawkicon "Gold Ring">>那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。<</if>>
 <br>
-<<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
+<<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes("otherNest")) and random(1) is 1>>
+    <!-- 页面事件，每日一次 -->
 	<<if !$daily.childrenHomeEvent>>
-		<<set $daily.childrenHomeEvent to [$location]>>
+		<<set $daily.childrenHomeEvent to "otherNest">>
 	<<else>>
-		<<run $daily.childrenHomeEvent.push($location)>>
+		<<run $daily.childrenHomeEvent.push("otherNest")>>
 	<</if>>
 	<<cleareventpool>>
-	<<childrenEvents $location $passage>>
+	<<babyhawkEvents "otherNest" $passage>>
 	<<if _eventpool.length>>
 		<<runeventpool>>
 		<<exit>>
@@ -20,6 +21,285 @@
 <<childViewerDisplay _childrenIds>>
 <br><br>
 <<link [[返回|Bird Tower]]>><<unset $otherNest>><</link>>
+
+:: BabyHawk Daily Events [widget]
+/*args[0] - location, args[1] - passageExit*/
+<<widget "babyhawkEvents">>
+    <!-- 检查活跃小鹰 -->
+	<<if _args[0] and hasActiveHawk(_args[0])>>
+        <<BabyhawkModWarning>>
+        <!-- 根据小鹰数量写差分（单只、多只小鹰才能触发的不同事件） -->
+		<<if _tempIDs.length gt 0>>
+			<<set _singleEvents to true>>
+		<</if>>
+		<<if _tempIDs.length gt 1>>
+			<<set _multipleEvents to true>>
+		<</if>>
+		<<set $childPassageExit to _args[1]>>
+
+        <<if _singleEvents is true and (_multipleEvents is false or random(0,100) gt 40)>>
+            <<addevent "babyhawkSingle">>
+        <<elseif _multipleEvents is true>>
+            <<addevent "babyhawkMultiple">> 
+        <</if>>
+	<</if>>
+<</widget>>
+
+<<widget "babyhawkSingle">>
+    <<set _ID to _tempIDs[random(0,_tempIDs.length-1)]>>
+    <<childSelect _ID>>
+    <<switch $children[_ID].localVariables.stage>>
+        <<case "Hatchling" "Nestling">>
+            <<if random(0,1) is 1>>
+                你注意到你的<<childtype>><<childname>>正躺在鸟巢里看着你，将<<childhands>>朝你这边伸了过来。
+                <br><br>
+                你抱起<<childhim>>，<<childhe>><<childgiggles>>动来动去。
+                <br><br>
+
+                <<if $cmonster is 1 and $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+                    <<link [[哺乳 (0:30)|childBreastFeed]]>><<pass 30>><</link>>
+                    <br>
+                <</if>>
+                <<link [[拥抱 (0:30)|childCuddle]]>><<pass 30>><</link>>
+                <br>
+                <<link [[和孩子说话 (0:30)|childTalk]]>><<pass 30>><</link>>
+                <br>
+                <<link [[玩耍 (0:30)|childPlay]]>><<pass 30>><</link>>
+            <<else>>
+                你看到<<childname>>正在鸟巢里滚来滚去。一看到是你，<<childhe>>立马坐正，<<childgiggles>>。<<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>>
+                <br><br>
+
+                <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+                <br>
+            <</if>>
+        <<case "Fledgling" "Subadult">>
+            <<if random(0,1) is 1>>
+                <br>
+                <<childname>>注意到你，高兴地跃入你的怀抱里。
+                <br><br>
+                你轻拍<<childhim>>，<<childhe>><<childgiggles>>动来动去。
+                <br><br>
+
+                <<if $cmonster is 1 and $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+                    <<link [[哺乳 (0:30)|babyhawkBreastFeed]]>><<pass 30>><</link>>
+                    <br>
+                <</if>>
+                <<link [[拥抱 (0:30)|babyhawkCuddle]]>><<pass 30>><</link>>
+                <br>
+                <<link [[和孩子说话 (0:30)|babyhawkTalk]]>><<pass 30>><</link>>
+                <br>
+                <<link [[玩耍 (0:30)|babyhawkPlay]]>><<pass 30>><</link>>
+            <<else>>
+                你看到<<childname>>正在鸟巢里低头啄弄着什么。你一靠近，<<childhe>>立马坐正，<<childgiggles>>。
+                <<if random(20) is 1>>你看到<<childhis>>的身后有几根被拔出来的小树枝。看起来<<childHe>>刚刚正在拆家。<<else>><<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>><</if>>
+                <br><br>
+
+                <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+                <br>
+            <</if>>
+        <<case "Immature">>
+            <<if random(0,1) is 1>>
+                <br>
+                <<childname>>发现你在找<<childhim>>，高兴地跑向你。
+                <br><br>
+                你抱起<<childhim>>，<<childhe>><<childgiggles>>回拥你。
+                <br><br>
+
+                <<if $cmonster is 1 and $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+                    <<link [[哺乳 (0:30)|babyhawkBreastFeed]]>><<pass 30>><</link>>
+                    <br>
+                <</if>>
+                <<link [[拥抱 (0:30)|babyhawkCuddle]]>><<pass 30>><</link>>
+                <br>
+                <<link [[和孩子说话 (0:30)|babyhawkTalk]]>><<pass 30>><</link>>
+                <br>
+                <<link [[玩耍 (0:30)|babyhawkPlay]]>><<pass 30>><</link>>
+            <<else>>
+                <<switch $children[_ID].localVariables.trait>>
+                    <<case "clumsy">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","探头探脑地望着你","发呆")>>。
+                    <<case "sympathy">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","好奇地观察四周","发呆")>>。
+                    <<case "clever">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","望着你，看着你走来走去","衔着树枝玩耍")>>。
+                    <<case "dominant">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","拆家，拔掉了好几根小树枝","磨爪")>>。 
+                <</switch>>
+                你一靠近，<<childhe>>立马看向你，开心地<<childgiggles>>。<<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>>
+                <br><br>
+
+                <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+                <br>
+            <</if>>
+    <</switch>>
+	<br>
+<</widget>>
+
+<<widget "babyhawkMultiple">>
+    <<switch random(0,3)>>
+        <<case 0>>
+            你注意到<<childrenNames _tempIDs>>正在彼此身上滚来滚去。<br>
+            <<set _child1 to _tempIDs.pluck()>>
+            <<set _child2 to _tempIDs.pluck()>>
+            孩子们时不时地停下来你看看我，我看看你。过了一会儿，<<childname _child1>>绕到<<childSelect _child2>><<childname>>身后，开始给<<childhim>>理毛。
+            <br><br>
+
+            <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+            <br>
+        <<case 1>>
+            你注意到孩子们正在巢里吵成一团。<br>
+            <<set _child1 to _tempIDs.pluck()>>
+            <<set _child2 to _tempIDs.pluck()>>
+            <<childname _child1>>正踩在<<childname _child2>>身上，扑腾着翅膀撕扯<<childsiblings _child2>>的羽毛。
+            你连忙靠近他们，将他们分开。好几分钟过去，他们仍然冲着对方愤怒地鸣叫着。<<gstress>><<stress 6>>
+            <br><br>
+
+            <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+            <br>
+        <<case 2>>
+            你听见巢里传来了焦急的叽喳叫声。<br>
+            <<set _child1 to _tempIDs.pluck()>>
+            <<set _child2 to _tempIDs.pluck()>>
+            你探头望去，发现<<childname _child1>>和<<childname _child2>>的爪子卡在了一起，他们奋力扑腾着翅膀，但怎么也分不开缠在树枝之间的爪子。
+            <br>
+            你帮忙解开了他们的爪子。<<childname _child1>>高兴地对你唧唧叫。
+            <br><br>
+
+            <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+            <br>
+        <<case 3>>
+            <<childrenNames _tempIDs>>正低着头观察着什么。你靠近他们，发现那是<<print either("一撮鲜红色的狐狸毛","一撮橘色的猫毛","一条格外长的藤蔓","一根断裂的木棍，看起来很像某种手杖","半根断裂的金属杆，上面附有尖头")>>。
+            <br><br>
+            你想知道这东西是从哪里来的。
+            <br><br>
+
+            <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+            <br>
+    <</switch>>
+<</widget>>
+
+:: babyhawkBreastFeed
+<<set $pregnancyStats.childBreastfedInteractions++>>
+<<if $worn.over_upper.name isnot "naked" or $worn.upper.name isnot "naked" or $worn.upper.name isnot "naked">>
+	你调整了一下你的衣服，好让<<childhim>>能碰到你的<<breasts>>。
+<<else>>
+	你引导你的孩子，好让<<childhis>>的嘴唇能够碰到你的<<breasts>>。
+<</if>>
+<br><br>
+<<if $children[$childSelected.childId].localVariables.stage is "Immature">>
+    <<switch $children[$childSelected.childId].localVariables?.trait>>
+		<<case "clumsy">>	<<childname>>含住你的乳头，心满意足地大口吸吮起来。<<breastfeed 50>>你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
+		<<case "sympathy">>	<<childname>>含住你的乳头，心满意足地吸吮起来。比起进食，<<childHe>>更多的是在享受这种安全又舒适的感觉。<<breastfeed 40>>你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
+		<<case "clever">>	<<childname>>把脸颊贴在你的胸口，眨巴眼睛望向你。<<childHe>>开始安静地吸吮你的乳头，没过一会儿便停止了进食。<<breastfeed 30>>比起母乳，<<childHe>>现在好像更喜欢潜伏者。
+		<<case "dominant">>	<<childname>>含住你的乳头，有一搭没一搭地吸着，没多久便停止了进食。<<breastfeed 20>>比起母乳，<<childHe>>现在好像更喜欢潜伏者。
+	<</switch>>
+<<else>>
+    <<switch random(1, 4)>>
+        <<case 1>>
+            <<childHe>立刻抓住你的乳房，专注地吮吸起来。<<breastfeed 50>>
+        <<case 2>>
+            <<childhim>>埋在你的胸口晃动脑袋，玩闹了好一会儿才开始吸吮你的乳头。<<breastfeed 40>>
+        <<case 3>>
+            <<childHe>>紧紧咬住你的乳头，然后用惊人的吸力开始吮吸。<<childhis>>吸吮的力量很快让你觉得乳头疼了起来。<<gpain>><<pain 4>><<breastfeed 60>>
+        <<default>>
+            <<childHe>>叼住你的乳头，有一搭没一搭地吸着，似乎没什么兴趣进食。<<breastfeed 10>>
+    <</switch>>
+    你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
+    <<if $children[childSelected].localVariables.growHintFledgling is 1 or $children[childSelected].localVariables.growHintSubadult is 1>>
+        <span class="blue"><<childHe>>喝奶的量明显比以前更多。</span>
+    <</if>>
+<</if>>
+<br><br>
+<<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: babyhawkCuddle
+<<switch random(1, 5)>>
+    <<case 1>>
+        <<if $cmonster is 1>>
+            <<childHe>>用手挽住你的脖子，随后将整个身子靠在了你的肩膀上。
+        <<else>>
+            <<childHe>>发出开心的颤鸣，依靠在你的脖颈旁边。
+        <</if>>
+        你们静静地互相拥抱着，直到<<childname>>抬起脑袋，从你的怀抱里跳回巢。
+    <<case 2>>
+        你哼着悠扬的摇篮曲，然后一边轻轻拍着<<childname>>的背，一边随着曲调轻轻摇晃起来，你那熟悉的声音似乎能抚慰<<childhis>>的情绪，<<childHe>>对你发出咕咕的颤鸣。<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+    <<case 3>>
+        你在<<childhis>>的额头上轻轻一吻，并尽量与<<childhim>>有更多的亲密接触。这个动作鼓励<<childhim>><<= $cmonster ? "抬起了头，并用咯咯笑作为回礼。" : "抬起脑袋，对你叽叽叫。">><<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+    <<case 4>>
+        <<if $children[$childSelected.childId].localVariables.stage is "Immature">>
+            你在<<childname>>附近放了一些不同的材料，解释着它们的颜色、形状、质地以及用途。
+            <br>
+            <<switch $children[$childSelected.childId].localVariables?.trait>>
+                <<case "clumsy">>	<<childHe>>认真听着，没一会儿便开始走神，试图抓住空气里浮动的小黑点。
+                <<case "sympathy">>	<<childHe>>认真听着，似乎对它们特殊的用法很感兴趣。<<lstress>><<stress -6>>
+                <<case "clever">>	<<childHe>>认真听着，时不时发出一些<<= $cmonster ? "咕哝声" : "啁鸣声">>，好像在附和你的话。<<lstress>><<stress -6>>
+                <<case "dominant">>	<<childHe>>对其中一些材料格外有兴趣，<<childhe>>站起身，用自己的爪子拨弄玩耍你准备的材料，没一会儿就制造出一片狼藉。<<set $bird.clean += 10>>
+            <</switch>>
+        <<else>>
+            你在<<childname>>附近放了一些不同的材料，解释着它们的颜色、形状和质地。
+            <<if $cmonster is 1>>
+                <<childHe>>伸手触摸，好奇地探索着<<childhis>>周围的环境，随后抓住了一块布料
+            <<else>>
+                <<childHe>>啄击着你展示的布料，试图把它从你手中拉走，
+            <</if>>
+            并开始撕扯它。<<childHe>><<childgiggles>>，你努力从<<childhe>>爪里解救下这片布料。<<gstress>><<stress 6>>
+        <</if>>
+    <<default>>
+        <<switch $children[$childSelected.childId].localVariables?.trait>>
+            <<case "clumsy">>	<<childname>>不想被你一直抱着，<<childhe>>在你的怀里扭动，挣扎着掉回了巢里。
+            <<case "sympathy">>	<<childname>>不想被你一直抱着，<<childhe>>发出抗议的啾啾叫，挣扎着跳回了巢里。
+            <<case "clever">>	<<childname>>不想被你一直抱着，<<childhe>><<= $cmonster ? "皱起脸拍打" : "啄击">>你的手臂，你松一开手，<<childhe>>就从你的怀里飞了出去。
+            <<case "dominant">>	<<childname>>不想被你一直抱着，<<childhe>>不满地扭动，挣扎着从你的怀里飞了出去。
+            <<default>>         <<childname>>抗拒被抱起，设法从你手中逃脱。<<childHe>>毫发无损地掉进了巢穴。
+        <</switch>>
+<</switch>>
+<br><br>
+<<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: babyhawkTalk
+<<switch random(1, 4)>>
+    <<case 1>>
+        你背诵了几首很久以前记得的童谣。当<<childHe>>听到你的奇特语调时，<<childhe>>看起来很好奇。你发出几声不同的音调，等待<<childhis>>的反应。
+        <br>
+        过了一会儿，<<childHe>>发出了几声啾鸣，似乎是在模仿你的语调。<<lstress>><<stress -6>>
+    <<case 2>>
+        你清了清嗓子，唱起了一首即兴的小曲。悠扬的曲调很快吸引了<<childname>>的注意，让<<childhe>>跟随着你啾啾伴鸣。<<lstress>><<stress -6>>
+    <<case 3>>
+        你向<<childname>>聊起<<print either("小镇的生活","大海的景象","森林的风景","荒原的远方","天空和大地")>>。
+        <<switch $children[$childSelected.childId].localVariables?.trait>>
+            <<case "clumsy">>	<<childname>>认真地听着，但<<childHe>>看起来并没有理解你在说什么。
+            <<case "sympathy">>	<<childname>>认真地听着，似乎对你偶尔提到的人类生活很感兴趣。<<lstress>><<stress -6>>
+            <<case "clever">>	<<childname>>认真地听着，似乎对你句子里的某些关键词很感兴趣。<<lstress>><<stress -6>>
+            <<case "dominant">>	<<childname>>认真地听着，似乎对你提到的某些特别的食物很感兴趣。<<lstress>><<stress -6>>
+            <<default>>         <<childHe>>看起来并不能听懂你在说什么。<<gstress>><<stress 6>>
+        <</switch>>
+    <<default>>
+        <<if $childSelected.mother is "pc">>
+            <<set _playerRole to "妈妈">>
+        <<elseif $childSelected.father is "pc">>
+            <<set _playerRole to "爸爸">>
+        <<elseif $player.gender_appearance is "m">>
+            <<set _playerRole to "爸爸">>
+        <<else>>
+            <<set _playerRole to "妈妈">>
+        <</if>>
+        你呼唤着<<childname>>，试图教会<<childhe>>"<<print _playerRole>>"这个词。每次你张嘴时，<<childhe>>都会轻轻地做出回应，但<<childHe>>似乎对此没什么兴趣。<<childHe>>用头蹭了一下你的腿，然后转身离开。
+<</switch>>
+<br><br>
+<<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: babyhawkPlay
+<<switch random(1, 2)>>
+	<<case 1>>
+		你向<<childname>>示意，把<<childhe>>从怀里轻轻抛出去，<<childhe>>扑腾着翅膀飞到塔的对面，随后又飞回你的怀里。这样往返几个来回后，你建立起了一个默契的节奏，能精准地抬手接住返回的<<childname>>。<<lstress>><<stress -6>>
+        <br>
+        不过没多久，<<childhe>>就停止了往返，自顾自地坐回巢里休息了。
+	<<case 2>>
+		你捂住自己的脸，随后忽然打开手掌，发出一声"peekaboo!"
+        <<childname>>似乎对这个小游戏很感兴趣，<<childhe>>在你每一次打开手掌露出脸时<<= $cmonster ? "咯咯笑着拍手" : "回应地唧唧叫">>。<<lstress>><<stress -6>>
+        <<if $children[$childSelected.childId].localVariables?.trait is "clever" or $children[$childSelected.childId].localVariables?.trait is "sympathy">>
+            <br><br>
+            当你最后一次捂住脸，打开手掌时，<<childname>>模仿着你的音调发出了一声模糊的"peekaboo"！<<ltrauma>><<trauma -6>>
+        <</if>>
+<</switch>>
+<br><br>
+<<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
 
 :: BabyHawk Hunt Accept
 你点点头，<<babyhawks>>爆发出一阵喜悦的欢呼声。
@@ -67,7 +347,7 @@
 <<childInteratedWith>>
 <<set $children[$childActivityEvent.childid].localVariables.event to false>>
 <<switch $childActivityEvent.event>>
-    <<case "Hawk_weather_cold">><<set _multi to hawkAmount($children[$childActivityEvent.childid].location)>>
+    <<case "Hawk_weather_cold">><<set _multi to hasActiveHawk($children[$childActivityEvent.childid].location)>>
         你抱起<<childname>>，试图用<<if $harpy gte 6 and ($transformationParts.bird.wings isnot "hidden" or $transformationParts.bird.plumage isnot "hidden")>>你的羽毛<<else>>你的怀抱<</if>>温暖<<childhim>>。
         <br>
         <<childHe>>很快就停止了颤抖，趴在你的怀里缓慢地呼吸。你觉得差不多了，想把<<childhim>>放回巢里，但<<childhe>>一离开你的怀抱就又开始颤抖起来。<<if _multi>>其他孩子也凑到你们身边，瑟瑟发抖着挤成一团取暖。<</if>>
@@ -92,7 +372,7 @@
             你只好再抱了一会儿<<childname>>，期盼着天气能够早日转暖。
         <</if>>
         <<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
-    <<case "Hawk_weather_hot">><<set _multi to hawkAmount($children[$childActivityEvent.childid].location)>>
+    <<case "Hawk_weather_hot">><<set _multi to hasActiveHawk($children[$childActivityEvent.childid].location)>>
         你抱起<<childname>>走进雨水池，
         <<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
             哪怕雨水池被你加热了，泡在里面的感觉也比闷热的空气舒服。
