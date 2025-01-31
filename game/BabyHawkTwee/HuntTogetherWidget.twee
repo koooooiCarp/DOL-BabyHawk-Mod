@@ -6,7 +6,7 @@
 	<<run delete $leaderID>>
 	<<run delete $hawks_leader>>
 	<<run delete $firstShown_South>>
-	<<run delete $firstShown_Nouth>>
+	<<run delete $firstShown_North>>
 	<<run delete $firstShown_West>>
 	<<run delete $firstShown_East>>
 <</widget>>
@@ -306,7 +306,6 @@
 		<<if $bird.hunts.timer gte 50>>
 			<<babyhawks>>开始变得有些疲惫了。
 		<<elseif Time.dayState is "dusk" and $bird.hunts.timer gte 60 and !$daily.birdNightWarning>>
-			<!-- 大概不能正常触发因为我还没想好狩猎时间限制 -->
 			<<set $daily.birdNightWarning to true>>
 			<<babyhawks>>望着地平线上逐渐落下的太阳。
 			<<if getHawkTrait("clumsy")>>

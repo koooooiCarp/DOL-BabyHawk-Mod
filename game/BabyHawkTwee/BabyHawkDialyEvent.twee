@@ -2,7 +2,6 @@
 <<getChildrenIds `{location: "otherNest"}` "both">><<set $otherNest to true>>
 你正待在<<if _childrenIds.length gte 2>>孩子们<<else>>孩子<</if>>的新巢附近。
 <<if $babyhawk_GoldRing>><<babyhawkicon "Gold Ring">>那枚金戒指正在<<childname "orphanHawk1">>的位置闪闪发光。<</if>>
-<br>
 <<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes("otherNest")) and random(1) is 1>>
     <!-- 页面事件，每日一次 -->
 	<<if !$daily.childrenHomeEvent>>
@@ -49,7 +48,7 @@
     <<set _ID to _tempIDs[random(0,_tempIDs.length-1)]>>
     <<childSelect _ID>>
     <<switch $children[_ID].localVariables.stage>>
-        <<case "Hatchling" "Nestling">>
+        <<case undefined "Hatchling" "Nestling">>
             <<if random(0,1) is 1>>
                 你注意到你的<<childtype>><<childname>>正躺在鸟巢里看着你，将<<childhands>>朝你这边伸了过来。
                 <br><br>
@@ -194,14 +193,14 @@
         <<case 1>>
             <<childHe>立刻抓住你的乳房，专注地吮吸起来。<<breastfeed 50>>
         <<case 2>>
-            <<childhim>>埋在你的胸口晃动脑袋，玩闹了好一会儿才开始吸吮你的乳头。<<breastfeed 40>>
+            <<childHe>>埋在你的胸口晃动脑袋，玩闹了好一会儿才开始吸吮你的乳头。<<breastfeed 40>>
         <<case 3>>
             <<childHe>>紧紧咬住你的乳头，然后用惊人的吸力开始吮吸。<<childhis>>吸吮的力量很快让你觉得乳头疼了起来。<<gpain>><<pain 4>><<breastfeed 60>>
         <<default>>
             <<childHe>>叼住你的乳头，有一搭没一搭地吸着，似乎没什么兴趣进食。<<breastfeed 10>>
     <</switch>>
     你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
-    <<if $children[childSelected].localVariables.growHintFledgling is 1 or $children[childSelected].localVariables.growHintSubadult is 1>>
+    <<if $children[$childSelected.childId].localVariables.growHintFledgling is 1 or $children[$childSelected.childId].localVariables.growHintSubadult is 1>>
         <span class="blue"><<childHe>>喝奶的量明显比以前更多。</span>
     <</if>>
 <</if>>
@@ -218,7 +217,7 @@
         <</if>>
         你们静静地互相拥抱着，直到<<childname>>抬起脑袋，从你的怀抱里跳回巢。
     <<case 2>>
-        你哼着悠扬的摇篮曲，然后一边轻轻拍着<<childname>>的背，一边随着曲调轻轻摇晃起来，你那熟悉的声音似乎能抚慰<<childhis>>的情绪，<<childHe>>对你发出咕咕的颤鸣。<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+        你哼着悠扬的摇篮曲，然后一边轻轻拍着<<childname>>的背，一边随着曲调轻轻摇晃起来，你那熟悉的声音似乎能抚慰<<childhis>>的情绪，<<childHe>>在你的怀中发出咕咕的颤鸣。<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
     <<case 3>>
         你在<<childhis>>的额头上轻轻一吻，并尽量与<<childhim>>有更多的亲密接触。这个动作鼓励<<childhim>><<= $cmonster ? "抬起了头，并用咯咯笑作为回礼。" : "抬起脑袋，对你叽叽叫。">><<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
     <<case 4>>
@@ -263,13 +262,13 @@
     <<case 3>>
         你向<<childname>>聊起<<print either("小镇的生活","大海的景象","森林的风景","荒原的远方","天空和大地")>>。
         <<switch $children[$childSelected.childId].localVariables?.trait>>
-            <<case "clumsy">>	<<childname>>认真地听着，但<<childHe>>看起来并没有理解你在说什么。
+            <<case "clumsy">>	<<childname>>认真地听着，但<<childHe>>看起来并不能理解你在说什么。
             <<case "sympathy">>	<<childname>>认真地听着，似乎对你偶尔提到的人类生活很感兴趣。<<lstress>><<stress -6>>
             <<case "clever">>	<<childname>>认真地听着，似乎对你句子里的某些关键词很感兴趣。<<lstress>><<stress -6>>
             <<case "dominant">>	<<childname>>认真地听着，似乎对你提到的某些特别的食物很感兴趣。<<lstress>><<stress -6>>
-            <<default>>         <<childHe>>看起来并不能听懂你在说什么。<<gstress>><<stress 6>>
+            <<default>>         <<childHe>>看起来并不能听懂你在说什么。
         <</switch>>
-    <<default>>
+    <<case 4>>
         <<if $childSelected.mother is "pc">>
             <<set _playerRole to "妈妈">>
         <<elseif $childSelected.father is "pc">>
@@ -287,7 +286,7 @@
 :: babyhawkPlay
 <<switch random(1, 2)>>
 	<<case 1>>
-		你向<<childname>>示意，把<<childhe>>从怀里轻轻抛出去，<<childhe>>扑腾着翅膀飞到塔的对面，随后又飞回你的怀里。这样往返几个来回后，你建立起了一个默契的节奏，能精准地抬手接住返回的<<childname>>。<<lstress>><<stress -6>>
+		你向<<childname>>示意，把<<childhe>>从怀里轻轻抛出去，<<childhe>>扑腾着翅膀飞到塔的对面，随后又飞回你的怀里。这样往返几个来回后，你们建立起了一个默契的节奏，能精准地抬手接住返回的<<childname>>。<<lstress>><<stress -6>>
         <br>
         不过没多久，<<childhe>>就停止了往返，自顾自地坐回巢里休息了。
 	<<case 2>>
@@ -354,7 +353,8 @@
         <br>
         <<if ($bird.materials.wood gte 1 or $bird.materials.sticks gte 1) and $bird.upgrades.firepit gte 1>>
             你环顾四周，从你的战利品堆里翻出了<<= $bird.materials.wood gte 1 ? "一块木头" : "一根木棍">>加入了火坑里。
-            燃烧的火坑让整个高塔都逐渐暖和了起来。<br><br>
+            燃烧的火坑让整个高塔都逐渐暖和了起来。
+            <br><br>
             你坐在<<= _multi ? "孩子们" : "<<childname>>">>身边，抱着<<= _multi ? "他们" : "<<childhim>>">>享受了一会儿火焰的温暖。<<lstress>><<stress -5>>
             <<if Weather.bodyTemperature lt 37.5>><<set Weather.bodyTemperature to 37.5>><</if>>
             <<if $bird.materials.wood gte 1>>
@@ -375,14 +375,14 @@
     <<case "Hawk_weather_hot">><<set _multi to hasActiveHawk($children[$childActivityEvent.childid].location)>>
         你抱起<<childname>>走进雨水池，
         <<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
-            哪怕雨水池被你加热了，泡在里面的感觉也比闷热的空气舒服。
+            哪怕雨水池被你加热了，泡在里面也比待在闷热的空气中舒服。
         <<else>>
             凉爽的水流让你们都舒服了许多。
         <</if>>
         <<if Weather.bodyTemperature gt 38>><<set Weather.bodyTemperature to 38>><</if>>
         <<set _IDs to []>>
         <<run Object.values(V.children).forEach(child => {
-            if (child.localVariables.activity == "batheSelf" || child.localVariables.activity == "weather") {
+            if (child.localVariables?.activity == "batheSelf" || child.localVariables?.activity == "weather") {
                 T.IDs.push(child.childId);
                 child.localVariables.activity = "rest";
             }
@@ -620,7 +620,7 @@
 	<<case "Subadult_perch">>
         <<set _IDs to []>>
         <<run Object.values(V.children).forEach(child => {
-            if (child.localVariables.activity == "Subadult_perch") {
+            if (child.localVariables?.activity == "Subadult_perch") {
                 T.IDs.push(child.childId);
                 child.localVariables.activity = "rest";
             }

@@ -1,6 +1,7 @@
 {
   "name": "BabyHawk",
-  "version": "1.3",
+  "version": "1.4",
+  "nickName":"鹰宝宝",
   "additionFile": [
     "readme.md",
     "game/BabyHawkjs/BabyHawkFeat.json",
@@ -51,7 +52,7 @@
         {
           "passage": "Widgets Bird",
           "findString": "!$daily.birdBabyFeed",
-          "replace": "Object.values($children).find(child => (child.localVariables.FeededDaily < 2))",
+          "replace": "Object.values($children).find(child => (child.localVariables?.FeededDaily < 2))",
           "all": true,
           "_comment1": "修改每日喂食限制"
         },
@@ -182,6 +183,12 @@
           "findString": "<<childrenEvents $location $passage>>",
           "replace": "<<if $location is \"tower\">><<babyhawkEvents $location $passage>><<else>><<childrenEvents $location $passage>><</if>>",
           "_comment1": "修改查看页面事件"
+        },
+        {
+          "passage": "Bird Tower Rainwater Pool",
+          "findString": "<<if $bird.activity is \"bathe\" and $bird.state is \"home\">>",
+          "replace": "<<if $bird.activity is \"bathe\" and $bird.state is \"home\">><<if $bird.activity is \"bathe\" and $daily.birdSexHelp isnot true>><<skinicon \"masturbate\">><<link [[在雨水池里自慰|BabyHawk Masturbation Help]]>><</link>><br><</if>>",
+          "_comment1": "大鹰帮忙自慰"
         }
       ]
     },

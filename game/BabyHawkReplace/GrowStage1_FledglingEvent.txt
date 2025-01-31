@@ -1,6 +1,6 @@
 <<bird_schedule>>
 
-<<if Object.values($children).find(child => (child.localVariables.growHintFledgling == 1))>>
+<<if Object.values($children).find(child => (child.localVariables?.growHintFledgling == 1))>>
 <<BabyhawkModWarning>>
 <<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
@@ -49,7 +49,7 @@
 			但暂且只有<<childhe>>一只身上有这样的迹象。
 		<</if>><br>
 	<</if>>
-	
+	<<childSelect _child1>>
 	<<if $bird.state is "home">>
 		<<npc "Great Hawk">>
 		你叫来了<<your_bird_text>>，<<bHe>>
@@ -97,9 +97,9 @@
 			发现<<childname _child2>>也开始了换羽。
 		<<else>>
 			但暂且只有<<childhe>>一只刚刚开始换羽。
-		<</if>><br><<childSelect _child1>>
+		<</if>><br>
 	<</if>>
-
+		<<childSelect _child1>>
 		<<if $bird.state is "home">>
 		<<npc "Great Hawk">>
 		<<your_bird_text "cap">>

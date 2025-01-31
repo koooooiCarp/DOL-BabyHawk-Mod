@@ -2,7 +2,7 @@
 <<effects>>
 你把材料备齐，下好鱼肉，坐在烹饪锅前等待料理完成。没过一会儿，周围便弥漫着一股熟鱼的味道。好香。<<lstress>><<stress -3>>
 <br><br>
-<<if $rng gte 80 and Object.values($children).find(child => ((child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting")) isnot undefined>>
+<<if $rng gte 80 and Object.values($children).find(child => (!child.eggTimer && (child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting")) isnot undefined>>
 <!--小鹰蹭饭--><<set _eaten to true>>
     <<set _IDs to []>>
     <<run Object.values(V.children).forEach(child => {
@@ -101,7 +101,7 @@
         <<your_bird_text "cap">>从你身后路过，似乎对你<<= currentSkillValue('housekeeping') gte 600 ? "精湛的技术" : "分割鱼肉的方法">>感到印象深刻。<<ldom>><<npcincr "Great Hawk" dom -1>>
         <br><br>
     <</if>>
-    <<if $rng lte 90 and Object.values($children).find(child => ((child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting"))>>
+    <<if $rng lte 90 and Object.values($children).find(child => (!child.eggTimer && (child.localVariables.stage == "Fledgling" || child.localVariables.stage == "Subadult" || child.localVariables.stage == "Immature") && child.localVariables.activity != "hunting"))>>
         <<print either("你的孩子在你身后探头探脑，好奇你正在做些什么。","一只小鹰从你身边探出脑袋，试图悄悄叼走一片生鱼片。")>><<lstress>><<stress -3>>
         <br><br>
     <</if>>

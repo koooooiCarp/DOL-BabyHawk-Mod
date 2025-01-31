@@ -140,7 +140,7 @@
 <br>
 
 :: BabyHawk Hunt Scavenge
-<<effects>><<endevent>>
+<<effects>><<endevent>><<childSelect $leaderID>>
 <<if !$daily.emptyCampFox and $rng gte 80>>
 	<<beastNEWinit 1 fox>><<earnFeat "Wild Animals">>
 	<<set $daily.emptyCampFox to true>>
@@ -184,7 +184,7 @@
 		<</if>>
 		<br><br>
 
-		眼冒金星，你看到<<= $cmonster ? "小哈比" : "小鹰">><<if $hawksTotal gt 1>>们<</if>>在<<beasttype>>身后出现，猛地扑到了<<bhis>>的背上！
+		眼冒金星，你看到<<if $hawksTotal gt 1>><<= $cmonster ? "小哈比" : "小鹰">>们<<else>><<childname $leaderID>><</if>>在<<beasttype>>身后出现，猛地扑到了<<bhis>>的背上！
 		<br>
 		<<beasttype>>毫无防备，发出疼痛的大叫声，你趁机蹬开<<bhe>>。
 		<br><br>
@@ -1640,13 +1640,13 @@
 	<<if getHawkTrait("sympathy")>><<childSelect _tempIDs[0]>>
 		<<childrenNames _tempIDs>>遗憾地看着<<bHe>>跑走。
 		<br>
-		<<childname>>对你叽喳两声，拍打着翅膀落在了树坑前。<<childHe>>把<<= $cmonster ? "手" : "爪子">>塞进树洞里，试图找到<<beasttype>>的踪迹，
+		<<childname>>对你叽喳几声，拍打着翅膀飞向了树坑。<<childHe>>把<<= $cmonster ? "手" : "爪子">>塞进树洞里，试图找到<<beasttype>>的踪迹，
 		<<if $rng gte 50>>
-			却被一只猛地伸出来的爪子吓了一跳。<br>你能听到<<beasttype>>嘶嘶威胁的声音，让<<childname>>离开<<bHe>>以免被攻击。<<childHe>>飞回了你身边。
+			却被一只猛地伸出来的爪子吓了一跳。<br>你听到<<beasttype>>嘶嘶威胁的声音，让<<childname>>离开那只猫以免被攻击。<<childHe>>回到了你身边。
 		<<elseif $phase is 1>>
 			却从树坑里掏出了一个小物件。<br><<childHe>>带着那个物件飞回了你身边，<<flight_hunt_get_random>>
 		<<else>>
-			却什么都没有发现。<br><<childname>>沮丧地飞回了你身边。
+			但什么都没有发现。<br><<childname>>沮丧地飞回了你身边。
 		<</if>>
 		<br><br>
 	<</if>>
@@ -2256,16 +2256,16 @@
 :: BabyHawk Hunt OrphanHawk Nest
 <<effects>>
 
-你降落在地面上。<<childname>>在灌木附近跳来跳去，似乎在寻找着什么。<<if $hawksTotal gt 1>>其他孩子也跟着你们落地，好奇地看着<<childname>>，想知道<<childhe>>在干什么。<</if>>
+你降落在地面上。<<childname>>在灌木附近跳来跳去，似乎在寻找着什么。<<if $hawksTotal gt 1>>其他孩子也跟着你们降落，好奇地看着<<childname>>搜索。<</if>>
 <br><br>
 
-你环顾四周，试图发现一些猎物或者闪亮的东西。但附近除了一些零散的树枝和树叶以外什么也没有。你指了指不远处的一团风滚草，想问问<<childhe>>是不是在找这个。
+你环顾四周，试图发现一些猎物或者闪亮的东西，但你的视野里只有一些零散的树枝和树叶。你轻拍<<childname>>，指了指不远处的一团风滚草，想问问<<childhim>>是不是在找这个。
 <br>
-<<childname>>顺着你指的方向看去，发出兴奋的叽喳声。<<childHe>>向那边跑去，停在一大堆碎裂的树枝面前，埋头翻找起来。
+<<childname>>看向你指的方向，立刻发出了兴奋的叽喳声。<<childHe>>小跑过去，在一大堆纠缠的树枝间埋头翻找起来。
 <br><br>
 
-你<<if $hawksTotal gt 1>>们<</if>>也凑了过去。靠近后你才忽然发现，这堆树枝的残骸相当密集，尽管已经碎裂开来，但你还是能看出它们曾经被结实地穿插在一块。<span class="blue">这是一个废弃的巢的残骸。
-考虑到你们目前的位置，这很可能是你捡到<<childname>>时看到的那个巢。</span>不知道是由于风吹日晒还是外力破坏，它已经碎裂到你几乎认不出来了。
+你<<if $hawksTotal gt 1>>们<</if>>也跟了上去。走近后你才忽然发现，这堆树枝的残骸反常地纠缠在一块儿，尽管大部分被磨损，但你还是能看出它们曾经被紧密地编织成型。
+<span class="blue">这是一个废弃的巢的残骸。考虑到你们目前的位置，这很可能是你捡到<<childname>>时看到的那个巢。</span>不知道是由于风吹日晒还是外力破坏，它已经碎裂到你几乎认不出来了。
 <br><br>
 
 <<switch $speech_attitude>>
@@ -2289,7 +2289,7 @@
 
 :: BabyHawk Hunt OrphanHawk Nest 2
 <<effects>>
-几分钟过去了，你们掰碎了大部分还勉强纠缠在一块儿的树枝，但除了一些小虫以外什么也没发现。<<childname>>伤心地啾啾叫着，独自飞到一颗高处的树杈上待着。
+几分钟过去了，你们掰碎了大部分还勉强纠缠在一块儿的树枝，但除了一些小虫以外什么也没发现。<<childname>>伤心地啾啾叫着，独自飞到了高处的一根树杈上。
 <br><br>
 
 "<<childname>>！"你大声呼唤<<childhim>>，但<<childhe>>停在上面看着远方，没有移动。
@@ -2300,12 +2300,13 @@
 对于有一些孩子来说，接受作为孤儿的生活总是需要一些时间。你只希望你能为<<childhe>>带来更美好的生活和更美好的回忆。
 <br><br>
 <<if getHawkTrait("sympathy")>>
-	<<childrenNames _tempIDs>>担心地叽喳叫着，飞到<<childname>>身边陪着<<childhe>>。
+	<<childrenNames _tempIDs>>发出担心的叽喳叫声，飞到<<childname>>身边陪着<<childhe>>。
 	<br>
 <</if>>
-你向那棵树前进，准备赶到你的孩子身边去。走到树根附近时，你忽然感到脚下一陡，好像踩到了一块不平整的地面。你低头，发现脚下有一块被潦草填埋过的小土坑。
+你向那棵树移动，准备赶到你的孩子身边去。走到树根附近时，你忽然感到脚下一陡，好像踩到了一块不平整的地面。你低头，发现脚下有一块被潦草填埋过的小土坑。
 <br>
 你意识到了什么，再次抬头呼唤你的孩子，随后开始挖掘这块地面。没一会儿，土里就漏出了一丝闪亮的微光。
+<br>
 <<icon "antiques/antique_gold_ring.png">><span class="gold">一枚黄金制成的戒指，上面镶嵌着一颗黑色宝石，被一些看起来像是葡萄的雕刻花纹所包围。</span>
 <br>
 <<childname>>落在你的身边，激动地<<= $cmonster ? "破涕为笑" : "唧唧鸣叫">>。<<childHe>>绕着你开心地转圈，发出各种各样的兴奋叫声。看来这就是<<childHe>>在找的东西了。<<if $hawksTotal gt 1>>其他孩子不明所以，但也因为它闪亮的光芒而开心起来。<</if>>

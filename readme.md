@@ -57,7 +57,7 @@
 
 - [**模组管理器**(Modloader)](https://github.com/Eltirosto/Degrees-of-Lewdity-Chinese-Localization)
 
-- [**简易框架**(Simple.Frameworks)](https://github.com/emicoto/DOLMods/releases)：**前置，先于本模组安装，1.15.1**及以上
+- [**简易框架**(Simple.Frameworks)](https://github.com/emicoto/SCMLSimpleFramework/releases)：**前置，先于本模组安装，1.15.1**及以上
 
 - [**模组本体**(BabyHawk)](https://github.com/koooooiCarp/DOL-BabyHawk-Mod/releases)
 
@@ -75,6 +75,20 @@
 ## 更新日志
 <details>
 <summary>点击展开</summary>
+
+> 2025.1.31
+> - 更新至 ` 1.4 ` 版本
+>   - 适配游戏本体：` 0.5.3.7 `
+>   - 新增了在大鹰洗澡时在鹰塔雨水池自慰的特殊事件
+>   - 微调了小鹰的性格生成机制
+>   - 修复了给小鹰哺乳事件中的文本爆红
+>   - 修复了和小鹰一起狩猎期间的文本爆红
+>   - 修复了无法正常生成日常事件的报错
+>   - 修复了一些事件中丢失的小鹰名字
+>   - 修复了揣着蛋回到鹰塔时发生的报错
+>   - 修复了和刚出生的小鹰互动时发生的报错
+> 
+> 
 > 2024.10.16
 > - 更新至 ` 1.3 ` 版本
 >   - 修改了一些【查看你的孩子】页面的小鹰互动，适配不同的成长阶段

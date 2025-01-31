@@ -158,7 +158,7 @@
 	/*检定PC今日是否在鹰塔*/
 	<<set _IDs to []>>
 	<<run Object.values(V.children).forEach(child => {
-		if (child.localVariables.timer <= 0) {
+		if (child.localVariables?.timer <= 0) {
 			T.IDs.push(child.childId);
 			child.localVariables.timer = undefined;
 			child.localVariables.activity = "rest";

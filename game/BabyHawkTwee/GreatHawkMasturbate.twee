@@ -1,0 +1,196 @@
+:: BabyHawk Masturbation Help
+<<effects>>
+<<set $daily.birdWash to 1>>
+<<set $daily.birdSexHelp to true>>
+<<npc "Great Hawk">><<person1>><<noClothingCheck>>
+你<<if !_nude>>脱下衣服<</if>>滑进了水池，温暖的池水包裹了你。你让双手随水流飘荡抚慰自己，直到意识到
+<<your_bird_text>>正热切地盯着你。
+<br><br>
+<<if $monster is 1>>
+    "<<Wife>>很激动。需要帮忙？"<<bHe>>游向你。
+<<else>>
+    <<bHe>>轻声唧唧叫，试图靠近你。
+<</if>>
+<br><br><<strip>>
+<<if hasSexStat("deviancy", 5)>>/*现在开始思考有贞操寄生虫的怎么办。卧槽了别跟寄生虫玩了！*/
+<<link [[接受|BabyHawk Masturbation Help Accept]]>><<deviant5>><</link>>
+<<else>>
+<span class="blue">这太怪了。你的异种癖不足以让你接受这个。</span>
+<</if>>
+<br><br>
+<<link [[拒绝|BabyHawk Masturbation Help Refuse]]>><</link>>
+<br>
+
+:: BabyHawk Masturbation Help Refuse
+<<effects>>
+<<switch $speech_attitude>>
+    <<case "bratty">>	你挥了挥手，示意<<bhim>>别过来。
+    <<case "meek">>		你摇了摇头，轻轻推开了<<bhim>>。
+    <<case "neutral">>	你摇了摇头，伸手推开了<<bhim>>。
+<</switch>>
+<br><br>
+
+<<if $monster is 1>>
+    "不要吗？"<<bhim>>问道，"<<= C.npc["Great Hawk"].dom gte 50 ? "好吧。<<Wife>>的意愿为重。" : "没关系。如果你需要我，我就在这里。">>"
+    哈比退回水池边，在不远处看着你。
+<<else>>
+    巨鹰停止靠近，<<bhe>>退回水池边，在不远处看着你。
+<</if>>
+<br><br>
+
+<<link [[开冲|BabyHawk Bird Tower Masturbation]]>><<set $masturbationstart to 1>><</link>>
+<br>
+
+:: BabyHawk Bird Tower Masturbation
+<<effects>><<set _enableSexToys to true>>
+    <<if $masturbationstart is 1>>
+        <<GreatHawk>>继续在水池的另一边洗澡。在你的配偶面前做这件事让你更兴奋了。
+        <<exhibitionism3>>
+        <<set $masturbationstart to 0>>
+        <<set $masturbationstat += 1>>
+        <<set $timer to 0>>
+        <<masturbationstart>>
+    <</if>>
+
+    <<if $timer gte ($bird.satisfied ? "20" : "10")>>
+        <<GreatHawk>>目不转睛地盯着你。
+        <br><br>
+    <<else>>
+        <<randomdata rate>>
+            <<datas 20>>	<<GreatHawk>>梳理着自己的羽毛，一些水滴被甩到你的身上。
+            <<datas 20>>	<<GreatHawk>>时不时停下动作看向你。
+            <<datas>>	
+        <</randomdata>>
+        <br><br>
+    <</if>>
+
+    <<if $orgasmdown gte 3>>/*高潮对应反应，另外还可以写拿出性玩具的反应？到时候用控制台看看拿玩具的变量*/
+        <<your_bird_text>>专注地看着你的高潮，发出一些兴奋的唧唧声。<<arousal 10>><<garousal>>
+        <<set $timer += 1>>
+        <br><br>
+    <</if>>
+
+    <<masturbationeffects>>
+    <<masturbationactions>>
+    <<set $timer += 1>>
+    <<masturbationControls>>
+
+:: BabyHawk Bird Tower Masturbation Finish
+<<effects>>
+<<endmasturbation>>
+<<endcombat>>
+你把自己清理干净，从雨水池里爬起。<<wash>>
+<br><br><<npc "Great Hawk">><<person1>>
+<<if $bird.activity isnot "bathe">>
+    <<your_bird_text>>跟在你身后离开雨水池，<<bhe>>明显地躁动不安。
+<<else>>
+    <<your_bird_text>>看着你离开。<<bhe>>的羽毛相当凌乱。
+<</if>>
+<<run delete $timer>>
+<<run delete $bird.satisfied>>
+<br>
+<<link [[继续|Bird Tower]]>><<clotheson>><</link>>
+
+
+:: BabyHawk Masturbation Help Accept
+<<effects>>
+<<switch $speech_attitude>>
+    <<case "bratty">>	"终于，"你在雨水池里坐起，招手让<<bHe>>靠近。
+    <<case "meek">>		"好、好啊，"你等待<<bHe>>向你靠近。
+    <<case "neutral">>	你点点头，放松身体让<<bHe>>靠近。
+<</switch>>
+<br><br>
+
+<<beasttype>>拨开水游到你身后，用翅膀环抱你。
+
+<<if $parasite.nipples.name isnot undefined or $parasite.breasts.name isnot undefined>>
+    <<set _parasite to ($parasite.breasts.name is "parasite" ? "寄生虫" : ($parasite.nipples.name is "urchin" ? "海胆" : "史莱姆"))>>
+    <<if $monster is 1>>
+        <<bHe>>一边向你身上泼水，一边轻柔地触碰着你。<<bHe>>试图抚摸你的胸口，却被你乳头上的_parasite拦住了。
+        <br>
+        "这是什么，<<wife>>？你被寄生虫缠住了吗？"哈比困惑地查看你胸前，试图把_parasite从你身上拽下来，但只让它黏得更紧了。<<gpain>><<garousal>>
+        <br>
+        <<bHe>>担忧地对你咕咕叫，"抱歉，<<wife>>，没法把它弄下来。"
+    <<else>>
+        <<bHe>>一边向你身上泼水，一边用喙轻柔地磨蹭着你。<<bHe>>的羽毛拂过你胸前，却被你乳头上的_parasite拦住了。
+        <br>
+        巨鹰歪着脑袋查看你的胸口，叨住_parasite试图把它从你身上拽下来，但只让它黏得更紧了。<<gpain>><<garousal>>
+        <br>
+        <<bHe>>担忧地对你咕咕叫，用脑袋顶你。<<bHe>>看起来很担心你身体的状况。
+    <</if>>
+    <br><br>
+    <<bHe>>转而开始用更轻柔的动作<<= $harpy gte 6 ? "梳理你的羽毛" : "轻蹭你的皮肤">>，温吞的快感很快淹没了你，让你迎来了高潮。<<orgasm>>
+    <br><br>
+    <<link [[继续|BabyHawk Masturbation Help End]]>><</link>>
+    <<exit>>
+<</if>>
+
+<<if $monster is 1>>
+    <<bHis>>的手指<<= $harpy gte 6 ? "在你的羽毛间穿梭" : "在你的皮肤上游走">>，轻柔的触碰带给你一阵阵的愉悦。<<garousal>>
+    <br>
+    哈比漫无目的地摸索着你的身体，抚摸逐渐集中到你<<breasts>>上。<<bHe>>轻轻地揉捏你的胸口，用指尖搓弄乳头，捋开乳尖上细窄的褶皱，微些刺痛和痒意从你的胸口蔓延至全身。<<garousal>>
+    <br>
+    <<if $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+        一些乳汁从乳头分泌出来，滴漏在哈比的手上。 <<breastfeed 50>>
+        <<if Object.values($children).find(child => (child.type == "hawk")) isnot undefined && $pregnancyStats?.childBreastfedInteractions gte 1 && !$firstSeen_milk>>
+            <br><<set $firstSeen_milk to true>>
+            <<bHe>>歪了歪头，凑近嗅了嗅乳汁。"<<Wife>>就是用这个来喂食孩子们的吗？陆地上的生物和巨鹰很不一样。"
+        <</if>>
+        <<bHe>>似乎被你的反应激励了，更加卖力地挤压揉弄起来。
+        <br><br>
+    <</if>>
+    你放松地靠在<<beasttype>>毛茸茸的胸膛上，发出舒适的叹息。
+    <br><br>
+    <<bHe>>的翅膀拍打水面，将更多的水洒在你的上身让你保持温暖。
+    <br>
+    在<<bHe>>持续的刺激之下，攀升的快感让你不由自主地开始抚慰自己。哈比把脑袋放在你的肩上，侧头轻蹭着你，你能感受到<<bHe>>的呼吸吹过你的耳边。
+    <br>
+    <<if $loveInterest.secondary is "Great Hawk" or $loveInterest.primary is "Great Hawk" or $loveInterestList?.includes("Great Hawk")>>
+        你<<= $speech_attitude is "bratty" ? "侧身拉过<<beasttype>>" : "转过头">>，在<<bHe>>的脸上轻啄。<<bHe>>开心地磨蹭你。
+        <br>
+    <</if>>
+    <br>
+    你在你的<<nnpc_wife "Great Hawk">>怀中迎来了高潮。<<orgasm>>
+
+    "很高兴帮到<<wife>>，"<<beasttype>>笑着说道。<<bHe>>听起来对<<bhimself>>很满意。
+    <br><br>
+<<else>>/*到这里1071个字*/
+    <<bHe>>用轻柔的动作<<= $harpy gte 6 ? "梳理你的羽毛" : "触碰你的皮肤">>，带给你一阵阵的愉悦。<<arousal 200>><<garousal>>
+    <br>
+    巨鹰的羽毛拂过你的身体，<<bhis>>的脑袋逐渐转移到你胸前。<<bHe>>用喙的一侧轻蹭你<<breasts>>，好像对这柔软的触感很好奇。巨鹰用喙尖轻戳你的乳房，张开嘴衔住硬起的乳头，微些刺痛和痒意从你的胸口蔓延至全身。<<garousal>>
+    <br>
+    <<if $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+        一些乳汁从乳头分泌出来，滴漏在<<bHe>>的脸颊上。 <<breastfeed 50>>
+        <<bHe>>歪了歪头，凑近嗅了嗅乳汁，好奇地观察着你。
+        <br>
+        巨鹰似乎被你的反应激励了，<<bHe>>从喉咙里发出一阵颤鸣，继续啄弄抚慰你的全身。
+        <br><br>
+    <</if>>
+    你放松地靠在<<beasttype>>毛茸茸的胸膛上，发出舒适的叹息。<<bHe>>的翅膀拍打水面，将更多的水洒在你的上身让你保持温暖。
+    <br>
+    在<<bHe>>持续的刺激之下，攀升的快感让你不由自主地开始抚慰自己。巨鹰把脑袋放在你的肩上，侧头轻蹭着你，你能感受到<<bHe>>温暖的羽毛蹭过你的脸颊。
+    <br>
+    <<if $loveInterest.secondary is "Great Hawk" or $loveInterest.primary is "Great Hawk" or $loveInterestList?.includes("Great Hawk")>>
+        你<<= $speech_attitude is "bratty" ? "一把拽过<<beasttype>>" : "转过头">>，在<<bHe>>的喙上轻啄。<<bHe>>开心地磨蹭你。
+        <br>
+    <</if>>
+    <br>
+    你在你的伴侣怀中迎来了高潮。<<orgasm>>
+
+    <<beasttype>>用翅膀环抱你，发出一声骄傲的鸣叫。
+    <br><br>
+<</if>>
+<<link [[继续|BabyHawk Masturbation Help End]]>><<bird_pass 20>><</link>>
+<br>
+
+:: BabyHawk Masturbation Help End
+<<effects>>
+
+在你高潮余韵的期间，<<GreatHawk>>向你身上泼了更多的水，帮你们洗净身体。<<wash>>
+<br><br>
+
+你们一起从雨水池里起身，<<your_bird_text>>跟在你身后离开雨水池，<<bhe>>明显地躁动不安。
+<<run delete $bird.satisfied>>
+<br><br>
+
+<<link [[继续|Bird Tower]]>><<clotheson>><</link>>

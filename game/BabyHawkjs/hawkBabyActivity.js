@@ -38,15 +38,15 @@ function initGrowStage(childId) {
 	let stage = null;
 	if (getChildDays(child.childId) < 14) {
 		stage = "Hatchling";/* 雏鸟，没有羽毛 */
-	} else if (getChildDays(child.childId) > 14 && getChildDays(child.childId) < 35) {
+	} else if (getChildDays(child.childId) < 35) {
 		stage = "Nestling";	/* 雏鸟，长出雏绒羽，未离巢 */
-	} else if (getChildDays(child.childId) > 34 && getChildDays(child.childId) < 65) {
+	} else if (getChildDays(child.childId) < 65) {
 		stage = "Fledgling";/* 幼鸟，长出稚羽，已离巢 */
 		child.localVariables.growHintFledgling = 1;		/* 开始雏后换羽，提醒玩家离巢 */ 
-	} else if (getChildDays(child.childId) > 64 && getChildDays(child.childId) < 90) {
+	} else if (getChildDays(child.childId) < 90) {
 		stage = "Subadult";/* 亚成鸟，初次飞行 */
 		child.localVariables.growHintSubadult = 1;		/* 开始稚后换羽，可飞行 */ 
-	} else if (getChildDays(child.childId) > 89) {
+	} else if (getChildDays(child.childId) < 201) {
 		stage = "Immature";/* 亚成鸟，长出完整飞羽，初次狩猎 */
 		child.localVariables.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
 		child.localVariables.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！*/
@@ -74,7 +74,7 @@ function initTrait(childId) {
 	randomNumber = Math.random();
 
 	/* 亚成年才获得性格 */
-	if (getChildDays(child.childId) < 64 || child.localVariables.trait != undefined) {
+	if (getChildDays(child.childId) < 65 || child.localVariables.trait != undefined) {
 		return;
 	}
 
@@ -90,14 +90,17 @@ function initTrait(childId) {
 	}
 
 	/* 喂食过多增加dom；喂食过少增加clumsy */
+	if (child.localVariables.FeededTotal - getChildDays(child.childId) > 5) {
+		randomNumber += 0.1;
+	}
 	if (child.localVariables.FeededTotal - getChildDays(child.childId) > 10) {
-		randomNumber += 0.2;
+		randomNumber += 0.1;
 	}
-	else if (getChildDays(child.childId) - child.localVariables.FeededTotal > 5) {
-		randomNumber -= 0.2;
+	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 5) {
+		randomNumber -= 0.1;
 	}
-	else if (getChildDays(child.childId) - child.localVariables.FeededTotal > 10) {
-		randomNumber = 0;
+	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 10) {
+		randomNumber -= 0.1;
 	}
 
 	/* 概率均匀分配 */
@@ -160,13 +163,13 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["sleeping", "sleeping", "sleeping", "crying", "reaching", "flap", "perch", "bathe"]);
 		}
-	} else if (between(T.childTotalDays, 15, 34)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 */
+	} else if (between(T.childTotalDays, 14, 35)) {/* "Nestling"：雏鸟，长出雏绒羽，未离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
 			activity = activity.concat(["sleeping", "crying", "reaching", "flap", "preen", "perch", "bathe"]);
 		}
-	} else if (between(T.childTotalDays, 35, 64)) {/* "Fledgling"：幼鸟，长出稚羽，已离巢 */
+	} else if (between(T.childTotalDays, 35, 65)) {/* "Fledgling"：幼鸟，长出稚羽，已离巢 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleepingWithGreatHawk", "sleepingWithGreatHawk", "sleeping"]);
 		} else {
@@ -178,14 +181,14 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["rest", "reaching", "explore", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
-	} else if (between(T.childTotalDays, 89, 201)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
+	} else if (between(T.childTotalDays, 90, 200)) {/* "Immature"：亚成鸟，长出完整飞羽，单独住一个巢，可出去单独狩猎 */
 		if (Time.dayState === "night" && V.bird.state === "home" && ["sleep", "rest", "brood"].includes(V.bird.activity)) {
 			activity = activity.concat(["sleeping"]);
 		} else {
 			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
-	} else {//报错处理
-		child.localVariables.activity = "error";
+	} else {//错误处理
+		child.localVariables.activity = "noEvent";
 		return;
 	}
 
