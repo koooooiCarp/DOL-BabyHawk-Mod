@@ -1,6 +1,6 @@
 {
   "name": "BabyHawk",
-  "version": "1.4",
+  "version": "1.5",
   "nickName":"鹰宝宝",
   "additionFile": [
     "readme.md",
@@ -135,19 +135,20 @@
           "findString": "<<if $bird.clean gte 100>>",
           "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
           "_comment1": "新巢选项"
-        },
+        },        
         {
           "passage": "Children Activity Events",
-          "findString": "<</link>>",
-          "replace": "<</link>><</if>>",
+          "findString": "<<unset $childActivityEvent>><<endevent>><</link>>",
+          "replace": "<<unset $childActivityEvent>><<endevent>><</link>><</if>>",
           "_comment1": "新巢返回选项1"
         },
         {
           "passage": "Children Activity Events",
-          "findString": "<<link",
-          "replace": "<<if $otherNest>><<link [[继续|BabyHawk Childrens Home]]>><<unset $exitPassage>><<unset $otherNest>><</link>><<else>><<link",
+          "findString": "<<link [[继续|Childrens Home]]>>",
+          "replace": "<<if $otherNest>><<link [[继续|BabyHawk Childrens Home]]>><<unset $exitPassage>><<unset $otherNest>><<unset $childActivityEvent>><<endevent>><</link>><<else>><<link [[继续|Childrens Home]]>>",
           "_comment1": "新巢返回选项2"
         },
+
         {
           "passage": "Bird Hunt Start Alone",
           "findString": "<<effects>>",

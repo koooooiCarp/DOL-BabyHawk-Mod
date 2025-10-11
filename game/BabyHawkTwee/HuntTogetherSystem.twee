@@ -273,7 +273,9 @@
 					你能看见你的孩子正在试图抖掉身上覆盖的薄薄一层白霜。<<stress -6>><<lstress>>
 				<</switch>>
 			<<case 3>>
-				你暂时分神了一会，享受着飞翔的感觉。<<if $hawksTotal gt 1>>孩子们正在空中互相追逐对方的尾巴。<<trauma -3>><</if>><<trauma -3>><<ltrauma>>
+				你暂时分神了一会，享受着飞翔的感觉。
+				<br>
+				<<if $hawksTotal gt 1>>孩子们在空中互相追逐彼此的尾巴。<<trauma -3>><</if>><<trauma -3>><<ltrauma>>
 		<</switch>>
 		<br><br>
 

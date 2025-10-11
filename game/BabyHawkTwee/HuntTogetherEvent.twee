@@ -427,7 +427,7 @@
 		<<babyhawk_hunt_return>>
 	<<case 3>>
 		<<if $housekeepingSuccess>>
-			你成功找到了更多有用的布料，有几块更结实的部分吸引了你。<<childhe $leaderID>>试图拿起这堆布料，却一不小心用爪子划出了一个破洞。
+			你成功找到了更多有用的布料，有几块更结实的部分吸引了你。<<childname $leaderID>>试图拿起这堆布料，却一不小心用爪子划出了一个破洞。
 			<br>
 			你拿上了剩下的布料。
 			<<flight_hunt_get "fabric" 2>>
@@ -1064,7 +1064,7 @@
 	<span class="red">但是你太慢了。</span>其他的潜伏者跳起来拦截了你。你偏离了路径，侧身落地。<<pain 3>><<gpain>>
 	<br><br>
 
-	没等潜伏者跳到你身上，一声尖鸣划破了空气。<<babyhawks>>猛扑到潜伏者群当中，试图在混乱的局面里抓住猎物。你拍了拍身上的尘土，重新起飞。<<childname>>飞到你身边，<<childHe>>似乎也错失了<<childhis>>的猎物。
+	没等潜伏者跳到你身上，一声尖鸣划破了空气。<<babyhawks>>猛扑到潜伏者群当中，试图在混乱的局面里抓住猎物。你拍了拍身上的尘土，重新起飞。<<childname>>空着爪子飞回你身边，似乎也错失了<<childhis>>的猎物。
 	<<set _huntFail to 1>>
 <</if>>
 <br><br>

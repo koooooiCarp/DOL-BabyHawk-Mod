@@ -1,7 +1,7 @@
 # 鹰宝宝Mod | BabyHawk
 ---
 
-|[**贴吧发布贴**](https://tieba.baidu.com/p/9188437292)|
+|[贴吧发布贴](https://tieba.baidu.com/p/9188437292)|!!前置简易框架**暂未更新0.5.4以上版本适配**，请点此下载[补丁版本](https://github.com/user-attachments/files/20834340/Simple.Framework.ver2.0.5.build_4.zip)!!
 
 ---
 ## 模组简介
@@ -76,6 +76,11 @@
 <details>
 <summary>点击展开</summary>
 
+> 2025.10.11
+> - 更新至 ` 1.5 ` 版本
+>   - 适配游戏本体：` 0.5.5.9 `
+>   - 修复了和小鹰日常互动后无法正常返回鹰塔的报错
+> 
 > 2025.1.31
 > - 更新至 ` 1.4 ` 版本
 >   - 适配游戏本体：` 0.5.3.7 `

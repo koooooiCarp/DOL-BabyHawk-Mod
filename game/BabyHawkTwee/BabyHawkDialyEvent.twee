@@ -155,9 +155,9 @@
             你听见巢里传来了焦急的叽喳叫声。<br>
             <<set _child1 to _tempIDs.pluck()>>
             <<set _child2 to _tempIDs.pluck()>>
-            你探头望去，发现<<childname _child1>>和<<childname _child2>>的爪子卡在了一起，他们奋力扑腾着翅膀，但怎么也分不开缠在树枝之间的爪子。
-            <br>
-            你帮忙解开了他们的爪子。<<childname _child1>>高兴地对你唧唧叫。
+            <<childname _child1>>和<<childname _child2>>的爪子卡在了一起，小鹰们奋力地扑腾着翅膀，但只是让他们卡得更紧了。
+            <br><br>
+            你上前，小心地帮孩子们解开了爪子。<<childname _child2>>立刻跳开了，<<childhe _child2>>理了理毛，高兴地对你唧唧叫。
             <br><br>
 
             <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
@@ -327,8 +327,7 @@
         <br><br>
 <</if>>
 <<babyhawksthem>>跟随着你张开翅膀从塔上跃下。
-<br>
-
+<br><br>
 <<link [[继续|BabyHawk Hunt Goal]]>><<endevent>><</link>>
 <br>
 
