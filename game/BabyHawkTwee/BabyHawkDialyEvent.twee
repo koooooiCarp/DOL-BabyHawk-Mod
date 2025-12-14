@@ -414,7 +414,7 @@
             <<case "sympathy">>	叽喳叫着，似乎想要<<bhe>>陪自己玩。<<GreatHawk>>转身<<= $monster ? "摸了摸<<childhis>>的脑袋" : "轻轻啄了啄<<childhim>>">>，
             <<case "clever">>	帮忙<<= $cmonster ? "拿" : "衔">>着其中一根小树枝。<<GreatHawk>>转身从<<childhis>><<= $cmonster ? "手" : "嘴">>里接过树枝，鼓励地<<= $monster ? "摸了摸<<childhis>>的脑袋" : "轻轻啄了啄<<childhim>>">>，
             <<case "dominant">>	试图抓住<<bhis>>的尾巴。<<GreatHawk>>在巢里不断转身，让<<childhim>>跟着自己转圈，到最后<<childname>>不得不晕乎乎地坐回巢里。<<GreatHawk>><<= $monster ? "轻轻笑了笑" : "发出一声胜利的咕咕叫">>，
-            <<default>>         正从巢里拔出其中一根小树枝。<<GreatHawk>>试图从<<childhis>><<= $cmonster ? "手" : "嘴">>里拿走树枝，但<<childhim>>紧紧<<= $cmonster ? "抓" : "叼">>着树枝不愿松开。<<bhe>>只好选择拿起另一根小树枝，
+            <<default>>         正从巢里拔出其中一根小树枝。<<GreatHawk>>试图从<<childhis>><<= $cmonster ? "手" : "嘴">>里拿走树枝，但<<childhim>>紧紧<<= $cmonster ? "抓" : "叼">>着树枝不愿松开。<br><<bhe>>只好选择拿起另一根小树枝，
         <</switch>>
         埋头继续<<bhis>>的筑巢工作。<<lstress>><<stress -5>>
         <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>

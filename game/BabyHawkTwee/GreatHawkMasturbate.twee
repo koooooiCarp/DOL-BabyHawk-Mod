@@ -56,11 +56,11 @@
         <<GreatHawk>>目不转睛地盯着你。
         <br><br>
     <<else>>
-        <<randomdata rate>>
-            <<datas 20>>	<<GreatHawk>>梳理着自己的羽毛，一些水滴被甩到你的身上。
-            <<datas 20>>	<<GreatHawk>>时不时停下动作看向你。
-            <<datas>>	
-        <</randomdata>>
+        <<switch random(1,5)>>
+            <<case 1>>	<<GreatHawk>>梳理着自己的羽毛，一些水滴被甩到你的身上。
+            <<case 2>>	<<GreatHawk>>时不时停下动作看向你。
+            <<default>>	
+        <</switch>>
         <br><br>
     <</if>>
 
@@ -108,7 +108,7 @@
     <<if $monster is 1>>
         <<bHe>>一边向你身上泼水，一边轻柔地触碰着你。<<bHe>>试图抚摸你的胸口，却被你乳头上的_parasite拦住了。
         <br>
-        "这是什么，<<wife>>？你被寄生虫缠住了吗？"哈比困惑地查看你胸前，试图把_parasite从你身上拽下来，但只让它黏得更紧了。<<gpain>><<garousal>>
+        "这是什么，<<wife>>？你被寄生虫缠住了吗？"哈比困惑地查看你的胸前，试图把_parasite从你身上拽下来，但只让它黏得更紧了。<<gpain>><<garousal>>
         <br>
         <<bHe>>担忧地对你咕咕叫，"抱歉，<<wife>>，没法把它弄下来。"
     <<else>>
@@ -154,7 +154,7 @@
 
     "很高兴帮到<<wife>>，"<<beasttype>>笑着说道。<<bHe>>听起来对<<bhimself>>很满意。
     <br><br>
-<<else>>/*到这里1071个字*/
+<<else>>
     <<bHe>>用轻柔的动作<<= $harpy gte 6 ? "梳理你的羽毛" : "触碰你的皮肤">>，带给你一阵阵的愉悦。<<arousal 200>><<garousal>>
     <br>
     巨鹰的羽毛拂过你的身体，<<bhis>>的脑袋逐渐转移到你胸前。<<bHe>>用喙的一侧轻蹭你<<breasts>>，好像对这柔软的触感很好奇。巨鹰用喙尖轻戳你的乳房，张开嘴衔住硬起的乳头，微些刺痛和痒意从你的胸口蔓延至全身。<<garousal>>

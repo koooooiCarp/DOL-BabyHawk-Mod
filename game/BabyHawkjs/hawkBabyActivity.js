@@ -1,30 +1,129 @@
+if(window.modUtils.getMod('maplebirch')){
+	maplebirch.modList.pushUnique("BabyHawk鹰宝宝模组");
 
-simpleFrameworks.addto('iModOptions', 'BabyhawkTestFunc');
+	maplebirch.tool.framework.addTo('Options', 'BabyhawkTestFunc');
 
-simpleFrameworks.addto('iModHeader', {
-    passage: ['Bird Tower Hunt End BabyHawk','BabyHawk Hunt Accept','BabyHawk Hunt Refuse','BabyHawk Hunt Passout','BabyHawk Hunt Return Ask',
-		'Bird Tower FoodForOne BabyHawk','Bird Tower FoodForAll BabyHawk','BabyHawk Childrens Home','BabyHawk Activity Events',
-		'BabyHawk FirstFlight','BabyHawk FirstFlight Back','BabyHawk FirstFlight End','BabyHawk FirstFlight Stay',
-		'BabyHawk FirstHunt Intro','BabyHawk FirstHunt Intro 2','BabyHawk FirstHunt Intro 3','BabyHawk FirstHunt Intro 4','BabyHawk FirstHunt Intro 5','BabyHawk FirstHunt Intro 6','BabyHawk FirstHunt Intro 7',
-		'BabyHawk Build OtherNest','BabyHawk Hunt Goal','BabyHawk Hunt Direction','BabyHawk Hunt Event','BabyHawk Hunt Return',
-		'BabyHawk Hunt Plane Chase','BabyHawk Hunt Ignore','BabyHawk Hunt Scavenge Party Site','BabyHawk Hunt Scavenge','BabyHawk Hunt Scavenge Clothes','BabyHawk Hunt Scavenge Leave','BabyHawk Hunt Camp','BabyHawk Hunt Camp 2','BabyHawk Hunt Exit',
-		'BabyHawk Hunt Dead Tree','BabyHawk Hunt Dead Tree 2','BabyHawk Hunt Sticks','BabyHawk Hunt Sticks 2','BabyHawk Hunt Leaves','BabyHawk Hunt Underbrush','BabyHawk Hunt Underbrush 2','BabyHawk Hunt Underbrush Fight','BabyHawk Hunt Underbrush Fight Finish',
-		'BabyHawk Hunt Flowers','BabyHawk Hunt Flowers Leave','BabyHawk Hunt Flowers Relax','BabyHawk Hunt Shiny','BabyHawk Hunt Shiny Clothes','BabyHawk Hunt Pond Dive','BabyHawk Hunt Pond Dive 2',
-		'BabyHawk Hunt Lurkers Lot','BabyHawk Hunt Lurkers Lot Single','BabyHawk Hunt Lurkers Lot Double','BabyHawk Hunt Lurkers Lot Group','BabyHawk Hunt Lurkers Few','BabyHawk Hunt Lurkers Few PokemonGo','BabyHawk Hunt Lurkers Few Ambush','BabyHawk Hunt Lurkers Few Chase',
-		'BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
-		'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
-		'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
-		'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath','Moor BabyHawk Return',
-		'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food',
-		'babyhawkBreastFeed','babyhawkCuddle','babyhawkTalk','babyhawkPlay'
-	],
-    widget: 'BabyhawkModWarning',
-});
-/* 小鹰单独狩猎完成，回塔的显示检查 */
-simpleFrameworks.addto('iModHeader', {
-    passage: ['Bird Tower'],
-    widget: 'BabyhawkHuntBack',
-});
+	maplebirch.tool.framework.addTo('Header',{
+		passage: ['Bird Tower Hunt End BabyHawk','BabyHawk Hunt Accept','BabyHawk Hunt Refuse','BabyHawk Hunt Passout','BabyHawk Hunt Return Ask',
+			'Bird Tower FoodForOne BabyHawk','Bird Tower FoodForAll BabyHawk','BabyHawk Childrens Home','BabyHawk Activity Events',
+			'BabyHawk FirstFlight','BabyHawk FirstFlight Back','BabyHawk FirstFlight End','BabyHawk FirstFlight Stay',
+			'BabyHawk FirstHunt Intro','BabyHawk FirstHunt Intro 2','BabyHawk FirstHunt Intro 3','BabyHawk FirstHunt Intro 4','BabyHawk FirstHunt Intro 5','BabyHawk FirstHunt Intro 6','BabyHawk FirstHunt Intro 7',
+			'BabyHawk Build OtherNest','BabyHawk Hunt Goal','BabyHawk Hunt Direction','BabyHawk Hunt Event','BabyHawk Hunt Return',
+			'BabyHawk Hunt Plane Chase','BabyHawk Hunt Ignore','BabyHawk Hunt Scavenge Party Site','BabyHawk Hunt Scavenge','BabyHawk Hunt Scavenge Clothes','BabyHawk Hunt Scavenge Leave','BabyHawk Hunt Camp','BabyHawk Hunt Camp 2','BabyHawk Hunt Exit',
+			'BabyHawk Hunt Dead Tree','BabyHawk Hunt Dead Tree 2','BabyHawk Hunt Sticks','BabyHawk Hunt Sticks 2','BabyHawk Hunt Leaves','BabyHawk Hunt Underbrush','BabyHawk Hunt Underbrush 2','BabyHawk Hunt Underbrush Fight','BabyHawk Hunt Underbrush Fight Finish',
+			'BabyHawk Hunt Flowers','BabyHawk Hunt Flowers Leave','BabyHawk Hunt Flowers Relax','BabyHawk Hunt Shiny','BabyHawk Hunt Shiny Clothes','BabyHawk Hunt Pond Dive','BabyHawk Hunt Pond Dive 2',
+			'BabyHawk Hunt Lurkers Lot','BabyHawk Hunt Lurkers Lot Single','BabyHawk Hunt Lurkers Lot Double','BabyHawk Hunt Lurkers Lot Group','BabyHawk Hunt Lurkers Few','BabyHawk Hunt Lurkers Few PokemonGo','BabyHawk Hunt Lurkers Few Ambush','BabyHawk Hunt Lurkers Few Chase',
+			'BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
+			'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
+			'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
+			'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath','Moor BabyHawk Return',
+			'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food',
+			'babyhawkBreastFeed','babyhawkCuddle','babyhawkTalk','babyhawkPlay'
+		],
+		widget: 'BabyhawkModWarning',
+	});
+	
+	maplebirch.tool.framework.addTo('Header', {
+		passage: ['Bird Tower'],
+		widget: 'BabyhawkHuntBack',
+	});
+
+
+	maplebirch.state.regTimeEvent('onDay', 'DailyBabyHawkCheck', {
+        action: () => {
+			Object.values(V.children).forEach(child => {
+				if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
+					/* 检测初始化 */
+					BabyHawkInitCheck(child.childId);
+					/* 检测喂食情况 */
+					updateFeeded(child.childId);
+					/* 喂食过多时体型增长，可能会把崽喂超肥 */
+					updateSize(child.childId);
+					/* 检测成长阶段 */
+					updateGrowStage(child.childId);
+				}
+			})
+			V.atBirdTower = 0;
+		}
+	});
+
+
+	maplebirch.state.regTimeEvent('onMin', 'BabyHawkHuntTimer', {
+		cond: () => (V.location == "tower" || V.location == "moor" || V.location == "castle"),
+		action: (timeData) => {
+			Object.values(V.children).forEach(child => {
+				if (child.localVariables?.timer && timeData.min > 0) {
+					child.localVariables.timer -= timeData.min;
+				}
+			})
+		}
+	})
+	
+	
+}
+else if(window.modUtils.getMod('Simple Frameworks')){
+	simpleFrameworks.addto('iModOptions', 'BabyhawkTestFunc');
+
+	simpleFrameworks.addto('iModHeader', {
+		passage: ['Bird Tower Hunt End BabyHawk','BabyHawk Hunt Accept','BabyHawk Hunt Refuse','BabyHawk Hunt Passout','BabyHawk Hunt Return Ask',
+			'Bird Tower FoodForOne BabyHawk','Bird Tower FoodForAll BabyHawk','BabyHawk Childrens Home','BabyHawk Activity Events',
+			'BabyHawk FirstFlight','BabyHawk FirstFlight Back','BabyHawk FirstFlight End','BabyHawk FirstFlight Stay',
+			'BabyHawk FirstHunt Intro','BabyHawk FirstHunt Intro 2','BabyHawk FirstHunt Intro 3','BabyHawk FirstHunt Intro 4','BabyHawk FirstHunt Intro 5','BabyHawk FirstHunt Intro 6','BabyHawk FirstHunt Intro 7',
+			'BabyHawk Build OtherNest','BabyHawk Hunt Goal','BabyHawk Hunt Direction','BabyHawk Hunt Event','BabyHawk Hunt Return',
+			'BabyHawk Hunt Plane Chase','BabyHawk Hunt Ignore','BabyHawk Hunt Scavenge Party Site','BabyHawk Hunt Scavenge','BabyHawk Hunt Scavenge Clothes','BabyHawk Hunt Scavenge Leave','BabyHawk Hunt Camp','BabyHawk Hunt Camp 2','BabyHawk Hunt Exit',
+			'BabyHawk Hunt Dead Tree','BabyHawk Hunt Dead Tree 2','BabyHawk Hunt Sticks','BabyHawk Hunt Sticks 2','BabyHawk Hunt Leaves','BabyHawk Hunt Underbrush','BabyHawk Hunt Underbrush 2','BabyHawk Hunt Underbrush Fight','BabyHawk Hunt Underbrush Fight Finish',
+			'BabyHawk Hunt Flowers','BabyHawk Hunt Flowers Leave','BabyHawk Hunt Flowers Relax','BabyHawk Hunt Shiny','BabyHawk Hunt Shiny Clothes','BabyHawk Hunt Pond Dive','BabyHawk Hunt Pond Dive 2',
+			'BabyHawk Hunt Lurkers Lot','BabyHawk Hunt Lurkers Lot Single','BabyHawk Hunt Lurkers Lot Double','BabyHawk Hunt Lurkers Lot Group','BabyHawk Hunt Lurkers Few','BabyHawk Hunt Lurkers Few PokemonGo','BabyHawk Hunt Lurkers Few Ambush','BabyHawk Hunt Lurkers Few Chase',
+			'BabyHawk Hunt Animal Watch','BabyHawk Hunt Animal Land','BabyHawk Hunt Fox Take','BabyHawk Hunt Fox Leave','BabyHawk Hunt Fox Play No','BabyHawk Hunt Fox Play Yes','BabyHawk Hunt Fox Pet','BabyHawk Hunt Fox Fight','BabyHawk Hunt Fox Fight Finish','BabyHawk Hunt Animal Screech','BabyHawk Hunt Foxes Land','BabyHawk Hunt Foxes Watch','BabyHawk Hunt People Watching',
+			'BabyHawk Hunt OrphanHawk Nest','BabyHawk Hunt OrphanHawk Nest 2','BabyHawk Hunt OrphanHawk Nest Special','BabyHawk Hunt OrphanHawk RingForAntique','BabyHawk Hunt OrphanHawk RingForToy',
+			'BabyHawk Hunt Trespasser','BabyHawk Hunt Trespasser 2','BabyHawk Hunt Trespasser 3','BabyHawk Hunt Trespasser 4',
+			'Moor BabyHawk Screech','Moor BabyHawk Home','Moor BabyHawk Hug','Moor BabyHawk Bath','Moor BabyHawk Return',
+			'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food',
+			'babyhawkBreastFeed','babyhawkCuddle','babyhawkTalk','babyhawkPlay'
+		],
+		widget: 'BabyhawkModWarning',
+	});
+	/* 小鹰单独狩猎完成，回塔的显示检查 */
+	simpleFrameworks.addto('iModHeader', {
+		passage: ['Bird Tower'],
+		widget: 'BabyhawkHuntBack',
+	});
+
+	/* 每日更新事件 */
+	new TimeEvent('onDay', 'DailyBabyHawkCheck')
+		.Action(() => {
+			Object.values(V.children).forEach(child => {
+				if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
+					/* 检测初始化 */
+					BabyHawkInitCheck(child.childId);
+					/* 检测喂食情况 */
+					updateFeeded(child.childId);
+					/* 喂食过多时体型增长，可能会把崽喂超肥 */
+					updateSize(child.childId);
+					/* 检测成长阶段 */
+					updateGrowStage(child.childId);
+				}
+			})
+			V.atBirdTower = 0;
+		});
+		
+	/* 小鹰狩猎定时器 */
+	new TimeEvent('onMin', 'BabyHawkHuntTimer')
+		.Cond(V.location == "tower" || V.location == "moor" || V.location == "castle")
+		.Action(timeData => {
+			Object.values(V.children).forEach(child => {
+				if (child.localVariables?.timer && timeData.min > 0) {
+					/* 更新定时器 */
+					child.localVariables.timer -= timeData.min;
+				}
+			})
+		});
+
+}
+else{
+	 window.modUtils.getLogger().error(`[BabyHawk Mod] 未检测到秋枫白桦框架模组(maplebirch)或简易框架模组(Simple Frameworks)。请加载所需的前置模组`);
+}
+
 
 /*
 	初始化生长阶段;
@@ -223,22 +322,6 @@ function hawkBabyActivity(childId) {
 }
 window.hawkBabyActivity = hawkBabyActivity;
 
-new TimeEvent('onDay', 'DailyBabyHawkCheck')
-	.Action(timeData => {
-		Object.values(V.children).forEach(child => {
-			if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
-				/* 检测初始化 */
-				BabyHawkInitCheck(child.childId);
-				/* 检测喂食情况 */
-				updateFeeded(child.childId);
-				/* 喂食过多时体型增长，可能会把崽喂超肥 */
-				updateSize(child.childId);
-				/* 检测成长阶段 */
-				updateGrowStage(child.childId);
-			}
-		})
-		V.atBirdTower = 0;
-	});
 
 /* 每小时强制更新事件 
 new TimeEvent('onHour', 'updateBabyHawkActivity')
@@ -251,17 +334,6 @@ new TimeEvent('onHour', 'updateBabyHawkActivity')
 		})
 	});
 */
-/* 小鹰狩猎定时器 */
-new TimeEvent('onMin', 'BabyHawkHuntTimer')
-	.Cond(V.location == "tower" || V.location == "moor")
-	.Action(timeData => {
-		Object.values(V.children).forEach(child => {
-			if (child.localVariables?.timer && timeData.min > 0) {
-				/* 更新定时器 */
-				child.localVariables.timer -= timeData.min;
-			}
-		})
-	});
 
 /*
 	初始化检查;
