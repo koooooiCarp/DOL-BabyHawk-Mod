@@ -366,3 +366,42 @@
 <br><br>
 <<link [[继续|Bird Tower]]>><<endevent>><</link>>
 <br>
+
+
+:: Babyhawk Test OrphanHawk
+
+<<set _hatchedTime to new DateTime(Time.date).addDays(random(-120, -60))>>
+<<set _laidTime to new DateTime(_hatchedTime).addDays(random(-30, -21))>>
+<<set _conceivedTime to new DateTime(_hatchedTime).addDays(random(-44, -30))>>
+<<set $children["orphanHawk1"] to {
+	childId: "orphanHawk1",
+	birthId: 0,
+	mother: "unknown hawk",
+	father: "unknown hawk",
+	motherKnown: false,
+	fatherKnown: false,
+	type: "hawk",
+	gender: random(0, 100) > 50 ? "f" : "m",
+	features: {
+		size: ["tiny", "small", "normal", "normal"][random(0, 3)],
+		eyeColour: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey"][random(0, 10)],
+		hairColour: ["white", "brown"][random(0,1)],
+		skinColour: random(1, 100) lte $settings.darkSkinChance ? "dark" : "light",
+		monster: ((V.settings.monsterChance > random(0, 100) && (V.hallucinations >= 1 || !V.settings.monsterHallucinationsOnly)) || V.greathawkmonster === 2) ? "monster" : 0
+	},
+	conceived: {day: _conceivedTime.day, month: _conceivedTime.monthName, year: _conceivedTime.year},
+	conceivedLocation: "unknown",
+	laid: {day: _laidTime.day, month: _laidTime.monthName, year: _laidTime.year},
+	born: {day: _hatchedTime.day, month: _hatchedTime.monthName, year: _hatchedTime.year}
+}>>
+<<childSelect "orphanHawk1">>
+<<npc "Great Hawk">><<person1>>
+你的<<if $monster is 1>><<nnpc_wife "Great Hawk">>倒吸一口气<<else>>伴侣发出一声惊讶的叽喳声<</if>>，示意你注意下方的灌木。
+<br><br>
+
+<span class="gold">是一个躺在地上的<<if $cmonster is 1>>哈比<<else>>鹰<</if>>宝宝。</span><span class="red">附近完全没看见<<childhis>>双亲的行踪。</span>
+<br><br>
+
+<<link "降落 (0:05)" "Bird Hunt Chick Approach">><<bird_pass 5>><</link>>
+<br>
+<<link [[继续飞|Bird Hunt Chick Ignore]]>><<npcincr "Great Hawk" love -5>><</link>><<lllove>>

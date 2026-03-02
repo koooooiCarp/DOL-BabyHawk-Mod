@@ -1,7 +1,7 @@
 # 鹰宝宝Mod | BabyHawk
 ---
 
-|[贴吧发布贴](https://tieba.baidu.com/p/9188437292)|!!前置简易框架**暂未更新0.5.4以上版本适配**，请点此下载[补丁版本简易框架](https://github.com/user-attachments/files/20834340/Simple.Framework.ver2.0.5.build_4.zip)或[秋枫白桦框架](https://github.com/MaplebirchLeaf/SCML-DOL-maplebirchframework/releases)，只能**二选一**!!
+|[贴吧发布贴](https://tieba.baidu.com/p/9188437292)|[模组前置](#安装需求)|BUG反馈群：<b>974425018</b>
 
 ---
 ## 模组简介
@@ -57,7 +57,7 @@
 
 - [**模组管理器**(Modloader)](https://github.com/Eltirosto/Degrees-of-Lewdity-Chinese-Localization)
 
-- [**简易框架**(Simple.Frameworks)](https://github.com/emicoto/SCMLSimpleFramework/releases)：**前置，先于本模组安装，1.15.1**及以上
+- [**秋枫白桦框架**(maplebirchFramework)](https://github.com/MaplebirchLeaf/SCML-DOL-maplebirchframework/releases)：**前置，先于本模组安装，v3.1.7**及以上
 
 - [**模组本体**(BabyHawk)](https://github.com/koooooiCarp/DOL-BabyHawk-Mod/releases)
 
@@ -69,26 +69,34 @@
 润色：行歌<br>
 特别感谢：
 - [苯环](https://github.com/Nephthelana)、测试群以及ΡυгìϮу群的群友们，为本模组提供了一系列构思和反馈
-- [狐千月](https://github.com/emicoto)、[Lyoko-Jeremie](https://github.com/Lyoko-Jeremie)、[Number_Sir](https://github.com/NumberSir)以及模组开发群的群友们，为模组编写提供了各种各样的帮助和答疑
+- [枫桦叶](https://github.com/MaplebirchLeaf)、[狐千月](https://github.com/emicoto)、[Lyoko-Jeremie](https://github.com/Lyoko-Jeremie)、[Number_Sir](https://github.com/NumberSir)以及模组开发群的群友们，为模组编写提供了各种各样的帮助和答疑
 - 原版游戏的作者和贡献者们💜💛🧡
 
 ## 更新日志
 <details>
 <summary>点击展开</summary>
 
+> 2026.03.03
+> - 更新至 ` 1.7 ` 版本
+>   - 适配游戏本体：` 0.5.8.9 `
+>   - 从该版本起简易框架不再适配，请使用` v.3.1.8 `版本以上的秋枫白桦框架作为前置
+>   - 再次修复了小鹰日常互动后无返回选项的报错
+>   - 增加了飞行场景对鹰转化（翅膀）的要求
+>
+> 
 > 2025.12.14
 > - 更新至 ` 1.6 ` 版本
 >   - 适配游戏本体：` 0.5.6.10 `
 >   - 增加了对秋枫白桦框架的适配
 >
 > 
-> 2025.11.5
+> 2025.11.05
 > - 更新至 ` 1.5 ` 版本
 >   - 适配游戏本体：` 0.5.5.9 `
 >   - 修复了和小鹰日常互动后无法正常返回鹰塔的报错
 >
 > 
-> 2025.1.31
+> 2025.01.31
 > - 更新至 ` 1.4 ` 版本
 >   - 适配游戏本体：` 0.5.3.7 `
 >   - 新增了在大鹰洗澡时在鹰塔雨水池自慰的特殊事件

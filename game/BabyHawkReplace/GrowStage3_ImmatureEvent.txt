@@ -1,4 +1,4 @@
-<<if Object.values($children).find(child => (child.localVariables?.growHintImmature == 1 && child.localVariables?.growHintSubadult != 1)) and $bird.hunts.unlocked is true and Weather.precipitation isnot "rain">>
+<<if Object.values($children).find(child => (child.localVariables?.growHintImmature == 1 && child.localVariables?.growHintSubadult != 1)) and !($birdFly isnot 1 or $harpy lte 5 or playerBellyVisible() or $bird.hunts.unlocked is false or Weather.precipitation is "rain")>>
 
 <<set $dateCount.Total++>><<set $dateCount.GreatHawkHunts++>><<unset $birdPerch>>
 <<BabyhawkModWarning>>

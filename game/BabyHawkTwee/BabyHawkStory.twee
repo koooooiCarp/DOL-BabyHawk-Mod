@@ -1,8 +1,6 @@
 :: BabyHawk FirstFlight
 <<npc "Great Hawk">><<childSelect $child1>>
-<<if $transformationParts.bird.wings is "hidden">>
-	<<set $transformationParts.bird.wings to "default">>
-<</if>>
+<<bird_fly_reveal_wings>>
 
 <<switch $speech_attitude>>
 	<<case "bratty">>	"当然。为了避免你把<<childhe>>像我一样直接推下去。"你调笑着说。
@@ -221,6 +219,7 @@
 
 :: BabyHawk FirstHunt Intro
 <<set $outside to 1>><<effects>>
+<<bird_fly_reveal_wings>>
 你们在荒原上空翱翔，寻找着任何可见的猎物。<<GreatHawk>>和你时飞时停，让孩子们自由地探索这片天地。
 <br><br>
 <!-- 我不知道怎么在当前活动id$ImmatureIDcopy里find，这写法太傻比了 -->

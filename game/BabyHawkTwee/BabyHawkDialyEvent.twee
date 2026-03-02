@@ -48,29 +48,6 @@
     <<set _ID to _tempIDs[random(0,_tempIDs.length-1)]>>
     <<childSelect _ID>>
     <<switch $children[_ID].localVariables.stage>>
-        <<case undefined "Hatchling" "Nestling">>
-            <<if random(0,1) is 1>>
-                你注意到你的<<childtype>><<childname>>正躺在鸟巢里看着你，将<<childhands>>朝你这边伸了过来。
-                <br><br>
-                你抱起<<childhim>>，<<childhe>><<childgiggles>>动来动去。
-                <br><br>
-
-                <<if $cmonster is 1 and $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
-                    <<link [[哺乳 (0:30)|childBreastFeed]]>><<pass 30>><</link>>
-                    <br>
-                <</if>>
-                <<link [[拥抱 (0:30)|childCuddle]]>><<pass 30>><</link>>
-                <br>
-                <<link [[和孩子说话 (0:30)|childTalk]]>><<pass 30>><</link>>
-                <br>
-                <<link [[玩耍 (0:30)|childPlay]]>><<pass 30>><</link>>
-            <<else>>
-                你看到<<childname>>正在鸟巢里滚来滚去。一看到是你，<<childhe>>立马坐正，<<childgiggles>>。<<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>>
-                <br><br>
-
-                <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
-                <br>
-            <</if>>
         <<case "Fledgling" "Subadult">>
             <<if random(0,1) is 1>>
                 <br>
@@ -121,6 +98,29 @@
                     <<case "dominant">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","拆家，拔掉了好几根小树枝","磨爪")>>。 
                 <</switch>>
                 你一靠近，<<childhe>>立马看向你，开心地<<childgiggles>>。<<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>>
+                <br><br>
+
+                <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+                <br>
+            <</if>>
+        <<default>> <!--null or "Hatchling" or "Nestling"-->
+            <<if random(0,1) is 1>>
+                你注意到你的<<childtype>><<childname>>正躺在鸟巢里看着你，将<<childhands>>朝你这边伸了过来。
+                <br><br>
+                你抱起<<childhim>>，<<childhe>><<childgiggles>>动来动去。
+                <br><br>
+
+                <<if $cmonster is 1 and $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
+                    <<link [[哺乳 (0:30)|childBreastFeed]]>><<pass 30>><</link>>
+                    <br>
+                <</if>>
+                <<link [[拥抱 (0:30)|childCuddle]]>><<pass 30>><</link>>
+                <br>
+                <<link [[和孩子说话 (0:30)|childTalk]]>><<pass 30>><</link>>
+                <br>
+                <<link [[玩耍 (0:30)|childPlay]]>><<pass 30>><</link>>
+            <<else>>
+                你看到<<childname>>正在鸟巢里滚来滚去。一看到是你，<<childhe>>立马坐正，<<childgiggles>>。<<childHe>>看上去见到你很高兴！<<stress -12>><<llstress>>
                 <br><br>
 
                 <<link [[继续|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>

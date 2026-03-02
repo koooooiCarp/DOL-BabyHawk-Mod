@@ -1,9 +1,10 @@
 if(window.modUtils.getMod('maplebirch')){
 	maplebirch.modList.pushUnique("BabyHawk鹰宝宝模组");
 
-	maplebirch.tool.framework.addTo('Options', 'BabyhawkTestFunc');
+	maplebirch.tool.addTo('Options', 'BabyhawkTestFunc');
 
-	maplebirch.tool.framework.addTo('Header',{
+	maplebirch.tool.addTo('Header',{
+		widget: 'BabyhawkModWarning',
 		passage: ['Bird Tower Hunt End BabyHawk','BabyHawk Hunt Accept','BabyHawk Hunt Refuse','BabyHawk Hunt Passout','BabyHawk Hunt Return Ask',
 			'Bird Tower FoodForOne BabyHawk','Bird Tower FoodForAll BabyHawk','BabyHawk Childrens Home','BabyHawk Activity Events',
 			'BabyHawk FirstFlight','BabyHawk FirstFlight Back','BabyHawk FirstFlight End','BabyHawk FirstFlight Stay',
@@ -20,45 +21,12 @@ if(window.modUtils.getMod('maplebirch')){
 			'Crafting Bird Tower Cooking Pot Exit','Crafting Bird Tower Work Bench Exit','BabyHawk Feed Terraria Food',
 			'babyhawkBreastFeed','babyhawkCuddle','babyhawkTalk','babyhawkPlay'
 		],
-		widget: 'BabyhawkModWarning',
 	});
 	
-	maplebirch.tool.framework.addTo('Header', {
-		passage: ['Bird Tower'],
+	maplebirch.tool.addTo('Header', {
 		widget: 'BabyhawkHuntBack',
+		passage: ['Bird Tower'],
 	});
-
-
-	maplebirch.state.regTimeEvent('onDay', 'DailyBabyHawkCheck', {
-        action: () => {
-			Object.values(V.children).forEach(child => {
-				if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
-					/* 检测初始化 */
-					BabyHawkInitCheck(child.childId);
-					/* 检测喂食情况 */
-					updateFeeded(child.childId);
-					/* 喂食过多时体型增长，可能会把崽喂超肥 */
-					updateSize(child.childId);
-					/* 检测成长阶段 */
-					updateGrowStage(child.childId);
-				}
-			})
-			V.atBirdTower = 0;
-		}
-	});
-
-
-	maplebirch.state.regTimeEvent('onMin', 'BabyHawkHuntTimer', {
-		cond: () => (V.location == "tower" || V.location == "moor" || V.location == "castle"),
-		action: (timeData) => {
-			Object.values(V.children).forEach(child => {
-				if (child.localVariables?.timer && timeData.min > 0) {
-					child.localVariables.timer -= timeData.min;
-				}
-			})
-		}
-	})
-	
 	
 }
 else if(window.modUtils.getMod('Simple Frameworks')){
@@ -88,36 +56,6 @@ else if(window.modUtils.getMod('Simple Frameworks')){
 		passage: ['Bird Tower'],
 		widget: 'BabyhawkHuntBack',
 	});
-
-	/* 每日更新事件 */
-	new TimeEvent('onDay', 'DailyBabyHawkCheck')
-		.Action(() => {
-			Object.values(V.children).forEach(child => {
-				if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
-					/* 检测初始化 */
-					BabyHawkInitCheck(child.childId);
-					/* 检测喂食情况 */
-					updateFeeded(child.childId);
-					/* 喂食过多时体型增长，可能会把崽喂超肥 */
-					updateSize(child.childId);
-					/* 检测成长阶段 */
-					updateGrowStage(child.childId);
-				}
-			})
-			V.atBirdTower = 0;
-		});
-		
-	/* 小鹰狩猎定时器 */
-	new TimeEvent('onMin', 'BabyHawkHuntTimer')
-		.Cond(V.location == "tower" || V.location == "moor" || V.location == "castle")
-		.Action(timeData => {
-			Object.values(V.children).forEach(child => {
-				if (child.localVariables?.timer && timeData.min > 0) {
-					/* 更新定时器 */
-					child.localVariables.timer -= timeData.min;
-				}
-			})
-		});
 
 }
 else{
@@ -149,10 +87,11 @@ function initGrowStage(childId) {
 		stage = "Immature";/* 亚成鸟，长出完整飞羽，初次狩猎 */
 		child.localVariables.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
 		child.localVariables.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！*/
+	}else{
+		stage = "ERROR";/* 年龄初始化错误 */
 	}
 
 	child.localVariables.stage = stage;
-
 }
 window.initGrowStage = initGrowStage;
 
@@ -286,8 +225,11 @@ function hawkBabyActivity(childId) {
 		} else {
 			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
-	} else {//错误处理
-		child.localVariables.activity = "noEvent";
+	} else {//错误处理，多半是因为年龄		
+		if(child.localVariables.stage == "ERROR")
+			child.localVariables.activity = "error";
+		else 
+			child.localVariables.activity = "noEvent";
 		return;
 	}
 
@@ -342,10 +284,10 @@ function BabyHawkInitCheck(childId) {
 	const child = V.children[childId];
 	if (!child) return null;
 
-	if (!child.localVariables.FeededTotal || child.localVariables.FeededTotal == undefined) {
+	if (!child.localVariables.FeededTotal) {
 		child.localVariables.FeededTotal = initFeededDays(child.childId);
 	}
-	if (child.localVariables.stage == undefined) {
+	if (!child.localVariables.stage) {
 		initGrowStage(childId);
 	}
 }
@@ -426,3 +368,34 @@ function updateGrowStage(childId) {
 
 	child.localVariables.stage = newStage;
 }
+
+
+/* 每日更新事件 */
+new TimeEvent('onDay', 'DailyBabyHawkCheck')
+	.Action(() => {
+		Object.values(V.children).forEach(child => {
+			if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
+				/* 检测初始化 */
+				BabyHawkInitCheck(child.childId);
+				/* 检测喂食情况 */
+				updateFeeded(child.childId);
+				/* 喂食过多时体型增长，可能会把崽喂超肥 */
+				updateSize(child.childId);
+				/* 检测成长阶段 */
+				updateGrowStage(child.childId);
+			}
+		})
+		V.atBirdTower = 0;
+	});
+	
+/* 小鹰狩猎定时器 */
+new TimeEvent('onMin', 'BabyHawkHuntTimer')
+	.Cond(()=> V.location == "tower" || V.location == "moor" || V.location == "castle")
+	.Action(timeData => {
+		Object.values(V.children).forEach(child => {
+			if (child.localVariables?.timer && timeData.min > 0) {
+				/* 更新定时器 */
+				child.localVariables.timer -= timeData.min;
+			}
+		})
+	});

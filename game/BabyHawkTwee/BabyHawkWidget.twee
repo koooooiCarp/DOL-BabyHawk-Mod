@@ -5,8 +5,11 @@
 		<<setupOptions>>
 		<span class="gold"><<lanSwitch "BabyHawk" "鹰宝宝" >></span>
 		<br>
-		查看各种小鹰性格及数量差分的调试按钮：<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
-		<br>
+		调试小鹰性格/数量差分：<br>
+		<<link [[召唤小鹰大军|Babyhawk Test Many Hawks]]>><<endevent>><</link>>
+		<br><br>
+		调试孤儿小鹰赋值：<br>
+		<<link [[捡一下小鹰|Babyhawk Test OrphanHawk]]>><<endevent>><</link>>
 	<</if>>
 <</widget>>
 
