@@ -5,7 +5,7 @@ function getHawkTrait(trait) {
 	let i = 0;
 
 	for (i = 0; i < V.hawksTotal; i++){
-		if(V.children[V.hawksIDs[i]].localVariables.trait == trait){
+		if(V.childRecords[V.hawksIDs[i]].development.trait == trait){
 			T.tempIDs.push(V.hawksIDs[i]);
 		}
 	}
@@ -21,7 +21,7 @@ function hasOrphan() {
 
 	for (i = 0; i < V.hawksTotal; i++)
 	{
-		if(V.children[V.hawksIDs[i]].childId == "orphanHawk1")
+		if(V.childRecords[V.hawksIDs[i]].childId == "orphanHawk1")
 		{
 			return 1;
 		}
@@ -35,8 +35,8 @@ window.hasOrphan = hasOrphan;
 function hasOnlyOrphan() {
 	let Number = 0;
 
-	Object.values(V.children).forEach(child => {
-		if (child.type == "hawk" && (child.location == "tower" || child.location == "otherNest")) {
+	Object.values(V.childRecords).forEach(child => {
+		if (child.species == "hawk" && (child.development.location == "tower" || child.development.location == "otherNest")) {
 			Number++;
 		}
 	})
@@ -49,8 +49,8 @@ window.hasOnlyOrphan = hasOnlyOrphan;
 function hasActiveHawk(location = "tower") {
 	T.tempIDs = [];
 
-	Object.values(V.children).forEach(child => {
-		if (child.type == "hawk" && !child.eggTimer && child.location == location && child.localVariables.activity != "hunting") {
+	Object.values(V.childRecords).forEach(child => {
+		if (child.species == "hawk" && childIsBorn(child) && child.development.location == location && child.development.activity != "hunting") {
 			T.tempIDs.push(child.childId);
 		}
 	})
@@ -63,8 +63,8 @@ window.hasActiveHawk = hasActiveHawk;
 function hasTraitHawk(trait,location = "tower") {
 	T.tempIDs = [];
 
-	Object.values(V.children).forEach(child => {
-		if (child.type == "hawk" && !child.eggTimer && child.location == location && child.localVariables.trait == trait) {
+	Object.values(V.childRecords).forEach(child => {
+		if (child.species == "hawk" && childIsBorn(child) && child.development.location == location && child.development.trait == trait) {
 			T.tempIDs.push(child.childId);
 		}
 	})
@@ -88,9 +88,9 @@ function getAllHungry() {
 	}
 
 	for (i = 0; i < Number; i++){
-		if(V.children[V.hawksIDs[i]].localVariables.FeededDaily < 2){
-			V.children[V.hawksIDs[i]].localVariables.activity = "lurkerEat";
-			V.children[V.hawksIDs[i]].localVariables.FeededDaily++;
+		if(V.childRecords[V.hawksIDs[i]].development.FeededDaily < 2){
+			V.childRecords[V.hawksIDs[i]].development.activity = "lurkerEat";
+			V.childRecords[V.hawksIDs[i]].development.FeededDaily++;
 			T.tempIDs.push(V.hawksIDs[i]);
 		}
 	}

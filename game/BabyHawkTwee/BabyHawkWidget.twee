@@ -21,11 +21,11 @@
 
 <<widget "BabyHawkInit">>
 <<if $BabyHawkInit is undefined>>
-	<<run Object.values($children).forEach(child => {
-		if (child.type == "hawk" && child.location == "tower" && !child.eggTimer) 
+	<<run Object.values($childRecords).forEach(child => {
+		if (child.species == "hawk" && childIsBorn(child) && child.development.location == "tower") 
 		{
-			child.localVariables.FeededTotal = initFeededDays(child.childId);
-			child.localVariables.FeededDaily = 0;
+			child.development.FeededTotal = initFeededDays(child.childId);
+			child.development.FeededDaily = 0;
 			initGrowStage(child.childId);
 			initTrait(child.childId);
 		}
@@ -84,8 +84,8 @@
 <<widget "babyhawkicon">>
 	<<switch _args[0]>>
 		<<case "children">>/* 修改查找地点为otherNest */
-			<<run Object.values($children).forEach(child => {
-				if (child.location == "otherNest") {
+			<<run Object.values($childRecords).forEach(child => {
+				if (child.development.location == "otherNest") {
 					if (!T.childrenIconSelect) T.childrenIconSelect = [];
 					T.childrenIconSelect.push(child.childId);
 				}
@@ -93,10 +93,10 @@
 			<<if _childrenIconSelect.length gte 2>>
 				<<set $_child1 to _childrenIconSelect.pluck()>>
 				<<set $_child2 to _childrenIconSelect.pluck()>>
-				<<if $children[$_child1].features.monster is $children[$_child2].features.monster>>
-					<<if $children[$_child1].features.monster is "monster">>
-						<<set _childIconFilter1 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour)>>
-						<<set _childIconFilter2 = "filter: " + setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour)>>
+				<<if $childRecords[$_child1].features.monster is $childRecords[$_child2].features.monster>>
+					<<if $childRecords[$_child1].features.monster is "monster">>
+						<<set _childIconFilter1 = "filter: " + setup.colours.getSkinCSSFilter($childRecords[$_child1].features.skinColour)>>
+						<<set _childIconFilter2 = "filter: " + setup.colours.getSkinCSSFilter($childRecords[$_child2].features.skinColour)>>
 						<<set $_baseIcon to "birdTower/child_harpies.png">>
 						<<set $_skinIcon1 to "birdTower/child_harpies_skin1.png">>
 						<<set $_skinIcon2 to "birdTower/child_harpies_skin2.png">>
@@ -113,7 +113,7 @@
 						<<icon "birdTower/child_hawks.png">>
 					<</if>>
 				<<else>>
-					<<set _childIconFilter = "filter: " + ($children[$_child1].features.monster is "monster" ? setup.colours.getSkinCSSFilter($children[$_child1].features.skinColour) : setup.colours.getSkinCSSFilter($children[$_child2].features.skinColour))>>
+					<<set _childIconFilter = "filter: " + ($childRecords[$_child1].features.monster is "monster" ? setup.colours.getSkinCSSFilter($childRecords[$_child1].features.skinColour) : setup.colours.getSkinCSSFilter($childRecords[$_child2].features.skinColour))>>
 					<<set $_baseIcon to "birdTower/child_birds.png">>
 					<<set $_skinIcon to "birdTower/child_birds_skin.png">>
 					<span class="icon-container">
@@ -124,8 +124,8 @@
 					</span>
 				<</if>>
 			<<else>>
-				<<if $children[_childrenIconSelect[0]].features.monster is "monster">>
-					<<set _childIconFilter = "filter: " + setup.colours.getSkinCSSFilter($children[_childrenIconSelect[0]].features.skinColour)>>
+				<<if $childRecords[_childrenIconSelect[0]].features.monster is "monster">>
+					<<set _childIconFilter = "filter: " + setup.colours.getSkinCSSFilter($childRecords[_childrenIconSelect[0]].features.skinColour)>>
 					<<set $_baseIcon to "birdTower/child_harpy.png">>
 					<<set $_skinIcon to "birdTower/child_harpy_skin.png">>
 					<span class="icon-container">
@@ -142,7 +142,7 @@
 			<<if $babyhawk_GoldRing is 1>>/* 非特殊戒指 */
 				<<icon "antiques/antique_gold_ring.png">>
 			<<else>>
-				<<set _colour = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
+				<<set _colour = setup.colours.eyes_map[$childRecords["orphanHawk1"].features.eyeColour].variable>>
 
 				<<set $_baseIcon to "babyhawk/gold_ring.png">>
 				<<set $_gemIcon to "babyhawk/gold_ring_gem.png">>
@@ -160,11 +160,11 @@
 	<<set $atBirdTower to 1>>
 	/*检定PC今日是否在鹰塔*/
 	<<set _IDs to []>>
-	<<run Object.values(V.children).forEach(child => {
-		if (child.localVariables?.timer <= 0) {
+	<<run Object.values(V.childRecords).forEach(child => {
+		if (child.development?.timer <= 0) {
 			T.IDs.push(child.childId);
-			child.localVariables.timer = undefined;
-			child.localVariables.activity = "rest";
+			child.development.timer = undefined;
+			child.development.activity = "rest";
 		}
 	})>>
 	<<if _IDs.length>><<childSelect _IDs[0]>><<BabyhawkModWarning>>
@@ -177,14 +177,14 @@
 <<widget 'HuntAloneLoot'>>
 	<<set _total to _IDs.length>>
 	<<for _i to 0; _i lt _total; _i++>>
-		<<if $children[_IDs[_i]].localVariables.FeededDaily < 2>>
+		<<if $childRecords[_IDs[_i]].development.FeededDaily < 2>>
 			<<set _loot to "lurkers">>
-			<<set $children[_IDs[_i]].localVariables.activity to "lurkerEat">>
-			<<set $children[_IDs[_i]].localVariables.FeededDaily++>>
+			<<set $childRecords[_IDs[_i]].development.activity to "lurkerEat">>
+			<<set $childRecords[_IDs[_i]].development.FeededDaily++>>
 			<<set $bird.materials.lurkers-->>
-		<<elseif $children[_IDs[_i]].localVariables.huntLoot isnot undefined>>
-			<<set _loot to $children[_IDs[_i]].localVariables.huntLoot>>
-			<<set $children[_IDs[_i]].localVariables.huntLoot to undefined>>
+		<<elseif $childRecords[_IDs[_i]].development.huntLoot isnot undefined>>
+			<<set _loot to $childRecords[_IDs[_i]].development.huntLoot>>
+			<<set $childRecords[_IDs[_i]].development.huntLoot to undefined>>
 		<<else>>
 			<<set _loot to either("nothing","junk","materials","valuables","lurkers")>>
 		<</if>>
@@ -215,8 +215,8 @@
     <<set $hawksIDs to []>>
     <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
         <<set $hawksIDs[_cc] to _childrenIds.pluck()>>
-		<<set $children[$hawksIDs[_cc]].localVariables.activity to "hunting">>
-		<<set $children[$hawksIDs[_cc]].localVariables.timer to 30>>
+		<<set $childRecords[$hawksIDs[_cc]].development.activity to "hunting">>
+		<<set $childRecords[$hawksIDs[_cc]].development.timer to 30>>
     <</for>>
 	<<childSelect $hawksIDs[0]>>
 	<<cleareventpool>>
@@ -249,12 +249,12 @@
 		<<addinlineevent "pair">>
 			你听到一阵叽喳声从天空传来。<<childrenNames $hawksIDs>>正在空中成对飞行。
 			<br><br>
-			<<if $children[$hawksIDs[0]].localVariables.trait is $children[$hawksIDs[1]].localVariables.trait>>
-				<<switch $children[$hawksIDs[0]].localVariables.trait>>
+			<<if $childRecords[$hawksIDs[0]].development.trait is $childRecords[$hawksIDs[1]].development.trait>>
+				<<switch $childRecords[$hawksIDs[0]].development.trait>>
 				<<case "clumsy">>
 					<<childname $hawksIDs[0]>>的爪中正抓着一只潜伏者。他们飞梭穿过一些树枝，但<<childname $hawksIDs[0]>>没能估计好距离，让潜伏者撞在了树枝上，从爪里掉了下去，正好砸在了<<childname $hawksIDs[1]>>的脑袋上。
 					<br>
-					一阵骚乱后，他们重新抓住了这只潜伏者，在一阵唧唧喳喳的讨论后，他们似乎决定就地开吃，把潜伏者带到了附近的树杈上开始进食。<<set $children[$hawksIDs[0]].localVariables.FeededDaily++>><<set $children[$hawksIDs[1]].localVariables.FeededDaily++>>
+					一阵骚乱后，他们重新抓住了这只潜伏者，在一阵唧唧喳喳的讨论后，他们似乎决定就地开吃，把潜伏者带到了附近的树杈上开始进食。<<set $childRecords[$hawksIDs[0]].development.FeededDaily++>><<set $childRecords[$hawksIDs[1]].development.FeededDaily++>>
 				<<case "sympathy">><<childSelect $hawksIDs[1]>>
 					<<childname $hawksIDs[0]>>似乎是累了，<<childhe $hawksIDs[0]>>停在了附近的树枝上歇脚，而<<childname $hawksIDs[1]>>也跟随<<childsiblings $hawksIDs[0]>>来到树枝附近，拍打着翅膀停在了……<<childname $hawksIDs[0]>>身上。
 					<br>
@@ -262,27 +262,27 @@
 				<<case "clever">>
 					<<childname $hawksIDs[0]>>在接近地面的高度追逐着什么东西，而<<childname $hawksIDs[1]>>在云端盘旋，看准时机从另一端突袭。
 					<br>
-					在他们的围猎下，猎物很快就被扣在爪下。你看见他们重新起飞，爪里各自抓着一只潜伏者。<<set $children[$hawksIDs[0]].localVariables.huntLoot to "lurkers">><<set $children[$hawksIDs[1]].localVariables.huntLoot to "lurkers">>
+					在他们的围猎下，猎物很快就被扣在爪下。你看见他们重新起飞，爪里各自抓着一只潜伏者。<<set $childRecords[$hawksIDs[0]].development.huntLoot to "lurkers">><<set $childRecords[$hawksIDs[1]].development.huntLoot to "lurkers">>
 				<<case "dominant">>
 					仔细一看，与其说是成对飞行，不如说是<<childname $hawksIDs[0]>>和<<childname $hawksIDs[1]>>正在空中缠斗。<<childname $hawksIDs[1]>>奋力拍打翅膀，对着<<childsiblings $hawksIDs[0]>>大声啸叫，而<<childname $hawksIDs[0]>>不甘示弱，用同样的尖鸣回应。
 					<br>
 					他们旋转着从天空落下。没过多久，<<childname $hawksIDs[0]>>重新起飞，落在不远处的树杈上理毛，<<childname $hawksIDs[1]>>紧随其后回到了天空中。你好奇是什么让他们发生了争斗。
 				<</switch>>
 			<<else>>
-				<<if getHawkTrait("dominant")>><<childSelect  _tempIDs[0]>><!--dom小鹰当领队--><<set $children[_tempIDs[0]].localVariables.huntLoot to "lurkers">>
-					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "dominant" ? $hawksIDs[1] : $hawksIDs[0])>>
+				<<if getHawkTrait("dominant")>><<childSelect  _tempIDs[0]>><!--dom小鹰当领队--><<set $childRecords[_tempIDs[0]].development.huntLoot to "lurkers">>
+					<<set _otherHawk to ($childRecords[$hawksIDs[0]].development.trait is "dominant" ? $hawksIDs[1] : $hawksIDs[0])>>
 					<<childname>>在前方飞行，而<<childname _otherHawk>>跟在<<childhim>>的身后，努力跟上<<childhis>>的速度。忽然，<<childname>>似乎发现了什么，猛地向下俯冲而去，<<childname _otherHawk>>慢一拍行动，也跟着降落。
 					<br>
 					没过多久，你看见他们重新起飞，但只有<<childname>>的爪里抓着猎物，而<<childname _otherHawk>>空着手回到天空中，对着<<childsiblings _tempIDs[0]>>叽喳叫，试图从<<childhim>>手里分一杯羹。
 					<br>
 					<<childHe _otherHawk>>没能成功，<<childname>><<= $cmonster ? "咯咯的笑着" : "发出一连串炫耀的叽叽叫">>，带着猎物飞远了。
 				<<elseif getHawkTrait("clever")>><<childSelect  _tempIDs[0]>><!--clever小鹰当领队-->
-					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "clever" ? $hawksIDs[1] : $hawksIDs[0])>>
+					<<set _otherHawk to ($childRecords[$hawksIDs[0]].development.trait is "clever" ? $hawksIDs[1] : $hawksIDs[0])>>
 					<<childname>>在前方飞行，而<<childname _otherHawk>>紧紧跟在<<childhim>>的身后，观察着地面的动静。忽然，<<childname>>似乎发现了什么，<<childhe>>回头对<<childname _otherHawk>>叽喳几声，带着<<childsiblings _otherHawk>>一起降落到地面上。
 					<br>
-					没过多久，你看见他们重新起飞，两只小鹰的爪里都抓着满满当当的亮闪闪，他们高兴地带着战利品飞远了。<<set $children[$hawksIDs[0]].localVariables.huntLoot to "bracelet">><<set $children[$hawksIDs[1]].localVariables.huntLoot to "necklace">>
+					没过多久，你看见他们重新起飞，两只小鹰的爪里都抓着满满当当的亮闪闪，他们高兴地带着战利品飞远了。<<set $childRecords[$hawksIDs[0]].development.huntLoot to "bracelet">><<set $childRecords[$hawksIDs[1]].development.huntLoot to "necklace">>
 				<<elseif getHawkTrait("sympathy")>><<childSelect  _tempIDs[0]>><!--sympathy小鹰当领队，另一只是clumsy-->
-					<<set _otherHawk to ($children[$hawksIDs[0]].localVariables.trait is "sympathy" ? $hawksIDs[1] : $hawksIDs[0])>>
+					<<set _otherHawk to ($childRecords[$hawksIDs[0]].development.trait is "sympathy" ? $hawksIDs[1] : $hawksIDs[0])>>
 					<<childname>>悠闲地在空中滑翔，时不时在<<childname _otherHawk>>身边绕圈飞行，似乎想要<<childhim _otherHawk>>陪自己玩耍。
 					<br>
 					<<childname _otherHawk>>试图跟上<<childsiblings _tempIDs[0]>>的动作，他们互相追逐着尾巴，在空中玩闹了好一会儿才继续上路。

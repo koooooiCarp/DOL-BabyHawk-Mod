@@ -1,5 +1,5 @@
 :: Babyhawk Test Many Hawks
-<<set $children["dominantHawk1"] to {
+<<set $childRecords["dominantHawk1"] to {
 				childId: "dominantHawk1",
 				birthId: 1001,
                 name: "大强",
@@ -10,7 +10,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "dominant"
                 },
 				gender: "f",
@@ -25,7 +25,7 @@
 				born: {day: 1, month: 1, year: 2000}
 				
 }>>
-<<set $children["dominantHawk2"] to {
+<<set $childRecords["dominantHawk2"] to {
 				childId: "dominantHawk2",
 				birthId: 1002,
                 name: "中强",
@@ -36,7 +36,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "dominant"
                 },
 				gender: "m",
@@ -51,7 +51,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["dominantHawk3"] to {
+<<set $childRecords["dominantHawk3"] to {
 				childId: "dominantHawk3",
 				birthId: 1003,
                 name: "小强",
@@ -62,7 +62,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "dominant"
                 },
 				gender: "f",
@@ -77,7 +77,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["cleverHawk1"] to {
+<<set $childRecords["cleverHawk1"] to {
 				childId: "cleverHawk1",
 				birthId: 1004,
                 name: "大聪明",
@@ -88,7 +88,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clever"
                 },
 				gender: "f",
@@ -103,7 +103,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["cleverHawk2"] to {
+<<set $childRecords["cleverHawk2"] to {
 				childId: "cleverHawk2",
 				birthId: 1005,
                 name: "中聪明",
@@ -114,7 +114,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clever"
                 },
 				gender: "m",
@@ -129,7 +129,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["cleverHawk3"] to {
+<<set $childRecords["cleverHawk3"] to {
 				childId: "cleverHawk3",
 				birthId: 1006,
                 name: "小聪明",
@@ -140,7 +140,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clever"
                 },
 				gender: "m",
@@ -155,7 +155,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["sympathyHawk1"] to {
+<<set $childRecords["sympathyHawk1"] to {
 				childId: "sympathyHawk1",
 				birthId: 1007,
                 name: "大善",
@@ -166,7 +166,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "sympathy"
                 },
 				gender: "f",
@@ -181,7 +181,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["sympathyHawk2"] to {
+<<set $childRecords["sympathyHawk2"] to {
 				childId: "sympathyHawk2",
 				birthId: 1008,
                 name: "中善",
@@ -192,7 +192,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "sympathy"
                 },
 				gender: "m",
@@ -207,7 +207,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["sympathyHawk3"] to {
+<<set $childRecords["sympathyHawk3"] to {
 				childId: "sympathyHawk3",
 				birthId: 1009,
                 name: "小善",
@@ -218,7 +218,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "sympathy"
                 },
 				gender: "f",
@@ -233,7 +233,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["clumsyHawk1"] to {
+<<set $childRecords["clumsyHawk1"] to {
 				childId: "clumsyHawk1",
 				birthId: 1010,
                 name: "大笨",
@@ -244,7 +244,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clumsy"
                 },
 				gender: "f",
@@ -259,7 +259,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["clumsyHawk2"] to {
+<<set $childRecords["clumsyHawk2"] to {
 				childId: "clumsyHawk2",
 				birthId: 1011,
                 name: "中笨",
@@ -270,7 +270,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clumsy"
                 },
 				gender: "m",
@@ -285,7 +285,7 @@
 				born: {day: 1, month: 1, year: 2000}
                 
 }>>
-<<set $children["clumsyHawk3"] to {
+<<set $childRecords["clumsyHawk3"] to {
 				childId: "clumsyHawk3",
 				birthId: 1012,
                 name: "小笨",
@@ -296,7 +296,7 @@
 				type: "hawk",
                 birthLocation: "unknown",
                 location: "otherNest",
-                localVariables: {
+                development: {
                     trait: "clumsy"
                 },
 				gender: "m",
@@ -373,7 +373,7 @@
 <<set _hatchedTime to new DateTime(Time.date).addDays(random(-120, -60))>>
 <<set _laidTime to new DateTime(_hatchedTime).addDays(random(-30, -21))>>
 <<set _conceivedTime to new DateTime(_hatchedTime).addDays(random(-44, -30))>>
-<<set $children["orphanHawk1"] to {
+<<set $childRecords["orphanHawk1"] to {
 	childId: "orphanHawk1",
 	birthId: 0,
 	mother: "unknown hawk",

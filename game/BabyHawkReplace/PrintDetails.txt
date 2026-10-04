@@ -1,19 +1,19 @@
-<<if $children[_args[0]].localVariables.FeededDaily>>
-今日已喂食：<<print $children[_args[0]].localVariables.FeededDaily>>
+<<if $childRecords[_args[0]].development.FeededDaily>>
+今日已喂食：<<print $childRecords[_args[0]].development.FeededDaily>>
 <br>
 <</if>>
-<<if $children[_args[0]].localVariables.FeededTotal>>
-总喂食次数：<<print $children[_args[0]].localVariables.FeededTotal>>
+<<if $childRecords[_args[0]].development.FeededTotal>>
+总喂食次数：<<print $childRecords[_args[0]].development.FeededTotal>>
 <br>
 <</if>>
 <<if $cheatdisable is "f">>
-    <<if $children[_args[0]].localVariables.stage>>
-    阶段：<<print $children[_args[0]].localVariables.stage>>
+    <<if $childRecords[_args[0]].development.stage>>
+    阶段：<<print $childRecords[_args[0]].development.stage>>
     <br>
     <</if>>
-    <<if $children[_args[0]].localVariables.trait>>
-    特质：<<print $children[_args[0]].localVariables.trait>>
+    <<if $childRecords[_args[0]].development.trait>>
+    特质：<<print $childRecords[_args[0]].development.trait>>
     <br>
     <</if>>
 <</if>>
-<<if $children[_args[0]].localVariables.interactionsTotal>>
+<<if $childRecords[_args[0]].development.interactionsTotal>>

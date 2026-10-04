@@ -92,8 +92,8 @@
 <<if _returnNum>>
     <!-- 取消狩猎状态 -->
     <<for _cc to 0; _cc lt _returnNum; _cc++>>
-        <<set $children[_tempIDs[_cc]].localVariables.activity to "rest">>
-        <<set $children[_tempIDs[_cc]].localVariables.timer to undefined>>
+        <<set $childRecords[_tempIDs[_cc]].development.activity to "rest">>
+        <<set $childRecords[_tempIDs[_cc]].development.timer to undefined>>
     <</for>>
     你带着<<childrenNames _tempIDs>>踏上了返程。<<set $tempIDsCopy to clone(_tempIDs)>>
     <br><br>
@@ -131,7 +131,7 @@
 
 <<if $rng is 1>>
     <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
-        <<if getChildDays($hawksIDs[_cc]) gte 200 and $children[$hawksIDs[_cc]].localVariables.trait is "clever" and $children[$hawksIDs[_cc]].features.monster and $children[$hawksIDs[_cc]].localVariables.firstWord is undefined>>
+        <<if getChildDays($hawksIDs[_cc]) gte 200 and $childRecords[$hawksIDs[_cc]].development.trait is "clever" and $childRecords[$hawksIDs[_cc]].features.monster and $childRecords[$hawksIDs[_cc]].development.firstWord is undefined>>
             <<childSelect $hawksIDs[_cc]>>
             <<if $childSelected.mother is "pc">>
                 <<set _playerRole to "妈妈">>
@@ -144,7 +144,7 @@
             <</if>>
             "拜拜<<print _playerRole>>，"你听见一句口齿不清的告别，来自你的<<childname>>。<<childHe>>什么时候学会说话了？……
             <br><br>
-            <<set $children[$hawksIDs[_cc]].localVariables.firstWord to _playerRole>>
+            <<set $childRecords[$hawksIDs[_cc]].development.firstWord to _playerRole>>
             <<break>>
         <</if>>
     <</for>>
@@ -170,7 +170,7 @@
 <br>
 <!--哈哈，还是吃了-->
 <<for _cc to 0; _cc lt $hawksTotal; _cc++>>
-    <<set $children[$hawksIDs[_cc]].localVariables.FeededDaily++>>
+    <<set $childRecords[$hawksIDs[_cc]].development.FeededDaily++>>
 <</for>>
 <<if currentSkillValue("skulduggery") gte 800 or (currentSkillValue("skulduggery") gte 600 and $transformationParts.traits.sharpEyes isnot "disabled")>>
     <<npc "Great Hawk">>

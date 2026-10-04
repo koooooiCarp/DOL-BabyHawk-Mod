@@ -1,14 +1,14 @@
 <<bird_schedule>>
 
-<<if Object.values($children).find(child => (child.localVariables?.growHintFledgling == 1))>>
+<<if Object.values($childRecords).find(child => (child.development?.growHintFledgling == 1))>>
 <<BabyhawkModWarning>>
-<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<getChildrenIds `{location:"tower", excludeUnhatched:true}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set _FledglingIDs to []>>
 <<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-	<<if $children[_childrenIds[_cc]].localVariables.growHintFledgling is 1>>
+	<<if $childRecords[_childrenIds[_cc]].development.growHintFledgling is 1>>
 		<<set _FledglingIDs.push(_childrenIds[_cc])>>
-		<<run delete $children[_childrenIds[_cc]].localVariables.growHintFledgling>>
+		<<run delete $childRecords[_childrenIds[_cc]].development.growHintFledgling>>
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>

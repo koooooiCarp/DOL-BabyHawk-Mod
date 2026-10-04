@@ -1,15 +1,15 @@
 <<birdEggLayEvent "perch">>
 
-<<elseif Object.values($children).find(child => (child.localVariables?.growHintSubadult == 1)) and $bird.state is "home" and ["groom","sing"].includes($bird.activity) and Weather.precipitation isnot "rain">>
+<<elseif Object.values($childRecords).find(child => (child.development?.growHintSubadult == 1)) and $bird.state is "home" and ["groom","sing"].includes($bird.activity) and Weather.precipitation isnot "rain">>
 <<BabyhawkModWarning>>
-<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<getChildrenIds `{location:"tower", excludeUnhatched:true}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set $SubadultIDs to []>>
 <<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-	<<if $children[_childrenIds[_cc]].localVariables.growHintSubadult is 1>>
+	<<if $childRecords[_childrenIds[_cc]].development.growHintSubadult is 1>>
 		<<set $SubadultIDs.push(_childrenIds[_cc])>>
-		<<set $children[_childrenIds[_cc]].localVariables.activity to "sleeping">>
-		<<run delete $children[_childrenIds[_cc]].localVariables.growHintSubadult>>
+		<<set $childRecords[_childrenIds[_cc]].development.activity to "sleeping">>
+		<<run delete $childRecords[_childrenIds[_cc]].development.growHintSubadult>>
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>
@@ -33,7 +33,7 @@
 <<childHe>>抬头迎接你们的注视，发出了一声响亮的啸叫，随后站到栖木的前端，展开翅膀迎接风的吹拂。
 <br><br>
 
-<<switch $children[$child1].localVariables.trait>>
+<<switch $childRecords[$child1].development.trait>>
 <<case "clumsy">>	<<childHe>>感受着风的方向调整着翅膀，却被一阵强风袭来吹得失去了平衡。
 <<case "sympathy">>	<<childHe>>冲着爪下的荒原轻鸣，似乎正对探索这片天地跃跃欲试。
 <<case "clever">>	<<childHe>>感受着风的方向调整着翅膀，转过头来对着你们啾鸣。
@@ -46,8 +46,8 @@
 
 <<if $SubadultTotal gte 4>>
 	你的身后传来了另一声啾鸣。<<set $child4 to $SubadultIDs.pluck()>>
-	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait or $children[$child2].localVariables.trait is $children[$child4].localVariables.trait>>
-		<<switch $children[$child2].localVariables.trait>>
+	<<if $childRecords[$child2].development.trait is $childRecords[$child3].development.trait or $childRecords[$child2].development.trait is $childRecords[$child4].development.trait>>
+		<<switch $childRecords[$child2].development.trait>>
 		<<case "clumsy">>	好几只小鹰脑袋正从洞口探出来望着你们，看起来他们也想要加入他们的<<childsiblings $child1>>。
 		<<case "sympathy">>	其他孩子们从塔里蹦跶着跳了出来，一起围绕着<<childsiblings $child1>>唧唧叫。
 		<<case "clever">>	其他孩子们从塔里跳了出来，围绕在你和<<your_bird_text>>身边唧唧叫。
@@ -59,21 +59,21 @@
 	<</if>><br>
 <<elseif $SubadultTotal gte 3>>
 	你的身后传来了另一声啾鸣。
-	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
-		<<switch $children[$child2].localVariables.trait>>
+	<<if $childRecords[$child2].development.trait is $childRecords[$child3].development.trait>>
+		<<switch $childRecords[$child2].development.trait>>
 		<<case "clumsy">>	两只小鹰正从洞口探出头来望着你们，看起来<<childname $child2>>和<<childname $child3>>也想要加入他们的<<childsiblings $child1>>。
 		<<case "sympathy">>	<<childname $child2>>和<<childname $child3>>从塔里蹦跶着跳了出来，围绕着<<childsiblings $child1>>唧唧叫。
 		<<case "clever">>	<<childname $child2>>和<<childname $child3>>从塔里跳了出来，对着<<your_bird_text>>和你唧唧叫。
 		<<case "dominant">>	<<childname $child2>>从塔里飞扑了出来，正好落在<<childname $child1>>身上，<<childname $child3>>紧随其后跃出，对着<<childhe $child2>>大声啸叫，试图占据上风。
 		<</switch>>
 	<<else>>
-		<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+		<<switch $childRecords[$child2].development.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，
 		<<case "sympathy">>	<<childname>>从塔里跳了出来，
 		<<case "clever">>	<<childname>>从塔里跳了出来，
 		<<case "dominant">>	<<childname>>从塔里飞扑了出来，正好落在<<childname $child1>>身上，
 		<</switch>>
-		<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+		<<switch $childRecords[$child3].development.trait>><<childSelect $child3>>
 		<<case "clumsy">>	而<<childname>>正从洞口探出头来望着你们，看起来他们也想要加入<<childsiblings $child1>>。
 		<<case "sympathy">>	而<<childname>>也落到栖木上，对着他们的<<childsiblings $child1>>唧唧叫。
 		<<case "clever">>	而<<childname>>也落到栖木上，对着<<your_bird_text>>唧唧叫。
@@ -82,7 +82,7 @@
 	<</if>><br>
 <<elseif $SubadultTotal gte 2>>
 	你的身后传来了另一声啾鸣。<<childSelect $child2>>
-	<<switch $children[$child2].localVariables.trait>>
+	<<switch $childRecords[$child2].development.trait>>
 	<<case "clumsy">>	<<childname>>正从洞口探出头来望着你们，看起来<<childHe>>也想要加入自己的<<childsiblings $child1>>。
 	<<case "sympathy">>	<<childname>>从塔里跳了出来，对着<<childhis>>的<<childsiblings $child1>>唧唧叫。
 	<<case "clever">>	<<childname>>从塔里跳了出来，对着<<your_bird_text>>唧唧叫。

@@ -1,15 +1,15 @@
-<<if Object.values($children).find(child => (child.localVariables?.growHintImmature == 1 && child.localVariables?.growHintSubadult != 1)) and !($birdFly isnot 1 or $harpy lte 5 or playerBellyVisible() or $bird.hunts.unlocked is false or Weather.precipitation is "rain")>>
+<<if Object.values($childRecords).find(child => (child.development?.growHintImmature == 1 && child.development?.growHintSubadult != 1)) and !($birdFly isnot 1 or $harpy lte 5 or playerBellyVisible() or $bird.hunts.unlocked is false or Weather.precipitation is "rain")>>
 
 <<set $dateCount.Total++>><<set $dateCount.GreatHawkHunts++>><<unset $birdPerch>>
 <<BabyhawkModWarning>>
-<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<getChildrenIds `{location:"tower", excludeUnhatched:true}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 <<set $ImmatureIDs to []>>
 <<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-	<<if $children[_childrenIds[_cc]].localVariables.growHintImmature is 1>>
+	<<if $childRecords[_childrenIds[_cc]].development.growHintImmature is 1>>
 		<<set $ImmatureIDs.push(_childrenIds[_cc])>>
-		<<set $children[_childrenIds[_cc]].localVariables.activity to "lurkerEat">>
-		<<run delete $children[_childrenIds[_cc]].localVariables.growHintImmature>>
+		<<set $childRecords[_childrenIds[_cc]].development.activity to "lurkerEat">>
+		<<run delete $childRecords[_childrenIds[_cc]].development.growHintImmature>>
 	<</if>>
 	<<updateChildActivity _childrenIds[_cc]>>
 <</for>>
@@ -46,7 +46,7 @@
 	<br><br>
 
 	然而，在你们离开高塔前，一声稚嫩的啸叫声从你们身后传来。<<babyhawks>>扑打着翅膀飞到你们之间，冲着你们叽喳个不停，
-	<<switch $children[$child1].localVariables.trait>>
+	<<switch $childRecords[$child1].development.trait>>
 	<<case "clumsy">>	<<childname>>围绕着你飞行，似乎不想和你们分开。
 	<<case "sympathy">>	<<childname>>似乎希望你们能带上<<childhim>>。
 	<<case "clever">>	<<childname>>似乎对加入你们跃跃欲试。
@@ -66,7 +66,7 @@
 		<</if>>
 		<br><br>
 
-		<<childname>>发出一声<<= $children[$child1].localVariables.trait is "clever" ? "赞同的" : "迷茫的">>叽喳声，转头看向<<GreatHawk>>。
+		<<childname>>发出一声<<= $childRecords[$child1].development.trait is "clever" ? "赞同的" : "迷茫的">>叽喳声，转头看向<<GreatHawk>>。
 		<br>
 		<<if $monster is 1>>
 			<<bHe>>明显仍在惊讶之中，"<<babyhawks>>用不着自己狩猎，我会给<<babyhawksyou>>打猎的。"<<bHe>>说着，以不赞同和困惑的目光回应。	

@@ -1,7 +1,7 @@
 <<effects>>
-<<if $bird.hunts.unlocked is true and Object.values($children).find(child => (!child.eggTimer && child.localVariables.stage == "Immature" && child.localVariables.growHintImmature != 1 && child.location == "tower"))>>
+<<if $bird.hunts.unlocked is true and Object.values($childRecords).find(child => (!child.eggTimer && child.development.stage == "Immature" && child.development.growHintImmature != 1 && child.development.location == "tower"))>>
 <<BabyhawkModWarning>>
-<<getChildrenIds `{location:"tower", eggTimer:undefined}` "both">>
+<<getChildrenIds `{location:"tower", excludeUnhatched:true}` "both">>
 <<set _childrenTotal to _childrenIds.length>>
 
 	<<if !$OtherNestHint>>
@@ -33,8 +33,8 @@
 	<!-- 建了，把新一批孩子挪进去，反正衔接在初狩事件后面 -->
 		<<set _ImmatureIDs to []>>
 		<<for _cc to 0; _cc lt _childrenTotal; _cc++>>
-			<<if $children[_childrenIds[_cc]].localVariables.stage is "Immature" and $children[_childrenIds[_cc]].localVariables.growHintImmature isnot 1 and $children[_childrenIds[_cc]].location is "tower">>
-				<<set $children[_childrenIds[_cc]].location to "otherNest">>
+			<<if $childRecords[_childrenIds[_cc]].development.stage is "Immature" and $childRecords[_childrenIds[_cc]].development.growHintImmature isnot 1 and $childRecords[_childrenIds[_cc]].location is "tower">>
+				<<set $childRecords[_childrenIds[_cc]].location to "otherNest">>
 				<<set _ImmatureIDs.push(_childrenIds[_cc])>>
 			<</if>>
 			<<updateChildActivity _childrenIds[_cc]>>

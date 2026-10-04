@@ -52,7 +52,7 @@
         {
           "passage": "Widgets Bird",
           "findString": "!$daily.birdBabyFeed",
-          "replace": "Object.values($children).find(child => (child.localVariables?.FeededDaily < 2))",
+          "replace": "Object.values($childRecords).find(child => (child.development?.FeededDaily < 2))",
           "all": true,
           "_comment1": "修改每日喂食限制"
         },
@@ -72,13 +72,13 @@
         },
         {
           "passage": "Widgets Bird",
-          "findString": "<<set $children[_childrenEating[$_cc]].localVariables.activity to \"lurkerEat\">>",
-          "replace": "<<set $children[_childrenEating[$_cc]].localVariables.FeededDaily++>><<set $children[_childrenEating[$_cc]].localVariables.activity to \"lurkerEat\">>",
+          "findString": "<<set $childRecords[_childrenEating[$_cc]].development.activity to \"lurkerEat\">>",
+          "replace": "<<set $childRecords[_childrenEating[$_cc]].development.FeededDaily++>><<set $childRecords[_childrenEating[$_cc]].development.activity to \"lurkerEat\">>",
           "_comment1": "将大鹰的捕猎计入每日喂食次数"
         },
         {
           "passage": "Widgets children",
-          "findString": "<<if $children[_args[0]].localVariables.interactionsTotal>>",
+          "findString": "<<if $childRecords[_args[0]].development.interactionsTotal>>",
           "replaceFile": "game/BabyHawkReplace/PrintDetails.txt",
           "_comment1": "详细信息中显示喂食次数统计"
         },
@@ -133,7 +133,7 @@
         {
           "passage": "Bird Tower",
           "findString": "<<if $bird.clean gte 100>>",
-          "replace": "<<if Object.values($children).find(child => (child.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
+          "replace": "<<if Object.values($childRecords).find(child => (child.development.location is \"otherNest\"))>><<babyhawkicon \"children\">><<link [[查看孩子的巢|BabyHawk Childrens Home]]>><</link>><br><br><</if>><<if $bird.clean gte 100>>",
           "_comment1": "新巢选项"
         },        
         {
@@ -206,10 +206,10 @@
             "_comment1": "调整鹰崽的成长进程和随机事件"
           },
           {
-            "from": "child.localVariables.talking = 0;",
-            "to": "child.localVariables.talking = 0;child.localVariables.FeededTotal = initFeededDays(child);child.localVariables.FeededDaily = 0;",
-            "fileName": "children-story-functions.js",
-            "_comment1": "初始化变量"
+            "from": "const LEGACY_DEV_KEYS = [",
+            "to": "const LEGACY_DEV_KEYS = [\"stage\",\"trait\",\"FeededDaily\",\"FeededTotal\",\"timer\",\"sizeHint\",\"sizeHint\",",
+            "fileName": "pregnancy-migration.js",
+            "_comment1": "变量迁移"
           }
         ]
       }

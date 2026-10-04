@@ -50,7 +50,7 @@
 <<elseif $bird.hunts.lootAmount is 0>>
     <<if $hawks_leader is "dominant">>
         <<childname>>大声尖鸣抱怨，看起来<<childhim>>还想继续狩猎。无论如何，你们踏上返程。
-        <<set $children[$leaderID].localVariables.activity to "hunting">><<set $children[$leaderID].localVariables.timer to 30>>
+        <<set $childRecords[$leaderID].development.activity to "hunting">><<set $childRecords[$leaderID].development.timer to 30>>
 		<!-- 这里没法做单独处理，就不情愿地回家再自己出去狩猎吧！ -->
     <<elseif $hawks_leader is "clever">>
         <<childname>>发出小小的抱怨声，<<childhim>>两爪空空，还想继续狩猎。你们踏上返程。
@@ -2320,7 +2320,7 @@
 <br>
 
 :: BabyHawk Hunt OrphanHawk Nest Special
-<<effects>><<set _colourname = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].name>><<set _colourEye = setup.colours.eyes_map[$children["orphanHawk1"].features.eyeColour].variable>>
+<<effects>><<set _colourname = setup.colours.eyes_map[$childRecords["orphanHawk1"].features.eyeColour].name>><<set _colourEye = setup.colours.eyes_map[$childRecords["orphanHawk1"].features.eyeColour].variable>>
 几分钟过去了，你们掰碎了大部分还勉强纠缠在一块儿的树枝，但除了一些小虫以外什么也没发现。<<childname>>伤心地啾啾叫着，独自飞到一颗高处的树杈上待着。
 <br><br>
 
@@ -2400,8 +2400,8 @@
 <br>
 你这时才有空查看你的孩子，
 <<set _FledglingIDs to []>>
-<<run Object.values(V.children).forEach(child => {
-	if (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling") {
+<<run Object.values(V.childRecords).forEach(child => {
+	if (child.development.stage == "Nestling" || child.development.stage == "Hatchling") {
 		T.FledglingIDs.push(child.childId);
 	}
 })>>
@@ -2499,8 +2499,8 @@
 
 你回到高塔上，在<<bhe 1>>回来之前陪伴着你的孩子。
 <<set _FledglingIDs to []>>
-<<run Object.values(V.children).forEach(child => {
-	if (child.localVariables.stage == "Nestling" || child.localVariables.stage == "Hatchling") {
+<<run Object.values(V.childRecords).forEach(child => {
+	if (child.development.stage == "Nestling" || child.development.stage == "Hatchling") {
 		T.FledglingIDs.push(child.childId);
 	}
 })>>

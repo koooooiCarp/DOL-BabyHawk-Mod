@@ -69,7 +69,7 @@ else{
 */
 function initGrowStage(childId) {
 
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	let stage = null;
@@ -79,19 +79,19 @@ function initGrowStage(childId) {
 		stage = "Nestling";	/* 雏鸟，长出雏绒羽，未离巢 */
 	} else if (getChildDays(child.childId) < 65) {
 		stage = "Fledgling";/* 幼鸟，长出稚羽，已离巢 */
-		child.localVariables.growHintFledgling = 1;		/* 开始雏后换羽，提醒玩家离巢 */ 
+		child.development.growHintFledgling = 1;		/* 开始雏后换羽，提醒玩家离巢 */ 
 	} else if (getChildDays(child.childId) < 90) {
 		stage = "Subadult";/* 亚成鸟，初次飞行 */
-		child.localVariables.growHintSubadult = 1;		/* 开始稚后换羽，可飞行 */ 
+		child.development.growHintSubadult = 1;		/* 开始稚后换羽，可飞行 */ 
 	} else if (getChildDays(child.childId) < 201) {
 		stage = "Immature";/* 亚成鸟，长出完整飞羽，初次狩猎 */
-		child.localVariables.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
-		child.localVariables.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！*/
+		child.development.growHintImmature = 1;		/* 幼羽，可狩猎，之后再分单独狩猎期，这个期间不需要喂了，单独分巢住 */ 
+		child.development.growHintSubadult = 1;		/* 用来剔除旧档大龄幼崽，先学飞再狩猎！*/
 	}else{
 		stage = "ERROR";/* 年龄初始化错误 */
 	}
 
-	child.localVariables.stage = stage;
+	child.development.stage = stage;
 }
 window.initGrowStage = initGrowStage;
 
@@ -104,7 +104,7 @@ window.initGrowStage = initGrowStage;
 */
 function initTrait(childId) {
 
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	let randomNumber = 0;
@@ -112,7 +112,7 @@ function initTrait(childId) {
 	randomNumber = Math.random();
 
 	/* 亚成年才获得性格 */
-	if (getChildDays(child.childId) < 65 || child.localVariables.trait != undefined) {
+	if (getChildDays(child.childId) < 65 || child.development.trait != undefined) {
 		return;
 	}
 
@@ -128,16 +128,16 @@ function initTrait(childId) {
 	}
 
 	/* 喂食过多增加dom；喂食过少增加clumsy */
-	if (child.localVariables.FeededTotal - getChildDays(child.childId) > 5) {
+	if (child.development.FeededTotal - getChildDays(child.childId) > 5) {
 		randomNumber += 0.1;
 	}
-	if (child.localVariables.FeededTotal - getChildDays(child.childId) > 10) {
+	if (child.development.FeededTotal - getChildDays(child.childId) > 10) {
 		randomNumber += 0.1;
 	}
-	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 5) {
+	if (getChildDays(child.childId) - child.development.FeededTotal > 5) {
 		randomNumber -= 0.1;
 	}
-	if (getChildDays(child.childId) - child.localVariables.FeededTotal > 10) {
+	if (getChildDays(child.childId) - child.development.FeededTotal > 10) {
 		randomNumber -= 0.1;
 	}
 
@@ -152,7 +152,7 @@ function initTrait(childId) {
 		trait = "dominant";
 	}
 
-	child.localVariables.trait = trait;
+	child.development.trait = trait;
 }
 window.initTrait = initTrait;
 
@@ -162,7 +162,7 @@ window.initTrait = initTrait;
 */
 function initFeededDays(childId) {
 
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	let date1 = null;
@@ -181,7 +181,7 @@ function initFeededDays(childId) {
 window.initFeededDays = initFeededDays;
 
 function hawkBabyActivity(childId) {
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	const toySets = [];
@@ -226,14 +226,14 @@ function hawkBabyActivity(childId) {
 			activity = activity.concat(["rest", "reaching", "Subadult_fly", "Subadult_preen", "Subadult_perch", "batheSelf"]);
 		}
 	} else {//错误处理，多半是因为年龄		
-		if(child.localVariables.stage == "ERROR")
-			child.localVariables.activity = "error";
+		if(child.development.stage == "ERROR")
+			child.development.activity = "error";
 		else 
-			child.localVariables.activity = "noEvent";
+			child.development.activity = "noEvent";
 		return;
 	}
 
-	if (child.location != "otherNest" && child.localVariables.FeededDaily < 2) {//乞食
+	if (child.development.location != "otherNest" && child.development.FeededDaily < 2) {//乞食
 		activity.push("beg");
 		activity.push("beg");
 	} else {
@@ -249,18 +249,14 @@ function hawkBabyActivity(childId) {
 		activity.push("GoldRing");
 	}
 
-	if (child.location == "otherNest" && Time.dayState != "night") {//单独狩猎
+	if (child.development.location == "otherNest" && Time.dayState != "night") {//单独狩猎
 		activity.push("hunting");
 		//这里可以做一个小概率的乞食事件，啃老啊！
 	}
 
-	if (activity.length) {
-		child.localVariables.activity = activity[random(0, activity.length - 1)];
-		child.localVariables.event = true;
-	} else {
-		child.localVariables.activity = "noEvent";
-		child.localVariables.event = true;
-	}
+
+	child.development.activity = activity.length ? activity[random(0, activity.length - 1)] : "noEvent";
+	child.development.event = true;
 }
 window.hawkBabyActivity = hawkBabyActivity;
 
@@ -269,8 +265,8 @@ window.hawkBabyActivity = hawkBabyActivity;
 new TimeEvent('onHour', 'updateBabyHawkActivity')
 	.Cond(V.location == "tower")
 	.Action(timeData => {
-		Object.values(V.children).forEach(child => {
-			if (child.type == "hawk" && !child.eggTimer) {
+		Object.values(V.childRecords).forEach(child => {
+			if (child.species == "hawk" && !child.eggTimer) {
 				hawkBabyActivity(child.childId);
 			}
 		})
@@ -281,13 +277,13 @@ new TimeEvent('onHour', 'updateBabyHawkActivity')
 	初始化检查;
 */
 function BabyHawkInitCheck(childId) {
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
-	if (!child.localVariables.FeededTotal) {
-		child.localVariables.FeededTotal = initFeededDays(child.childId);
+	if (!child.development.FeededTotal) {
+		child.development.FeededTotal = initFeededDays(child.childId);
 	}
-	if (!child.localVariables.stage) {
+	if (child.development.stage == "ERROR" || !child.development.stage) {
 		initGrowStage(childId);
 	}
 }
@@ -296,42 +292,42 @@ function BabyHawkInitCheck(childId) {
 	检测喂食情况;
 */
 function updateFeeded(childId) {
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
-	let feed = child.localVariables.FeededDaily;
+	let feed = child.development.FeededDaily;
 	
 	/* PC当天晚上0点前都未踏入塔中，视为不在鹰塔，大鹰自力更生，更新统计喂食次数 */
-	if (!V.atBirdTower && !V.bird.injured && !npcIsPregnant("Great Hawk")) { child.localVariables.FeededTotal++; }
+	if (!V.atBirdTower && !V.bird.injured && !npcIsPregnant("Great Hawk")) { child.development.FeededTotal++; }
 	/* 离巢后的小鹰每天要吃两顿才够饱，妈呀 */
 	if (getChildDays(child.childId) > 34) {
 		feed = Math.floor(feed/2);
 	}
 
-	child.localVariables.FeededTotal += feed;
-	child.localVariables.FeededDaily = 0;
+	child.development.FeededTotal += feed;
+	child.development.FeededDaily = 0;
 }
 
 /*
 	喂食过多时体型增长，体型影响性格因素;
 */
 function updateSize(childId) {
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	if (child.features.size == "large") {
 		return;
-	} else if (child.features.size == "normal" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 9)) {
+	} else if (child.features.size == "normal" && ((child.development.FeededTotal - getChildDays(child.childId)) >= 9)) {
 		child.features.size = "large";
-	} else if (child.features.size == "small" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 7)) {
+	} else if (child.features.size == "small" && ((child.development.FeededTotal - getChildDays(child.childId)) >= 7)) {
 		child.features.size = "normal";
-	} else if (child.features.size == "tiny" && ((child.localVariables.FeededTotal - getChildDays(child.childId)) >= 5)) {
+	} else if (child.features.size == "tiny" && ((child.development.FeededTotal - getChildDays(child.childId)) >= 5)) {
 		child.features.size = "small";
 	} else {
 		return;
 	}
 
-	child.localVariables.sizeHint = 1;
+	child.development.sizeHint = 1;
 }
 
 /*
@@ -339,42 +335,42 @@ function updateSize(childId) {
 */
 function updateGrowStage(childId) {
 
-	const child = V.children[childId];
+	const child = V.childRecords[childId];
 	if (!child) return null;
 
 	let newStage = null;
-	if (child.localVariables.stage == undefined && getChildDays(child.childId) < 14) {
+	if (child.development.stage == undefined && getChildDays(child.childId) < 14) {
 		/* 雏鸟，没有羽毛 */
 		newStage = "Hatchling";
-	} else if (child.localVariables.stage == "Hatchling" && getChildDays(child.childId) > 14) {
+	} else if (child.development.stage == "Hatchling" && getChildDays(child.childId) > 14) {
 		/* 雏鸟，长出一层羽毛，未离巢 */
 		newStage = "Nestling";
-	} else if (child.localVariables.stage == "Nestling" && getChildDays(child.childId) > 34) {
+	} else if (child.development.stage == "Nestling" && getChildDays(child.childId) > 34) {
 		/* 幼鸟，长出初级飞羽，已离巢 */
 		newStage = "Fledgling";
-		child.localVariables.growHintFledgling = 1;
-	} else if (child.localVariables.stage == "Fledgling" && getChildDays(child.childId) > 64) {
+		child.development.growHintFledgling = 1;
+	} else if (child.development.stage == "Fledgling" && getChildDays(child.childId) > 64) {
 		/* 亚成鸟，长出完整飞羽 */
 		newStage = "Subadult";
-		child.localVariables.growHintSubadult = 1;
+		child.development.growHintSubadult = 1;
 		initTrait(child.childId);
-	} else if (child.localVariables.stage == "Subadult" && getChildDays(child.childId) > 89) {
+	} else if (child.development.stage == "Subadult" && getChildDays(child.childId) > 89) {
 		/* 留给后续的阶段划分，反正不会成年的 */
 		newStage = "Immature";
-		child.localVariables.growHintImmature = 1;
+		child.development.growHintImmature = 1;
 	} else {
 		return;
 	}
 
-	child.localVariables.stage = newStage;
+	child.development.stage = newStage;
 }
 
 
 /* 每日更新事件 */
 new TimeEvent('onDay', 'DailyBabyHawkCheck')
 	.Action(() => {
-		Object.values(V.children).forEach(child => {
-			if (child.type == "hawk" && !child.eggTimer && (child.location == "tower" || child.location == "otherNest") ) {
+		Object.values(V.childRecords).forEach(child => {
+			if (child.species == "hawk" && childIsBorn(child) && (child.development.location == "tower" || child.development.location == "otherNest") ) {
 				/* 检测初始化 */
 				BabyHawkInitCheck(child.childId);
 				/* 检测喂食情况 */
@@ -392,10 +388,10 @@ new TimeEvent('onDay', 'DailyBabyHawkCheck')
 new TimeEvent('onMin', 'BabyHawkHuntTimer')
 	.Cond(()=> V.location == "tower" || V.location == "moor" || V.location == "castle")
 	.Action(timeData => {
-		Object.values(V.children).forEach(child => {
-			if (child.localVariables?.timer && timeData.min > 0) {
+		Object.values(V.childRecords).forEach(child => {
+			if (child.development?.timer && timeData.min > 0) {
 				/* 更新定时器 */
-				child.localVariables.timer -= timeData.min;
+				child.development.timer -= timeData.min;
 			}
 		})
 	});

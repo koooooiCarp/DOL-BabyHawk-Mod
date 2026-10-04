@@ -21,7 +21,7 @@
 	<!-- 查找 dominant 或 clever 小鹰作为领队 -->
 	<<for _i to 0; _i lt $hawksTotal; _i++>>
 		<<set _hawkID to $hawksIDs[_i]>>
-		<<set _trait to $children[_hawkID].localVariables.trait>>
+		<<set _trait to $childRecords[_hawkID].development.trait>>
 		<<if _trait is "dominant" or _trait is "clever">>
 			<<set $leaderID to _hawkID>>
 			<<set $hawks_leader to _trait>>

@@ -47,7 +47,7 @@
 <<widget "babyhawkSingle">>
     <<set _ID to _tempIDs[random(0,_tempIDs.length-1)]>>
     <<childSelect _ID>>
-    <<switch $children[_ID].localVariables.stage>>
+    <<switch $childRecords[_ID].development.stage>>
         <<case "Fledgling" "Subadult">>
             <<if random(0,1) is 1>>
                 <br>
@@ -91,7 +91,7 @@
                 <br>
                 <<link [[玩耍 (0:30)|babyhawkPlay]]>><<pass 30>><</link>>
             <<else>>
-                <<switch $children[_ID].localVariables.trait>>
+                <<switch $childRecords[_ID].development.trait>>
                     <<case "clumsy">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","探头探脑地望着你","发呆")>>。
                     <<case "sympathy">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","好奇地观察四周","发呆")>>。
                     <<case "clever">>	你看到<<childname>>正在巢里<<print either("休息","望着天空","望着你，看着你走来走去","衔着树枝玩耍")>>。
@@ -181,8 +181,8 @@
 	你引导你的孩子，好让<<childhis>>的嘴唇能够碰到你的<<breasts>>。
 <</if>>
 <br><br>
-<<if $children[$childSelected.childId].localVariables.stage is "Immature">>
-    <<switch $children[$childSelected.childId].localVariables?.trait>>
+<<if $childRecords[$childSelected.childId].development.stage is "Immature">>
+    <<switch $childRecords[$childSelected.childId].development?.trait>>
 		<<case "clumsy">>	<<childname>>含住你的乳头，心满意足地大口吸吮起来。<<breastfeed 50>>你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
 		<<case "sympathy">>	<<childname>>含住你的乳头，心满意足地吸吮起来。比起进食，<<childHe>>更多的是在享受这种安全又舒适的感觉。<<breastfeed 40>>你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
 		<<case "clever">>	<<childname>>把脸颊贴在你的胸口，眨巴眼睛望向你。<<childHe>>开始安静地吸吮你的乳头，没过一会儿便停止了进食。<<breastfeed 30>>比起母乳，<<childHe>>现在好像更喜欢潜伏者。
@@ -200,7 +200,7 @@
             <<childHe>>叼住你的乳头，有一搭没一搭地吸着，似乎没什么兴趣进食。<<breastfeed 10>>
     <</switch>>
     你看着你的孩子喝奶，并享受着这平静的时刻。<<lstress>><<stress -6>>
-    <<if $children[$childSelected.childId].localVariables.growHintFledgling is 1 or $children[$childSelected.childId].localVariables.growHintSubadult is 1>>
+    <<if $childRecords[$childSelected.childId].development.growHintFledgling is 1 or $childRecords[$childSelected.childId].development.growHintSubadult is 1>>
         <span class="blue"><<childHe>>喝奶的量明显比以前更多。</span>
     <</if>>
 <</if>>
@@ -221,10 +221,10 @@
     <<case 3>>
         你在<<childhis>>的额头上轻轻一吻，并尽量与<<childhim>>有更多的亲密接触。这个动作鼓励<<childhim>><<= $cmonster ? "抬起了头，并用咯咯笑作为回礼。" : "抬起脑袋，对你叽叽叫。">><<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
     <<case 4>>
-        <<if $children[$childSelected.childId].localVariables.stage is "Immature">>
+        <<if $childRecords[$childSelected.childId].development.stage is "Immature">>
             你在<<childname>>附近放了一些不同的材料，解释着它们的颜色、形状、质地以及用途。
             <br>
-            <<switch $children[$childSelected.childId].localVariables?.trait>>
+            <<switch $childRecords[$childSelected.childId].development?.trait>>
                 <<case "clumsy">>	<<childHe>>认真听着，没一会儿便开始走神，试图抓住空气里浮动的小黑点。
                 <<case "sympathy">>	<<childHe>>认真听着，似乎对它们特殊的用法很感兴趣。<<lstress>><<stress -6>>
                 <<case "clever">>	<<childHe>>认真听着，时不时发出一些<<= $cmonster ? "咕哝声" : "啁鸣声">>，好像在附和你的话。<<lstress>><<stress -6>>
@@ -240,7 +240,7 @@
             并开始撕扯它。<<childHe>><<childgiggles>>，你努力从<<childhe>>爪里解救下这片布料。<<gstress>><<stress 6>>
         <</if>>
     <<default>>
-        <<switch $children[$childSelected.childId].localVariables?.trait>>
+        <<switch $childRecords[$childSelected.childId].development?.trait>>
             <<case "clumsy">>	<<childname>>不想被你一直抱着，<<childhe>>在你的怀里扭动，挣扎着掉回了巢里。
             <<case "sympathy">>	<<childname>>不想被你一直抱着，<<childhe>>发出抗议的啾啾叫，挣扎着跳回了巢里。
             <<case "clever">>	<<childname>>不想被你一直抱着，<<childhe>><<= $cmonster ? "皱起脸拍打" : "啄击">>你的手臂，你松一开手，<<childhe>>就从你的怀里飞了出去。
@@ -261,7 +261,7 @@
         你清了清嗓子，唱起了一首即兴的小曲。悠扬的曲调很快吸引了<<childname>>的注意，让<<childhe>>跟随着你啾啾伴鸣。<<lstress>><<stress -6>>
     <<case 3>>
         你向<<childname>>聊起<<print either("小镇的生活","大海的景象","森林的风景","荒原的远方","天空和大地")>>。
-        <<switch $children[$childSelected.childId].localVariables?.trait>>
+        <<switch $childRecords[$childSelected.childId].development?.trait>>
             <<case "clumsy">>	<<childname>>认真地听着，但<<childHe>>看起来并不能理解你在说什么。
             <<case "sympathy">>	<<childname>>认真地听着，似乎对你偶尔提到的人类生活很感兴趣。<<lstress>><<stress -6>>
             <<case "clever">>	<<childname>>认真地听着，似乎对你句子里的某些关键词很感兴趣。<<lstress>><<stress -6>>
@@ -292,7 +292,7 @@
 	<<case 2>>
 		你捂住自己的脸，随后忽然打开手掌，发出一声"peekaboo!"
         <<childname>>似乎对这个小游戏很感兴趣，<<childhe>>在你每一次打开手掌露出脸时<<= $cmonster ? "咯咯笑着拍手" : "回应地唧唧叫">>。<<lstress>><<stress -6>>
-        <<if $children[$childSelected.childId].localVariables?.trait is "clever" or $children[$childSelected.childId].localVariables?.trait is "sympathy">>
+        <<if $childRecords[$childSelected.childId].development?.trait is "clever" or $childRecords[$childSelected.childId].development?.trait is "sympathy">>
             <br><br>
             当你最后一次捂住脸，打开手掌时，<<childname>>模仿着你的音调发出了一声模糊的"peekaboo"！<<ltrauma>><<trauma -6>>
         <</if>>
@@ -343,9 +343,9 @@
 <<childSelect $childActivityEvent.childid>>
 <<childAge $childActivityEvent.childid>>
 <<childInteratedWith>>
-<<set $children[$childActivityEvent.childid].localVariables.event to false>>
+<<set $childRecords[$childActivityEvent.childid].development.event to false>>
 <<switch $childActivityEvent.event>>
-    <<case "Hawk_weather_cold">><<set _multi to hasActiveHawk($children[$childActivityEvent.childid].location)>>
+    <<case "Hawk_weather_cold">><<set _multi to hasActiveHawk($childRecords[$childActivityEvent.childid].location)>>
         你抱起<<childname>>，试图用<<if $harpy gte 6 and ($transformationParts.bird.wings isnot "hidden" or $transformationParts.bird.plumage isnot "hidden")>>你的羽毛<<else>>你的怀抱<</if>>温暖<<childhim>>。
         <br>
         <<childHe>>很快就停止了颤抖，趴在你的怀里缓慢地呼吸。你觉得差不多了，想把<<childhim>>放回巢里，但<<childhe>>一离开你的怀抱就又开始颤抖起来。<<if _multi>>其他孩子也凑到你们身边，瑟瑟发抖着挤成一团取暖。<</if>>
@@ -370,8 +370,8 @@
             <br>
             你只好再抱了一会儿<<childname>>，期盼着天气能够早日转暖。
         <</if>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
-    <<case "Hawk_weather_hot">><<set _multi to hasActiveHawk($children[$childActivityEvent.childid].location)>>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "sleeping">>
+    <<case "Hawk_weather_hot">><<set _multi to hasActiveHawk($childRecords[$childActivityEvent.childid].location)>>
         你抱起<<childname>>走进雨水池，
         <<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
             哪怕雨水池被你加热了，泡在里面也比待在闷热的空气中舒服。
@@ -380,10 +380,10 @@
         <</if>>
         <<if Weather.bodyTemperature gt 38>><<set Weather.bodyTemperature to 38>><</if>>
         <<set _IDs to []>>
-        <<run Object.values(V.children).forEach(child => {
-            if (child.localVariables?.activity == "batheSelf" || child.localVariables?.activity == "weather") {
+        <<run Object.values(V.childRecords).forEach(child => {
+            if (child.development?.activity == "batheSelf" || child.development?.activity == "weather") {
                 T.IDs.push(child.childId);
-                child.localVariables.activity = "rest";
+                child.development.activity = "rest";
             }
         })>>
         <<set _multi to _IDs.length-1>><<childSelect _IDs[0]>><<run _otherIDs = _IDs.filter(item => item !== $childActivityEvent.childid)>>
@@ -393,7 +393,7 @@
         <<lstress>><<stress -5>>
         <br>
         你们玩了好一会儿水才从雨水池里离开。
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Hawk_weather_mild">>
         你在<<childname>>身边坐下。
         <br>
@@ -406,10 +406,10 @@
             <<case "thunderStorm">>闪电在云层上撕开一道明亮的口子。<<childname>>的羽毛微微炸起，<<childhe>>一眨不眨地盯着乌云，期待着下一声惊雷或是闪电的到来。
         <</switch>>
         <<lstress>><<stress -5>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Hawk_build">><<childSelect $childActivityEvent.childid>>
         <<your_bird_text>>正小心翼翼地重新调整巢里的小树枝，而<<childname>>跟在<<bhim>>身后，
-        <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+        <<switch $childRecords[$childActivityEvent.childid].development.trait>>
             <<case "clumsy">>	叽喳叫着，似乎想要<<bhe>>陪自己玩。<<GreatHawk>>转身<<= $monster ? "摸了摸<<childhis>>的脑袋" : "轻轻啄了啄<<childhim>>">>，
             <<case "sympathy">>	叽喳叫着，似乎想要<<bhe>>陪自己玩。<<GreatHawk>>转身<<= $monster ? "摸了摸<<childhis>>的脑袋" : "轻轻啄了啄<<childhim>>">>，
             <<case "clever">>	帮忙<<= $cmonster ? "拿" : "衔">>着其中一根小树枝。<<GreatHawk>>转身从<<childhis>><<= $cmonster ? "手" : "嘴">>里接过树枝，鼓励地<<= $monster ? "摸了摸<<childhis>>的脑袋" : "轻轻啄了啄<<childhim>>">>，
@@ -417,22 +417,22 @@
             <<default>>         正从巢里拔出其中一根小树枝。<<GreatHawk>>试图从<<childhis>><<= $cmonster ? "手" : "嘴">>里拿走树枝，但<<childhim>>紧紧<<= $cmonster ? "抓" : "叼">>着树枝不愿松开。<br><<bhe>>只好选择拿起另一根小树枝，
         <</switch>>
         埋头继续<<bhis>>的筑巢工作。<<lstress>><<stress -5>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Hawk_brood">>
-        <<if $children[$childActivityEvent.childid].location is "tower">>
+        <<if $childRecords[$childActivityEvent.childid].location is "tower">>
             你走向他们，试图抓住一股劲往<<your_bird_text>>身下钻的<<childname>>。
             <br>
             <<GreatHawk>>睁开眼睛，<<if $monster is 1>>"<<Wife>>？没关系的。"<</if>><<bhe>>略微起身，抖松羽毛，小心地挪动身下的蛋，随后把蛋和<<childname>>一起塞到了<<bhe>>柔软的羽毛里。
             <br>
             <<childname>>小声叽喳抱怨的声音立刻消失了，<<childhe>>闭上眼睛，舒舒服服地在<<your_bird_text>>身下睡着了。<<lstress>><<stress -5>>
-            <<set $children[$childActivityEvent.childid].localVariables.activity to "sleepingWithGreatHawk">>
+            <<set $childRecords[$childActivityEvent.childid].development.activity to "sleepingWithGreatHawk">>
         <<else>>
             你走向他们，把<<childname>>抱在怀里轻抚羽毛。<<childHis>>的眼睛一直盯着你们的蛋，似乎很好奇。
             <br>
             <<if $monster is 1>>"<<childname>>也很期待新的兄弟姐妹。"<</if>><<your_bird_text>>轻柔地颤鸣，<<= $monster ? "温柔地摸了摸<<childname>>的脑袋" : "温柔地蹭了蹭<<childname>>，看起来和<<childhim>>一样期待新生命的诞生">>。<<lstress>><<stress -5>>
             <br>
             抱了一会儿，你把<<childname>>放回了<<childhimself>>的巢里。
-            <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+            <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
         <</if>>
     <<case "Hawk_rest">>/* 受伤和怀孕中的差分 */
         <<if $bird.injured gt 1>>
@@ -460,7 +460,7 @@
             <br>
             你们围成一团，一起享受了一会儿平静的时光。<<lstress>><<stress -5>>
         <</if>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "begHawk">>
         你从战利品堆里掏出一只潜伏者，用手撕下一块块肉喂给<<childname>>。
         <<switch random(1,4)>>
@@ -470,15 +470,15 @@
         <<case 4>><<childHe>>这时却紧紧闭上了嘴，无论你怎么劝哄都不肯吃下你递到嘴边的潜伏者肉。<<set $bird.materials.lurkers +=1>>
         <</switch>>
         <br>
-        在这之后<<childHe>>便满足地睡去了。<<set $children[$childActivityEvent.childid].localVariables.FeededDaily++>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+        在这之后<<childHe>>便满足地睡去了。<<set $childRecords[$childActivityEvent.childid].development.FeededDaily++>>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "sleeping">>
     <<case "explore">>
         你喊着<<childname>>的名字，在高塔里四处寻找<<childhim>>。
-        <br><<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <br><<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
         一阵窸窸窣窣的声音吸引了你，你望向声源，发现
         <<switch random(1,4)>>
         <<case 1>><<childname>>从你们的战利品堆里探出了头。
-            <<if $bird.materials.lurkers gte 1>><<childhe>>的嘴里还叼着半只潜伏者。<<set $bird.materials.lurkers -=1>><<set $children[$childActivityEvent.childid].localVariables.FeededDaily++>>
+            <<if $bird.materials.lurkers gte 1>><<childhe>>的嘴里还叼着半只潜伏者。<<set $bird.materials.lurkers -=1>><<set $childRecords[$childActivityEvent.childid].development.FeededDaily++>>
             <<elseif $bird.materials.valuables>><<childhe>>的头上还顶着一块亮闪闪。
             <<else>><<childhis>>的羽毛被<<childhe>>钻进杂物的行为搞得一团糟。
             <</if>>
@@ -492,7 +492,7 @@
             <<if $bird.upgrades.firepit gte 1>>
             <<childname>>正蹲在火坑面前。<<if getBirdBurnTime() lte 0>>尽管火坑没有点燃，你也能看见<</if>>好奇的火焰在<<childhis>>的眼里跳跃。
             <<else>>
-            <<childname>>正从活板门下面钻出来，<<childHe>>的羽毛上裹了一层灰尘。<<set $children[$childActivityEvent.childid].localVariables.activity to "batheSelf">>
+            <<childname>>正从活板门下面钻出来，<<childHe>>的羽毛上裹了一层灰尘。<<set $childRecords[$childActivityEvent.childid].development.activity to "batheSelf">>
             <</if>>
         <<case 4>>
             <<childname>>在塔底！你连忙赶到塔底，确认<<childhe>>没有受伤后才发觉，
@@ -511,7 +511,7 @@
         <br>
         <<childname>>发出了一声轻轻的啾鸣，你开始整理<<childhis>>羽端，指尖理开一些将脱未脱的绒毛，再顺着羽毛的方向抚平翘起的杂毛。
         <<childHe>>高兴地看着你，<<if $cmonster>>伸出手捋了捋<<else>>用喙轻轻啄了啄<</if>><<if $harpy gte 6 and ($transformationParts.bird.wings isnot "hidden" or $transformationParts.bird.plumage isnot "hidden")>>你的羽毛<<else>>你的头发<</if>>。也许这个小家伙也在帮你梳理呢。<<stress -4>><<lstress>>	
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Fledgling_fly">>
         你靠近<<childname>>，想要帮助<<childhim>>腾空。
         <<switch random(1,3)>>
@@ -520,7 +520,7 @@
         <<case 3>>你用双手把<<childhim>>从巢中抱出来，托到半空中。<<childhim>>跳出你的手掌，试图借助高度差滑翔，但最终只是脸朝下摔在了地面上。
         <</switch>><<lstress>><<stress -5>>
         <br>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Fledgling_perch">>
         你走近<<childname>>，<<childhis>>的眼睛盯着塔的边缘，正在跃跃欲试地试图从巢里爬出。你心领神会，意识到<<childname>>想出去看看荒原。
         <br><br>
@@ -573,7 +573,7 @@
 
                 你们坐在栖木上享受着风，度过了一段轻松的时光。<<stress -5>><<lstress>>
             <</if>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Subadult_fly">>
         你靠在塔的边缘望向天空，观察<<childname>>在空中的动作。
         <br>
@@ -585,14 +585,14 @@
         <</switch>><<stress -5>><<lstress>>
         <br>
         过了一小会儿，<<childhe>>似乎觉得累了，转身飞向高塔。
-        <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+        <<switch $childRecords[$childActivityEvent.childid].development.trait>>
         <<case "clumsy">>	<<childHe>>降落时没能控制好落地的力度，一头哉进了你的怀里。
         <<default>>			你展开双手，<<childhe>>就轻轻落在了你的怀里。
         <</switch>>
         你轻抚<<childhis>>的羽毛，把<<childhe>>放回了巢里。
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
     <<case "Subadult_preen">>
-        <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+        <<switch $childRecords[$childActivityEvent.childid].development.trait>>
         <<case "clumsy">>	<<childname>>正奋力地啄弄自己的羽毛。
         <<default>>			<<childname>>正试图<<= $monster ? "剥" : "咬">>开一些羽鞘。
         <</switch>>
@@ -608,25 +608,25 @@
             <</if>>
         <<else>>
             你的头发。<<childHe>>拨弄了好一会儿才停下，满意地围着你转悠。
-            <<if $children[$childActivityEvent.childid].localVariables.stage is "Immature">>
+            <<if $childRecords[$childActivityEvent.childid].development.stage is "Immature">>
                 你抬手摸了摸自己被梳理整齐的头发。<<set $hairtype to "all down">>
             <<else>>
 		        你抬手摸了摸自己被搞得一团乱的头发，哭笑不得。<<set $hairtype to either("ruffled","bedhead")>>
             <</if>>
             <<stress -5>><<lstress>>
         <</if>>
-        <<set $children[$childActivityEvent.childid].localVariables.activity to "rest">>
+        <<set $childRecords[$childActivityEvent.childid].development.activity to "rest">>
 	<<case "Subadult_perch">>
         <<set _IDs to []>>
-        <<run Object.values(V.children).forEach(child => {
-            if (child.localVariables?.activity == "Subadult_perch") {
+        <<run Object.values(V.childRecords).forEach(child => {
+            if (child.development?.activity == "Subadult_perch") {
                 T.IDs.push(child.childId);
-                child.localVariables.activity = "rest";
+                child.development.activity = "rest";
             }
         })>>
         <<set _multi to _IDs.length-1>><<childSelect _IDs[0]>><<run _otherIDs = _IDs.filter(item => item !== $childActivityEvent.childid)>>
         你跟在<<childname>>身后，想看看<<childhe>>要去做些什么。
-        <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+        <<switch $childRecords[$childActivityEvent.childid].development.trait>>
         <<case "clumsy">>	<<childHe>>好奇地回头看了看你。
         <<default>>			<<childHe>>回头看了看你，继续向栖木移动。
         <</switch>>
@@ -637,15 +637,15 @@
             <<npc "Great Hawk">>
             <<your_bird_text>>停下<<bhis>>的动作，<<= _multi ? "惊讶地看着一小群小鹰们" : "为你们腾出位置">>。你在<<GreatHawk>>的身边坐下，看着你的<<= _multi ? "孩子" : "孩子们">>。
             <br>
-            <<if $children[$childActivityEvent.childid].localVariables.FeededDaily < 2 and $children[$childActivityEvent.childid].location is "otherNest">>
+            <<if $childRecords[$childActivityEvent.childid].development.FeededDaily < 2 and $childRecords[$childActivityEvent.childid].location is "otherNest">>
                 <<childname>>走到栖木前端，迎着风吹来的方向抖抖自己的羽毛。
-                    <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+                    <<switch $childRecords[$childActivityEvent.childid].development.trait>>
                     <<case "clumsy" "clever">>	<<childHe>>回头对你们鸣叫几声，随后展开翅膀向着荒原飞去。
                     <<default>>			        <<childHe>>向着荒原尖鸣一声，随后展开翅膀跳下高塔。
                     <</switch>>
                 <br><br>
                 <span class="teal"><<childHe>>去狩猎了。</span><<childname>>小小的身影在你们视野里的不远处移动，用自己的身体探索着这片天地。
-                <<set $children[$childActivityEvent.childid].localVariables.activity to "hunting">><<set $children[$childActivityEvent.childid].localVariables.timer to 30>>
+                <<set $childRecords[$childActivityEvent.childid].development.activity to "hunting">><<set $childRecords[$childActivityEvent.childid].development.timer to 30>>
                 <<if _multi>><br><br><<childrenNames _otherIDs>>停在你们身边，歪着脑袋和你们一起看着<<childsiblings $childActivityEvent.childid>>在空中飞翔。<</if>>
                 <<stress -5>><<lstress>>
             <<else>>
@@ -670,15 +670,15 @@
                 <</if>>
             <</if>>
         <<else>>
-            <<if $children[$childActivityEvent.childid].localVariables.FeededDaily < 2 and $children[$childActivityEvent.childid].location is "otherNest">>
+            <<if $childRecords[$childActivityEvent.childid].development.FeededDaily < 2 and $childRecords[$childActivityEvent.childid].location is "otherNest">>
                 <<childname>>走到栖木前端，迎着风吹来的方向抖抖自己的羽毛。
-                    <<switch $children[$childActivityEvent.childid].localVariables.trait>>
+                    <<switch $childRecords[$childActivityEvent.childid].development.trait>>
                     <<case "clumsy" "clever">>	<<childHe>>回头对你鸣叫几声，随后展开翅膀向着荒原飞去。
                     <<default>>			        <<childHe>>向着荒原尖鸣一声，随后展开翅膀跳下高塔。
                     <</switch>>
                 <br><br>
                 <span class="teal"><<childHe>>去狩猎了。</span><<childname>>小小的身影在你的视野的不远处移动，用自己的身体探索着这片天地。
-                <<set $children[$childActivityEvent.childid].localVariables.activity to "hunting">><<set $children[$childActivityEvent.childid].localVariables.timer to 30>>
+                <<set $childRecords[$childActivityEvent.childid].development.activity to "hunting">><<set $childRecords[$childActivityEvent.childid].development.timer to 30>>
                 <<if _multi>><br><br><<childrenNames _otherIDs>>停在你身边，歪着脑袋和你一起看着<<childsiblings $childActivityEvent.childid>>在空中飞翔。<</if>>
                 <<stress -5>><<lstress>>
             <<else>>

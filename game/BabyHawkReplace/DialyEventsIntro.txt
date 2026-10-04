@@ -18,7 +18,7 @@
 				<br>
 				<<link "看看他们 (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Hawk_build", childid:_args[0]}>><</link>> |
 			<<case "brood">>
-				<<if $children[_args[0]].location is "tower">>
+				<<if $childRecords[_args[0]].location is "tower">>
 					<<childHe>>正试图钻进孵蛋的<<GreatHawk>>身下。
 				<<else>>
 					<<childHe>>好奇地看着正在孵蛋的<<GreatHawk>>。
@@ -78,7 +78,7 @@
 	<br>
 	<<link "跟上<<childhim>> (0:15)" "BabyHawk Activity Events">><<pass 15>><<set $childActivityEvent to {event:"Subadult_perch", childid:_args[0]}>><</link>> |
 <<case "rest">>/* 可以考虑做性格差分 */
-	<<switch $children[_args[0]].localVariables.trait>>
+	<<switch $childRecords[_args[0]].development.trait>>
 		<<case "clumsy">>	<<childHe>>在巢里<<print either("休息","望着天空","探头探脑地望着你","发呆","打瞌睡")>>。
 		<<case "sympathy">>	<<childHe>>在巢里<<print either("休息","望着天空","好奇地观察四周","发呆","打瞌睡")>>。
 		<<case "clever">>	<<childHe>>在巢里<<print either("休息","望着天空","望着你，看着你走来走去","衔着树枝玩耍","团成一团睡觉")>>。
@@ -87,7 +87,7 @@
 	<</switch>>
 <<case "hunting">>
 	<<childHe>>正在外面狩猎。
-	<<if $children[_args[0]].localVariables.timer is undefined>>
-		<<set $children[_args[0]].localVariables.timer to 30>>
+	<<if $childRecords[_args[0]].development.timer is undefined>>
+		<<set $childRecords[_args[0]].development.timer to 30>>
 	<</if>>
 <<case "lurkerEat">>

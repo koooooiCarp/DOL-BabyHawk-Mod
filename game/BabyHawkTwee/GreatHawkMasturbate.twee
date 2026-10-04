@@ -17,7 +17,7 @@
 <<else>>
 <span class="blue">这太怪了。你的异种癖不足以让你接受这个。</span>
 <</if>>
-<br><br>
+<br>
 <<link [[拒绝|BabyHawk Masturbation Help Refuse]]>><</link>>
 <br>
 
@@ -132,7 +132,7 @@
     <br>
     <<if $lactating is 1 and $breastfeedingdisable is "f" and $milk_amount gte 1>>
         一些乳汁从乳头分泌出来，滴漏在哈比的手上。 <<breastfeed 50>>
-        <<if Object.values($children).find(child => (child.type == "hawk")) isnot undefined && $pregnancyStats?.childBreastfedInteractions gte 1 && !$firstSeen_milk>>
+        <<if Object.values($childRecords).find(child => (child.species == "hawk")) isnot undefined && $pregnancyStats?.childBreastfedInteractions gte 1 && !$firstSeen_milk>>
             <br><<set $firstSeen_milk to true>>
             <<bHe>>歪了歪头，凑近嗅了嗅乳汁。"<<Wife>>就是用这个来喂食孩子们的吗？陆地上的生物和巨鹰很不一样。"
         <</if>>

@@ -11,7 +11,7 @@
 
 你们一起从栖木上跃起，张开翅膀悬停在空中，引导<<childname>>向你们的方向移动。
 <br>
-<<switch $children[$child1].localVariables.trait>>
+<<switch $childRecords[$child1].development.trait>>
 <<case "clumsy">>	<<childHe>>似乎有些犹豫，但在你们不断的呼唤下，<<childhe>>最终还是张开翅膀扑向空中。
 <<case "sympathy">>	在你们的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
 <<case "clever">>	在你们的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
@@ -34,18 +34,18 @@
 	<br><br>
 <<elseif $SubadultTotal gte 3>>
 	不甘示弱，<<childname $child2>>和<<childname $child3>>也高鸣着飞扑落下，加入你们的飞行队伍。
-	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
-		<<switch $children[$child2].localVariables.trait>>
+	<<if $childRecords[$child2].development.trait is $childRecords[$child3].development.trait>>
+		<<switch $childRecords[$child2].development.trait>>
 		<<case "clumsy" "dominant">>他们的飞行轨迹太过接近，翅膀互相拍打在了一起，双双失去了平衡。<<your_bird_text "cap">>和你连忙俯冲赶向孩子们，在落地前将两只小鹰接住，帮助他们重新抬升。
 		<<case "sympathy" "clever">>孩子们模仿着你们的动作，青涩地在空中调整方向，在风的引导下来到你们的身边。
 		<</switch>>
 	<<else>>
-		<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+		<<switch $childRecords[$child2].development.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childname $child2>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childname $child2>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childname $child2>>青涩地在空中调整方向，在风的引导下来到你们的身边。
 		<</switch>>
-		<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+		<<switch $childRecords[$child3].development.trait>><<childSelect $child3>>
 		<<case "clumsy">>	另一边，<<childname $child3>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	另一边，<<childname $child3>>的动作甚至比<<childsiblings $child2>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childname $child3>>紧随在<<childhis $child2>>身后。
@@ -54,7 +54,7 @@
 	<br><br>
 <<elseif $SubadultTotal gte 2>><<childSelect $child2>>
 	不甘示弱，<<childname>>也高鸣着飞扑落下，加入你们的飞行队伍。
-	<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+	<<switch $childRecords[$child2].development.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childHe>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childHe>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childHe>>青涩地在空中调整方向，在风的引导下来到你们的身边。
@@ -135,7 +135,7 @@
 
 <<your_bird_text "cap">>尖啸一声从栖木上跃起，张开翅膀悬停在空中，引导<<childname>>向<<bhis>>的方向移动。
 <br>
-<<switch $children[$child1].localVariables.trait>>
+<<switch $childRecords[$child1].development.trait>>
 <<case "clumsy">>	<<childHe>>似乎有些犹豫，但在巨鹰不断的呼唤下，<<childhe>>最终还是张开翅膀扑向空中。
 <<case "sympathy">>	在巨鹰的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
 <<case "clever">>	在巨鹰的呼唤下，<<childhe>>也张开翅膀跳下了栖木。
@@ -158,18 +158,18 @@
 	<br><br>
 <<elseif $SubadultTotal is 3>>
 	不甘示弱，<<childname $child2>>和<<childname $child3>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
-	<<if $children[$child2].localVariables.trait is $children[$child3].localVariables.trait>>
-		<<switch $children[$child2].localVariables.trait>>
+	<<if $childRecords[$child2].development.trait is $childRecords[$child3].development.trait>>
+		<<switch $childRecords[$child2].development.trait>>
 		<<case "clumsy" "dominant">>他们的飞行轨迹太过接近，翅膀互相拍打在了一起，双双失去了平衡。<<stress 3>><<gstress>><<your_bird_text "cap">>连忙俯冲赶向孩子们，在落地前将两只小鹰接住，帮助他们重新抬升。
 		<<case "sympathy" "clever">>孩子们模仿着巨鹰的动作，青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
 		<</switch>>
 	<<else>>
-		<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+		<<switch $childRecords[$child2].development.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childname $child2>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childname $child2>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childname $child2>>青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
 		<</switch>>
-		<<switch $children[$child3].localVariables.trait>><<childSelect $child3>>
+		<<switch $childRecords[$child3].development.trait>><<childSelect $child3>>
 		<<case "clumsy">>	另一边，<<childname $child3>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	另一边，<<childname $child3>>的动作甚至比<<childsiblings $child2>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childname $child3>>紧随在<<childhis $child2>>身后。
@@ -178,7 +178,7 @@
 	<br><br>
 <<elseif $SubadultTotal is 2>><<childSelect $child2>>
 	不甘示弱，<<childname>>也从你身边高鸣着飞扑落下，加入这支飞行队伍。
-	<<switch $children[$child2].localVariables.trait>><<childSelect $child2>>
+	<<switch $childRecords[$child2].development.trait>><<childSelect $child2>>
 		<<case "clumsy">>	<<childHe>>胡乱地拍动翅膀，终于在即将触地前找到平衡，张开翅膀抓住风，平稳地向前滑行。
 		<<case "dominant">>	<<childHe>>的动作甚至比<<childsiblings $child1>>更加优美，不急不缓地拍动翅膀，把身体完全交给风的引导。
 		<<default>>			<<childHe>>青涩地在空中调整方向，在风的引导下飞向你的<<nnpc_wife "Great Hawk">>。
@@ -223,7 +223,7 @@
 你们在荒原上空翱翔，寻找着任何可见的猎物。<<GreatHawk>>和你时飞时停，让孩子们自由地探索这片天地。
 <br><br>
 <!-- 我不知道怎么在当前活动id$ImmatureIDcopy里find，这写法太傻比了 -->
-<<set _childT to Object.values($children).find(child => (child.localVariables.trait == "clever" && child.localVariables.activity == "lurkerEat" && child.localVariables.stage == "Immature"))>>
+<<set _childT to Object.values($childRecords).find(child => (child.development.trait == "clever" && child.development.activity == "lurkerEat" && child.development.stage == "Immature"))>>
 
 一个闪光的亮点吸引了你的目光，你在附近降落并开始搜索。
 <<childname _childT>>跟着你落在地面上，观察着你挖掘沙地，随后也凑上前用爪子帮你刨土。
@@ -286,7 +286,7 @@
 <<print _beastGen>>被尖啸声吓了一跳。它抬头发现你们的踪影，立刻蹿进草丛逃走了。
 <br><br>
 
-<<set _childT to Object.values($children).find(child => (child.localVariables.trait == "sympathy" && child.localVariables.activity == "lurkerEat" && child.localVariables.stage == "Immature"))>>
+<<set _childT to Object.values($childRecords).find(child => (child.development.trait == "sympathy" && child.development.activity == "lurkerEat" && child.development.stage == "Immature"))>>
 <<childname _childT>>似乎不太在乎你的配偶的警告，<<childhe _childT>>拍打着翅膀想要追上<<print _beastGen>>仔细观察，但很快就跟丢了。
 <br>
 你安抚了<<GreatHawk>>一会儿才重新上路，期间<<babyhawks>>已经失去了对<<print _beastGen>>的兴趣。
@@ -354,10 +354,15 @@
 <<if $dateCount.GreatHawkHunts gte 50>>这套流程太过熟悉，已经完美地刻在了你的肌肉记忆之中。<br><</if>>
 你在高处盘旋，等待完美的时机。机会一出现，你的狩猎本能就开始发挥作用。你以惊人的速度向下俯冲，伸出手抓住一只潜伏者，然后猛地攀升，飞向云层，回到你的孩子身边。
 <br>
-潜伏者在你的手里挣扎，但很快就失去了动静。<<childname>>发出兴奋的叽喳声，<<= $children[$child1].localVariables.trait is "clusmy" ? "试图从你手中抓过它。" : "迫不及待地要自己抓一只试试。">>
+潜伏者在你的手里挣扎，但很快就失去了动静。<<childname>>发出兴奋的叽喳声，<<= $childRecords[$child1].development.trait is "clusmy" ? "试图从你手中抓过它。" : "迫不及待地要自己抓一只试试。">>
 <br><br>
 
-"<<print speechDif("现在轮到你了。","现在自己试试看吧。","好了，现在自己试试看吧。")>>"<<= $children[$child1].localVariables.trait is "clusmy" ? "你把潜伏者揣在怀里，用动作拒绝<<childhim>>。" : "你在<<childhim>>身边盘旋，鼓励着你的孩子。">>
+<<switch $speech_attitude>>
+	<<case "bratty">>	"现在轮到你了。"
+	<<case "meek">>		"好了，现在自己试试看吧。"
+	<<case "neutral">>	"现在自己试试看吧。"
+<</switch>>
+<<= $childRecords[$child1].development.trait is "clusmy" ? "你把潜伏者揣在怀里，用动作拒绝<<childhim>>。" : "你在<<childhim>>身边盘旋，鼓励着你的孩子。">>
 <br>
 
 <<link [[继续|BabyHawk FirstHunt Intro 6]]>><<bird_pass 5>><</link>>
@@ -368,8 +373,8 @@
 <br><br>
 
 <<if $ImmatureTotal gte 2>>
-	<<if $children[$child1].localVariables.trait is $children[$child2].localVariables.trait>>
-		<<switch $children[$child1].localVariables.trait>>
+	<<if $childRecords[$child1].development.trait is $childRecords[$child2].development.trait>>
+		<<switch $childRecords[$child1].development.trait>>
 			<<case "clumsy">>	
 				他们高速冲向潜伏者，伸出爪子抓住猎物，却在惯性的影响下失去平衡往前一倒，在草地上打个了滚。潜伏者趁机逃走了。
 				<br>
@@ -391,7 +396,7 @@
 		两爪空空，孩子们飞回天空，在你身边发出沮丧的低鸣。
 	<</if>>
 <<else>>
-	<<switch $children[$child1].localVariables.trait>>
+	<<switch $childRecords[$child1].development.trait>>
 		<<case "clumsy">>	
 			<<childhim>>高速冲向潜伏者，伸出爪子抓住猎物，却在惯性的影响下失去平衡往前一倒，在草地上打个了滚。潜伏者趁机逃走了。
 			<br>
@@ -473,9 +478,9 @@
 
 :: BabyHawk Build OtherNest
 <<npc "Great Hawk">><<person1>>
-<<run Object.values(V.children).forEach(child => {
-	if (child.location == "tower" && child.localVariables.stage == "Immature" && child.localVariables.growHintImmature != 1) {
-		child.location = "otherNest";
+<<run Object.values(V.childRecords).forEach(child => {
+	if (child.development.location == "tower" && child.development.stage == "Immature" && child.development.growHintImmature != 1) {
+		child.development.location = "otherNest";
 		hawkBabyActivity(child.childId);
 	}
 })>>
